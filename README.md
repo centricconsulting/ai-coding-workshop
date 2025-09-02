@@ -1,6 +1,6 @@
 # Workshop: Using AI for Application Development with GitHub Copilot (.NET Edition)
 
-This repository contains materials for a 3-hour workshop. Participants will use **Visual Studio Code**, **.NET 8**, and **GitHub Copilot** to experience how AI can support application development.
+This repository contains materials for a 3-hour workshop. Participants will use **Visual Studio Code**, **.NET 8**, and **GitHub Copilot** to experience how AI can support application development with modern practices including Clean Architecture and OpenTelemetry observability.
 
 ## Prerequisites
 
@@ -69,10 +69,13 @@ By the end of this workshop, participants will be able to:
 - **[Workshop Instructions](WORKSHOP-COPILOT-INSTRUCTIONS.md)**: Comprehensive Copilot configuration for .NET development
 - **[Facilitator's Guide](docs/FACILITATOR_GUIDE.md)**: Detailed timing and talking points for instructors
 
-### Starter Projects (Coming Soon)
-- **Console Application**: Basic .NET 8 console app for initial exercises
-- **Web API Skeleton**: Minimal API structure ready for enhancement  
+### Starter Projects ✅
+- **Complete Solution**: Available in the `starter-projects` branch
+- **Clean Architecture**: Domain/Application/Infrastructure/API layers with .NET 8
+- **Console Application**: Basic console app for initial exercises with DI and logging
+- **Web API**: Minimal API structure with extension methods and OpenTelemetry integration
 - **Legacy Code Sample**: "Spaghetti code" for refactoring exercises
+- **Test Stubs**: xUnit tests with FakeItEasy mocks ready for implementation
 
 ### Reference Materials
 - **Prompt Library**: Collection of proven prompts for common development tasks
@@ -87,12 +90,21 @@ By the end of this workshop, participants will be able to:
    cd ai-coding-workshop
    ```
 
-2. **Copy the workshop instructions**:
+2. **Checkout the starter projects branch**:
+   ```bash
+   git checkout starter-projects
+   ```
+
+3. **Verify the solution builds**:
+   ```bash
+   dotnet build
+   dotnet test
+   ```
+
+4. **Copy the workshop instructions**:
    - Open `WORKSHOP-COPILOT-INSTRUCTIONS.md`
    - Copy the entire contents
    - In VS Code: Settings → GitHub Copilot → Instructions
    - Paste the instructions
 
-3. **Verify your setup** using the environment check above
-
-4. **Ready to start!** Follow along with your facilitator or work through the labs independently
+5. **Ready to start!** Follow along with your facilitator or work through the labs independently

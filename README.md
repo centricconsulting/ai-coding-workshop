@@ -1,6 +1,6 @@
 # Workshop: Using AI for Application Development with GitHub Copilot (.NET Edition)
 
-This repository contains materials for a 3-hour workshop. Participants will use **Visual Studio Code**, **.NET 8**, and **GitHub Copilot** to experience how AI can support application development.
+This repository contains materials for a 3-hour workshop. Participants will use **Visual Studio Code**, **.NET 8**, and **GitHub Copilot** to experience how AI can support application development with modern practices including Clean Architecture and OpenTelemetry observability.
 
 ## Prerequisites
 

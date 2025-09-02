@@ -3,17 +3,21 @@ using TaskManager.Domain.Repositories;
 using TaskManager.Domain.Tasks;
 using DomainTask = TaskManager.Domain.Tasks.Task;
 using TaskStatus = TaskManager.Domain.Tasks.TaskStatus;
+using System.Diagnostics;
 
 namespace TaskManager.Application.Services;
 
 /// <summary>
 /// Application service for task management
 /// This will be used in Lab 2: Requirements → Backlog → Code
+/// 
+/// Includes OpenTelemetry ActivitySource for observability demonstrations
 /// </summary>
 public sealed class TaskService
 {
     private readonly ITaskRepository _taskRepository;
     private readonly ILogger<TaskService> _logger;
+    private static readonly ActivitySource ActivitySource = new("TaskManager.Application");
 
     public TaskService(ITaskRepository taskRepository, ILogger<TaskService> logger)
     {
@@ -24,9 +28,15 @@ public sealed class TaskService
     /// <summary>
     /// Add a new task to the system
     /// TODO: This method will be implemented during Lab 2 with Copilot assistance
+    /// 
+    /// Note: Includes OpenTelemetry activity for observability demonstration
     /// </summary>
     public System.Threading.Tasks.Task<TaskId> AddTaskAsync(string title, string description, CancellationToken cancellationToken = default)
     {
+        using var activity = ActivitySource.StartActivity("TaskService.AddTask");
+        activity?.SetTag("task.title", title);
+        activity?.SetTag("operation", "create");
+        
         // TODO: Participants will implement this during the workshop
         // Expected implementation:
         // 1. Log the operation
@@ -34,7 +44,9 @@ public sealed class TaskService
         // 3. Add to repository
         // 4. Return task ID
         // 5. Handle validation errors appropriately
+        // 6. Add activity tags for observability
         
+        _logger.LogInformation("AddTaskAsync called with title: {Title}", title);
         throw new NotImplementedException("This will be implemented during Lab 2");
     }
 

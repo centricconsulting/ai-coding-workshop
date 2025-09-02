@@ -10,6 +10,7 @@ namespace TaskManager.Api;
 /// - OpenAPI documentation configuration
 /// - Endpoint mapping and handlers
 /// - Logging configuration
+/// - OpenTelemetry observability (tracing to console)
 /// 
 /// LAB 3 INSTRUCTIONS:
 /// Use Copilot to scaffold minimal API endpoints in the EndpointExtensions class:
@@ -19,6 +20,10 @@ namespace TaskManager.Api;
 /// 4. GET /tasks - Get all active tasks
 /// 
 /// Example prompt: "Implement the GetTaskByIdAsync endpoint handler with proper error handling"
+/// 
+/// OBSERVABILITY:
+/// The API includes OpenTelemetry tracing that outputs to console, giving developers
+/// exposure to modern observability practices and distributed tracing concepts.
 /// </summary>
 public class Program
 {
@@ -28,9 +33,10 @@ public class Program
 
         // Configure services using extension methods
         builder.Services
-            .AddApplicationServices()      // Clean Architecture dependencies
-            .AddApplicationLogging()       // Logging configuration
-            .AddOpenApiDocumentation();    // OpenAPI/Swagger setup
+            .AddApplicationServices()         // Clean Architecture dependencies
+            .AddApplicationLogging()          // Logging configuration
+            .AddOpenApiDocumentation()        // OpenAPI/Swagger setup
+            .AddOpenTelemetryObservability(); // OpenTelemetry tracing & observability
 
         var app = builder.Build();
 

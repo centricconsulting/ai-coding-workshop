@@ -1,4 +1,15 @@
-# Facilitator's Guide: Using AI for Application Development with GitHub Copilot (.NET Edition)
+# This document provides a detailed facilitator's guide for running the 3-hour workshop.
+
+## Timing and Flow Tips
+
+- **Keep labs hands-on**: Minimize lecture time, maximize coding time
+- **Walking around**: Circulate during labs to help with issues
+- **Backup plans**: Have pre-built examples ready if participants struggle
+- **Flex time**: Each section has 5-10 minutes of flex time built in
+- **Energy management**: Take 5-minute breaks between major sections
+- **Advanced participants**: Have optional extension exercises ready
+
+---ilitator's Guide: Using AI for Application Development with GitHub Copilot (.NET Edition)
 
 This document provides a detailed facilitator’s guide for running the 3-hour workshop.
 
@@ -106,6 +117,27 @@ This document provides a detailed facilitator’s guide for running the 3-hour w
 **Participants do**:
 - Share takeaways.
 - Ask Q&A: where would they use this tomorrow?
+
+---
+
+## Troubleshooting Common Issues
+
+### Copilot Not Working
+- **Check subscription**: Verify active GitHub Copilot subscription
+- **Extension enabled**: Ensure Copilot extension is installed and enabled in VS Code
+- **Authentication**: Sign out and back in to GitHub in VS Code
+- **Instructions not applied**: Restart VS Code after pasting instructions
+
+### .NET Build Issues  
+- **Wrong version**: Ensure .NET 8 SDK is installed (`dotnet --version`)
+- **Missing dependencies**: Run `dotnet restore` in project directory
+- **Path issues**: Use absolute paths or ensure correct working directory
+
+### Copilot Generating Wrong Code
+- **Check instructions**: Verify workshop instructions are properly configured
+- **Context matters**: Include relevant files in VS Code workspace
+- **Prompt clarity**: Be specific about requirements and constraints
+- **Restart Copilot**: Command Palette → "GitHub Copilot: Restart Language Server"
 
 ---
 

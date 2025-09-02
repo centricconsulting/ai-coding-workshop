@@ -2,7 +2,37 @@
 
 This repository contains materials for a 3-hour workshop. Participants will use **Visual Studio Code**, **.NET 8**, and **GitHub Copilot** to experience how AI can support application development.
 
+## Prerequisites
+
+Before attending this workshop, participants should have:
+
+- **GitHub Copilot**: Active subscription and extension installed in VS Code
+- **.NET 8 SDK**: Installed and verified with `dotnet --version`
+- **Visual Studio Code**: Latest version with C# Dev Kit extension
+- **Git**: Basic familiarity with git commands
+- **C# Experience**: Comfortable with basic C# syntax and concepts
+- **GitHub Account**: For cloning repositories and accessing Copilot
+
+### Environment Check
+Run these commands to verify your setup:
+```bash
+dotnet --version          # Should show 8.x.x
+git --version            # Any recent version
+code --version           # VS Code version
+```
+
 ---
+
+## Learning Objectives
+
+By the end of this workshop, participants will be able to:
+
+- **Configure GitHub Copilot** with custom instructions for consistent, context-aware code generation
+- **Transform requirements** into backlog items, acceptance criteria, and working code using AI assistance
+- **Generate and refactor .NET code** following Clean Architecture and DDD principles
+- **Create comprehensive tests** and documentation with AI support
+- **Apply conventional commits** and generate professional PR descriptions
+- **Identify anti-patterns** and best practices when working with AI coding assistants
 
 ## Schedule
 
@@ -33,7 +63,36 @@ This repository contains materials for a 3-hour workshop. Participants will use 
 
 ---
 
-## Deliverables
-- **Workshop Instructions**: [WORKSHOP-COPILOT-INSTRUCTIONS.md](WORKSHOP-COPILOT-INSTRUCTIONS.md)
-- **Starter Repo**: Console app, Web API, messy legacy code
-- **Reference Sheet**: Key prompts and commit guidelines
+## Workshop Materials
+
+### Core Files
+- **[Workshop Instructions](WORKSHOP-COPILOT-INSTRUCTIONS.md)**: Comprehensive Copilot configuration for .NET development
+- **[Facilitator's Guide](docs/FACILITATOR_GUIDE.md)**: Detailed timing and talking points for instructors
+
+### Starter Projects (Coming Soon)
+- **Console Application**: Basic .NET 8 console app for initial exercises
+- **Web API Skeleton**: Minimal API structure ready for enhancement  
+- **Legacy Code Sample**: "Spaghetti code" for refactoring exercises
+
+### Reference Materials
+- **Prompt Library**: Collection of proven prompts for common development tasks
+- **Conventional Commits Guide**: Template and examples for consistent commit messages
+- **Clean Architecture Cheat Sheet**: Quick reference for project structure and dependencies
+
+## Getting Started
+
+1. **Clone this repository**:
+   ```bash
+   git clone https://github.com/centricconsulting/ai-coding-workshop.git
+   cd ai-coding-workshop
+   ```
+
+2. **Copy the workshop instructions**:
+   - Open `WORKSHOP-COPILOT-INSTRUCTIONS.md`
+   - Copy the entire contents
+   - In VS Code: Settings → GitHub Copilot → Instructions
+   - Paste the instructions
+
+3. **Verify your setup** using the environment check above
+
+4. **Ready to start!** Follow along with your facilitator or work through the labs independently

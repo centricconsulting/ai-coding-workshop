@@ -1,13 +1,13 @@
 # Workshop: Using AI for Application Development with GitHub Copilot (.NET Edition)
 
-This repository contains materials for a 3-hour workshop. Participants will use **Visual Studio Code**, **.NET 8**, and **GitHub Copilot** to experience how AI can support application development with modern practices including Clean Architecture and OpenTelemetry observability.
+This repository contains materials for a 3-hour workshop. Participants will use **Visual Studio Code**, **.NET 9**, and **GitHub Copilot** to experience how AI can support application development with modern practices including Clean Architecture and OpenTelemetry observability.
 
 ## Prerequisites
 
 Before attending this workshop, participants should have:
 
 - **GitHub Copilot**: Active subscription and extension installed in VS Code
-- **.NET 8 SDK**: Installed and verified with `dotnet --version`
+- **.NET 9 SDK**: Installed and verified with `dotnet --version`
 - **Visual Studio Code**: Latest version with C# Dev Kit extension
 - **Git**: Basic familiarity with git commands
 - **C# Experience**: Comfortable with basic C# syntax and concepts
@@ -16,7 +16,7 @@ Before attending this workshop, participants should have:
 ### Environment Check
 Run these commands to verify your setup:
 ```bash
-dotnet --version          # Should show 8.x.x
+dotnet --version          # Should show 9.x.x
 git --version            # Any recent version
 code --version           # VS Code version
 ```

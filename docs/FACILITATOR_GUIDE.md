@@ -26,7 +26,7 @@ This document provides a detailed facilitator’s guide for running the 3-hour w
 - Confirm environment:
   - VS Code open
   - GitHub Copilot enabled
-  - .NET 8 SDK installed (`dotnet --version`)
+  - .NET 9 SDK installed (`dotnet --version`)
   - Clone starter repo and checkout `starter-projects` branch:
     ```bash
     git clone https://github.com/centricconsulting/ai-coding-workshop.git

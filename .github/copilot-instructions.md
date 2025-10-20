@@ -86,9 +86,24 @@ When refactoring, prefer these constraints to keep code small and intention-reve
 
 ---
 
-## 8) Practical Scaffolds & Prompts (use verbatim)
+## 8) Documentation Organization
+- **All documentation** must be placed in the `docs/` directory at repository root
+- Project README.md stays at root, but detailed docs go in `docs/`
+- Documentation types and locations:
+  - Architecture Decision Records (ADRs): `docs/adr/`
+  - API documentation: `docs/api/`
+  - User guides and tutorials: `docs/guides/`
+  - Design documents: `docs/design/`
+  - Lab exercises and workshop materials: `docs/labs/` or `docs/`
+- Use clear, descriptive filenames: `docs/api/authentication-guide.md` not `docs/auth.md`
+- Always link to docs from main README.md with relative paths
+- When generating documentation, ask: "Should this go in docs/ or is it the main README?"
 
-### 8.1 Generate a new Aggregate (Domain)
+---
+
+## 9) Practical Scaffolds & Prompts (use verbatim)
+
+### 9.1 Generate a new Aggregate (Domain)
 ```
 Create a DDD aggregate in [project].Domain/Order:
 - Strongly-typed IDs (OrderId, CustomerId)
@@ -99,7 +114,7 @@ Create a DDD aggregate in [project].Domain/Order:
 - No navigation to other aggregates; no public setters
 ```
 
-### 8.2 Minimal API endpoint (Api) + DI wiring
+### 9.2 Minimal API endpoint (Api) + DI wiring
 ```
 In [project].Api (Minimal API):
 - Add endpoints: GET /orders/{id}, POST /orders
@@ -108,7 +123,7 @@ In [project].Api (Minimal API):
 - Use ILogger, async/await, proper 400/404/500 handling with ProblemDetails
 ```
 
-### 8.3 Unit test pattern (xUnit + FakeItEasy)
+### 9.3 Unit test pattern (xUnit + FakeItEasy)
 ```
 Create tests in tests/[project].UnitTests/OrdersTests/:
 - One test class per method (CreateTests.cs, RegisterOrderItemTests.cs)
@@ -116,7 +131,7 @@ Create tests in tests/[project].UnitTests/OrdersTests/:
 - Use descriptive test names and cover invalid scenarios (guard clauses)
 ```
 
-### 8.4 Conventional commit + PR helper
+### 9.4 Conventional commit + PR helper
 ```
 Write a Conventional Commit subject (<=72 chars) and a PR description with:
 - Intent
@@ -127,7 +142,7 @@ Write a Conventional Commit subject (<=72 chars) and a PR description with:
 
 ---
 
-## 9) Guardrails (Workshop)
+## 10) Guardrails (Workshop)
 - Do **not** invent external dependencies without being asked.  
 - Keep domain logic **out of Api/Infrastructure**.  
 - Prefer small, composable methods; log meaningfully with `ILogger<T>`.  

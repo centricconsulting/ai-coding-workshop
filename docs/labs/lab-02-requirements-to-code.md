@@ -164,6 +164,11 @@ Why this item?
 
 ## Part 2: Implement Prerequisites (15 minutes)
 
+> **⚠️ TDD REMINDER**: In this section, we'll follow Red-Green-Refactor:
+> 1. **RED**: Write tests FIRST that fail
+> 2. **GREEN**: Implement code to make tests pass
+> 3. **REFACTOR**: Improve code quality while keeping tests green
+
 Before we can create tasks with priority and due date, we need to add these properties to the Task entity (Items 1 & 2).
 
 ### 2.1 Add Priority Enum (Item 1)
@@ -229,7 +234,40 @@ public sealed record Priority
 }
 ```
 
-### 2.2 Update Task Entity
+> **Note**: Our implementation uses three priority levels (Low, Medium, High) for simplicity. The Critical level is optional.
+
+### 2.2 Write Tests for Task Entity (RED Phase)
+
+**Following TDD**: Write tests FIRST before implementing!
+
+Use the `/tests` command or ask Copilot Chat:
+
+```
+Generate xUnit tests for the Task entity in tests/TaskManager.UnitTests/Domain/Entities/TaskTests.cs that verify:
+- Task.Create with valid title and priority succeeds
+- Task.Create with valid title, priority, and future due date succeeds
+- Task.Create with null/empty/whitespace title throws ArgumentException
+- Task.Create with past due date throws ArgumentException
+- Task.Create with null due date is allowed
+- UpdatePriority updates the priority correctly
+- UpdateDueDate with future date succeeds
+- UpdateDueDate with past date throws ArgumentException
+- MarkAsCompleted sets IsCompleted and CompletedAt
+
+Use FakeItEasy for any dependencies if needed.
+```
+
+Run tests - they should **FAIL** because the Task entity doesn't exist yet or doesn't have these properties:
+
+```bash
+dotnet test
+```
+
+Expected result: Tests fail with compilation errors or NotImplementedException. This is the **RED** phase! ✅
+
+### 2.3 Implement Task Entity (GREEN Phase)
+
+Now that we have failing tests, implement the code to make them pass.
 
 Use `@workspace` to find the Task entity:
 
@@ -320,29 +358,29 @@ public sealed class Task
 }
 ```
 
-### 2.3 Write Tests for Domain Logic
+Run tests again:
 
-Use the `/tests` command:
-
-1. Select the `Task.Create` method
-2. Press `Ctrl+I` (Inline Chat) or open Chat Panel
-3. Enter: `/tests`
-
-Verify generated tests cover:
-- ✅ Valid task creation with priority
-- ✅ Valid task creation with priority and due date
-- ✅ Null/empty title throws exception
-- ✅ Past due date throws exception
-- ✅ Null due date is allowed
-- ✅ UpdatePriority works correctly
-- ✅ UpdateDueDate validates future dates
-
-Run tests:
 ```bash
 dotnet test
 ```
 
-Fix any issues until tests pass.
+Expected result: All tests pass! This is the **GREEN** phase! ✅
+
+### 2.4 Refactor (If Needed)
+
+Review the code and tests:
+- Are there any code smells?
+- Can validation logic be extracted?
+- Are error messages clear?
+- Is the code following DDD patterns?
+
+If you make changes, re-run tests to ensure they still pass:
+
+```bash
+dotnet test
+```
+
+**Part 2 Complete!** You've successfully added Priority and DueDate to the Task entity using proper TDD.
 
 ---
 
@@ -469,17 +507,21 @@ Run tests - they should **PASS**:
 dotnet test
 ```
 
-### 3.2 Update the API Layer
+### 3.2 Update the API Layer (Following TDD)
 
 #### Step 1: Create Request/Response DTOs
 
 Ask Copilot:
 
 ```
-Create CreateTaskRequest and TaskResponse DTOs in API layer for the POST /tasks endpoint. Use records with required properties where appropriate.
+Create CreateTaskRequest and TaskResponse DTOs in API layer (src/TaskManager.Api/Models/) for the POST /tasks endpoint. Use records with required properties where appropriate.
 ```
 
-#### Step 2: Update API Endpoint (with tests first!)
+**Expected Output** - Two DTO files that map between HTTP and Application layers. These are simple data structures, so no tests are needed.
+
+#### Step 2: Write Integration Tests FIRST (RED Phase)
+
+**Following TDD**: Write integration tests BEFORE implementing the endpoint!
 
 Use `@workspace` to find the endpoint extensions:
 
@@ -491,23 +533,67 @@ Then create integration tests FIRST:
 
 ```
 Create integration tests for POST /tasks endpoint in tests/TaskManager.IntegrationTests/Api/TaskEndpointsTests.cs that verify:
-- Valid request returns 201 Created with task details
-- Invalid priority returns 400 Bad Request
-- Past due date returns 400 Bad Request
-- Missing title returns 400 Bad Request
-Use WebApplicationFactory pattern
+- Valid request with all fields returns 201 Created with task details and Location header
+- Valid request with only required fields returns 201 Created
+- Invalid priority returns 400 Bad Request with ProblemDetails
+- Past due date returns 400 Bad Request with ProblemDetails
+- Missing/empty/whitespace title returns 400 Bad Request
+- Optional fields (description, dueDate) handled correctly
+
+Use WebApplicationFactory<Program> pattern and xUnit.
 ```
 
-Then implement the endpoint:
+Run the integration tests - they should **FAIL** with 404 Not Found (endpoint doesn't exist yet):
+
+```bash
+dotnet test tests/TaskManager.IntegrationTests/
+```
+
+Expected result: All integration tests fail. This is the **RED** phase! ✅
+
+#### Step 3: Implement the Endpoint (GREEN Phase)
+
+Now implement the endpoint to make the tests pass:
 
 ```
 Implement POST /tasks endpoint in #file:src/TaskManager.Api/Extensions/EndpointExtensions.cs that:
-1. Maps CreateTaskRequest to CreateTaskCommand
-2. Calls CreateTaskCommandHandler
-3. Returns 201 Created with TaskResponse
-4. Handles exceptions with proper status codes (400 for validation, 500 for server errors)
-Use minimal API pattern and ProblemDetails for errors
+1. Maps CreateTaskRequest DTO to CreateTaskCommand
+2. Calls CreateTaskCommandHandler to create the task
+3. Maps the domain Task entity to TaskResponse DTO
+4. Returns 201 Created with Location header and TaskResponse body
+5. Handles ArgumentException (validation errors) → 400 Bad Request with ProblemDetails
+6. Handles unexpected exceptions → 500 Internal Server Error with ProblemDetails
+
+Use minimal API pattern, dependency injection for handler, and ILogger for logging.
 ```
+
+Run the integration tests again:
+
+```bash
+dotnet test tests/TaskManager.IntegrationTests/
+```
+
+Expected result: All integration tests pass! This is the **GREEN** phase! ✅
+
+#### Step 4: Create Manual Testing File
+
+Create a `tasks.http` file in the API project for manual testing with the REST Client extension:
+
+```
+Create a tasks.http file in src/TaskManager.Api/ with test scenarios for POST /tasks endpoint including:
+- Valid requests with all fields
+- Valid requests with required fields only
+- All priority levels (Low, Medium, High)
+- Invalid priority
+- Missing/empty/whitespace title
+- Past due date
+- Future due date
+- Optional field combinations
+
+Use REST Client format with @baseUrl variable set to http://localhost:5215
+```
+
+This file allows manual testing without writing curl commands repeatedly.
 
 ### 3.3 Run Full Test Suite
 
@@ -518,6 +604,11 @@ dotnet test
 
 All tests should pass! ✅
 
+**Expected output**:
+- Unit tests: All passing (14+ for CreateTaskCommandHandler, 11+ for Task entity)
+- Integration tests: All passing (8 for TaskEndpointsTests)
+- Build: 0 warnings, 0 errors
+
 ---
 
 ## Part 4: Manual Testing & Validation (5 minutes)
@@ -526,14 +617,27 @@ All tests should pass! ✅
 
 ```bash
 cd src/TaskManager.Api
-dotnet run
+dotnet run --launch-profile http
 ```
 
-### 4.2 Test with curl or Postman
+The API will start on `http://localhost:5215` (configured in `Properties/launchSettings.json`).
+
+### 4.2 Test with REST Client Extension (Recommended)
+
+If you created the `tasks.http` file in Step 3.2.4:
+
+1. Install the **REST Client** extension in VS Code (by Huachao Mao)
+2. Open `src/TaskManager.Api/tasks.http`
+3. Click **"Send Request"** above any test scenario
+4. View the response in a split pane
+
+This is the easiest way to test your API!
+
+### 4.3 Test with curl (Alternative)
 
 **Valid Request**:
 ```bash
-curl -X POST http://localhost:5000/tasks \
+curl -X POST http://localhost:5215/tasks \
   -H "Content-Type: application/json" \
   -d '{
     "title": "Complete Lab 2",
@@ -543,22 +647,23 @@ curl -X POST http://localhost:5000/tasks \
   }'
 ```
 
-**Expected Response**: 201 Created
+**Expected Response**: 201 Created with Location header
 ```json
 {
   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   "title": "Complete Lab 2",
   "description": "Finish requirements to code lab",
   "priority": "High",
+  "status": "Todo",
   "dueDate": "2025-10-25T17:00:00Z",
-  "isCompleted": false,
-  "createdAt": "2025-10-20T14:30:00Z"
+  "createdAt": "2025-10-20T14:30:00Z",
+  "updatedAt": "2025-10-20T14:30:00Z"
 }
 ```
 
 **Invalid Priority**:
 ```bash
-curl -X POST http://localhost:5000/tasks \
+curl -X POST http://localhost:5215/tasks \
   -H "Content-Type: application/json" \
   -d '{
     "title": "Test Task",
@@ -567,19 +672,19 @@ curl -X POST http://localhost:5000/tasks \
   }'
 ```
 
-**Expected Response**: 400 Bad Request
+**Expected Response**: 400 Bad Request with ProblemDetails
 ```json
 {
-  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
-  "title": "Bad Request",
+  "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+  "title": "Validation Error",
   "status": 400,
-  "detail": "Invalid priority name: SuperUrgent"
+  "detail": "Invalid priority name: SuperUrgent (Parameter 'name')"
 }
 ```
 
 **Past Due Date**:
 ```bash
-curl -X POST http://localhost:5000/tasks \
+curl -X POST http://localhost:5215/tasks \
   -H "Content-Type: application/json" \
   -d '{
     "title": "Test Task",
@@ -588,7 +693,17 @@ curl -X POST http://localhost:5000/tasks \
   }'
 ```
 
-**Expected Response**: 400 Bad Request
+**Expected Response**: 400 Bad Request with ProblemDetails
+
+### 4.4 Verify Test Results
+
+Confirm that:
+- ✅ Valid requests return 201 Created with Location header
+- ✅ Invalid priority returns 400 Bad Request with clear error message
+- ✅ Past due dates return 400 Bad Request with validation error
+- ✅ Missing/empty title returns 400 Bad Request
+- ✅ Optional fields (description, dueDate) can be omitted
+- ✅ Response includes all task properties (id, title, priority, status, timestamps)
 
 ---
 
@@ -603,11 +718,12 @@ curl -X POST http://localhost:5000/tasks \
 
 ### ✅ Full-Stack TDD Workflow
 
-1. **Domain First**: Started with core business logic (Task entity)
-2. **Application Layer**: Command/Handler pattern with business rules
-3. **API Layer**: Endpoints with proper DTOs and error handling
-4. **Test Coverage**: Unit tests for logic, integration tests for endpoints
-5. **All Layers Tested**: Each layer validated independently
+1. **Red-Green-Refactor Applied**: Tests written FIRST at every layer
+2. **Domain Layer TDD**: Task entity tests → implementation → refactor
+3. **Application Layer TDD**: Handler tests → implementation → validation
+4. **API Layer TDD**: Integration tests → endpoint implementation → manual testing
+5. **Test Coverage**: Unit tests for logic, integration tests for full stack
+6. **All Layers Tested**: Each layer validated independently with proper test pyramid
 
 ### ✅ Clean Architecture Maintained
 

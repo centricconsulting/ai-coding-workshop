@@ -9,6 +9,8 @@ using TaskManager.Domain.Tasks;
 using TaskManager.Domain.ValueObjects;
 using Xunit;
 using DomainTask = TaskManager.Domain.Tasks.Task;
+using DomainPriority = TaskManager.Domain.ValueObjects.Priority;
+using Task = System.Threading.Tasks.Task;
 
 /// <summary>
 /// Tests for CreateTaskCommandHandler following TDD approach
@@ -28,7 +30,7 @@ public sealed class CreateTaskCommandHandlerTests
     }
 
     [Fact]
-    public async System.Threading.Tasks.Task HandleAsync_WithValidCommand_CreatesTaskSuccessfully()
+    public async Task HandleAsync_WithValidCommand_CreatesTaskSuccessfully()
     {
         // Arrange
         var command = new CreateTaskCommand
@@ -46,20 +48,20 @@ public sealed class CreateTaskCommandHandlerTests
         Assert.NotNull(result);
         Assert.Equal(command.Title, result.Title);
         Assert.Equal(command.Description, result.Description);
-        Assert.Equal(TaskManager.Domain.ValueObjects.Priority.High, result.Priority);
+        Assert.Equal(DomainPriority.High, result.Priority);
         Assert.Equal(command.DueDate, result.DueDate);
         Assert.Equal(TaskStatus.Todo, result.Status);
         
         A.CallTo(() => _taskRepository.AddTaskAsync(
             A<DomainTask>.That.Matches(t => 
                 t.Title == command.Title && 
-                t.Priority == TaskManager.Domain.ValueObjects.Priority.High),
+                t.Priority == DomainPriority.High),
             A<CancellationToken>._))
             .MustHaveHappenedOnceExactly();
     }
 
     [Fact]
-    public async System.Threading.Tasks.Task HandleAsync_WithNullDueDate_CreatesTaskWithoutDueDate()
+    public async Task HandleAsync_WithNullDueDate_CreatesTaskWithoutDueDate()
     {
         // Arrange
         var command = new CreateTaskCommand
@@ -76,7 +78,7 @@ public sealed class CreateTaskCommandHandlerTests
         // Assert
         Assert.NotNull(result);
         Assert.Null(result.DueDate);
-        Assert.Equal(TaskManager.Domain.ValueObjects.Priority.Low, result.Priority);
+        Assert.Equal(DomainPriority.Low, result.Priority);
         
         A.CallTo(() => _taskRepository.AddTaskAsync(A<DomainTask>._, A<CancellationToken>._))
             .MustHaveHappenedOnceExactly();
@@ -87,7 +89,7 @@ public sealed class CreateTaskCommandHandlerTests
     [InlineData("Medium")]
     [InlineData("High")]
     [InlineData("Critical")]
-    public async System.Threading.Tasks.Task HandleAsync_WithValidPriorityNames_ParsesCorrectly(string priorityName)
+    public async Task HandleAsync_WithValidPriorityNames_ParsesCorrectly(string priorityName)
     {
         // Arrange
         var command = new CreateTaskCommand
@@ -110,7 +112,7 @@ public sealed class CreateTaskCommandHandlerTests
     }
 
     [Fact]
-    public async System.Threading.Tasks.Task HandleAsync_WithInvalidPriority_ThrowsArgumentException()
+    public async Task HandleAsync_WithInvalidPriority_ThrowsArgumentException()
     {
         // Arrange
         var command = new CreateTaskCommand
@@ -135,7 +137,7 @@ public sealed class CreateTaskCommandHandlerTests
     [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
-    public async System.Threading.Tasks.Task HandleAsync_WithInvalidTitle_ThrowsArgumentException(string? invalidTitle)
+    public async Task HandleAsync_WithInvalidTitle_ThrowsArgumentException(string? invalidTitle)
     {
         // Arrange
         var command = new CreateTaskCommand
@@ -157,7 +159,7 @@ public sealed class CreateTaskCommandHandlerTests
     }
 
     [Fact]
-    public async System.Threading.Tasks.Task HandleAsync_WithPastDueDate_ThrowsArgumentException()
+    public async Task HandleAsync_WithPastDueDate_ThrowsArgumentException()
     {
         // Arrange
         var command = new CreateTaskCommand
@@ -179,7 +181,7 @@ public sealed class CreateTaskCommandHandlerTests
     }
 
     [Fact]
-    public async System.Threading.Tasks.Task HandleAsync_WithNullCommand_ThrowsArgumentNullException()
+    public async Task HandleAsync_WithNullCommand_ThrowsArgumentNullException()
     {
         // Arrange
         CreateTaskCommand? command = null;
@@ -193,7 +195,7 @@ public sealed class CreateTaskCommandHandlerTests
     }
 
     [Fact]
-    public async System.Threading.Tasks.Task HandleAsync_LogsTaskCreation()
+    public async Task HandleAsync_LogsTaskCreation()
     {
         // Arrange
         var command = new CreateTaskCommand
@@ -215,7 +217,7 @@ public sealed class CreateTaskCommandHandlerTests
     }
 
     [Fact]
-    public async System.Threading.Tasks.Task HandleAsync_RespectsCancellationToken()
+    public async Task HandleAsync_RespectsCancellationToken()
     {
         // Arrange
         var command = new CreateTaskCommand

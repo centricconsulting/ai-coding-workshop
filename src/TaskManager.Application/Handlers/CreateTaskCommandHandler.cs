@@ -5,6 +5,7 @@ using TaskManager.Application.Commands;
 using TaskManager.Domain.Repositories;
 using TaskManager.Domain.ValueObjects;
 using DomainTask = TaskManager.Domain.Tasks.Task;
+using DomainPriority = TaskManager.Domain.ValueObjects.Priority;
 
 /// <summary>
 /// Handler for CreateTaskCommand following CQRS pattern
@@ -43,7 +44,7 @@ public sealed class CreateTaskCommandHandler
             command.Priority);
 
         // Parse priority from string using factory method
-        var priority = Priority.FromName(command.Priority);
+        var priority = DomainPriority.FromName(command.Priority);
 
         // Create task using domain factory method (validates title, priority, due date)
         var task = DomainTask.Create(

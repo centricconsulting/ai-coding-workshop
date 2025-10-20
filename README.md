@@ -1,13 +1,13 @@
 # Workshop: Using AI for Application Development with GitHub Copilot (.NET Edition)
 
-This repository contains materials for a 3-hour workshop. Participants will use **Visual Studio Code**, **.NET 8**, and **GitHub Copilot** to experience how AI can support application development with modern practices including Clean Architecture and OpenTelemetry observability.
+This repository contains materials for a 3-hour workshop. Participants will use **Visual Studio Code**, **.NET 9**, and **GitHub Copilot** to experience how AI can support application development with modern practices including Clean Architecture and OpenTelemetry observability.
 
 ## Prerequisites
 
 Before attending this workshop, participants should have:
 
 - **GitHub Copilot**: Active subscription and extension installed in VS Code
-- **.NET 8 SDK**: Installed and verified with `dotnet --version`
+- **.NET 9 SDK**: Installed and verified with `dotnet --version`
 - **Visual Studio Code**: Latest version with C# Dev Kit extension
 - **Git**: Basic familiarity with git commands
 - **C# Experience**: Comfortable with basic C# syntax and concepts
@@ -16,10 +16,13 @@ Before attending this workshop, participants should have:
 ### Environment Check
 Run these commands to verify your setup:
 ```bash
-dotnet --version          # Should show 8.x.x
+dotnet --version          # Should show 9.x.x
 git --version            # Any recent version
 code --version           # VS Code version
 ```
+
+### Pre-Workshop Preparation
+**Participants**: Please complete the [Pre-Workshop Environment Checklist](docs/PRE_WORKSHOP_CHECKLIST.md) **before** attending the workshop to ensure your environment is fully configured. This will allow us to maximize hands-on learning time.
 
 ---
 
@@ -27,7 +30,7 @@ code --version           # VS Code version
 
 By the end of this workshop, participants will be able to:
 
-- **Configure GitHub Copilot** with custom instructions for consistent, context-aware code generation
+- **Leverage repository-level Copilot Instructions** (`.github/copilot-instructions.md`) for team-wide consistent code generation
 - **Transform requirements** into backlog items, acceptance criteria, and working code using AI assistance
 - **Generate and refactor .NET code** following Clean Architecture and DDD principles
 - **Create comprehensive tests** and documentation with AI support
@@ -38,23 +41,32 @@ By the end of this workshop, participants will be able to:
 
 ### 0. Kickoff & Setup (15 min)
 - Goals and environment check
-- Clone starter repo, enable Copilot, configure workshop instructions
+- Clone starter repo and checkout `starter-projects` branch
+- Copilot instructions automatically configured via `.github/copilot-instructions.md`
+
+### 0.5. GitHub Copilot Features Tour (15 min)
+- Inline completions, Chat panel, and Inline Chat
+- Slash commands: `/explain`, `/fix`, `/tests`, `/doc`, `/refactor`
+- Chat participants: `@workspace`, `@vscode`, `@terminal`
+- Context variables: `#file`, `#selection`, `#editor`
+- Quick hands-on practice with each feature
 
 ### 1. Controlling Context with Copilot Instructions (30 min)
-- Understand Copilot Instructions
-- Lab 1: Configure instructions and generate a sample service class
+- Understand repository-level Copilot Instructions (`.github/copilot-instructions.md`)
+- **Emphasis on TDD workflow**: Write tests before implementation
+- Lab 1: Create NotificationService following Red-Green-Refactor cycle (interface → tests → implementation)
 
 ### 2. Requirements → Backlog → Code (45 min)
 - Turn requirements into backlog items, tests, and code
 - Lab 2: Backlog items → acceptance criteria → TaskService.AddTask
 
 ### 3. Code Generation & Refactoring (45 min)
-- Scaffold APIs, refactor legacy methods
-- Lab 3: Minimal API, refactor spaghetti code, add logging
+- Scaffold APIs, refactor legacy methods with slash commands
+- Lab 3: Minimal API with `@workspace`, refactor with `/refactor`, generate tests with `/tests`
 
-### 4. Testing, Documentation, Workflow (30 min)
-- Generate tests, docs, commit/PR messages
-- Lab 4: Unit tests, commit message, PR description, README section
+### 4. Testing, Documentation, Workflow (15 min)
+- Generate tests, docs, commit/PR messages using Copilot features
+- Lab 4: `/tests` for unit tests, `/doc` for documentation, conventional commits
 
 ### 5. Wrap-Up & Discussion (15 min)
 - Lessons learned
@@ -65,22 +77,55 @@ By the end of this workshop, participants will be able to:
 
 ## Workshop Materials
 
-### Core Files
-- **[Workshop Instructions](WORKSHOP-COPILOT-INSTRUCTIONS.md)**: Comprehensive Copilot configuration for .NET development
+### Documentation
+- **[Copilot Instructions](.github/copilot-instructions.md)**: Repository-level Copilot configuration (automatically applied)
 - **[Facilitator's Guide](docs/FACILITATOR_GUIDE.md)**: Detailed timing and talking points for instructors
+- **[Lab Walkthroughs](docs/labs/README.md)**: Step-by-step guides for all four labs with expected outputs and troubleshooting
+- **[Starter Projects README](starter-projects/README.md)**: Complete architecture documentation
+
+### Lab Guides 📚
+Comprehensive walkthroughs available in [`docs/labs/`](docs/labs/):
+- **[Lab 1: TDD with GitHub Copilot](docs/labs/lab-01-tdd-with-copilot.md)** (30 min) - Red-Green-Refactor cycle with NotificationService
+- **[Lab 2: Requirements to Code](docs/labs/lab-02-requirements-to-code.md)** (45 min) - Transform user stories into working features
+- **[Lab 3: Code Generation & Refactoring](docs/labs/lab-03-generation-and-refactoring.md)** (45 min) - Generate CRUD APIs and modernize legacy code
+- **[Lab 4: Testing, Documentation & Workflow](docs/labs/lab-04-testing-documentation-workflow.md)** (15 min) - Complete the development lifecycle
+
+Each lab includes:
+- ✅ Clear learning objectives and prerequisites
+- ✅ Step-by-step instructions with prompts
+- ✅ Expected code outputs and examples
+- ✅ Troubleshooting guidance
+- ✅ Extension exercises for advanced participants
+- ✅ Success criteria checklist
 
 ### Starter Projects ✅
-- **Complete Solution**: Available in the `starter-projects` branch
-- **Clean Architecture**: Domain/Application/Infrastructure/API layers with .NET 8
-- **Console Application**: Basic console app for initial exercises with DI and logging
-- **Web API**: Minimal API structure with extension methods and OpenTelemetry integration
-- **Legacy Code Sample**: "Spaghetti code" for refactoring exercises
-- **Test Stubs**: xUnit tests with FakeItEasy mocks ready for implementation
+Available in the `starter-projects` branch:
+- **Complete Solution**: Clean Architecture with Domain/Application/Infrastructure/API layers
+- **Console Application**: .NET 9 console app with DI and logging for initial exercises
+- **Web API**: Minimal API with extension methods and OpenTelemetry integration
+- **Legacy Code Sample**: `LegacyTaskProcessor` for refactoring exercises
+- **Test Infrastructure**: xUnit test stubs with FakeItEasy ready for implementation
 
-### Reference Materials
-- **Prompt Library**: Collection of proven prompts for common development tasks
-- **Conventional Commits Guide**: Template and examples for consistent commit messages
-- **Clean Architecture Cheat Sheet**: Quick reference for project structure and dependencies
+### Reference Implementation 🔍
+**Stuck or need examples?** A complete reference implementation with all labs solved is available in the `test-lab-walkthrough` branch:
+```bash
+git checkout test-lab-walkthrough
+```
+
+This branch contains:
+- ✅ All 4 labs fully implemented
+- ✅ NotificationService with complete test suite (Lab 1)
+- ✅ CreateTaskCommandHandler with CQRS pattern (Lab 2)
+- ✅ Full CRUD API endpoints and refactored legacy code (Lab 3)
+- ✅ Comprehensive unit and integration tests (Lab 4)
+
+**Use this branch to:**
+- Compare your solution with a working implementation
+- Get unstuck if you encounter issues
+- See best practices in action
+- Review after the workshop for continued learning
+
+---
 
 ## Getting Started
 
@@ -95,16 +140,18 @@ By the end of this workshop, participants will be able to:
    git checkout starter-projects
    ```
 
-3. **Verify the solution builds**:
+3. **Open in VS Code**:
    ```bash
-   dotnet build
-   dotnet test
+   code .
    ```
+   
+   **That's it!** Copilot instructions are automatically configured via `.github/copilot-instructions.md` - no manual setup needed.
 
-4. **Copy the workshop instructions**:
-   - Open `WORKSHOP-COPILOT-INSTRUCTIONS.md`
-   - Copy the entire contents
-   - In VS Code: Settings → GitHub Copilot → Instructions
-   - Paste the instructions
+4. **Verify your environment**:
+   ```bash
+   dotnet --version    # Should show 8.x.x or later
+   dotnet build        # Verify solution builds
+   dotnet test         # Verify tests run
+   ```
 
 5. **Ready to start!** Follow along with your facilitator or work through the labs independently

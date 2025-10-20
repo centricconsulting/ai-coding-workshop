@@ -101,10 +101,31 @@ Each lab includes:
 ### Starter Projects ✅
 Available in the `starter-projects` branch:
 - **Complete Solution**: Clean Architecture with Domain/Application/Infrastructure/API layers
-- **Console Application**: .NET 8 console app with DI and logging for initial exercises
+- **Console Application**: .NET 9 console app with DI and logging for initial exercises
 - **Web API**: Minimal API with extension methods and OpenTelemetry integration
 - **Legacy Code Sample**: `LegacyTaskProcessor` for refactoring exercises
 - **Test Infrastructure**: xUnit test stubs with FakeItEasy ready for implementation
+
+### Reference Implementation 🔍
+**Stuck or need examples?** A complete reference implementation with all labs solved is available in the `test-lab-walkthrough` branch:
+```bash
+git checkout test-lab-walkthrough
+```
+
+This branch contains:
+- ✅ All 4 labs fully implemented
+- ✅ NotificationService with complete test suite (Lab 1)
+- ✅ CreateTaskCommandHandler with CQRS pattern (Lab 2)
+- ✅ Full CRUD API endpoints and refactored legacy code (Lab 3)
+- ✅ Comprehensive unit and integration tests (Lab 4)
+
+**Use this branch to:**
+- Compare your solution with a working implementation
+- Get unstuck if you encounter issues
+- See best practices in action
+- Review after the workshop for continued learning
+
+---
 
 ## Getting Started
 

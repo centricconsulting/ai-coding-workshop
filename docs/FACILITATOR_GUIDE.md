@@ -39,7 +39,77 @@ This document provides a detailed facilitator’s guide for running the 3-hour w
 
 ---
 
-## 1. Controlling Context with Copilot Instructions (0:15 – 0:45, 30 min)
+## 0.5. GitHub Copilot Features Overview (0:15 – 0:30, 15 min)
+**You do** - Quick tour of Copilot capabilities:
+
+### **Inline Completions (Ghost Text)**
+- As you type, Copilot suggests code in gray text
+- Press `Tab` to accept, `Esc` to dismiss
+- `Alt+]` / `Alt+[` to cycle through suggestions
+- Works in comments, code, and tests
+
+### **Copilot Chat Panel** (`Ctrl+Alt+I` or `Cmd+Shift+I`)
+- Open chat interface for conversational coding
+- Ask questions: *"How do I configure logging in .NET?"*
+- Request code: *"Create a repository interface for Task entity"*
+- Iterate on solutions without leaving VS Code
+
+### **Inline Chat** (`Ctrl+I` or `Cmd+I`)
+- Quick chat directly in your editor at cursor position
+- Perfect for small edits: *"Add error handling"* or *"Make this method async"*
+- Less context switching than full chat panel
+
+### **Slash Commands** - Shortcuts for common tasks:
+- `/explain` - Understand code functionality
+- `/fix` - Suggest fixes for errors or bugs
+- `/tests` - Generate unit tests for selected code
+- `/doc` - Create documentation comments
+- `/refactor` - Improve code structure
+- `/new` - Scaffold new files or projects
+- `/clear` - Clear chat history
+
+**Demo**: Show `/tests` on a method, `/explain` on complex code
+
+### **Chat Participants (Agents)** - Specialized assistants:
+- `@workspace` - Answers about your entire codebase
+  - *"@workspace Where is the Task entity defined?"*
+  - *"@workspace How is logging configured?"*
+- `@vscode` - VS Code settings and commands
+  - *"@vscode How do I change theme?"*
+- `@terminal` - Terminal commands and shell help
+  - *"@terminal How do I run tests in watch mode?"*
+- `@azure` - Azure-specific guidance (if available)
+
+**Demo**: Show `@workspace` finding code across solution
+
+### **Context Variables** - Provide specific context:
+- `#file` - Reference specific files
+  - *"Refactor #file:TaskService.cs to use dependency injection"*
+- `#selection` - Reference selected code
+  - *"Add unit tests for #selection"*
+- `#editor` - Current file context
+- `#terminalSelection` - Selected terminal output
+
+**Demo**: Select code, use `#selection` in chat
+
+### **Copilot Edits** (Multi-file editing)
+- Edit multiple files at once with AI guidance
+- Add files to working set, describe changes
+- Copilot proposes changes across all files
+- Review and accept/reject changes
+
+**Demo**: Add multiple files, request cross-cutting change
+
+**Participants do (Quick practice)**:
+1. Try inline completion by typing a method comment
+2. Open Copilot Chat (`Ctrl+Alt+I`), ask: *"What testing frameworks are used in this project?"*
+3. Select a method, use Inline Chat (`Ctrl+I`): *"Add XML documentation"*
+4. Try a slash command: `/explain` on any method
+5. Use `@workspace`: *"@workspace Where is ITaskRepository implemented?"*
+
+---
+
+## 1. Controlling Context with Copilot Instructions (0:30 – 1:00, 30 min)
 **You do**:
 - Explain why *context matters* for Copilot output.
 - Show the `.github/copilot-instructions.md` file in the repository.
@@ -61,7 +131,7 @@ This document provides a detailed facilitator’s guide for running the 3-hour w
 
 ---
 
-## 2. Requirements → Backlog → Code (0:45 – 1:30, 45 min)
+## 2. Requirements → Backlog → Code (1:00 – 1:45, 45 min)
 **You do**:
 - Introduce the idea: AI can turn **requirements → backlog items → tests → code**.
 - Demo:  
@@ -77,7 +147,7 @@ This document provides a detailed facilitator’s guide for running the 3-hour w
 
 ---
 
-## 3. Code Generation & Refactoring in .NET (1:30 – 2:15, 45 min)
+## 3. Code Generation & Refactoring in .NET (1:45 – 2:30, 45 min)
 **You do**:
 - Show Copilot scaffolding: create a `TasksController` with minimal API.
 - Show refactor of messy method (provided in repo): 
@@ -85,29 +155,32 @@ This document provides a detailed facilitator’s guide for running the 3-hour w
   - After: Copilot helps split into smaller methods, add async, ILogger logging.
 
 **Participants do (Lab 3)**:
-1. Scaffold minimal Web API with endpoints:
-   - `GET /tasks/{id}`
-   - `POST /tasks`
-2. Refactor provided “spaghetti” method using Copilot:
-   - Enforce guard clauses (no `else`)
-   - Add async
-   - Add logging
-3. Re-run `dotnet build && dotnet test`.
+1. Use `@workspace` to understand the API structure: *"@workspace Show me the API endpoint extensions"*
+2. Scaffold minimal Web API endpoints using Chat:
+   - `GET /tasks/{id}` - *"Implement the GetTaskByIdAsync endpoint in EndpointExtensions"*
+   - `POST /tasks` - Use inline chat (`Ctrl+I`) with `#file:EndpointExtensions.cs`
+3. Use `/refactor` on the `LegacyTaskProcessor.ProcessTaskBatch` method:
+   - Select the method, Chat: `/refactor enforce guard clauses and add async`
+   - Or use Inline Chat: *"Refactor this to use async/await and add logging"*
+4. Use `/tests` on refactored code to generate unit tests
+5. Re-run `dotnet build && dotnet test`.
 
 ---
 
-## 4. Testing, Documentation, Workflow (2:15 – 2:45, 30 min)
+## 4. Testing, Documentation, Workflow (2:30 – 2:45, 15 min)
 **You do**:
 - Show Copilot generating:
-  - xUnit tests (happy path + invalid input)
-  - README docs for an API
-  - Commit message + PR summary (Conventional Commit format)
+  - xUnit tests using `/tests` command
+  - README docs using `/doc` command
+  - Commit message using Chat with staged changes context
+  - PR summary with `@workspace` for full context
 
 **Participants do (Lab 4)**:
-1. Generate 2 unit tests for their `TaskService`.
-2. Stage changes → ask Copilot: *“Write a Conventional Commit message for this change.”*
-3. Ask Copilot: *“Draft a PR description including intent, scope, risks, next steps.”*
-4. Generate a README section explaining their API.
+1. Select a method in `TaskService`, use `/tests` to generate xUnit tests
+2. Use `/doc` to generate XML documentation for a class or method
+3. Stage changes (`git add`), then use Chat: *"Write a Conventional Commit message for these staged changes"*
+4. Ask Chat: *"@workspace Draft a PR description including intent, scope, and risks for the changes I made"*
+5. Generate a README section: *"Create a Getting Started section for the API in #file:README.md"*
 
 ---
 

@@ -41,6 +41,13 @@ By the end of this workshop, participants will be able to:
 - Clone starter repo and checkout `starter-projects` branch
 - Copilot instructions automatically configured via `.github/copilot-instructions.md`
 
+### 0.5. GitHub Copilot Features Tour (15 min)
+- Inline completions, Chat panel, and Inline Chat
+- Slash commands: `/explain`, `/fix`, `/tests`, `/doc`, `/refactor`
+- Chat participants: `@workspace`, `@vscode`, `@terminal`
+- Context variables: `#file`, `#selection`, `#editor`
+- Quick hands-on practice with each feature
+
 ### 1. Controlling Context with Copilot Instructions (30 min)
 - Understand repository-level Copilot Instructions (`.github/copilot-instructions.md`)
 - Lab 1: Review instructions and generate a sample service class
@@ -50,12 +57,12 @@ By the end of this workshop, participants will be able to:
 - Lab 2: Backlog items → acceptance criteria → TaskService.AddTask
 
 ### 3. Code Generation & Refactoring (45 min)
-- Scaffold APIs, refactor legacy methods
-- Lab 3: Minimal API, refactor spaghetti code, add logging
+- Scaffold APIs, refactor legacy methods with slash commands
+- Lab 3: Minimal API with `@workspace`, refactor with `/refactor`, generate tests with `/tests`
 
-### 4. Testing, Documentation, Workflow (30 min)
-- Generate tests, docs, commit/PR messages
-- Lab 4: Unit tests, commit message, PR description, README section
+### 4. Testing, Documentation, Workflow (15 min)
+- Generate tests, docs, commit/PR messages using Copilot features
+- Lab 4: `/tests` for unit tests, `/doc` for documentation, conventional commits
 
 ### 5. Wrap-Up & Discussion (15 min)
 - Lessons learned

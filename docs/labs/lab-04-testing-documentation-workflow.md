@@ -459,12 +459,13 @@ Creates a new task with priority and optional due date.
   "title": "Complete project documentation",
   "description": "Write comprehensive API documentation",
   "priority": "High",
+  "status": "Todo",
   "dueDate": "2025-10-30T17:00:00Z",
-  "isCompleted": false,
-  "createdAt": "2025-10-20T10:30:00Z",
-  "completedAt": null
+  "createdAt": "2025-10-20T10:30:00Z"
 }
 ```
+
+**Note**: The response uses `status` field (enum: Todo, InProgress, Done, Cancelled) rather than boolean `isCompleted`. See Lab 3 documentation for details.
 
 **Error Responses**:
 - `400 Bad Request` - Invalid priority or past due date
@@ -473,12 +474,12 @@ Creates a new task with priority and optional due date.
 ---
 
 #### 2. Get All Tasks
-Retrieves all tasks with optional filtering by completion status.
+Retrieves all tasks with optional filtering by task status.
 
-**Endpoint**: `GET /tasks?completed={bool}`
+**Endpoint**: `GET /tasks?status={string}`
 
 **Query Parameters**:
-- `completed` (optional): Filter by completion status (true/false)
+- `status` (optional): Filter by task status (Todo, InProgress, Done, or Cancelled)
 
 **Success Response** (200 OK):
 ```json
@@ -487,7 +488,7 @@ Retrieves all tasks with optional filtering by completion status.
     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     "title": "Complete project documentation",
     "priority": "High",
-    "isCompleted": false,
+    "status": "InProgress",
     "createdAt": "2025-10-20T10:30:00Z"
   }
 ]
@@ -510,10 +511,9 @@ Retrieves a specific task by its unique identifier.
   "title": "Complete project documentation",
   "description": "Write comprehensive API documentation",
   "priority": "High",
+  "status": "Todo",
   "dueDate": "2025-10-30T17:00:00Z",
-  "isCompleted": false,
-  "createdAt": "2025-10-20T10:30:00Z",
-  "completedAt": null
+  "createdAt": "2025-10-20T10:30:00Z"
 }
 ```
 
@@ -533,6 +533,7 @@ Updates an existing task's properties.
   "title": "Updated task title",
   "description": "Updated description",
   "priority": "Critical",
+  "status": "Done",
   "dueDate": "2025-11-01T17:00:00Z"
 }
 ```
@@ -544,10 +545,9 @@ Updates an existing task's properties.
   "title": "Updated task title",
   "description": "Updated description",
   "priority": "Critical",
+  "status": "Done",
   "dueDate": "2025-11-01T17:00:00Z",
-  "isCompleted": false,
-  "createdAt": "2025-10-20T10:30:00Z",
-  "completedAt": null
+  "createdAt": "2025-10-20T10:30:00Z"
 }
 ```
 

@@ -1,0 +1,142 @@
+### TaskManager API - Manual Testing
+### Use with REST Client extension in VS Code or with curl/httpie
+### Base URL: http://localhost:5215
+
+@baseUrl = http://localhost:5215
+
+### Test 1: Create a valid task with all fields
+# Expected: 201 Created with Location header and complete task details
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+  "title": "Complete Lab 2 Manual Testing",
+  "description": "Test the POST /tasks endpoint with various scenarios",
+  "priority": "High",
+  "dueDate": "2025-10-25T17:00:00Z"
+}
+
+### Test 2: Create a task with only required fields (no description or due date)
+# Expected: 201 Created with optional fields null/empty
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+  "title": "Simple Task",
+  "priority": "Low"
+}
+
+### Test 3: Create task with Low priority
+# Expected: 201 Created
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+  "title": "Task with Low priority",
+  "priority": "Low"
+}
+
+### Test 4: Create task with Medium priority
+# Expected: 201 Created
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+  "title": "Task with Medium priority",
+  "priority": "Medium"
+}
+
+### Test 5: Create task with High priority
+# Expected: 201 Created
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+  "title": "Task with High priority",
+  "priority": "High"
+}
+
+### Test 6: Invalid priority value
+# Expected: 400 Bad Request with ProblemDetails explaining validation error
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+  "title": "Task with Invalid Priority",
+  "priority": "SuperUrgent"
+}
+
+### Test 7: Missing required field (title)
+# Expected: 400 Bad Request - model binding error
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+  "priority": "Medium"
+}
+
+### Test 8: Empty title
+# Expected: 400 Bad Request with validation error
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+  "title": "",
+  "priority": "Medium"
+}
+
+### Test 9: Whitespace-only title
+# Expected: 400 Bad Request with domain validation error
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+  "title": "   ",
+  "priority": "Medium"
+}
+
+### Test 10: Past due date
+# Expected: 400 Bad Request with domain validation error
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+  "title": "Task with Past Due Date",
+  "priority": "High",
+  "dueDate": "2020-01-01T00:00:00Z"
+}
+
+### Test 11: Create task with future due date
+# Expected: 201 Created
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+  "title": "Task with Future Due Date",
+  "description": "This task is due next week",
+  "priority": "Medium",
+  "dueDate": "2025-10-27T09:00:00Z"
+}
+
+### Test 12: Create task with description but no due date
+# Expected: 201 Created with dueDate null
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+  "title": "Task with Description Only",
+  "description": "This task has a description but no due date",
+  "priority": "Low"
+}
+
+### Test 13: Create task with null description explicitly
+# Expected: 201 Created with empty description
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+  "title": "Task with Null Description",
+  "description": null,
+  "priority": "High",
+  "dueDate": "2025-10-30T12:00:00Z"
+}

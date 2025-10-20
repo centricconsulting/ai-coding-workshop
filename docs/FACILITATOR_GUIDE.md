@@ -8,6 +8,7 @@
 - **Flex time**: Each section has 5-10 minutes of flex time built in
 - **Energy management**: Take 5-minute breaks between major sections
 - **Advanced participants**: Have optional extension exercises ready
+- **Copilot Instructions**: Repository uses `.github/copilot-instructions.md` for automatic configuration - no manual setup required by participants!
 
 ---ilitator's Guide: Using AI for Application Development with GitHub Copilot (.NET Edition)
 
@@ -17,38 +18,46 @@ This document provides a detailed facilitator’s guide for running the 3-hour w
 
 ## 0. Kickoff & Setup (0:00 – 0:15, 15 min)
 **You do**:
-- Welcome participants, introduce goals: *“We’ll learn how to use AI (Copilot) to help with requirements, code, tests, docs, and workflow in .NET projects.”*
-- Explain **Copilot Instructions** concept.
-- Quick demo: show your prepared `WORKSHOP-COPILOT-INSTRUCTIONS.md`.
+- Welcome participants, introduce goals: *"We'll learn how to use AI (Copilot) to help with requirements, code, tests, docs, and workflow in .NET projects."*
+- Explain **Copilot Instructions** concept and `.github/copilot-instructions.md` approach.
+- Quick demo: show that the repository already has instructions configured automatically.
 
 **Participants do**:
 - Confirm environment:
   - VS Code open
   - GitHub Copilot enabled
-  - .NET 8 SDK installed
-  - Clone starter repo (console app + Web API skeleton + messy legacy code)
-- Paste **Workshop Copilot Instructions** into VS Code → Settings → Copilot Instructions.
+  - .NET 8 SDK installed (`dotnet --version`)
+  - Clone starter repo and checkout `starter-projects` branch:
+    ```bash
+    git clone https://github.com/centricconsulting/ai-coding-workshop.git
+    cd ai-coding-workshop
+    git checkout starter-projects
+    ```
+- Open the repository in VS Code
+- **Copilot Instructions are automatically active** via `.github/copilot-instructions.md` (no manual setup needed!)
+- Verify build: `dotnet build` and `dotnet test`
 
 ---
 
 ## 1. Controlling Context with Copilot Instructions (0:15 – 0:45, 30 min)
 **You do**:
 - Explain why *context matters* for Copilot output.
+- Show the `.github/copilot-instructions.md` file in the repository.
+- Explain that this file automatically configures Copilot for everyone working in this repo (no manual setup needed).
 - Show difference with/without instructions (e.g., generate a class, note coding style vs messy defaults).
-- Highlight key instructions:
-  - Coding style (file-scoped namespaces, `nameof`)
-  - Clean Architecture project layout
-  - DDD aggregates
+- Highlight key instructions in the file:
+  - Coding style (file-scoped namespaces, `nameof`, async/await)
+  - Clean Architecture project layout (Domain/Application/Infrastructure/API)
+  - DDD aggregates and value objects
   - Test rules (xUnit + FakeItEasy)
   - Conventional commits
+  - OpenTelemetry for observability
 
 **Participants do (Lab 1)**:
-1. Configure Copilot Instructions with:
-   - Use async/await
-   - ILogger for logging
-   - xUnit for tests
-2. Ask Copilot: *“Generate a C# service class that logs with ILogger and uses async methods.”*
-3. Observe: Code respects style and rules.
+1. Open `.github/copilot-instructions.md` and review the configured instructions.
+2. Ask Copilot: *"Generate a C# service class that logs with ILogger and uses async methods."*
+3. Observe: Code respects style and rules defined in the instructions file.
+4. Try modifying the instructions file to see how it affects Copilot's suggestions (optional).
 
 ---
 
@@ -126,7 +135,11 @@ This document provides a detailed facilitator’s guide for running the 3-hour w
 - **Check subscription**: Verify active GitHub Copilot subscription
 - **Extension enabled**: Ensure Copilot extension is installed and enabled in VS Code
 - **Authentication**: Sign out and back in to GitHub in VS Code
-- **Instructions not applied**: Restart VS Code after pasting instructions
+- **Instructions not loading**: 
+  - Ensure you're working in the repository root (where `.github/` folder exists)
+  - Restart VS Code to reload repository-level instructions
+  - Check that `.github/copilot-instructions.md` exists in the repo
+  - Try Command Palette → "GitHub Copilot: Restart Language Server"
 
 ### .NET Build Issues  
 - **Wrong version**: Ensure .NET 8 SDK is installed (`dotnet --version`)
@@ -142,7 +155,11 @@ This document provides a detailed facilitator’s guide for running the 3-hour w
 ---
 
 ## Deliverables Recap
-- **Repo**: Starter projects (console app, Web API, messy legacy code).
-- **Instructions file**: `WORKSHOP-COPILOT-INSTRUCTIONS.md`.
-- **README**: Workshop outline and labs.
-- **Reference sheet**: Key prompts, Conventional Commits guide.
+- **Repo**: Starter projects in `starter-projects` branch (Clean Architecture solution with Domain/Application/Infrastructure/API layers)
+- **Copilot Instructions**: `.github/copilot-instructions.md` (automatically applied, repository-level configuration)
+- **Documentation**: 
+  - Main README with workshop outline
+  - Facilitator's Guide (this document)
+  - Starter Projects README with architecture details
+- **Code Examples**: Console app, Web API with OpenTelemetry, legacy code for refactoring (LegacyTaskProcessor)
+- **Test Infrastructure**: xUnit test stubs with FakeItEasy ready for participants

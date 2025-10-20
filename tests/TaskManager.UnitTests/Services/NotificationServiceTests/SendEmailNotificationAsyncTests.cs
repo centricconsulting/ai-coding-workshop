@@ -39,7 +39,7 @@ public sealed class SendEmailNotificationAsyncTests
     [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
-    public async Task SendEmailNotificationAsync_WithInvalidRecipient_ThrowsArgumentException(string invalidRecipient)
+    public async Task SendEmailNotificationAsync_WithInvalidRecipient_ThrowsArgumentException(string? invalidRecipient)
     {
         // Arrange
         const string subject = "Test";
@@ -47,14 +47,14 @@ public sealed class SendEmailNotificationAsyncTests
 
         // Act & Assert
         await Assert.ThrowsAsync<ArgumentException>(() => 
-            _sut.SendEmailNotificationAsync(invalidRecipient, subject, message));
+            _sut.SendEmailNotificationAsync(invalidRecipient!, subject, message));
     }
 
     [Theory]
     [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
-    public async Task SendEmailNotificationAsync_WithInvalidSubject_ThrowsArgumentException(string invalidSubject)
+    public async Task SendEmailNotificationAsync_WithInvalidSubject_ThrowsArgumentException(string? invalidSubject)
     {
         // Arrange
         const string recipient = "user@example.com";
@@ -62,14 +62,14 @@ public sealed class SendEmailNotificationAsyncTests
 
         // Act & Assert
         await Assert.ThrowsAsync<ArgumentException>(() => 
-            _sut.SendEmailNotificationAsync(recipient, invalidSubject, message));
+            _sut.SendEmailNotificationAsync(recipient, invalidSubject!, message));
     }
 
     [Theory]
     [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
-    public async Task SendEmailNotificationAsync_WithInvalidMessage_ThrowsArgumentException(string invalidMessage)
+    public async Task SendEmailNotificationAsync_WithInvalidMessage_ThrowsArgumentException(string? invalidMessage)
     {
         // Arrange
         const string recipient = "user@example.com";
@@ -77,7 +77,7 @@ public sealed class SendEmailNotificationAsyncTests
 
         // Act & Assert
         await Assert.ThrowsAsync<ArgumentException>(() => 
-            _sut.SendEmailNotificationAsync(recipient, subject, invalidMessage));
+            _sut.SendEmailNotificationAsync(recipient, subject, invalidMessage!));
     }
 
     [Fact]

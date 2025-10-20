@@ -38,28 +38,28 @@ public sealed class SendSmsNotificationAsyncTests
     [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
-    public async Task SendSmsNotificationAsync_WithInvalidPhoneNumber_ThrowsArgumentException(string invalidPhoneNumber)
+    public async Task SendSmsNotificationAsync_WithInvalidPhoneNumber_ThrowsArgumentException(string? invalidPhoneNumber)
     {
         // Arrange
         const string message = "Test message";
 
         // Act & Assert
         await Assert.ThrowsAsync<ArgumentException>(() => 
-            _sut.SendSmsNotificationAsync(invalidPhoneNumber, message));
+            _sut.SendSmsNotificationAsync(invalidPhoneNumber!, message));
     }
 
     [Theory]
     [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
-    public async Task SendSmsNotificationAsync_WithInvalidMessage_ThrowsArgumentException(string invalidMessage)
+    public async Task SendSmsNotificationAsync_WithInvalidMessage_ThrowsArgumentException(string? invalidMessage)
     {
         // Arrange
         const string phoneNumber = "+1234567890";
 
         // Act & Assert
         await Assert.ThrowsAsync<ArgumentException>(() => 
-            _sut.SendSmsNotificationAsync(phoneNumber, invalidMessage));
+            _sut.SendSmsNotificationAsync(phoneNumber, invalidMessage!));
     }
 
     [Fact]

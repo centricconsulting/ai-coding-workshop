@@ -46,10 +46,10 @@ public sealed class CreateTests
     }
 
     [Theory]
-    [InlineData(null!)]
+    [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
-    public void Create_WithNullOrEmptyTitle_ShouldThrowArgumentException(string invalidTitle)
+    public void Create_WithNullOrEmptyTitle_ShouldThrowArgumentException(string? invalidTitle)
     {
         // Arrange
         const string description = "Test Description";
@@ -57,7 +57,7 @@ public sealed class CreateTests
 
         // Act & Assert
         var exception = Assert.Throws<ArgumentException>(() => 
-            Task.Create(invalidTitle, description, priority));
+            Task.Create(invalidTitle!, description, priority));
         Assert.Equal("title", exception.ParamName);
     }
 

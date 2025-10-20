@@ -40,7 +40,7 @@ public sealed class SendNotificationAsyncTests
     [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
-    public async Task SendNotificationAsync_WithInvalidRecipient_ThrowsArgumentException(string invalidRecipient)
+    public async Task SendNotificationAsync_WithInvalidRecipient_ThrowsArgumentException(string? invalidRecipient)
     {
         // Arrange
         const string phoneNumber = "+1234567890";
@@ -49,14 +49,14 @@ public sealed class SendNotificationAsyncTests
 
         // Act & Assert
         await Assert.ThrowsAsync<ArgumentException>(() => 
-            _sut.SendNotificationAsync(invalidRecipient, phoneNumber, subject, message));
+            _sut.SendNotificationAsync(invalidRecipient!, phoneNumber, subject, message));
     }
 
     [Theory]
     [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
-    public async Task SendNotificationAsync_WithInvalidPhoneNumber_ThrowsArgumentException(string invalidPhoneNumber)
+    public async Task SendNotificationAsync_WithInvalidPhoneNumber_ThrowsArgumentException(string? invalidPhoneNumber)
     {
         // Arrange
         const string recipient = "user@example.com";
@@ -65,14 +65,14 @@ public sealed class SendNotificationAsyncTests
 
         // Act & Assert
         await Assert.ThrowsAsync<ArgumentException>(() => 
-            _sut.SendNotificationAsync(recipient, invalidPhoneNumber, subject, message));
+            _sut.SendNotificationAsync(recipient, invalidPhoneNumber!, subject, message));
     }
 
     [Theory]
     [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
-    public async Task SendNotificationAsync_WithInvalidSubject_ThrowsArgumentException(string invalidSubject)
+    public async Task SendNotificationAsync_WithInvalidSubject_ThrowsArgumentException(string? invalidSubject)
     {
         // Arrange
         const string recipient = "user@example.com";
@@ -81,14 +81,14 @@ public sealed class SendNotificationAsyncTests
 
         // Act & Assert
         await Assert.ThrowsAsync<ArgumentException>(() => 
-            _sut.SendNotificationAsync(recipient, phoneNumber, invalidSubject, message));
+            _sut.SendNotificationAsync(recipient, phoneNumber, invalidSubject!, message));
     }
 
     [Theory]
     [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
-    public async Task SendNotificationAsync_WithInvalidMessage_ThrowsArgumentException(string invalidMessage)
+    public async Task SendNotificationAsync_WithInvalidMessage_ThrowsArgumentException(string? invalidMessage)
     {
         // Arrange
         const string recipient = "user@example.com";
@@ -97,7 +97,7 @@ public sealed class SendNotificationAsyncTests
 
         // Act & Assert
         await Assert.ThrowsAsync<ArgumentException>(() => 
-            _sut.SendNotificationAsync(recipient, phoneNumber, subject, invalidMessage));
+            _sut.SendNotificationAsync(recipient, phoneNumber, subject, invalidMessage!));
     }
 
     [Fact]

@@ -114,20 +114,60 @@ This document provides a detailed facilitator’s guide for running the 3-hour w
 - Explain why *context matters* for Copilot output.
 - Show the `.github/copilot-instructions.md` file in the repository.
 - Explain that this file automatically configures Copilot for everyone working in this repo (no manual setup needed).
+- **Emphasize Section 1: TDD Workflow** - "When asked to implement a feature, propose/emit tests before code"
 - Show difference with/without instructions (e.g., generate a class, note coding style vs messy defaults).
 - Highlight key instructions in the file:
-  - Coding style (file-scoped namespaces, `nameof`, async/await)
+  - **TDD first**: Write tests before implementation
+  - Coding style (file-scoped namespaces, `nameof`, async/await, sealed classes)
   - Clean Architecture project layout (Domain/Application/Infrastructure/API)
   - DDD aggregates and value objects
-  - Test rules (xUnit + FakeItEasy)
+  - Test rules (xUnit + FakeItEasy, organize by feature, class-per-method folders)
   - Conventional commits
   - OpenTelemetry for observability
 
-**Participants do (Lab 1)**:
-1. Open `.github/copilot-instructions.md` and review the configured instructions.
-2. Ask Copilot: *"Generate a C# service class that logs with ILogger and uses async methods."*
-3. Observe: Code respects style and rules defined in the instructions file.
-4. Try modifying the instructions file to see how it affects Copilot's suggestions (optional).
+**Participants do (Lab 1) - Following TDD Red-Green-Refactor**:
+
+**Scenario**: Create a `NotificationService` that sends task notifications via email and SMS.
+
+**Step 1: Create Interface First (Design)**
+1. Ask Copilot Chat: *"Create an INotificationService interface in the Application layer for sending email and SMS notifications about tasks. Include methods for both individual and combined notifications."*
+2. Review generated interface - should be in `src/TaskManager.Application/Services/INotificationService.cs`
+
+**Step 2: Write Tests FIRST (Red)**
+3. Ask Copilot: *"Create xUnit tests for NotificationService in the pattern specified in .github/copilot-instructions.md. Organize tests by method with separate test classes. Use FakeItEasy for mocking ILogger. Test happy path and all guard clauses."*
+4. Review test structure: Should create folder `tests/TaskManager.UnitTests/Services/NotificationServiceTests/` with separate test classes per method
+5. Run tests: `dotnet test` - **Tests should FAIL** (Red) because NotificationService doesn't exist yet
+
+**Step 3: Implement Code (Green)**
+6. Ask Copilot: *"Implement NotificationService that passes all the tests. Follow the coding style in .github/copilot-instructions.md: sealed class, file-scoped namespace, ILogger dependency injection, async/await, guard clauses with nameof."*
+7. Review implementation - verify it follows all conventions:
+   - ✅ `sealed class`
+   - ✅ File-scoped namespace
+   - ✅ Constructor with `ILogger` and null check using `nameof`
+   - ✅ Async methods with proper `CancellationToken` support
+   - ✅ Guard clauses at method start (fail fast, no else)
+   - ✅ Structured logging with parameters
+8. Run tests: `dotnet test` - **Tests should PASS** (Green)
+
+**Step 4: Observe & Reflect (Refactor)**
+9. Review the generated code quality:
+   - Does it follow Clean Architecture (Application layer, no infrastructure concerns)?
+   - Are test names descriptive?
+   - Is the code intention-revealing?
+10. Try asking Copilot: *"Are there any improvements we could make to this code?"*
+
+**Key Learning Points to Emphasize**:
+- ✅ **TDD enforces design thinking** - interface and tests force you to think about API before implementation
+- ✅ **Copilot respects instructions** - consistent style across all generated code
+- ✅ **Tests document behavior** - reading tests tells you exactly what the service does
+- ✅ **Red-Green-Refactor cycle** - see tests fail, then pass, then improve
+- ⚠️ **Don't skip the "Red" step** - if you write implementation first, you miss design feedback from tests
+
+**Common Mistakes to Call Out**:
+- ❌ Asking for implementation before tests (violates TDD)
+- ❌ Not organizing tests by feature/method (makes tests hard to navigate)
+- ❌ Accepting code without verifying it follows instructions
+- ❌ Not running tests after each step
 
 ---
 

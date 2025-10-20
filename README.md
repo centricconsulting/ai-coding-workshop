@@ -50,7 +50,8 @@ By the end of this workshop, participants will be able to:
 
 ### 1. Controlling Context with Copilot Instructions (30 min)
 - Understand repository-level Copilot Instructions (`.github/copilot-instructions.md`)
-- Lab 1: Review instructions and generate a sample service class
+- **Emphasis on TDD workflow**: Write tests before implementation
+- Lab 1: Create NotificationService following Red-Green-Refactor cycle (interface → tests → implementation)
 
 ### 2. Requirements → Backlog → Code (45 min)
 - Turn requirements into backlog items, tests, and code

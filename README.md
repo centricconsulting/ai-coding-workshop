@@ -21,6 +21,9 @@ git --version            # Any recent version
 code --version           # VS Code version
 ```
 
+### Pre-Workshop Preparation
+**Participants**: Please complete the [Pre-Workshop Environment Checklist](docs/PRE_WORKSHOP_CHECKLIST.md) **before** attending the workshop to ensure your environment is fully configured. This will allow us to maximize hands-on learning time.
+
 ---
 
 ## Learning Objectives

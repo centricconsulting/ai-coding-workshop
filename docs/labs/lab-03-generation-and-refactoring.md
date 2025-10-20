@@ -61,7 +61,7 @@ Ask Copilot Chat:
 Create a GetTasksQuery handler in the Application layer following CQRS pattern. 
 It should:
 - Return all tasks from ITaskRepository
-- Support optional filtering by IsCompleted status
+- Support optional filtering by TaskStatus (enum: Todo, InProgress, Done)
 - Order results by CreatedAt descending
 Include unit tests using xUnit and FakeItEasy
 ```
@@ -69,7 +69,9 @@ Include unit tests using xUnit and FakeItEasy
 **Expected Output**:
 - `src/TaskManager.Application/Queries/GetTasksQuery.cs`
 - `src/TaskManager.Application/Queries/GetTasksQueryHandler.cs`
-- `tests/TaskManager.UnitTests/Queries/GetTasksQueryHandlerTests.cs`
+- `tests/TaskManager.UnitTests/Application/Queries/GetTasksQueryHandlerTests.cs`
+
+**Note**: The domain model uses `TaskStatus` enum (Todo/InProgress/Done) rather than a boolean `IsCompleted` field.
 
 #### Step 2: Implement Endpoint
 
@@ -77,7 +79,7 @@ Use `#file` context variable:
 
 ```
 Add a GET /tasks endpoint in #file:src/TaskManager.Api/Extensions/EndpointExtensions.cs that:
-- Accepts optional query parameter: completed (bool?)
+- Accepts optional query parameter: status (string: "Todo", "InProgress", or "Done")
 - Calls GetTasksQueryHandler
 - Returns 200 OK with array of TaskResponse
 - Uses async/await and proper error handling
@@ -93,24 +95,31 @@ public static void MapTaskEndpoints(this IEndpointRouteBuilder app)
 
     // GET /tasks
     app.MapGet("/tasks", async (
-        [FromQuery] bool? completed,
+        [FromQuery] string? status,
         GetTasksQueryHandler handler,
         CancellationToken cancellationToken) =>
     {
         try
         {
-            var query = new GetTasksQuery { IsCompleted = completed };
+            // Parse status string to TaskStatus enum if provided
+            TaskStatus? taskStatus = null;
+            if (!string.IsNullOrEmpty(status) && 
+                Enum.TryParse<TaskStatus>(status, true, out var parsed))
+            {
+                taskStatus = parsed;
+            }
+            
+            var query = new GetTasksQuery { Status = taskStatus };
             var tasks = await handler.HandleAsync(query, cancellationToken);
             var response = tasks.Select(t => new TaskResponse
             {
-                Id = t.Id,
+                Id = t.Id.Value,
                 Title = t.Title,
                 Description = t.Description,
-                Priority = t.Priority.Name,
+                Priority = t.Priority.ToString(),
+                Status = t.Status.ToString(),
                 DueDate = t.DueDate,
-                IsCompleted = t.IsCompleted,
-                CreatedAt = t.CreatedAt,
-                CompletedAt = t.CompletedAt
+                CreatedAt = t.CreatedAt
             });
             
             return Results.Ok(response);
@@ -216,7 +225,7 @@ curl -X DELETE http://localhost:5000/tasks/{id}
 
 ### Scenario: Legacy Task Processor
 
-The repository contains `LegacyTaskProcessor.ProcessTaskBatch` - poorly written code that needs refactoring.
+The repository contains `LegacyTaskProcessor.ProcessTask` - poorly written code that needs refactoring.
 
 ### 2.1 Find the Legacy Code
 
@@ -226,37 +235,56 @@ Use `@workspace`:
 @workspace Find the LegacyTaskProcessor class
 ```
 
+**Location**: `src/TaskManager.Infrastructure/Legacy/LegacyTaskProcessor.cs`
+
 ### 2.2 Analyze Current Issues
 
 Use `/explain` on the problematic method:
 
-1. Navigate to the `ProcessTaskBatch` method
+1. Navigate to the `ProcessTask` method (not `ProcessTaskBatch` - that's a typo in earlier drafts)
 2. Select the entire method
-3. Use Inline Chat (`Ctrl+I`): `/explain`
+3. Use Inline Chat (`Ctrl+I` or `Cmd+I`): `/explain`
 
 Copilot should identify issues:
-- ❌ Nested if statements (multiple indentation levels)
-- ❌ No async/await (synchronous database calls)
-- ❌ Poor error handling (exceptions swallowed)
+- ❌ Nested if statements (6+ indentation levels)
+- ❌ Synchronous blocking code (`Thread.Sleep`)
+- ❌ Poor error handling (exceptions swallowed with empty catch)
 - ❌ No logging
-- ❌ Magic numbers and strings
-- ❌ Long method (too many responsibilities)
+- ❌ Magic numbers (1, 2, 50) and strings
+- ❌ Long method (80+ lines with multiple responsibilities)
+- ❌ Poor naming (`data`, `flag`, `type`, `i`)
+- ❌ String concatenation in loops (inefficient)
+- ❌ Mixed concerns (file I/O in processing logic)
 - ❌ Not following guard clause pattern
 
 ### 2.3 Refactor with /refactor Command
 
-Select the entire `ProcessTaskBatch` method and use Copilot Chat:
+Select the entire `ProcessTask` method and use Copilot Chat:
 
 ```
 /refactor this method to follow Clean Code principles:
 1. Use guard clauses (fail fast, no nested ifs)
 2. Convert to async/await
-3. Add structured logging with ILogger
+3. Add structured logging with ILogger<LegacyTaskProcessor>
 4. Extract smaller methods for single responsibilities
-5. Use proper exception handling
-6. Follow Object Calisthenics: one level of indentation per method
-Follow .github/copilot-instructions.md conventions
+5. Use proper exception handling (don't swallow exceptions)
+6. Replace magic numbers with constants or enums
+7. Use meaningful parameter and variable names
+8. Use StringBuilder for string operations in loops
+9. Separate concerns: extract file I/O to an interface (ITaskOutputWriter)
+10. Follow Object Calisthenics: max 2 levels of indentation per method
+Follow .github/copilot-instructions.md conventions and make the class sealed
 ```
+
+**Expected Improvements**:
+- Strongly-typed `ProcessingType` enum instead of `int type`
+- Guard clauses for null/empty input (fail fast)
+- Private helper methods: `ProcessFormatting()`, `ProcessCapitalization()`, `TruncateIfNeeded()`
+- Async signature: `Task<string> ProcessTaskAsync(...)`
+- Constructor injection: `ILogger<LegacyTaskProcessor>`, `ITaskOutputWriter?`
+- Proper error handling with logging
+- `StringBuilder` for efficient string building
+- Meaningful names: `taskIdentifier`, `inputText`, `processingType`, `shouldInvertCase`
 
 **Expected Refactored Code**:
 

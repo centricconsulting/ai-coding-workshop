@@ -27,7 +27,7 @@ code --version           # VS Code version
 
 By the end of this workshop, participants will be able to:
 
-- **Configure GitHub Copilot** with custom instructions for consistent, context-aware code generation
+- **Leverage repository-level Copilot Instructions** (`.github/copilot-instructions.md`) for team-wide consistent code generation
 - **Transform requirements** into backlog items, acceptance criteria, and working code using AI assistance
 - **Generate and refactor .NET code** following Clean Architecture and DDD principles
 - **Create comprehensive tests** and documentation with AI support
@@ -38,11 +38,12 @@ By the end of this workshop, participants will be able to:
 
 ### 0. Kickoff & Setup (15 min)
 - Goals and environment check
-- Clone starter repo, enable Copilot, configure workshop instructions
+- Clone starter repo and checkout `starter-projects` branch
+- Copilot instructions automatically configured via `.github/copilot-instructions.md`
 
 ### 1. Controlling Context with Copilot Instructions (30 min)
-- Understand Copilot Instructions
-- Lab 1: Configure instructions and generate a sample service class
+- Understand repository-level Copilot Instructions (`.github/copilot-instructions.md`)
+- Lab 1: Review instructions and generate a sample service class
 
 ### 2. Requirements → Backlog → Code (45 min)
 - Turn requirements into backlog items, tests, and code
@@ -66,18 +67,17 @@ By the end of this workshop, participants will be able to:
 ## Workshop Materials
 
 ### Core Files
-- **[Workshop Instructions](WORKSHOP-COPILOT-INSTRUCTIONS.md)**: Comprehensive Copilot configuration for .NET development
+- **[Copilot Instructions](.github/copilot-instructions.md)**: Repository-level Copilot configuration (automatically applied)
 - **[Facilitator's Guide](docs/FACILITATOR_GUIDE.md)**: Detailed timing and talking points for instructors
+- **[Starter Projects README](starter-projects/README.md)**: Complete architecture documentation and lab instructions
 
-### Starter Projects (Coming Soon)
-- **Console Application**: Basic .NET 8 console app for initial exercises
-- **Web API Skeleton**: Minimal API structure ready for enhancement  
-- **Legacy Code Sample**: "Spaghetti code" for refactoring exercises
-
-### Reference Materials
-- **Prompt Library**: Collection of proven prompts for common development tasks
-- **Conventional Commits Guide**: Template and examples for consistent commit messages
-- **Clean Architecture Cheat Sheet**: Quick reference for project structure and dependencies
+### Starter Projects ✅
+Available in the `starter-projects` branch:
+- **Complete Solution**: Clean Architecture with Domain/Application/Infrastructure/API layers
+- **Console Application**: .NET 8 console app with DI and logging for initial exercises
+- **Web API**: Minimal API with extension methods and OpenTelemetry integration
+- **Legacy Code Sample**: `LegacyTaskProcessor` for refactoring exercises
+- **Test Infrastructure**: xUnit test stubs with FakeItEasy ready for implementation
 
 ## Getting Started
 
@@ -87,12 +87,23 @@ By the end of this workshop, participants will be able to:
    cd ai-coding-workshop
    ```
 
-2. **Copy the workshop instructions**:
-   - Open `WORKSHOP-COPILOT-INSTRUCTIONS.md`
-   - Copy the entire contents
-   - In VS Code: Settings → GitHub Copilot → Instructions
-   - Paste the instructions
+2. **Checkout the starter projects branch**:
+   ```bash
+   git checkout starter-projects
+   ```
 
-3. **Verify your setup** using the environment check above
+3. **Open in VS Code**:
+   ```bash
+   code .
+   ```
+   
+   **That's it!** Copilot instructions are automatically configured via `.github/copilot-instructions.md` - no manual setup needed.
 
-4. **Ready to start!** Follow along with your facilitator or work through the labs independently
+4. **Verify your environment**:
+   ```bash
+   dotnet --version    # Should show 8.x.x or later
+   dotnet build        # Verify solution builds
+   dotnet test         # Verify tests run
+   ```
+
+5. **Ready to start!** Follow along with your facilitator or work through the labs independently

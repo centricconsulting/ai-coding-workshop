@@ -159,7 +159,7 @@ Complete the development lifecycle with AI-assisted testing, docs, and PR prepar
 4. **Verify environment**:
 
    ```bash
-   dotnet --version  # Should be 8.0 or higher
+   dotnet --version  # Should be 9.0 or higher
    dotnet build      # Should succeed
    dotnet test       # Should pass
    ```

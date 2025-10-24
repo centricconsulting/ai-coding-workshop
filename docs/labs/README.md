@@ -283,7 +283,7 @@ Automatically enforced via `.github/copilot-instructions.md`:
 ### System Requirements
 
 - [ ] **OS**: Windows 10+, macOS 10.15+, or Linux
-- [ ] **.NET  SDK**: `dotnet --version` shows 9.0+
+- [ ] **.NET 9 SDK**: `dotnet --version` shows 9.0+
 - [ ] **VS Code**: Latest stable version
 - [ ] **Git**: Version 2.30+
 

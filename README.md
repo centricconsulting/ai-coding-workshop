@@ -172,7 +172,7 @@ This branch contains:
 4. **Verify your environment**:
 
    ```bash
-   dotnet --version    # Should show 8.x.x or later
+   dotnet --version    # Should show 9.x.x or later
    dotnet build        # Verify solution builds
    dotnet test         # Verify tests run
    ```

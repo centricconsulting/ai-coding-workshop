@@ -547,7 +547,7 @@ Explain the benefits of async/await in C#
 
 1. **Show Default Chat**:
 
-   ```ttext
+   ```text
    What is the repository pattern?
    ```
 

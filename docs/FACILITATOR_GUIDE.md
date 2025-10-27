@@ -78,7 +78,25 @@ This document provides a detailed facilitator’s guide for running the 3-hour w
 - `/new` - Scaffold new files or projects
 - `/clear` - Clear chat history
 
+
 **Demo**: Show `/tests` on a method, `/explain` on complex code
+
+---
+### 📝 Plan First with Agents (Demo)
+
+**Goal:** Demonstrate how Copilot (in Agent Mode) or a custom agent like `@planner` can propose a step-by-step plan before any code is changed.
+
+**How to show it:**
+- In Copilot Chat (Agent Mode), ask: "Propose a step-by-step plan to refactor LegacyTaskProcessor to use async/await, add logging, and follow Object Calisthenics."
+- Review the plan with the group. Edit or reorder steps as needed.
+- Only then, ask Copilot (or `@engineer`) to implement the plan, step by step.
+
+**Discussion:**
+- Why is planning first valuable?
+- Did the plan catch any issues or clarify the approach?
+- How does this workflow compare to direct code generation?
+
+**Tip:** Encourage participants to always ask for a plan before executing large or multi-file changes.
 
 
 ### **Agent Mode & MCP Tools**

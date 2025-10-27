@@ -80,6 +80,41 @@ This document provides a detailed facilitator’s guide for running the 3-hour w
 
 **Demo**: Show `/tests` on a method, `/explain` on complex code
 
+
+### **Agent Mode & MCP Tools**
+
+**Agent Mode** allows Copilot to operate more autonomously, chaining together multiple steps, tools, and reasoning to solve complex tasks. This is especially powerful for:
+- Multi-file or cross-cutting changes
+- Automated codebase analysis or refactoring
+- Running evaluation or test suites with minimal manual intervention
+- Integrating with Model Context Protocol (MCP) tools for advanced workflows
+
+**MCP Tools** provide specialized capabilities (e.g., evaluation, tracing, agent orchestration) that can be invoked directly in Agent Mode. These tools enable:
+- Automated evaluation of code or models
+- Tracing and observability for AI workflows
+- Agent-driven code generation and review
+
+**How to use Agent Mode:**
+1. Select "Agent" from the Copilot chat mode dropdown (or use the command palette).
+2. Describe your goal in natural language (e.g., "Refactor all service classes to use async/await and add logging").
+3. For advanced scenarios, reference MCP tools directly (e.g., "Evaluate this model using the aitk-evaluation_planner tool").
+4. Review the proposed plan and results; iterate as needed.
+
+**When to use Agent Mode:**
+- When a task spans multiple files or requires orchestration
+- For codebase-wide refactoring or analysis
+- To automate repetitive or evaluation-heavy workflows
+- When you want Copilot to propose and execute a plan, not just a single edit
+
+**Facilitator Tips:**
+- Encourage participants to try Agent Mode for at least one lab (e.g., Lab 3 or 4)
+- Compare results from Ask/Edit vs. Agent Mode
+- Demonstrate invoking an MCP tool (e.g., evaluation or tracing) and discuss the output
+
+**Example prompt:**
+> "Use Agent Mode to generate unit tests for all public methods in the Application layer, then run the tests and summarize the results."
+
+---
 ### **Chat Participants (Agents)** - Specialized assistants:
 
 - `@workspace` - Answers about your entire codebase

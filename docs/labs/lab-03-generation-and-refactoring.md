@@ -19,7 +19,26 @@ In this lab, you'll work with both new and existing code:
 - **Part 2**: Refactor legacy code (`LegacyTaskProcessor`) to modern standards
 - **Part 3**: Apply advanced refactoring patterns (Object Calisthenics)
 
-This simulates real-world scenarios: greenfield development alongside legacy modernization.
+
+---
+
+## 🚀 Agent Mode Challenge: Go Beyond Ask/Edit
+
+For this lab, try using **Agent Mode** for at least one major task (such as refactoring `LegacyTaskProcessor` or generating all CRUD endpoints at once). Agent Mode lets Copilot plan and execute multi-step, multi-file changes, and can invoke advanced tools (like MCP evaluation or tracing) automatically.
+
+**How to try it:**
+- Switch Copilot Chat to "Agent" mode (dropdown in chat panel)
+- Describe your goal in natural language (e.g., "Refactor LegacyTaskProcessor to use async/await, add logging, and follow Object Calisthenics")
+- Review the plan and results, iterate as needed
+- For advanced users: reference MCP tools directly (e.g., "Evaluate my API endpoints using aitk-evaluation_planner")
+
+**Compare:**
+- What did Agent Mode do differently than Ask/Edit?
+- Did it propose a plan, use multiple tools, or make changes across files?
+- Was the result more complete or did it need more review?
+
+**Facilitator Tip:**
+Encourage participants to share their Agent Mode results and discuss when this approach is most effective.
 
 ---
 

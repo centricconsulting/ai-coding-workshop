@@ -1,3 +1,14 @@
+## AI-Assisted Code Review: /check Chat Mode
+
+Before submitting a pull request, use the `/check` chat mode in Copilot Chat to get automated code review and improvement suggestions. This helps ensure your code follows project standards and best practices.
+
+**How to use:**
+
+1. Open Copilot Chat in VS Code.
+2. Type `/check Review the [file/class/method] and suggest improvements.`
+3. Review and apply any suggestions before opening your PR.
+
+See `.github/chatmodes/Check.chatmode.md` for details and examples.
 # Contributing to AI Coding Workshop
 
 Thank you for your interest in contributing! We welcome community contributions to improve this workshop for everyone.

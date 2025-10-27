@@ -272,10 +272,10 @@ dotnet --version
 
 # 2. Navigate to workshop directory
 cd path/to/ai-coding-workshop
-git checkout starter-projects
+git checkout main
 
 # 3. Pull latest changes
-git pull origin starter-projects
+git pull origin main
 
 # 4. Verify build
 dotnet build

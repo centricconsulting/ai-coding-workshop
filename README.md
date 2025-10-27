@@ -2,7 +2,20 @@
 
 This repository contains materials for a 3-hour workshop. Participants will use **Visual Studio Code**, **.NET 9**, and **GitHub Copilot** to experience how AI can support application development with modern practices including Clean Architecture and OpenTelemetry observability.
 
+
 ## Prerequisites
+
+## Using the Dev Container (Recommended)
+
+For a fully pre-configured .NET 9 development environment, you can use the included **Dev Container**. This is the fastest way to get started and ensures all required tools and extensions are installed.
+
+**How to use:**
+1. Open this repository in VS Code.
+2. Open the Command Palette (`Cmd+Shift+P` or `Ctrl+Shift+P`).
+3. Select: `Dev Containers: Reopen in Container`
+4. VS Code will build and open the project in a container with .NET 9, GitHub CLI, Copilot, C# Dev Kit, and all required extensions.
+
+_This is optional but highly recommended, especially if you want to avoid manual environment setup or ensure consistency across all participants._
 
 Before attending this workshop, participants should have:
 
@@ -45,7 +58,7 @@ By the end of this workshop, participants will be able to:
 ### 0. Kickoff & Setup (15 min)
 
 - Goals and environment check
-- Clone starter repo and checkout `starter-projects` branch
+- Clone the repository and create your own branch from `main` before starting the labs
 - Copilot instructions automatically configured via `.github/copilot-instructions.md`
 
 ### 0.5. GitHub Copilot Features Tour (15 min)
@@ -112,9 +125,10 @@ Each lab includes:
 - ✅ Extension exercises for advanced participants
 - ✅ Success criteria checklist
 
-### Starter Projects ✅
 
-Available in the `starter-projects` branch:
+### Starter Solution Structure
+
+The `main` branch contains:
 - **Complete Solution**: Clean Architecture with Domain/Application/Infrastructure/API layers
 - **Console Application**: .NET 9 console app with DI and logging for initial exercises
 - **Web API**: Minimal API with extension methods and OpenTelemetry integration
@@ -155,11 +169,15 @@ This branch contains:
    cd ai-coding-workshop
    ```
 
-2. **Checkout the starter projects branch**:
+
+2. **Create your own branch from `main`**:
 
    ```bash
-   git checkout starter-projects
+   git checkout main
+   git pull
+   git checkout -b my-workshop-branch
    ```
+   _Replace `my-workshop-branch` with your name or a unique identifier._
 
 3. **Open in VS Code**:
 

@@ -41,7 +41,7 @@ Learn to follow the Red-Green-Refactor TDD cycle with AI assistance.
 
 **Prerequisites**:
 
-- Repository cloned and `starter-projects` branch checked out
+- Repository cloned and personal branch created from `main`
 - VS Code with GitHub Copilot enabled
 - .NET 9 SDK installed
 
@@ -144,11 +144,14 @@ Complete the development lifecycle with AI-assisted testing, docs, and PR prepar
    cd ai-coding-workshop
    ```
 
-2. **Checkout starter branch**:
+2. **Create your own branch from `main`**:
 
    ```bash
-   git checkout starter-projects
+   git checkout main
+   git pull
+   git checkout -b my-workshop-branch
    ```
+   _Replace `my-workshop-branch` with your name or a unique identifier._
 
 3. **Open in VS Code**:
 
@@ -303,7 +306,7 @@ Automatically enforced via `.github/copilot-instructions.md`:
 ### Repository
 
 - [ ] Repository cloned locally
-- [ ] `starter-projects` branch checked out
+- [ ] Personal branch created from `main`
 - [ ] `dotnet build` succeeds
 - [ ] `dotnet test` passes
 - [ ] `.github/copilot-instructions.md` exists

@@ -69,6 +69,13 @@ Install these required extensions:
 3. Confirm all three are listed
 
 **Verify Copilot is working:**
+
+---
+
+### (Optional) Use the Dev Container
+
+- [ ] **Use the Dev Container:**  
+  Open the project in VS Code and select `Dev Containers: Reopen in Container` from the Command Palette. This will automatically set up all required tools and extensions for the workshop. See the main README for details.
 1. Create a new file: `test.cs`
 2. Type: `// Function to calculate fibonacci`
 3. Press Enter - you should see gray "ghost text" suggestions
@@ -146,16 +153,15 @@ git clone https://github.com/centricconsulting/ai-coding-workshop.git
 cd ai-coding-workshop
 ```
 
-- [ ] **Checkout starter-projects branch**
+
+- [ ] **Create your own branch from `main`**
 
 ```bash
-git checkout starter-projects
+git checkout main
+git pull
+git checkout -b my-workshop-branch
 ```
-
-Expected output:
-```
-Switched to branch 'starter-projects'
-```
+_Replace `my-workshop-branch` with your name or a unique identifier._
 
 - [ ] **Open in VS Code**
 
@@ -364,7 +370,7 @@ Before the workshop, confirm:
 - [ ] VS Code with all 3 extensions installed (Copilot, Copilot Chat, C# Dev Kit)
 - [ ] .NET 9 SDK installed (`dotnet --version` shows 9.x.x)
 - [ ] Git installed and configured
-- [ ] Workshop repository cloned and on `starter-projects` branch
+- [ ] Workshop repository cloned and personal branch created from `main`
 - [ ] Solution builds successfully (`dotnet build`)
 - [ ] Tests run and show 11 expected failures (`dotnet test`)
 - [ ] Copilot inline suggestions work

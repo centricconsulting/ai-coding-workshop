@@ -363,7 +363,7 @@ Automatically enforced via `.github/copilot-instructions.md`:
 
 - [Main Workshop README](../../README.md) - Workshop overview
 - [Facilitator Guide](../FACILITATOR_GUIDE.md) - Detailed facilitation instructions
-- [Starter Projects README](../../starter-projects/README.md) - Architecture details
+
 
 ### External Links
 

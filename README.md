@@ -1,3 +1,14 @@
+## Best Practices for Using Copilot & Agents
+
+To get the most out of Copilot and AI agents in this workshop:
+
+- **Always ask for a plan first**: Use Copilot or Agent Mode to propose a step-by-step plan before making large or multi-file changes.
+- **Use /check for code review**: Run `/check` in Copilot Chat to get improvement suggestions before submitting a PR.
+- **Leverage chat participants**: Use `@workspace` for codebase questions, `@terminal` for CLI help, and `@vscode` for editor tips.
+- **Be explicit in prompts**: Reference files, selections, or context variables (e.g., `#file`, `#selection`) for targeted results.
+- **Review and iterate**: Treat Copilot suggestions as a starting point—review, refactor, and test as you would with any code.
+
+See the [Facilitator Guide](docs/FACILITATOR_GUIDE.md) and `.github/chatmodes/Check.chatmode.md` for more workflow tips.
 # Workshop: Using AI for Application Development with GitHub Copilot (.NET Edition)
 
 This repository contains materials for a 3-hour workshop. Participants will use **Visual Studio Code**, **.NET 9**, and **GitHub Copilot** to experience how AI can support application development with modern practices including Clean Architecture and OpenTelemetry observability.
@@ -116,7 +127,7 @@ By the end of this workshop, participants will be able to:
 - **[Copilot Instructions](.github/copilot-instructions.md)**: Repository-level Copilot configuration (automatically applied)
 - **[Facilitator's Guide](docs/FACILITATOR_GUIDE.md)**: Detailed timing and talking points for instructors
 - **[Lab Walkthroughs](docs/labs/README.md)**: Step-by-step guides for all four labs with expected outputs and troubleshooting
-- **[Starter Projects README](starter-projects/README.md)**: Complete architecture documentation
+
 
 ### Lab Guides 📚
 

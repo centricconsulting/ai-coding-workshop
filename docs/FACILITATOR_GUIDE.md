@@ -30,13 +30,14 @@ This document provides a detailed facilitator’s guide for running the 3-hour w
   - VS Code open
   - GitHub Copilot enabled
   - .NET 9 SDK installed (`dotnet --version`)
-  - Clone starter repo and checkout `starter-projects` branch:
 
-    ```bash
-    git clone https://github.com/centricconsulting/ai-coding-workshop.git
-    cd ai-coding-workshop
-    git checkout starter-projects
-    ```
+   - Clone the repository and checkout the `main` branch:
+
+      ```bash
+      git clone https://github.com/centricconsulting/ai-coding-workshop.git
+      cd ai-coding-workshop
+      git checkout main
+      ```
 
 - Open the repository in VS Code
 - **Copilot Instructions are automatically active** via `.github/copilot-instructions.md` (no manual setup needed!)
@@ -364,7 +365,7 @@ This document provides a detailed facilitator’s guide for running the 3-hour w
 
 ## Deliverables Recap
 
-- **Repo**: Starter projects in `starter-projects` branch (Clean Architecture solution with Domain/Application/Infrastructure/API layers)
+- **Repo**: Clean Architecture solution with Domain/Application/Infrastructure/API layers in the `main` branch
 - **Copilot Instructions**: `.github/copilot-instructions.md` (automatically applied, repository-level configuration)
 - **Documentation**:
   - Main README with workshop outline

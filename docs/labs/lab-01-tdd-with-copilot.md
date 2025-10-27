@@ -25,7 +25,7 @@ In this lab, you'll create a `NotificationService` that sends task notifications
 
 ## Prerequisites
 
-- ✅ Repository cloned and `starter-projects` branch checked out
+- ✅ Repository cloned and `main` branch checked out
 - ✅ VS Code open with GitHub Copilot enabled
 - ✅ `.github/copilot-instructions.md` automatically loaded
 - ✅ Initial build successful: `dotnet build && dotnet test`

@@ -2,6 +2,7 @@
 
 **Duration**: 45 minutes  
 **Learning Objectives**:
+
 - Transform user stories into actionable backlog items using Copilot
 - Generate acceptance criteria with AI assistance
 - Create test-driven implementations from requirements
@@ -45,7 +46,7 @@ This is intentionally vague - typical of early requirements. Your job is to brea
 
 Open Copilot Chat (`Ctrl+Alt+I` / `Cmd+Shift+I`) and enter:
 
-```
+```text
 I have this user story: "As a user, I want to manage a list of tasks with priorities and due dates so I can track my work and focus on what's most important."
 
 Generate 5 backlog items with acceptance criteria for implementing this feature in our Task Manager application. Consider the existing Domain/Application/Infrastructure/API architecture.
@@ -56,16 +57,19 @@ Generate 5 backlog items with acceptance criteria for implementing this feature 
 Copilot should generate something like:
 
 #### **Backlog Item 1: Add Priority to Task Entity**
+
 **Description**: Extend the Task domain entity to support priority levels (Low, Medium, High, Critical).
 
 **Acceptance Criteria**:
+
 - Task entity has a Priority property (enum)
 - Priority is required when creating a task
 - Priority can be updated after creation
 - Priority is persisted to the database
 - Invalid priority values are rejected
 
-**Technical Notes**: 
+**Technical Notes**:
+
 - Update Task entity in Domain layer
 - Add Priority enum as value object
 - Update database schema/migrations
@@ -74,9 +78,11 @@ Copilot should generate something like:
 ---
 
 #### **Backlog Item 2: Add Due Date to Task Entity**
+
 **Description**: Extend the Task domain entity to support due dates for deadline tracking.
 
 **Acceptance Criteria**:
+
 - Task entity has a DueDate property (nullable DateTime)
 - Due date is optional when creating a task
 - Due date can be set/updated/cleared after creation
@@ -84,6 +90,7 @@ Copilot should generate something like:
 - Due date is persisted to the database
 
 **Technical Notes**:
+
 - Update Task entity in Domain layer
 - Add validation for future dates only
 - Handle null case for tasks without deadlines
@@ -92,9 +99,11 @@ Copilot should generate something like:
 ---
 
 #### **Backlog Item 3: Create Task with Priority and Due Date**
+
 **Description**: Update task creation logic to accept priority and optional due date.
 
 **Acceptance Criteria**:
+
 - POST /tasks endpoint accepts priority and dueDate fields
 - Priority is required in the request
 - DueDate is optional in the request
@@ -103,6 +112,7 @@ Copilot should generate something like:
 - Created task returns 201 with full task details including priority and due date
 
 **Technical Notes**:
+
 - Update CreateTaskCommand in Application layer
 - Add validation logic
 - Update API endpoint and request DTOs
@@ -111,9 +121,11 @@ Copilot should generate something like:
 ---
 
 #### **Backlog Item 4: Filter Tasks by Priority**
+
 **Description**: Allow users to retrieve tasks filtered by priority level.
 
 **Acceptance Criteria**:
+
 - GET /tasks?priority={level} endpoint supports filtering
 - Valid priority values: Low, Medium, High, Critical
 - Multiple priority values can be specified: ?priority=High&priority=Critical
@@ -122,6 +134,7 @@ Copilot should generate something like:
 - Results are ordered by due date (earliest first, nulls last)
 
 **Technical Notes**:
+
 - Add query parameters to endpoint
 - Implement filtering in repository
 - Add sorting by due date
@@ -131,9 +144,11 @@ Copilot should generate something like:
 ---
 
 #### **Backlog Item 5: Get Tasks Due Soon**
+
 **Description**: Provide an endpoint to retrieve tasks with approaching deadlines.
 
 **Acceptance Criteria**:
+
 - GET /tasks/due-soon endpoint returns tasks due in next 7 days
 - Tasks without due dates are excluded
 - Results ordered by due date (soonest first)
@@ -142,6 +157,7 @@ Copilot should generate something like:
 - Query parameter: ?days={number} to customize window
 
 **Technical Notes**:
+
 - Add new endpoint in API layer
 - Create query handler in Application layer
 - Calculate date range based on current time
@@ -155,6 +171,7 @@ Copilot should generate something like:
 For this lab, we'll implement **Backlog Item 3: Create Task with Priority and Due Date**.
 
 Why this item?
+
 - ✅ Touches all layers (Domain, Application, Infrastructure, API)
 - ✅ Demonstrates validation logic
 - ✅ Requires TDD approach
@@ -165,6 +182,7 @@ Why this item?
 ## Part 2: Implement Prerequisites (15 minutes)
 
 > **⚠️ TDD REMINDER**: In this section, we'll follow Red-Green-Refactor:
+
 > 1. **RED**: Write tests FIRST that fail
 > 2. **GREEN**: Implement code to make tests pass
 > 3. **REFACTOR**: Improve code quality while keeping tests green
@@ -175,7 +193,7 @@ Before we can create tasks with priority and due date, we need to add these prop
 
 Ask Copilot Chat:
 
-```
+```text
 Create a Priority enum as a value object in the Domain layer following DDD patterns. Include values: Low, Medium, High, Critical. Follow the coding conventions in .github/copilot-instructions.md.
 ```
 
@@ -242,7 +260,7 @@ public sealed record Priority
 
 Use the `/tests` command or ask Copilot Chat:
 
-```
+```text
 Generate xUnit tests for the Task entity in tests/TaskManager.UnitTests/Domain/Entities/TaskTests.cs that verify:
 - Task.Create with valid title and priority succeeds
 - Task.Create with valid title, priority, and future due date succeeds
@@ -271,13 +289,13 @@ Now that we have failing tests, implement the code to make them pass.
 
 Use `@workspace` to find the Task entity:
 
-```
+```text
 @workspace Where is the Task entity defined?
 ```
 
 Then ask Copilot to update it:
 
-```
+```text
 Update the Task entity in #file:src/TaskManager.Domain/Entities/Task.cs to add:
 1. Priority property (required)
 2. DueDate property (nullable DateTime)
@@ -369,6 +387,7 @@ Expected result: All tests pass! This is the **GREEN** phase! ✅
 ### 2.4 Refactor (If Needed)
 
 Review the code and tests:
+
 - Are there any code smells?
 - Can validation logic be extracted?
 - Are error messages clear?
@@ -394,7 +413,7 @@ Now implement the full feature: Create Task with Priority and Due Date through t
 
 Ask Copilot Chat:
 
-```
+```text
 Create a CreateTaskCommand in the Application layer with properties:
 - Title (required)
 - Description (optional)
@@ -422,7 +441,7 @@ public sealed record CreateTaskCommand
 
 Ask Copilot:
 
-```
+```text
 Create xUnit tests for CreateTaskCommandHandler in tests/TaskManager.UnitTests/Commands/CreateTaskCommandHandlerTests.cs. Test:
 - Valid command creates task with correct properties
 - Invalid priority string throws exception
@@ -432,6 +451,7 @@ Use FakeItEasy for ITaskRepository and ILogger
 ```
 
 Run tests - they should **FAIL** (handler doesn't exist yet):
+
 ```bash
 dotnet test
 ```
@@ -440,7 +460,7 @@ dotnet test
 
 Ask Copilot:
 
-```
+```text
 Implement CreateTaskCommandHandler in Application layer that:
 1. Parses priority string to Priority value object
 2. Validates due date is in future (if provided)
@@ -503,6 +523,7 @@ public sealed class CreateTaskCommandHandler
 ```
 
 Run tests - they should **PASS**:
+
 ```bash
 dotnet test
 ```
@@ -513,7 +534,7 @@ dotnet test
 
 Ask Copilot:
 
-```
+```text
 Create CreateTaskRequest and TaskResponse DTOs in API layer (src/TaskManager.Api/Models/) for the POST /tasks endpoint. Use records with required properties where appropriate.
 ```
 
@@ -525,13 +546,13 @@ Create CreateTaskRequest and TaskResponse DTOs in API layer (src/TaskManager.Api
 
 Use `@workspace` to find the endpoint extensions:
 
-```
+```text
 @workspace Where are the API endpoints defined?
 ```
 
 Then create integration tests FIRST:
 
-```
+```text
 Create integration tests for POST /tasks endpoint in tests/TaskManager.IntegrationTests/Api/TaskEndpointsTests.cs that verify:
 - Valid request with all fields returns 201 Created with task details and Location header
 - Valid request with only required fields returns 201 Created
@@ -555,7 +576,7 @@ Expected result: All integration tests fail. This is the **RED** phase! ✅
 
 Now implement the endpoint to make the tests pass:
 
-```
+```text
 Implement POST /tasks endpoint in #file:src/TaskManager.Api/Extensions/EndpointExtensions.cs that:
 1. Maps CreateTaskRequest DTO to CreateTaskCommand
 2. Calls CreateTaskCommandHandler to create the task
@@ -579,7 +600,7 @@ Expected result: All integration tests pass! This is the **GREEN** phase! ✅
 
 Create a `tasks.http` file in the API project for manual testing with the REST Client extension:
 
-```
+```text
 Create a tasks.http file in src/TaskManager.Api/ with test scenarios for POST /tasks endpoint including:
 - Valid requests with all fields
 - Valid requests with required fields only
@@ -605,6 +626,7 @@ dotnet test
 All tests should pass! ✅
 
 **Expected output**:
+
 - Unit tests: All passing (14+ for CreateTaskCommandHandler, 11+ for Task entity)
 - Integration tests: All passing (8 for TaskEndpointsTests)
 - Build: 0 warnings, 0 errors
@@ -636,6 +658,7 @@ This is the easiest way to test your API!
 ### 4.3 Test with curl (Alternative)
 
 **Valid Request**:
+
 ```bash
 curl -X POST http://localhost:5215/tasks \
   -H "Content-Type: application/json" \
@@ -648,6 +671,7 @@ curl -X POST http://localhost:5215/tasks \
 ```
 
 **Expected Response**: 201 Created with Location header
+
 ```json
 {
   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -662,6 +686,7 @@ curl -X POST http://localhost:5215/tasks \
 ```
 
 **Invalid Priority**:
+
 ```bash
 curl -X POST http://localhost:5215/tasks \
   -H "Content-Type: application/json" \
@@ -673,6 +698,7 @@ curl -X POST http://localhost:5215/tasks \
 ```
 
 **Expected Response**: 400 Bad Request with ProblemDetails
+
 ```json
 {
   "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
@@ -683,6 +709,7 @@ curl -X POST http://localhost:5215/tasks \
 ```
 
 **Past Due Date**:
+
 ```bash
 curl -X POST http://localhost:5215/tasks \
   -H "Content-Type: application/json" \
@@ -698,6 +725,7 @@ curl -X POST http://localhost:5215/tasks \
 ### 4.4 Verify Test Results
 
 Confirm that:
+
 - ✅ Valid requests return 201 Created with Location header
 - ✅ Invalid priority returns 400 Bad Request with clear error message
 - ✅ Past due dates return 400 Bad Request with validation error
@@ -737,18 +765,21 @@ Confirm that:
 ## Extension Exercises (If Time Permits)
 
 ### Exercise 1: Implement Item 4 (Filter by Priority)
+
 1. Generate acceptance criteria tests
 2. Implement repository filtering
 3. Add API endpoint with query parameters
 4. Test with multiple priority filters
 
 ### Exercise 2: Implement Item 5 (Due Soon)
+
 1. Write tests for date range calculations
 2. Create query handler in Application layer
 3. Add API endpoint
 4. Test edge cases (timezone boundaries)
 
 ### Exercise 3: Add Update Task Endpoint
+
 1. Generate backlog item with acceptance criteria
 2. Create UpdateTaskCommand
 3. Implement PUT /tasks/{id} endpoint
@@ -774,18 +805,22 @@ You've completed this lab successfully when:
 ## Troubleshooting
 
 ### Copilot Generates Generic Backlog Items
+
 **Problem**: Backlog items don't consider existing architecture  
 **Solution**: Use `@workspace` to give context: "Given our Clean Architecture structure..."
 
 ### Tests Don't Cover Edge Cases
+
 **Problem**: Missing validation tests  
 **Solution**: Explicitly ask: "Generate tests for all guard clauses and edge cases"
 
 ### Repository Pattern Not Working
+
 **Problem**: ITaskRepository doesn't have needed methods  
 **Solution**: Update repository interface first, then implement in Infrastructure layer
 
 ### Date Validation Issues
+
 **Problem**: Due date validation fails unexpectedly  
 **Solution**: Use `DateTime.UtcNow` consistently, consider timezone handling
 
@@ -793,7 +828,8 @@ You've completed this lab successfully when:
 
 ## Next Steps
 
-Move on to **Lab 3: Code Generation & Refactoring** where you'll:
+Move on to [**Lab 3: Code Generation & Refactoring**](lab-03-generation-and-refactoring.md) where you'll:
+
 - Scaffold complete API endpoints with Copilot
 - Refactor legacy code using `/refactor` command
 - Apply Object Calisthenics principles

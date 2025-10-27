@@ -3,7 +3,7 @@
 > Paste this whole document into **VS Code → Settings → GitHub Copilot → Instructions** for the workshop.
 
 ## 0) Workshop Mode
-- Assume **.NET 8**, **xUnit**, **FakeItEasy**, **Minimal API**, **ILogger**, **async/await** everywhere.
+- Assume **.NET 9**, **xUnit**, **FakeItEasy**, **Minimal API**, **ILogger**, **async/await** everywhere.
 - Prefer **Clean Architecture** solution layout and **DDD** patterns.
 - Always generate examples and code in **English**.
 

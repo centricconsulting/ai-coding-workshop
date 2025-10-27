@@ -2,6 +2,7 @@
 
 **Duration**: 30 minutes  
 **Learning Objectives**:
+
 - Master the Red-Green-Refactor TDD cycle with AI assistance
 - Use Copilot to generate tests before implementation
 - Apply repository Copilot Instructions for consistent code quality
@@ -42,7 +43,7 @@ In this lab, you'll create a `NotificationService` that sends task notifications
 
 In the chat panel, enter:
 
-```
+```text
 Create an INotificationService interface in the Application layer for sending email and SMS notifications about tasks. Include methods for both individual and combined notifications.
 ```
 
@@ -68,6 +69,7 @@ public interface INotificationService
 ### 1.4 Verify Design
 
 Review the interface and ask yourself:
+
 - ✅ Does it belong in the Application layer? (Yes - it's a service interface)
 - ✅ Are method names descriptive and intention-revealing?
 - ✅ Does it follow async/await patterns with CancellationToken?
@@ -85,7 +87,7 @@ If satisfied, accept the code. If not, refine your prompt.
 
 In Copilot Chat, enter:
 
-```
+```text
 Create xUnit tests for NotificationService in the pattern specified in .github/copilot-instructions.md. Organize tests by method with separate test classes. Use FakeItEasy for mocking ILogger. Test happy path and all guard clauses.
 ```
 
@@ -93,7 +95,7 @@ Create xUnit tests for NotificationService in the pattern specified in .github/c
 
 Copilot should create a folder structure like:
 
-```
+```text
 tests/TaskManager.UnitTests/Services/NotificationServiceTests/
 ├── SendEmailNotificationAsyncTests.cs
 ├── SendSmsNotificationAsyncTests.cs
@@ -101,6 +103,7 @@ tests/TaskManager.UnitTests/Services/NotificationServiceTests/
 ```
 
 Each test class should contain:
+
 - ✅ Tests for the happy path (valid inputs)
 - ✅ Tests for guard clauses (null/empty parameters)
 - ✅ Descriptive test method names (e.g., `SendEmailNotificationAsync_WithValidInputs_SendsEmail`)
@@ -200,7 +203,8 @@ dotnet test
 **Expected Result**: ❌ **Tests FAIL**
 
 You should see errors like:
-```
+
+```text
 error CS0246: The type or namespace name 'NotificationService' could not be found
 ```
 
@@ -209,6 +213,7 @@ error CS0246: The type or namespace name 'NotificationService' could not be foun
 ### 2.5 Reflect on Test Design
 
 Before implementing, review:
+
 - ✅ Do test names clearly describe behavior?
 - ✅ Are guard clause tests comprehensive?
 - ✅ Is the happy path covered?
@@ -224,7 +229,7 @@ Before implementing, review:
 
 In Copilot Chat, enter:
 
-```
+```text
 Implement NotificationService that passes all the tests. Follow the coding style in .github/copilot-instructions.md: sealed class, file-scoped namespace, ILogger dependency injection, async/await, guard clauses with nameof.
 ```
 
@@ -353,7 +358,8 @@ dotnet test
 **Expected Result**: ✅ **Tests PASS**
 
 You should see:
-```
+
+```text
 Passed!  - Failed:     0, Passed:    12, Skipped:     0, Total:    12
 ```
 
@@ -368,6 +374,7 @@ Passed!  - Failed:     0, Passed:    12, Skipped:     0, Total:    12
 ### 4.1 Review Architecture
 
 Ask yourself:
+
 - ✅ **Layer Separation**: Is `NotificationService` correctly in the Application layer?
   - Yes - it's a use case/service, not domain logic or infrastructure
 - ✅ **Dependencies**: Does it only depend on `ILogger` (infrastructure concern)?
@@ -378,6 +385,7 @@ Ask yourself:
 ### 4.2 Review Test Quality
 
 Ask yourself:
+
 - ✅ **Test Organization**: Are tests organized by method in separate files?
 - ✅ **Descriptive Names**: Can you understand behavior just by reading test names?
 - ✅ **Test Coverage**: Are all edge cases covered (null, empty, whitespace)?
@@ -387,11 +395,12 @@ Ask yourself:
 
 In Copilot Chat, try:
 
-```
+```text
 Review the NotificationService implementation and tests. Are there any improvements we could make while keeping the same behavior?
 ```
 
 Copilot might suggest:
+
 - **Extract validation logic** into a helper method (reduce duplication)
 - **Add more specific exception types** (e.g., `InvalidEmailException`)
 - **Add integration tests** for actual email/SMS providers
@@ -410,6 +419,7 @@ private static void ValidateParameter(string value, string parameterName)
 ```
 
 Then refactor methods to use:
+
 ```csharp
 ValidateParameter(recipient, nameof(recipient));
 ValidateParameter(subject, nameof(subject));
@@ -450,16 +460,19 @@ ValidateParameter(message, nameof(message));
 ## Extension Exercises (If Time Permits)
 
 ### Exercise 1: Add Email Validation
+
 1. Write a test that verifies email format validation
 2. Implement email validation in `SendEmailNotificationAsync`
 3. Ensure tests pass
 
 ### Exercise 2: Add OpenTelemetry Tracing
+
 1. Research OpenTelemetry in the workshop instructions
 2. Add activity tracing to notification methods
 3. Write tests that verify traces are created
 
 ### Exercise 3: Add Batch Notifications
+
 1. Design an interface for `SendBatchNotificationsAsync`
 2. Write tests for batch sending (multiple recipients)
 3. Implement batch notification logic
@@ -482,23 +495,29 @@ You've completed this lab successfully when:
 ## Troubleshooting
 
 ### Tests Won't Compile
+
 **Problem**: `NotificationService` type not found  
 **Solution**: This is expected in the Red phase! Implement the service in Step 3.
 
 ### Tests Pass Immediately
+
 **Problem**: Tests pass even though no implementation exists  
 **Solution**: Your tests might be too lenient. Review test assertions.
 
 ### Copilot Not Following Conventions
+
 **Problem**: Generated code doesn't use sealed classes, nameof, etc.  
-**Solution**: 
+**Solution**:
+
 1. Verify `.github/copilot-instructions.md` exists in repo
 2. Restart VS Code to reload instructions
 3. Be explicit in prompts: "Follow .github/copilot-instructions.md"
 
 ### FakeItEasy Not Working
+
 **Problem**: Can't create fakes or verify calls  
-**Solution**: 
+**Solution**:
+
 1. Ensure using directive: `using FakeItEasy;`
 2. Check NuGet package is installed in test project
 3. Review FakeItEasy syntax in existing tests
@@ -507,7 +526,8 @@ You've completed this lab successfully when:
 
 ## Next Steps
 
-Move on to **Lab 2: Requirements → Backlog → Code** where you'll:
+Move on to [**Lab 2: Requirements → Backlog → Code**](lab-02-requirements-to-code.md) where you'll:
+
 - Convert user stories into backlog items with Copilot
 - Generate acceptance criteria
 - Build features from requirements

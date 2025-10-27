@@ -3,6 +3,17 @@
 This repository contains materials for a 3-hour workshop. Participants will use **Visual Studio Code**, **.NET 9**, and **GitHub Copilot** to experience how AI can support application development with modern practices including Clean Architecture and OpenTelemetry observability.
 
 
+
+## VS Code & Devcontainer Setup
+
+For the best experience, use the provided **Devcontainer** and recommended VS Code settings:
+
+- **Devcontainer**: Ensures a consistent .NET 9, Node, and extension environment for all participants. No local setup required—just open in VS Code and "Reopen in Container" when prompted.
+- **Copilot Custom Instructions**: This repo auto-applies Copilot instructions for Clean Architecture, DDD, and .NET 9. For best results, review or copy the full instructions from `.github/copilot-instructions.md` into your Copilot Chat settings.
+
+See the full guide: [VS Code & Devcontainer Guide](docs/guides/vscode-devcontainer.md)
+
+---
 ## Prerequisites
 
 ## Using the Dev Container (Recommended)

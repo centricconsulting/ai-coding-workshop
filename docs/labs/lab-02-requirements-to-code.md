@@ -837,6 +837,30 @@ Move on to [**Lab 3: Code Generation & Refactoring**](lab-03-generation-and-refa
 
 ---
 
+
+## Documenting Architectural Decisions (ADR)
+
+> **Why ADRs?**
+> 
+> As you make key design or architectural choices (e.g., how to model priorities, validation, or API structure), it's best practice to capture your reasoning in an [Architecture Decision Record (ADR)](https://adr.github.io/). This helps your team understand why decisions were made and makes future changes easier to justify.
+
+**Sample Copilot Prompt:**
+```text
+Write an Architecture Decision Record (ADR) for our approach to modeling task priorities as a value object in the Domain layer. Include:
+- Context and alternatives considered
+- Decision summary
+- Consequences (tradeoffs, future impact)
+Format as Markdown.
+```
+
+**Where to put ADRs:**
+- Save ADRs in the `docs/adr/` folder (create it if it doesn't exist).
+- Use a clear filename, e.g., `docs/adr/0001-task-priority-value-object.md`.
+
+**Learn more:** [ADR GitHub site](https://adr.github.io/)
+
+---
+
 ## Additional Resources
 
 - [User Story Best Practices](https://www.atlassian.com/agile/project-management/user-stories)

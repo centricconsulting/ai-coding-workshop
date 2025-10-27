@@ -416,7 +416,8 @@ public sealed class CreateTaskCommandHandler
 
 Ask Copilot Chat:
 
-``` text
+
+```
 Create an API documentation section for #file:README.md that documents all the Task Manager API endpoints (POST, GET, GET by ID, PUT, DELETE). Include:
 - Endpoint URL
 - HTTP method
@@ -452,51 +453,58 @@ Creates a new task with priority and optional due date.
   "description": "Write comprehensive API documentation",
   "priority": "High",
   "dueDate": "2025-10-30T17:00:00Z"
+---
+## API Documentation
+
+### Base URL
+
+`http://localhost:5000`
+
+### Endpoints
+
+#### 1. Create Task
+Creates a new task with priority and optional due date.
+
+**Endpoint**: `POST /tasks`
+
+**Request Body:**
+```json
+{
+    "title": "Complete project documentation",
+    "description": "Write comprehensive API documentation",
+    "priority": "High",
+    "dueDate": "2025-10-30T17:00:00Z"
 }
 ```
 
 **Success Response** (201 Created):
-
 ```json
 {
-  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "title": "Complete project documentation",
-  "description": "Write comprehensive API documentation",
-  "priority": "High",
-  "status": "Todo",
-  "dueDate": "2025-10-30T17:00:00Z",
-  "createdAt": "2025-10-20T10:30:00Z"
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "title": "Complete project documentation",
+    "description": "Write comprehensive API documentation",
+    "priority": "High",
+    "status": "Todo",
+    "dueDate": "2025-10-30T17:00:00Z",
+    "createdAt": "2025-10-20T10:30:00Z"
 }
 ```
 
 **Note**: The response uses `status` field (enum: Todo, InProgress, Done, Cancelled) rather than boolean `isCompleted`. See Lab 3 documentation for details.
 
-**Error Responses**:
-
+**Error Responses:**
+```json
+{
+    "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+    "title": "Bad Request",
+    "status": 400,
+    "detail": "Invalid priority name: SuperUrgent"
+}
+```
+Other possible errors:
 - `400 Bad Request` - Invalid priority or past due date
 - `500 Internal Server Error` - Server error
-
-````
-
 ---
-
-#### 2. Get All Tasks
-
-Retrieves all tasks with optional filtering by task status.
-
-**Endpoint**: `GET /tasks?status={string}`
-
-**Query Parameters**:
-
-- `status` (optional): Filter by task status (Todo, InProgress, Done, or Cancelled)
-
-**Success Response** (200 OK):
-
-```json
-[
-  {
-    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    "title": "Complete project documentation",
     "priority": "High",
     "status": "InProgress",
     "createdAt": "2025-10-20T10:30:00Z"
@@ -598,16 +606,17 @@ Valid priority values for task creation and updates:
 - `High` (2)
 - `Critical` (3)
 
+
 ### Error Response Format
 
-All error responses follow RFC 7807 Problem Details format:
+All error responses follow [RFC 7807 Problem Details](https://datatracker.ietf.org/doc/html/rfc7807) format:
 
 ```json
 {
-  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
-  "title": "Bad Request",
-  "status": 400,
-  "detail": "Invalid priority name: SuperUrgent"
+    "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+    "title": "Bad Request",
+    "status": 400,
+    "detail": "Invalid priority name: SuperUrgent"
 }
 ```
 

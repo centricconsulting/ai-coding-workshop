@@ -391,13 +391,16 @@ Ask yourself:
 - ✅ **Test Coverage**: Are all edge cases covered (null, empty, whitespace)?
 - ✅ **Test Independence**: Does each test run independently?
 
+
 ### 4.3 Ask Copilot for Improvements
 
-In Copilot Chat, try:
-
-```text
-Review the NotificationService implementation and tests. Are there any improvements we could make while keeping the same behavior?
-```
+> **Reusable Prompt:**
+> 
+> Use the `/check` slash command in Copilot Chat to get code review and improvement suggestions:
+> 
+> ```text
+> /check Review the NotificationService implementation and tests. Are there any improvements we could make while keeping the same behavior?
+> ```
 
 Copilot might suggest:
 

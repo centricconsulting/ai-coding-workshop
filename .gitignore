@@ -40,6 +40,9 @@ bld/
 *.userosscache
 *.sln.docstates
 
+# Microsoft Office temp files
+~$*
+
 # NuGet
 *.nupkg
 *.snupkg

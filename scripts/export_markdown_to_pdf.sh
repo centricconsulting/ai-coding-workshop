@@ -24,11 +24,14 @@ find "$INPUT_DIR" -type f -name "*.md" -print0 | while IFS= read -r -d '' md; do
 
   echo "Converting: $md → $out"
   pandoc "$md" -o "$out" \
-  --pdf-engine=xelatex \
+  --pdf-engine=weasyprint \
+  -V geometry:margin=1in \
+  -V mainfont="Arial" \
+  --css=./scripts/github-markdown.css \
   --from=gfm \
   --metadata=title:"$(basename "${md%.*}")" \
   --toc \
-  --syntax-highlighting=kate
+  --syntax-highlighting=pygments
 done
 
 echo "✅ Conversion complete. PDFs are in $OUTPUT_DIR"

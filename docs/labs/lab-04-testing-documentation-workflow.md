@@ -2,6 +2,7 @@
 
 **Duration**: 15 minutes  
 **Learning Objectives**:
+
 - Generate comprehensive test suites using `/tests` command
 - Create documentation with `/doc` command
 - Write Conventional Commit messages with AI assistance
@@ -48,13 +49,13 @@ Open `src/TaskManager.Application/Commands/CreateTaskCommandHandler.cs` and sele
 
 With the method selected, open Copilot Chat (`Ctrl+Alt+I` / `Cmd+Shift+I`) and enter:
 
-```
+``` text
 /tests
 ```
 
 Or use Inline Chat (`Ctrl+I` / `Cmd+I`):
 
-```
+``` text
 /tests
 ```
 
@@ -225,7 +226,7 @@ public sealed class HandleAsyncTests
 
 For API endpoints, generate integration tests:
 
-```
+``` text
 Create integration tests for the POST /tasks endpoint using WebApplicationFactory. Test:
 - Valid request returns 201 Created
 - Invalid priority returns 400 Bad Request with ProblemDetails
@@ -330,6 +331,7 @@ dotnet test --logger "console;verbosity=detailed"
 ```
 
 Verify coverage includes:
+
 - ✅ Happy path tests
 - ✅ Guard clause tests
 - ✅ Edge case tests (nulls, empty strings, boundaries)
@@ -357,7 +359,7 @@ Open `src/TaskManager.Application/Commands/CreateTaskCommandHandler.cs` and sele
 
 With the class selected, use Inline Chat (`Ctrl+I`):
 
-```
+``` text
 /doc
 ```
 
@@ -414,6 +416,7 @@ public sealed class CreateTaskCommandHandler
 
 Ask Copilot Chat:
 
+
 ```
 Create an API documentation section for #file:README.md that documents all the Task Manager API endpoints (POST, GET, GET by ID, PUT, DELETE). Include:
 - Endpoint URL
@@ -427,13 +430,14 @@ Format as Markdown
 
 **Expected Output** - Added to `README.md`:
 
-```markdown
+````markdown
+
 ## API Documentation
 
 ### Base URL
-```
+
 http://localhost:5000
-```
+
 
 ### Endpoints
 
@@ -449,44 +453,58 @@ Creates a new task with priority and optional due date.
   "description": "Write comprehensive API documentation",
   "priority": "High",
   "dueDate": "2025-10-30T17:00:00Z"
+---
+## API Documentation
+
+### Base URL
+
+`http://localhost:5000`
+
+### Endpoints
+
+#### 1. Create Task
+Creates a new task with priority and optional due date.
+
+**Endpoint**: `POST /tasks`
+
+**Request Body:**
+```json
+{
+    "title": "Complete project documentation",
+    "description": "Write comprehensive API documentation",
+    "priority": "High",
+    "dueDate": "2025-10-30T17:00:00Z"
 }
 ```
 
 **Success Response** (201 Created):
 ```json
 {
-  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "title": "Complete project documentation",
-  "description": "Write comprehensive API documentation",
-  "priority": "High",
-  "status": "Todo",
-  "dueDate": "2025-10-30T17:00:00Z",
-  "createdAt": "2025-10-20T10:30:00Z"
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "title": "Complete project documentation",
+    "description": "Write comprehensive API documentation",
+    "priority": "High",
+    "status": "Todo",
+    "dueDate": "2025-10-30T17:00:00Z",
+    "createdAt": "2025-10-20T10:30:00Z"
 }
 ```
 
 **Note**: The response uses `status` field (enum: Todo, InProgress, Done, Cancelled) rather than boolean `isCompleted`. See Lab 3 documentation for details.
 
-**Error Responses**:
+**Error Responses:**
+```json
+{
+    "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+    "title": "Bad Request",
+    "status": 400,
+    "detail": "Invalid priority name: SuperUrgent"
+}
+```
+Other possible errors:
 - `400 Bad Request` - Invalid priority or past due date
 - `500 Internal Server Error` - Server error
-
 ---
-
-#### 2. Get All Tasks
-Retrieves all tasks with optional filtering by task status.
-
-**Endpoint**: `GET /tasks?status={string}`
-
-**Query Parameters**:
-- `status` (optional): Filter by task status (Todo, InProgress, Done, or Cancelled)
-
-**Success Response** (200 OK):
-```json
-[
-  {
-    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    "title": "Complete project documentation",
     "priority": "High",
     "status": "InProgress",
     "createdAt": "2025-10-20T10:30:00Z"
@@ -497,14 +515,17 @@ Retrieves all tasks with optional filtering by task status.
 ---
 
 #### 3. Get Task by ID
+
 Retrieves a specific task by its unique identifier.
 
 **Endpoint**: `GET /tasks/{id}`
 
 **Path Parameters**:
+
 - `id` (required): Task unique identifier (GUID)
 
 **Success Response** (200 OK):
+
 ```json
 {
   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -518,16 +539,19 @@ Retrieves a specific task by its unique identifier.
 ```
 
 **Error Responses**:
+
 - `404 Not Found` - Task with specified ID does not exist
 
 ---
 
 #### 4. Update Task
+
 Updates an existing task's properties.
 
 **Endpoint**: `PUT /tasks/{id}`
 
 **Request Body**:
+
 ```json
 {
   "title": "Updated task title",
@@ -539,6 +563,7 @@ Updates an existing task's properties.
 ```
 
 **Success Response** (200 OK):
+
 ```json
 {
   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -552,12 +577,14 @@ Updates an existing task's properties.
 ```
 
 **Error Responses**:
+
 - `400 Bad Request` - Invalid data
 - `404 Not Found` - Task not found
 
 ---
 
 #### 5. Delete Task
+
 Permanently deletes a task.
 
 **Endpoint**: `DELETE /tasks/{id}`
@@ -565,35 +592,39 @@ Permanently deletes a task.
 **Success Response** (204 No Content)
 
 **Error Responses**:
+
 - `404 Not Found` - Task not found
 
 ---
 
 ### Priority Values
+
 Valid priority values for task creation and updates:
+
 - `Low` (0)
 - `Medium` (1)
 - `High` (2)
 - `Critical` (3)
 
+
 ### Error Response Format
-All error responses follow RFC 7807 Problem Details format:
+
+All error responses follow [RFC 7807 Problem Details](https://datatracker.ietf.org/doc/html/rfc7807) format:
 
 ```json
 {
-  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
-  "title": "Bad Request",
-  "status": 400,
-  "detail": "Invalid priority name: SuperUrgent"
+    "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+    "title": "Bad Request",
+    "status": 400,
+    "detail": "Invalid priority name: SuperUrgent"
 }
-```
 ```
 
 ### 2.3 Generate Architecture Documentation (ADR)
 
 Ask Copilot:
 
-```
+```text
 Create an Architecture Decision Record (ADR) in docs/adr/001-clean-architecture-choice.md documenting why we chose Clean Architecture for this Task Manager application. Include:
 - Context
 - Decision
@@ -622,13 +653,13 @@ git add tests/TaskManager.IntegrationTests/
 
 In Copilot Chat:
 
-```
+```text
 Write a Conventional Commit message for the staged changes. Include a concise subject line (<=72 chars) and a detailed body explaining what was added.
 ```
 
 **Expected Output**:
 
-```
+```text
 feat(api): add GET endpoints for task retrieval
 
 - Add GET /tasks endpoint with optional completed filter
@@ -669,13 +700,13 @@ git add tests/TaskManager.UnitTests/Legacy/
 
 Ask Copilot:
 
-```
+```text
 Write a Conventional Commit message for refactoring LegacyTaskProcessor. Include details about what was improved (async/await, guard clauses, logging, extracted methods).
 ```
 
 **Expected Output**:
 
-```
+```text
 refactor(legacy): modernize LegacyTaskProcessor with clean code principles
 
 - Convert synchronous methods to async/await pattern
@@ -690,6 +721,7 @@ Follows Object Calisthenics: one level of indentation per method.
 ```
 
 Commit:
+
 ```bash
 git commit -F- <<'EOF'
 refactor(legacy): modernize LegacyTaskProcessor with clean code principles
@@ -718,7 +750,7 @@ You've completed the workshop implementation. Create a comprehensive PR descript
 
 In Copilot Chat:
 
-```
+```text
 @workspace Draft a Pull Request description for all the changes made in this branch. Include:
 - Summary of changes
 - What was implemented (features, refactoring, tests)
@@ -785,7 +817,7 @@ This PR implements a complete CRUD API for task management following Clean Archi
 ## Intent & Motivation
 This implementation serves as a reference for:
 - AI-assisted development workflow with GitHub Copilot
-- Clean Architecture in .NET 8/9
+- Clean Architecture in .NET 9
 - TDD practices (Red-Green-Refactor)
 - DDD patterns in practice
 - Modern C# conventions and best practices
@@ -838,7 +870,7 @@ Closes #3 - Add comprehensive test coverage
 N/A - API only, no UI
 
 ## Deployment Notes
-- Requires .NET 8.0 SDK or higher
+- Requires .NET 9.0 SDK or higher
 - Uses in-memory data store (no database configuration needed)
 - Default port: 5000 (HTTP)
 
@@ -854,6 +886,7 @@ N/A - API only, no UI
 ### 4.2 Review and Refine
 
 Review the generated PR description and adjust:
+
 - Add specific issue numbers
 - Include actual test counts
 - Add screenshots if you created a UI
@@ -896,16 +929,18 @@ Review the generated PR description and adjust:
 ## Extension Exercises (If Time Permits)
 
 ### Exercise 1: Generate CHANGELOG.md
+
 Ask Copilot to generate a CHANGELOG.md file from your commit history:
 
-```
+```text
 Generate a CHANGELOG.md file based on the git commit history. Group by version, follow Keep a Changelog format.
 ```
 
 ### Exercise 2: Create Contributing Guidelines
+
 Generate CONTRIBUTING.md with guidelines for contributors:
 
-```
+```text
 Create a CONTRIBUTING.md file that explains:
 - How to set up the development environment
 - Coding conventions (reference .github/copilot-instructions.md)
@@ -915,9 +950,10 @@ Create a CONTRIBUTING.md file that explains:
 ```
 
 ### Exercise 3: API Client SDK Documentation
+
 Generate documentation for consuming the API:
 
-```
+```text
 Create a quick start guide in docs/guides/api-quickstart.md for developers consuming our Task Manager API. Include authentication (if applicable), endpoint examples, and common error handling patterns.
 ```
 
@@ -943,23 +979,27 @@ You've completed this lab successfully when:
 Congratulations! You've completed all four labs. You now know how to:
 
 ### ✅ Test-Driven Development (Lab 1)
+
 - Follow Red-Green-Refactor cycle
 - Use Copilot to generate tests before implementation
 - Apply Copilot Instructions for consistent code quality
 
 ### ✅ Requirements to Code (Lab 2)
+
 - Decompose user stories into backlog items
 - Generate acceptance criteria
 - Implement features using TDD
 - Maintain Clean Architecture across all layers
 
 ### ✅ Code Generation & Refactoring (Lab 3)
+
 - Generate complete API endpoints with context
 - Refactor legacy code with `/refactor`
 - Apply Object Calisthenics principles
 - Use Copilot Edits for multi-file changes
 
 ### ✅ Testing, Documentation & Workflow (Lab 4)
+
 - Generate comprehensive test coverage
 - Create clear documentation
 - Write meaningful commit messages
@@ -970,18 +1010,22 @@ Congratulations! You've completed all four labs. You now know how to:
 ## Troubleshooting
 
 ### /tests Generates Incomplete Tests
+
 **Problem**: Tests don't cover all edge cases  
 **Solution**: Be explicit: "/tests including edge cases, error handling, and cancellation"
 
 ### /doc Generates Generic Comments
+
 **Problem**: XML comments don't add value beyond method signature  
 **Solution**: Select more context (class + method), provide business context in prompt
 
 ### Commit Message Too Generic
+
 **Problem**: Copilot generates "Update files" type messages  
 **Solution**: Stage related changes only, provide context: "Write commit for adding GET endpoints"
 
 ### PR Description Missing Details
+
 **Problem**: PR description is too high-level  
 **Solution**: Use @workspace and be specific: "Include testing details, breaking changes, and reviewer checklist"
 
@@ -990,6 +1034,7 @@ Congratulations! You've completed all four labs. You now know how to:
 ## Next Steps Beyond Workshop
 
 ### Apply to Real Projects
+
 1. Add `.github/copilot-instructions.md` to your team's repositories
 2. Establish Conventional Commits standard
 3. Use `/tests` for all new code
@@ -997,12 +1042,14 @@ Congratulations! You've completed all four labs. You now know how to:
 5. Use `@workspace` in daily work
 
 ### Advanced Copilot Usage
+
 1. Custom instructions for team-specific patterns
 2. Copilot for Business with organization policies
 3. Fine-tuned models for domain-specific code
 4. Integration with CI/CD pipelines
 
 ### Continue Learning
+
 - Practice TDD with different features
 - Explore advanced DDD patterns
 - Learn OpenTelemetry for observability

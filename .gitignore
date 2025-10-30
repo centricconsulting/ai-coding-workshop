@@ -1,4 +1,4 @@
-# .NET Core / .NET 8
+# .NET Core / .NET 9
 bin/
 obj/
 *.dll
@@ -39,6 +39,9 @@ bld/
 *.suo
 *.userosscache
 *.sln.docstates
+
+# Microsoft Office temp files
+~$*
 
 # NuGet
 *.nupkg

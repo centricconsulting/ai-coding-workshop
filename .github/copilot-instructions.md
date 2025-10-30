@@ -3,7 +3,7 @@
 > These instructions are automatically applied to all GitHub Copilot suggestions in this repository.
 
 ## 0) Workshop Mode
-- Assume **.NET 8**, **xUnit**, **FakeItEasy**, **Minimal API**, **ILogger**, **async/await** everywhere.
+- Assume **.NET 9**, **xUnit**, **FakeItEasy**, **Minimal API**, **ILogger**, **async/await** everywhere.
 - Prefer **Clean Architecture** solution layout and **DDD** patterns.
 - Always generate examples and code in **English**.
 
@@ -34,9 +34,12 @@ Implementation guidance:
 
 ---
 
+
 ## 3) C# Coding Style (C#/.NET conventions)
 - File-scoped namespaces; one type per file; 4-space indent; `PascalCase` for types/members, `camelCase` for locals/parameters; constants ALL_CAPS.  
 - Prefer clarity over brevity; use `nameof` in exceptions; **make classes `sealed` by default** unless inheritance is intentional.
+
+See [.github/instructions/csharp.instructions.md](../.github/instructions/csharp.instructions.md) for full C#/.NET coding standards and best practices.
 
 ---
 

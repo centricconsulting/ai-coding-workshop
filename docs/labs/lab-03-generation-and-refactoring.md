@@ -1,7 +1,32 @@
+---
+
+## 📝 Plan First with Agents: Safer, Smarter Refactoring
+
+Before making major changes, try using Copilot (in Agent Mode) to generate a plan first. This helps you:
+- Understand the scope and impact of your changes
+- Catch misunderstandings or missing steps early
+- Collaborate and iterate on the approach before any code is changed
+
+**How to try it:**
+- In Copilot Chat (Agent Mode), ask: "Propose a step-by-step plan to refactor LegacyTaskProcessor to use async/await, add logging, and follow Object Calisthenics."
+- Review the plan. Edit or reorder steps as needed.
+- Only then, ask Copilot (or a custom agent like `@engineer`) to implement the plan, one step at a time or all at once.
+
+**Custom Agents Demo:**
+- Use `@planner` to generate/refine the plan
+- Use `@engineer` to execute the approved plan
+
+**Reflection:**
+- Did planning first catch any issues you would have missed?
+- Was the implementation smoother or more predictable?
+
+**Facilitator Tip:**
+Model this workflow live, and encourage participants to always ask for a plan before executing large or multi-file changes.
 # Lab 3: Code Generation & Refactoring with GitHub Copilot
 
 **Duration**: 45 minutes  
 **Learning Objectives**:
+
 - Generate complete API endpoints using Copilot and context variables
 - Refactor legacy code using `/refactor` command and Inline Chat
 - Apply Object Calisthenics principles with AI assistance
@@ -14,11 +39,30 @@
 
 In this lab, you'll work with both new and existing code:
 
-**Part 1**: Generate new API endpoints efficiently using Copilot's context awareness
-**Part 2**: Refactor legacy code (`LegacyTaskProcessor`) to modern standards
-**Part 3**: Apply advanced refactoring patterns (Object Calisthenics)
+- **Part 1**: Generate new API endpoints efficiently using Copilot's context awareness
+- **Part 2**: Refactor legacy code (`LegacyTaskProcessor`) to modern standards
+- **Part 3**: Apply advanced refactoring patterns (Object Calisthenics)
 
-This simulates real-world scenarios: greenfield development alongside legacy modernization.
+
+---
+
+## 🚀 Agent Mode Challenge: Go Beyond Ask/Edit
+
+For this lab, try using **Agent Mode** for at least one major task (such as refactoring `LegacyTaskProcessor` or generating all CRUD endpoints at once). Agent Mode lets Copilot plan and execute multi-step, multi-file changes, and can invoke advanced tools (like MCP evaluation or tracing) automatically.
+
+**How to try it:**
+- Switch Copilot Chat to "Agent" mode (dropdown in chat panel)
+- Describe your goal in natural language (e.g., "Refactor LegacyTaskProcessor to use async/await, add logging, and follow Object Calisthenics")
+- Review the plan and results, iterate as needed
+- For advanced users: reference MCP tools directly (e.g., "Evaluate my API endpoints using aitk-evaluation_planner")
+
+**Compare:**
+- What did Agent Mode do differently than Ask/Edit?
+- Did it propose a plan, use multiple tools, or make changes across files?
+- Was the result more complete or did it need more review?
+
+**Facilitator Tip:**
+Encourage participants to share their Agent Mode results and discuss when this approach is most effective.
 
 ---
 
@@ -41,11 +85,12 @@ You have the POST /tasks endpoint from Lab 2. Now complete the REST API with GET
 
 Before generating new code, understand what exists:
 
-```
+```text
 @workspace Show me the API endpoint structure. Where are endpoints defined and how are they organized?
 ```
 
 Copilot should identify:
+
 - `src/TaskManager.Api/Extensions/EndpointExtensions.cs` - Endpoint definitions
 - Minimal API pattern with extension methods
 - Existing POST /tasks endpoint
@@ -57,7 +102,7 @@ Copilot should identify:
 
 Ask Copilot Chat:
 
-```
+```text
 Create a GetTasksQuery handler in the Application layer following CQRS pattern. 
 It should:
 - Return all tasks from ITaskRepository
@@ -67,6 +112,7 @@ Include unit tests using xUnit and FakeItEasy
 ```
 
 **Expected Output**:
+
 - `src/TaskManager.Application/Queries/GetTasksQuery.cs`
 - `src/TaskManager.Application/Queries/GetTasksQueryHandler.cs`
 - `tests/TaskManager.UnitTests/Application/Queries/GetTasksQueryHandlerTests.cs`
@@ -77,7 +123,7 @@ Include unit tests using xUnit and FakeItEasy
 
 Use `#file` context variable:
 
-```
+```text
 Add a GET /tasks endpoint in #file:src/TaskManager.Api/Extensions/EndpointExtensions.cs that:
 - Accepts optional query parameter: status (string: "Todo", "InProgress", or "Done")
 - Calls GetTasksQueryHandler
@@ -142,7 +188,7 @@ public static void MapTaskEndpoints(this IEndpointRouteBuilder app)
 
 Ask Copilot:
 
-```
+```text
 Create a GetTaskByIdQuery handler in Application layer that:
 - Accepts a Guid taskId
 - Returns single task from repository or null
@@ -163,7 +209,7 @@ Use Inline Chat (`Ctrl+I` / `Cmd+I`):
 3. Press `Ctrl+I` / `Cmd+I`
 4. Enter:
 
-```
+```text
 Add PUT /tasks/{id} endpoint that:
 - Accepts UpdateTaskRequest (title, description, priority, dueDate)
 - Creates UpdateTaskCommand
@@ -176,7 +222,7 @@ Include command handler in Application layer with tests
 
 Ask Copilot Chat:
 
-```
+```text
 Create DeleteTaskCommand and handler that:
 - Accepts taskId
 - Removes task from repository
@@ -231,7 +277,7 @@ The repository contains `LegacyTaskProcessor.ProcessTask` - poorly written code 
 
 Use `@workspace`:
 
-```
+```text
 @workspace Find the LegacyTaskProcessor class
 ```
 
@@ -246,6 +292,7 @@ Use `/explain` on the problematic method:
 3. Use Inline Chat (`Ctrl+I` or `Cmd+I`): `/explain`
 
 Copilot should identify issues:
+
 - ❌ Nested if statements (6+ indentation levels)
 - ❌ Synchronous blocking code (`Thread.Sleep`)
 - ❌ Poor error handling (exceptions swallowed with empty catch)
@@ -261,7 +308,7 @@ Copilot should identify issues:
 
 Select the entire `ProcessTask` method and use Copilot Chat:
 
-```
+```text
 /refactor this method to follow Clean Code principles:
 1. Use guard clauses (fail fast, no nested ifs)
 2. Convert to async/await
@@ -277,6 +324,7 @@ Follow .github/copilot-instructions.md conventions and make the class sealed
 ```
 
 **Expected Improvements**:
+
 - Strongly-typed `ProcessingType` enum instead of `int type`
 - Guard clauses for null/empty input (fail fast)
 - Private helper methods: `ProcessFormatting()`, `ProcessCapitalization()`, `TruncateIfNeeded()`
@@ -382,11 +430,12 @@ private async Task ExecuteTaskProcessingAsync(
 
 Select the refactored method and use `/tests`:
 
-```
+```text
 /tests
 ```
 
 Verify generated tests cover:
+
 - ✅ Null input throws ArgumentNullException
 - ✅ Empty collection returns empty result
 - ✅ Valid tasks are processed successfully
@@ -395,6 +444,7 @@ Verify generated tests cover:
 - ✅ Result contains correct success/failure counts
 
 Run tests:
+
 ```bash
 dotnet test
 ```
@@ -411,11 +461,12 @@ Apply Object Calisthenics rules from `.github/copilot-instructions.md` Section 7
 
 Ask Copilot:
 
-```
+```text
 What are the Object Calisthenics rules from #file:.github/copilot-instructions.md?
 ```
 
 Key rules:
+
 1. Only one level of indentation per method
 2. Don't use 'else' keyword (guard clauses)
 3. Wrap all primitives and strings
@@ -432,11 +483,12 @@ Find places where primitive types are used directly for domain concepts.
 
 Ask Copilot:
 
-```
+```text
 Review the TaskItem class. Are there primitive types that should be wrapped in value objects following DDD patterns? For example, should task status be an enum or value object instead of a string?
 ```
 
 **Before**:
+
 ```csharp
 public class TaskItem
 {
@@ -447,6 +499,7 @@ public class TaskItem
 ```
 
 **After** (with Copilot assistance):
+
 ```csharp
 public sealed class TaskItem
 {
@@ -462,11 +515,12 @@ Find collections that are exposed directly and wrap them.
 
 Ask Copilot:
 
-```
+```text
 If we have a class with a List<Task> property, how should we wrap it following Object Calisthenics and DDD patterns?
 ```
 
 **Before**:
+
 ```csharp
 public class TaskList
 {
@@ -475,6 +529,7 @@ public class TaskList
 ```
 
 **After**:
+
 ```csharp
 public sealed class TaskCollection
 {
@@ -511,6 +566,7 @@ Use Inline Chat to expand abbreviated names:
 3. Inline Chat: "Expand all abbreviated variable names to be fully descriptive"
 
 **Before**:
+
 ```csharp
 var res = await _repo.GetAsync(id);
 if (res != null)
@@ -521,6 +577,7 @@ if (res != null)
 ```
 
 **After**:
+
 ```csharp
 var result = await _repository.GetAsync(id);
 if (result != null)
@@ -547,6 +604,7 @@ Use Copilot Edits for cross-cutting changes.
 ### 4.2 Add Files to Working Set
 
 Add related files:
+
 - `src/TaskManager.Domain/Entities/Task.cs`
 - `src/TaskManager.Application/Commands/CreateTaskCommand.cs`
 - `src/TaskManager.Application/Commands/CreateTaskCommandHandler.cs`
@@ -556,7 +614,7 @@ Add related files:
 
 In the Copilot Edits panel:
 
-```
+```text
 Rename the "Title" property to "Name" across all files in the working set. Update:
 - Entity property
 - Command property
@@ -568,6 +626,7 @@ Ensure consistency across the entire codebase
 ### 4.4 Review Proposed Changes
 
 Copilot will show:
+
 - All files that will be modified
 - Exact changes in each file
 - Side-by-side diff view
@@ -617,18 +676,22 @@ Copilot will show:
 ## Extension Exercises (If Time Permits)
 
 ### Exercise 1: Add Pagination
+
 Refactor GET /tasks to support pagination (page, pageSize query parameters).
 Use Copilot to:
+
 1. Add pagination to repository
 2. Update query handler
 3. Modify endpoint
 4. Update tests
 
 ### Exercise 2: Add Sorting
+
 Add sorting support to GET /tasks (sortBy, sortOrder parameters).
 Valid sort fields: title, priority, dueDate, createdAt
 
 ### Exercise 3: Extract API Response Builder
+
 Create a dedicated class for building TaskResponse from Task entity.
 Use Copilot Edits to update all endpoints to use the builder.
 
@@ -653,18 +716,22 @@ You've completed this lab successfully when:
 ## Troubleshooting
 
 ### Copilot Generates Inconsistent Patterns
+
 **Problem**: New endpoints don't match existing style  
 **Solution**: Use `#file` to reference existing endpoint file, explicitly state "Follow the existing pattern"
 
 ### Refactoring Breaks Tests
+
 **Problem**: Tests fail after refactoring  
 **Solution**: This is OK! Update tests to match new behavior. Use `/tests` to regenerate tests.
 
 ### Too Many Changes at Once
+
 **Problem**: Copilot suggests massive refactoring  
 **Solution**: Break into smaller steps. Refactor one method at a time. Run tests after each change.
 
 ### Multi-File Edit Misses Files
+
 **Problem**: Copilot Edits doesn't update all references  
 **Solution**: Use VS Code's built-in "Rename Symbol" (F2) for simple renames. Use Copilot Edits for semantic changes.
 
@@ -672,7 +739,8 @@ You've completed this lab successfully when:
 
 ## Next Steps
 
-Move on to **Lab 4: Testing, Documentation & Workflow** where you'll:
+Move on to [**Lab 4: Testing, Documentation & Workflow**](lab-04-testing-documentation-workflow.md) where you'll:
+
 - Generate comprehensive test suites with `/tests`
 - Create documentation with `/doc`
 - Write Conventional Commit messages

@@ -1,0 +1,148 @@
+@baseUrl = http://localhost:5215
+
+### POST /tasks - Valid (all fields, High priority, future due date)
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+  "Title": "Plan workshop agenda",
+  "Description": "Draft the full workshop outline and timings.",
+  "Priority": "High",
+  "DueDate": "2099-01-15T09:00:00Z"
+}
+
+### POST /tasks - Valid (required fields only, Low priority)
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+  "Title": "Set up Slack channel",
+  "Priority": "Low"
+}
+
+### POST /tasks - Valid (Medium priority)
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+  "Title": "Prepare sample data",
+  "Priority": "Medium"
+}
+
+### POST /tasks - Valid (High priority)
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+  "Title": "Confirm speaker lineup",
+  "Priority": "High"
+}
+
+### POST /tasks - Valid (Low priority)
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+  "Title": "Archive previous session notes",
+  "Priority": "Low"
+}
+
+### POST /tasks - Invalid (priority not allowed)
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+Accept: application/problem+json
+
+{
+  "Title": "Escalated task",
+  "Priority": "SuperUrgent"
+}
+
+### POST /tasks - Invalid (missing title)
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+Accept: application/problem+json
+
+{
+  "Priority": "Medium"
+}
+
+### POST /tasks - Invalid (empty title)
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+Accept: application/problem+json
+
+{
+  "Title": "",
+  "Priority": "Medium"
+}
+
+### POST /tasks - Invalid (whitespace title)
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+Accept: application/problem+json
+
+{
+  "Title": "   ",
+  "Priority": "Medium"
+}
+
+### POST /tasks - Invalid (past due date)
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+Accept: application/problem+json
+
+{
+  "Title": "Backfill metrics",
+  "Priority": "High",
+  "DueDate": "2000-01-01T00:00:00Z"
+}
+
+### POST /tasks - Valid (future due date)
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+  "Title": "Publish recap blog",
+  "Priority": "Medium",
+  "DueDate": "2099-12-31T23:59:59Z"
+}
+
+### POST /tasks - Valid (optional: null description, with due date)
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+  "Title": "Book venue",
+  "Description": null,
+  "Priority": "High",
+  "DueDate": "2099-06-01T10:00:00Z"
+}
+
+### POST /tasks - Valid (optional: description provided, null due date)
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+  "Title": "Order catering",
+  "Description": "Vegetarian and gluten-free options included.",
+  "Priority": "Medium",
+  "DueDate": null
+}
+
+### POST /tasks - Valid (optional: omit description and due date entirely)
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+  "Title": "Create attendee list",
+  "Priority": "Low"
+}

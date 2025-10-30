@@ -1,3 +1,4 @@
+using TaskManager.Application.Commands;
 using TaskManager.Application.Services;
 using TaskManager.Domain.Repositories;
 using TaskManager.Infrastructure.Repositories;
@@ -19,6 +20,19 @@ public static class ServiceExtensions
         
         // Register application services
         services.AddScoped<TaskService>();
+        
+        // Register command handlers
+        services.AddScoped<CreateTaskCommandHandler>();
+        
+        // Add Problem Details with proper content type
+        services.AddProblemDetails(options =>
+        {
+            options.CustomizeProblemDetails = context =>
+            {
+                // Ensure ProblemDetails uses application/problem+json content type
+                context.HttpContext.Response.ContentType = "application/problem+json";
+            };
+        });
         
         // TODO: Lab 3 - Add any additional services Copilot generates
         

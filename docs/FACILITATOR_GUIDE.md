@@ -14,7 +14,6 @@
 
 This document provides a detailed facilitator’s guide for running the 3-hour workshop.
 
----
 
 ## 0. Kickoff & Setup (0:00 – 0:15, 15 min)
 
@@ -23,6 +22,8 @@ This document provides a detailed facilitator’s guide for running the 3-hour w
 - Welcome participants, introduce goals: *"We'll learn how to use AI (Copilot) to help with requirements, code, tests, docs, and workflow in .NET projects."*
 - Explain **Copilot Instructions** concept and `.github/copilot-instructions.md` approach.
 - Quick demo: show that the repository already has instructions configured automatically.
+
+- Present the **[Workshop Presentation Deck](../presentations/using-ai-for-application-development-with-github-copilot-dotnet-edition.pptx)** to guide the session and provide visual context.
 
 **Participants do**:
 

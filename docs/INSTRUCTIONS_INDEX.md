@@ -8,6 +8,8 @@ Welcome! This page links to all key instructions, standards, and guides for this
 - [README.md](../README.md): Workshop overview, setup, and key links
 - [Pre-Workshop Checklist](PRE_WORKSHOP_CHECKLIST.md): Environment and tool setup
 
+- [Presentation Deck](presentations/using-ai-for-application-development-with-github-copilot-dotnet-edition.pptx): Workshop slides
+
 ## 🤖 AI & Copilot
 - [.github/copilot-instructions.md](../.github/copilot-instructions.md): Copilot and AI usage rules, TDD, Clean Architecture, DDD, testing, and commit standards
 - [Facilitator Guide](FACILITATOR_GUIDE.md): Workshop flow, demos, and facilitation tips

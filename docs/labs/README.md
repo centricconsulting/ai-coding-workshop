@@ -2,7 +2,6 @@
 
 This directory contains detailed, step-by-step walkthroughs for all workshop labs.
 
----
 
 ## 📚 Lab Structure
 
@@ -15,6 +14,10 @@ Each lab is designed as a standalone guide with:
 - **Extension exercises**
 - **Success criteria**
 
+
+## 📽️ Workshop Presentation
+
+The official **[Workshop Presentation Deck](../presentations/using-ai-for-application-development-with-github-copilot-dotnet-edition.pptx)** is available for facilitators and participants. Use it for session flow, visual aids, and reference throughout the labs.
 ---
 
 ## 🎯 Labs Overview

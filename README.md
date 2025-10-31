@@ -127,6 +127,10 @@ By the end of this workshop, participants will be able to:
 - **[Facilitator's Guide](docs/FACILITATOR_GUIDE.md)**: Detailed timing and talking points for instructors
 - **[Lab Walkthroughs](docs/labs/README.md)**: Step-by-step guides for all four labs with expected outputs and troubleshooting
 
+### Presentation Deck
+
+- **[Workshop Presentation Deck (PPTX)](docs/presentations/using-ai-for-application-development-with-github-copilot-dotnet-edition.pptx)**: Slides used for workshop facilitation and participant reference
+
 
 ### Lab Guides 📚
 

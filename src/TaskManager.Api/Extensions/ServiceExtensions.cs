@@ -2,6 +2,7 @@ using TaskManager.Application.Commands;
 using TaskManager.Application.Queries;
 using TaskManager.Application.Services;
 using TaskManager.Domain.Repositories;
+using TaskManager.Infrastructure.Legacy;
 using TaskManager.Infrastructure.Repositories;
 
 namespace TaskManager.Api.Extensions;
@@ -29,6 +30,10 @@ public static class ServiceExtensions
         
         // Register query handlers
         services.AddScoped<GetTasksQueryHandler>();
+        
+        // Register infrastructure services
+        services.AddScoped<ITaskOutputWriter, FileTaskOutputWriter>();
+        services.AddScoped<LegacyTaskProcessor>();
         
         // Add Problem Details with proper content type
         services.AddProblemDetails(options =>

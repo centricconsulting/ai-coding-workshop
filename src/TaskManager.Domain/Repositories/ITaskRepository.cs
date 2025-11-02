@@ -19,4 +19,6 @@ public interface ITaskRepository
     System.Threading.Tasks.Task AddTaskAsync(DomainTask task, CancellationToken cancellationToken = default);
     
     System.Threading.Tasks.Task SaveChangesAsync(DomainTask task, CancellationToken cancellationToken = default);
+    
+    System.Threading.Tasks.Task<bool> RemoveTaskAsync(TaskId taskId, CancellationToken cancellationToken = default);
 }

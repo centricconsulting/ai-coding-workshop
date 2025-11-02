@@ -1,5 +1,131 @@
 @baseUrl = http://localhost:5215
 
+### GET /tasks - Get all tasks (no filter)
+GET {{baseUrl}}/tasks
+Accept: application/json
+
+### GET /tasks - Filter by Todo status
+GET {{baseUrl}}/tasks?status=Todo
+Accept: application/json
+
+### GET /tasks - Filter by InProgress status
+GET {{baseUrl}}/tasks?status=InProgress
+Accept: application/json
+
+### GET /tasks - Filter by Done status
+GET {{baseUrl}}/tasks?status=Done
+Accept: application/json
+
+### GET /tasks - Filter by Cancelled status
+GET {{baseUrl}}/tasks?status=Cancelled
+Accept: application/json
+
+### GET /tasks - Invalid status (should return 400)
+GET {{baseUrl}}/tasks?status=InvalidStatus
+Accept: application/problem+json
+
+### PUT /tasks/{id} - Update existing task (all fields)
+# First create a task with POST, then copy its ID to update it
+# Replace {task-id} with the actual ID from a created task
+PUT {{baseUrl}}/tasks/{task-id}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "Title": "Updated Task Title",
+  "Description": "This task has been updated with new details.",
+  "Priority": "Critical",
+  "DueDate": "2099-12-31T23:59:59Z"
+}
+
+### PUT /tasks/{id} - Update task (change priority only)
+PUT {{baseUrl}}/tasks/{task-id}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "Title": "Keep Same Title",
+  "Description": "Keep same description",
+  "Priority": "Low",
+  "DueDate": null
+}
+
+### PUT /tasks/{id} - Invalid priority (should return 400)
+PUT {{baseUrl}}/tasks/{task-id}
+Content-Type: application/json
+Accept: application/problem+json
+
+{
+  "Title": "Test Task",
+  "Description": "Testing invalid priority",
+  "Priority": "InvalidPriority",
+  "DueDate": null
+}
+
+### PUT /tasks/{id} - Past due date (should return 400)
+PUT {{baseUrl}}/tasks/{task-id}
+Content-Type: application/json
+Accept: application/problem+json
+
+{
+  "Title": "Test Task",
+  "Description": "Testing past due date",
+  "Priority": "High",
+  "DueDate": "2020-01-01T00:00:00Z"
+}
+
+### PUT /tasks/{id} - Task not found (should return 404)
+PUT {{baseUrl}}/tasks/00000000-0000-0000-0000-000000000000
+Content-Type: application/json
+Accept: application/problem+json
+
+{
+  "Title": "Non-existent Task",
+  "Description": "This task ID does not exist",
+  "Priority": "Medium",
+  "DueDate": null
+}
+
+### PUT /tasks/{id} - Missing required field (should return 400)
+PUT {{baseUrl}}/tasks/{task-id}
+Content-Type: application/json
+Accept: application/problem+json
+
+{
+  "Description": "Missing title field",
+  "Priority": "Medium",
+  "DueDate": null
+}
+
+### DELETE /tasks/{id} - Delete existing task (should return 204)
+# First create a task with POST, then copy its ID to delete it
+# Replace {task-id} with the actual ID from a created task
+DELETE {{baseUrl}}/tasks/{task-id}
+Accept: application/json
+
+### DELETE /tasks/{id} - Delete non-existent task (should return 404)
+DELETE {{baseUrl}}/tasks/00000000-0000-0000-0000-000000000000
+Accept: application/problem+json
+
+### DELETE /tasks/{id} - Delete and verify removed
+# Step 1: Create a task
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+  "Title": "Task to Delete",
+  "Description": "This task will be deleted",
+  "Priority": "Low",
+  "DueDate": null
+}
+
+# Step 2: Copy the ID from response and paste below, then delete it
+DELETE {{baseUrl}}/tasks/{task-id-from-step-1}
+
+# Step 3: Try to GET the deleted task (should return 404 or empty)
+GET {{baseUrl}}/tasks/{task-id-from-step-1}
+Accept: application/problem+json
+
 ### POST /tasks - Valid (all fields, High priority, future due date)
 POST {{baseUrl}}/tasks
 Content-Type: application/json

@@ -36,4 +36,10 @@ public sealed class InMemoryTaskRepository : ITaskRepository
         _tasks[task.Id] = task;
         return System.Threading.Tasks.Task.CompletedTask;
     }
+
+    public System.Threading.Tasks.Task<bool> RemoveTaskAsync(TaskId taskId, CancellationToken cancellationToken = default)
+    {
+        var removed = _tasks.Remove(taskId);
+        return System.Threading.Tasks.Task.FromResult(removed);
+    }
 }

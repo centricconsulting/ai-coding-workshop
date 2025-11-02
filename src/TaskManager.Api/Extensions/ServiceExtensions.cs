@@ -1,4 +1,5 @@
 using TaskManager.Application.Commands;
+using TaskManager.Application.Queries;
 using TaskManager.Application.Services;
 using TaskManager.Domain.Repositories;
 using TaskManager.Infrastructure.Repositories;
@@ -23,6 +24,11 @@ public static class ServiceExtensions
         
         // Register command handlers
         services.AddScoped<CreateTaskCommandHandler>();
+        services.AddScoped<UpdateTaskCommandHandler>();
+        services.AddScoped<DeleteTaskCommandHandler>();
+        
+        // Register query handlers
+        services.AddScoped<GetTasksQueryHandler>();
         
         // Add Problem Details with proper content type
         services.AddProblemDetails(options =>

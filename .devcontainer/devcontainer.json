@@ -29,7 +29,8 @@
                 "GitHub.copilot",
                 "GitHub.copilot-chat",
                 "humao.rest-client",
-                "ms-dotnettools.csdevkit"
+                "ms-dotnettools.csdevkit",
+                "bierner.markdown-mermaid"
             ]
         }
     }

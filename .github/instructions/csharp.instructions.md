@@ -1,3 +1,8 @@
+---
+applyTo: '**/*.cs'
+description: C# and .NET coding standards, naming conventions, and architectural patterns
+---
+
 # C#/.NET Coding Standards and Best Practices
 
 This document defines the C# and .NET conventions, patterns, and best practices for this repository. All contributors should follow these guidelines for consistency and maintainability.

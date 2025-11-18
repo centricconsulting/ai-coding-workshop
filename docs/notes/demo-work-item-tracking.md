@@ -51,10 +51,36 @@ This document tracks the parallel work for the internal Centric demo, where we s
 ## Demo Workflow
 
 ### 1. Planning Phase (Agent Mode)
-- Use agent to fetch GitHub issue #12
-- Generate step-by-step implementation plan
-- Review and refine plan with team
-- Assign tasks to parallel tracks
+
+**Step 1: Fetch the GitHub Issue**
+```
+Use GitHub Copilot Agent Mode or Chat:
+"Fetch GitHub issue #12 from centricconsulting/ai-coding-workshop and summarize the work required"
+```
+
+Expected AI actions:
+- Calls GitHub API to retrieve issue details
+- Parses acceptance criteria (code changes vs. infrastructure changes)
+- Identifies assignees (@shawnewallace, @mcollier)
+- Extracts technical requirements and implementation phases
+
+**Step 2: Generate Implementation Plan**
+```
+"Based on issue #12, create a detailed step-by-step implementation plan for the C# code track.
+Follow the Copilot instructions in .github/copilot-instructions.md for Clean Architecture and TDD."
+```
+
+Expected AI output:
+- Phased approach (Setup → Repository → Testing → Infrastructure)
+- Specific files to create/modify
+- Test-first approach for each component
+- Configuration and DI changes
+
+**Step 3: Review and Refine**
+- Review generated plan with team
+- Adjust for demo timing and scope
+- Assign tasks to parallel tracks (code vs. infrastructure)
+- Create feature branches
 
 ### 2. Development Phase (Parallel Work)
 - Shawn: Create feature branch and implement C# changes

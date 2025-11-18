@@ -135,7 +135,7 @@
 ### Demo Preparation - Shawn
 - [x] Create `demo/coi` branch
 - [x] Create GitHub issue #12 for Cosmos DB upgrade
-- [ ] Add front matter to instruction files
+- [x] Add front matter to instruction files
 - [ ] Install VS Code Insiders and test plan mode
 - [ ] Run through dry run of planning process
 - [ ] Share summary with Piyush and Steve in group chat

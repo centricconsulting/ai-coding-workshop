@@ -6,6 +6,10 @@
     "features": {
         "ghcr.io/devcontainers/features/github-cli": {
             "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/azure-cli": {
+            "version": "latest",
+            "installBicep": true
         }
     },
     // "hostRequirements": {
@@ -30,7 +34,9 @@
                 "GitHub.copilot-chat",
                 "humao.rest-client",
                 "ms-dotnettools.csdevkit",
-                "bierner.markdown-mermaid"
+                "bierner.markdown-mermaid",
+                "ms-azuretools.vscode-bicep",
+                "ms-azuretools.vscode-azure-github-copilot"
             ]
         }
     }

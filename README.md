@@ -1,17 +1,22 @@
-## Best Practices for Using Copilot & Agents
-
-To get the most out of Copilot and AI agents in this workshop:
-
-- **Always ask for a plan first**: Use Copilot or Agent Mode to propose a step-by-step plan before making large or multi-file changes.
-- **Use /check for code review**: Run `/check` in Copilot Chat to get improvement suggestions before submitting a PR.
-- **Leverage chat participants**: Use `@workspace` for codebase questions, `@terminal` for CLI help, and `@vscode` for editor tips.
-- **Be explicit in prompts**: Reference files, selections, or context variables (e.g., `#file`, `#selection`) for targeted results.
-- **Review and iterate**: Treat Copilot suggestions as a starting point—review, refactor, and test as you would with any code.
-
-See the [Facilitator Guide](docs/FACILITATOR_GUIDE.md) and `.github/chatmodes/Check.chatmode.md` for more workflow tips.
 # Workshop: Using AI for Application Development with GitHub Copilot (.NET Edition)
 
-This repository contains materials for a 3-hour workshop. Participants will use **Visual Studio Code**, **.NET 9**, and **GitHub Copilot** to experience how AI can support application development with modern practices including Clean Architecture and OpenTelemetry observability.
+## Overview
+
+Transform the way you build software with AI-powered development! This hands-on workshop teaches developers how to leverage **GitHub Copilot** and modern AI coding assistants to accelerate application development while maintaining high code quality standards.
+
+In this 3-hour interactive session, you'll learn to harness AI assistance across the entire development lifecycle—from requirements gathering to code generation, testing, and documentation. Using **.NET 9**, **Visual Studio Code**, and **GitHub Copilot**, you'll experience firsthand how AI can amplify developer productivity while following industry best practices like **Clean Architecture**, **Domain-Driven Design**, and **Test-Driven Development**.
+
+**What makes this workshop unique:**
+- **Practical, hands-on labs** with real-world scenarios, not just demos
+- **Enterprise-grade patterns** including Clean Architecture and DDD
+- **TDD-first approach** with AI generating tests before implementation  
+- **Pre-configured dev environment** via VS Code Dev Containers—no setup hassles
+- **Repository-level Copilot instructions** demonstrating team-wide AI consistency
+- **Modern .NET 9** with Minimal APIs and OpenTelemetry observability
+
+Whether you're new to AI-assisted development or looking to level up your Copilot skills, this workshop provides the practical experience and best practices you need to integrate AI into your daily workflow effectively.
+
+This repository contains all workshop materials including lab guides, starter code, reference implementations, and facilitator resources.
 
 
 
@@ -132,7 +137,7 @@ By the end of this workshop, participants will be able to:
 - **[Workshop Presentation Deck (PPTX)](docs/presentations/using-ai-for-application-development-with-github-copilot-dotnet-edition.pptx)**: Slides used for workshop facilitation and participant reference
 
 
-### Lab Guides 📚
+### Lab Guides
 
 Comprehensive walkthroughs available in [`docs/labs/`](docs/labs/):
 
@@ -143,12 +148,12 @@ Comprehensive walkthroughs available in [`docs/labs/`](docs/labs/):
 
 Each lab includes:
 
-- ✅ Clear learning objectives and prerequisites
-- ✅ Step-by-step instructions with prompts
-- ✅ Expected code outputs and examples
-- ✅ Troubleshooting guidance
-- ✅ Extension exercises for advanced participants
-- ✅ Success criteria checklist
+- Clear learning objectives and prerequisites
+- Step-by-step instructions with prompts
+- Expected code outputs and examples
+- Troubleshooting guidance
+- Extension exercises for advanced participants
+- Success criteria checklist
 
 
 ### Starter Solution Structure
@@ -160,7 +165,7 @@ The `main` branch contains:
 - **Legacy Code Sample**: `LegacyTaskProcessor` for refactoring exercises
 - **Test Infrastructure**: xUnit test stubs with FakeItEasy ready for implementation
 
-### Reference Implementation 🔍
+### Reference Implementation
 
 **Stuck or need examples?** A complete reference implementation with all labs solved is available in the `test-lab-walkthrough` branch:
 
@@ -170,11 +175,11 @@ git checkout test-lab-walkthrough
 
 This branch contains:
 
-- ✅ All 4 labs fully implemented
-- ✅ NotificationService with complete test suite (Lab 1)
-- ✅ CreateTaskCommandHandler with CQRS pattern (Lab 2)
-- ✅ Full CRUD API endpoints and refactored legacy code (Lab 3)
-- ✅ Comprehensive unit and integration tests (Lab 4)
+- All 4 labs fully implemented
+- NotificationService with complete test suite (Lab 1)
+- CreateTaskCommandHandler with CQRS pattern (Lab 2)
+- Full CRUD API endpoints and refactored legacy code (Lab 3)
+- Comprehensive unit and integration tests (Lab 4)
 
 **Use this branch to:**
 
@@ -221,3 +226,17 @@ This branch contains:
    ```
 
 5. **Ready to start!** Follow along with your facilitator or work through the labs independently
+
+---
+
+## Best Practices for Using Copilot & Agents
+
+To get the most out of Copilot and AI agents in this workshop:
+
+- **Always ask for a plan first**: Use Copilot or Agent Mode to propose a step-by-step plan before making large or multi-file changes.
+- **Use /check for code review**: Run `/check` in Copilot Chat to get improvement suggestions before submitting a PR.
+- **Leverage chat participants**: Use `@workspace` for codebase questions, `@terminal` for CLI help, and `@vscode` for editor tips.
+- **Be explicit in prompts**: Reference files, selections, or context variables (e.g., `#file`, `#selection`) for targeted results.
+- **Review and iterate**: Treat Copilot suggestions as a starting point—review, refactor, and test as you would with any code.
+
+See the [Facilitator Guide](docs/FACILITATOR_GUIDE.md) and `.github/chatmodes/Check.chatmode.md` for more workflow tips.

@@ -1,10 +1,10 @@
 ---
-name: "Architect"
+name: "architect"
 description: 'Architect or technical leader mode. Limited to Markdown files only.'
 tools: ['codebase', 'editFiles', 'fetch', 'findTestFiles', 'search', 'mcp_github_create_issue', 'mcp_github_get_issue', 'mcp_github_list_issues', 'mcp_github_update_issue', 'mcp_github_add_issue_comment', 'mcp_github_add_sub_issue', 'mcp_github_remove_sub_issue', 'mcp_github_reprioritize_sub_issue']
 handoffs:
   - label: Get Expert .NET Review
-    agent: Expert .NET Software Engineer
+    agent: expert-dotnet-software-engineer
     prompt: Review the architectural decisions above from a .NET best practices perspective.
     send: false
   - label: Start Implementation

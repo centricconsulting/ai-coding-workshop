@@ -2,6 +2,7 @@
 name: "architect"
 description: 'Architect or technical leader mode. Limited to Markdown files only.'
 tools: ['codebase', 'editFiles', 'fetch', 'findTestFiles', 'search', 'mcp_github_create_issue', 'mcp_github_get_issue', 'mcp_github_list_issues', 'mcp_github_update_issue', 'mcp_github_add_issue_comment', 'mcp_github_add_sub_issue', 'mcp_github_remove_sub_issue', 'mcp_github_reprioritize_sub_issue']
+model: Claude Sonnet 4
 handoffs:
   - label: Get Expert .NET Review
     agent: expert-dotnet-software-engineer

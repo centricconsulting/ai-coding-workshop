@@ -156,7 +156,7 @@ sequenceDiagram
 ## 7. References
 
 - [Copilot Instructions](../WORKSHOP-COPILOT-INSTRUCTIONS.md)
-- [Chatmode Guide](../../.github/chatmodes/architect.chatmode.md)
+- [Architect Copilot Agent Guide](../../.github/agents/architect.agent.md)
 - [Presentation Outline](../presentations/workshop_slide_outline.md)
 
 ---

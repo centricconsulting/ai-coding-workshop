@@ -115,7 +115,7 @@ This document provides a detailed facilitator’s guide for running the 3-hour w
 - Agent-driven code generation and review
 
 **How to use Agent Mode:**
-1. Select "Agent" from the Copilot chat mode dropdown (or use the command palette).
+1. Select "Agent" from the Copilot agents dropdown (or use the command palette).
 2. Describe your goal in natural language (e.g., "Refactor all service classes to use async/await and add logging").
 3. For advanced scenarios, reference MCP tools directly (e.g., "Evaluate this model using the aitk-evaluation_planner tool").
 4. Review the proposed plan and results; iterate as needed.
@@ -378,17 +378,23 @@ This document provides a detailed facilitator’s guide for running the 3-hour w
 
 ---
 
-## Appendix: GitHub Copilot Chat Modes
+## Appendix: GitHub Copilot Chat Participants & Custom Agents
 
-GitHub Copilot offers different chat modes that provide specialized assistance for various development tasks. Understanding when and how to use each mode helps participants get the most relevant and accurate responses.
+GitHub Copilot offers both built-in chat participants and custom Copilot agents that provide specialized assistance for various development tasks. Understanding the difference and when to use each helps participants get the most relevant and accurate responses.
 
-### Overview of Chat Modes
+### Built-in Chat Participants vs. Custom Copilot Agents
 
-Chat modes are specialized contexts that Copilot uses to tailor its responses. You can access them in the Copilot Chat panel by typing `@` followed by the mode name, or by using the mode selector in the chat interface.
+**Built-in Chat Participants** are VS Code's native Copilot features accessed with `@` syntax (e.g., `@workspace`, `@vscode`). These provide general-purpose assistance.
+
+**Custom Copilot Agents** are specialized, configurable agents defined in `.agent.md` files in the `.github/agents/` directory. These provide role-specific guidance and can be selected from the agents dropdown in Copilot Chat.
 
 ---
 
-### 1. General Chat (Default Mode)
+### Built-in Chat Participants
+
+These are accessed using `@` syntax in Copilot Chat.
+
+#### 1. General Chat (Default)
 
 **When to use**:
 
@@ -424,7 +430,7 @@ Explain the benefits of async/await in C#
 
 ---
 
-### 2. @workspace Mode
+#### 2. @workspace
 
 **When to use**:
 
@@ -464,7 +470,7 @@ Explain the benefits of async/await in C#
 
 ---
 
-### 3. @vscode Mode
+#### 3. @vscode
 
 **When to use**:
 
@@ -504,7 +510,7 @@ Explain the benefits of async/await in C#
 
 ---
 
-### 4. @terminal Mode
+#### 4. @terminal
 
 **When to use**:
 
@@ -544,7 +550,7 @@ Explain the benefits of async/await in C#
 
 ---
 
-### 5. @azure Mode (If Available)
+#### 5. @azure (If Available)
 
 **When to use**:
 
@@ -582,23 +588,66 @@ Explain the benefits of async/await in C#
 
 ---
 
-### Mode Comparison Table
+### Custom Copilot Agents
 
-| Mode | Scope | Best Use Case | Example |
-|------|-------|---------------|---------|
-| **Default** | General programming | Concepts, patterns, best practices | "What is Clean Architecture?" |
-| **@workspace** | Your codebase | Find code, understand structure | "@workspace Where is ITaskRepository?" |
-| **@vscode** | VS Code editor | Settings, shortcuts, configuration | "@vscode How do I format on save?" |
-| **@terminal** | Command line | Shell commands, scripts | "@terminal Run tests in watch mode" |
-| **@azure** | Azure cloud | Deployment, Azure services | "@azure Deploy to App Service" |
+Custom Copilot agents are specialized assistants defined in `.github/agents/*.agent.md` files. They are accessed by selecting them from the **agents dropdown** in Copilot Chat.
+
+#### Available Custom Agents in This Workshop
+
+1. **Check** - Code review and improvement suggestions
+   - Reviews code for best practices, refactoring opportunities, and code smells
+   - Use before submitting PRs
+   - Located at `.github/agents/Check.agent.md`
+
+2. **Architect** - Architecture and planning for documentation
+   - Limited to Markdown files only
+   - Creates detailed architectural plans and ADRs
+   - Integrates with GitHub issue management
+   - Located at `.github/agents/architect.agent.md`
+
+3. **Plan** - Strategic planning and analysis
+   - Read-only tools for research and planning
+   - Develops comprehensive implementation strategies
+   - Analyzes codebases before making changes
+   - Located at `.github/agents/plan.agent.md`
+
+4. **API Architect** - API design and implementation
+   - Generates three-layer API designs (service, manager, resilience)
+   - Creates fully implemented code
+   - Located at `.github/agents/api-architect.agent.md`
+
+5. **Expert .NET Software Engineer** - .NET best practices
+   - Expert guidance on C#, SOLID, testing, performance
+   - Located at `.github/agents/expert-dotnet-software-engineer.agent.md`
+
+**How to use custom agents:**
+1. Open Copilot Chat in VS Code
+2. Click the **agents dropdown** at the top of the chat panel
+3. Select the desired agent (e.g., Check, Plan, Architect)
+4. Type your prompt - the agent's specialized instructions are automatically applied
 
 ---
 
-### Teaching Chat Modes in the Workshop
+### Comparison Table
+
+| Type | Name | Access Method | Best Use Case | Example |
+|------|------|---------------|---------------|---------|
+| **Built-in** | Default | General chat | Concepts, patterns, best practices | "What is Clean Architecture?" |
+| **Built-in** | @workspace | `@workspace` | Find code, understand structure | "@workspace Where is ITaskRepository?" |
+| **Built-in** | @vscode | `@vscode` | Settings, shortcuts, configuration | "@vscode How do I format on save?" |
+| **Built-in** | @terminal | `@terminal` | Shell commands, scripts | "@terminal Run tests in watch mode" |
+| **Built-in** | @azure | `@azure` | Deployment, Azure services | "@azure Deploy to App Service" |
+| **Custom Agent** | Check | Agents dropdown | Code review before PR | Select Check, then "Review this code" |
+| **Custom Agent** | Plan | Agents dropdown | Strategic planning | Select Plan, then "Plan implementation for feature X" |
+| **Custom Agent** | Architect | Agents dropdown | Architecture docs | Select Architect, then "Design ADR for decision" |
+
+---
+
+### Teaching Chat Participants & Agents in the Workshop
 
 #### **Section 0.5 (Copilot Features Tour)**
 
-**Demo Strategy** (5 minutes on modes):
+**Demo Strategy** (5-7 minutes on participants and agents):
 
 1. **Show Default Chat**:
 
@@ -628,14 +677,14 @@ Explain the benefits of async/await in C#
 
    → Shows actual commands for their environment
 
-#### **Throughout Labs - Mode Usage Guide**
+#### **Throughout Labs - Usage Guide**
 
-| Lab | Recommended Modes | When to Use |
+| Lab | Recommended Tools | When to Use |
 |-----|------------------|-------------|
-| **Lab 1** | Default, @workspace | Concepts, finding test patterns |
-| **Lab 2** | @workspace, Default | Finding entities, understanding layers |
-| **Lab 3** | @workspace, @terminal | Finding endpoints, refactoring commands |
-| **Lab 4** | @workspace, @terminal | Git commands, understanding test structure |
+| **Lab 1** | Default, @workspace, Plan agent | Concepts, finding test patterns, planning tests |
+| **Lab 2** | @workspace, Default, Architect agent | Finding entities, understanding layers, planning features |
+| **Lab 3** | @workspace, @terminal, Check agent | Finding endpoints, refactoring commands, code review |
+| **Lab 4** | @workspace, @terminal, Check agent | Git commands, understanding test structure, PR review |
 
 #### **Common Participant Mistakes**
 
@@ -654,13 +703,23 @@ Explain the benefits of async/await in C#
    - **Better**: "@terminal How do I run tests?"
    - **Result**: Generic vs. environment-specific commands
 
+4. **Not Using Custom Agents for Specialized Tasks**:
+   - **Mistake**: Asking default chat to review code
+   - **Better**: Select **Check** agent from dropdown for code review
+   - **Result**: Generic feedback vs. structured review following project standards
+
+5. **Not Using Plan Agent Before Big Changes**:
+   - **Mistake**: Diving into implementation without planning
+   - **Better**: Select **Plan** agent to develop strategy first
+   - **Result**: Ad-hoc changes vs. comprehensive, thought-out approach
+
 ---
 
-### Advanced Mode Tips for Facilitators
+### Advanced Tips for Facilitators
 
-#### **Mode Chaining**
+#### **Combining Chat Participants and Custom Agents**
 
-You can use multiple modes in sequence:
+You can use chat participants and custom agents in sequence:
 
 1. **Understand concept** (Default):
 
@@ -674,15 +733,22 @@ You can use multiple modes in sequence:
    @workspace Show me examples of commands and queries in this project
    ```
 
-3. **Run tests** (@terminal):
+3. **Review code** (Check agent):
+
+   Select **Check** agent from dropdown:
+   ```text
+   Review the command handlers for best practices
+   ```
+
+4. **Run tests** (@terminal):
 
    ```text
    @terminal Run tests for the command handlers
    ```
 
-#### **Context Variables with Modes**
+#### **Context Variables with Participants and Agents**
 
-Combine modes with context variables for precision:
+Combine chat participants and agents with context variables for precision:
 
 ```text
 @workspace What tests exist for #file:CreateTaskCommandHandler.cs?
@@ -692,7 +758,12 @@ Combine modes with context variables for precision:
 @terminal How do I run tests in #file:CreateTaskCommandHandlerTests.cs?
 ```
 
-#### **When Modes Don't Help**
+With custom agents:
+```text
+[Select Check agent] Review #file:TaskService.cs for improvements
+```
+
+#### **When Participants and Agents Don't Help**
 
 Sometimes participants need to:
 
@@ -703,10 +774,18 @@ Sometimes participants need to:
 
 ---
 
-### Mode Selection Flowchart for Participants
+### Selection Flowchart for Participants
 
 ```text
-START: I have a question
+START: I have a task
+    ↓
+Do I need specialized assistance?
+    ↓ YES → Select custom agent from dropdown
+    │       ├─ Code review? → Check
+    │       ├─ Planning? → Plan
+    │       ├─ Architecture docs? → Architect
+    │       └─ API design? → API Architect
+    ↓ NO
     ↓
 Is it about MY code?
     ↓ YES → Use @workspace
@@ -729,7 +808,7 @@ Use Default Chat
 
 ---
 
-### Troubleshooting Chat Modes
+### Troubleshooting
 
 #### **@workspace Not Finding Code**
 
@@ -742,9 +821,20 @@ Use Default Chat
 3. Reload window: `Cmd/Ctrl+Shift+P` → "Reload Window"
 4. Try being more specific: include file names or paths
 
-#### **Modes Not Available**
+#### **Custom Agents Not Appearing**
 
-**Symptoms**: @azure or other modes don't work
+**Symptoms**: Custom agents not showing in dropdown
+
+**Solutions**:
+
+1. Ensure `.agent.md` files are in `.github/agents/` directory
+2. Files must have proper `chatagent` frontmatter
+3. Reload VS Code window: `Cmd/Ctrl+Shift+P` → "Reload Window"
+4. Check VS Code is version 1.106 or later
+
+#### **Chat Participants Not Available**
+
+**Symptoms**: @azure or other participants don't work
 
 **Solutions**:
 

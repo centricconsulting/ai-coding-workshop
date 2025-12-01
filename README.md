@@ -234,9 +234,10 @@ This branch contains:
 To get the most out of Copilot and AI agents in this workshop:
 
 - **Always ask for a plan first**: Use Copilot or Agent Mode to propose a step-by-step plan before making large or multi-file changes.
-- **Use /check for code review**: Run `/check` in Copilot Chat to get improvement suggestions before submitting a PR.
+- **Use the Check agent for code review**: Select the **Check** Copilot agent from the agents dropdown in Copilot Chat to get improvement suggestions before submitting a PR.
 - **Leverage chat participants**: Use `@workspace` for codebase questions, `@terminal` for CLI help, and `@vscode` for editor tips.
+- **Try custom Copilot agents**: Select agents like **Plan**, **Architect**, or **Check** from the agents dropdown for specialized assistance.
 - **Be explicit in prompts**: Reference files, selections, or context variables (e.g., `#file`, `#selection`) for targeted results.
 - **Review and iterate**: Treat Copilot suggestions as a starting point—review, refactor, and test as you would with any code.
 
-See the [Facilitator Guide](docs/FACILITATOR_GUIDE.md) and `.github/chatmodes/Check.chatmode.md` for more workflow tips.
+See the [Facilitator Guide](docs/FACILITATOR_GUIDE.md) and `.github/agents/Check.agent.md` for more workflow tips.

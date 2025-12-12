@@ -6,6 +6,29 @@
 
 ---
 
+## Workshop Schedule at a Glance
+
+| Time | Module | Duration | Activity | Lab |
+|------|--------|----------|----------|-----|
+| 0:00-0:10 | **Module 0: Kickoff** | 10 min | Welcome, Part 1 recap, Part 2 intro | - |
+| 0:10-0:35 | **Module 1: Interaction Models** | 25 min | Ask/Edit/Agent overview, live demo | [Lab 05](labs/lab-05-interaction-models.md) |
+| 0:35-1:05 | **Module 2: Custom Agents** | 30 min | What are agents? Architecture Reviewer demo | [Lab 06](labs/lab-06-custom-agents-intro.md) |
+| 1:05-1:50 | **Module 3: Workflow Agents** | 45 min | Backlog, Architecture, Test Strategy workflows | [Lab 07](labs/lab-07-workflow-agents.md) |
+| 1:50-2:00 | **Break** | 10 min | Rest and questions | - |
+| 2:00-2:25 | **Module 4: Agent Design** | 25 min | Design principles, iteration, patterns | [Lab 08](labs/lab-08-agent-design.md) |
+| 2:25-3:00 | **Module 5: Capstone** | 35 min | Build your own production-ready agent | [Lab 09](labs/lab-09-capstone-build-agent.md) |
+| 3:00-3:10 | **Module 6: Wrap-Up** | 10 min | Key takeaways, governance, next steps | - |
+
+### Lab Summary
+
+- **Lab 05: Interaction Models** (20 min) - Compare Ask, Edit, and Agent modes
+- **Lab 06: Custom Agents Intro** (15 min) - Explore Architecture Reviewer, Backlog Generator, Test Strategist
+- **Lab 07: Workflow Agents** (35 min) - Apply agents to 3 real workflows
+- **Lab 08: Agent Design** (15 min) - Analyze agent components and iterate on instructions
+- **Lab 09: Capstone** (30 min) - Design, build, test, and document your own agent
+
+---
+
 ## Overview
 
 This guide helps facilitators deliver Part 2 of the AI Code Workshop, focusing on **advanced GitHub Copilot features** including interaction models (Ask/Edit/Agent) and **custom agents**. The workshop is highly interactive with 5 hands-on labs.

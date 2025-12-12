@@ -136,6 +136,141 @@ Complete the development lifecycle with AI-assisted testing, docs, and PR prepar
 
 ---
 
+## Part 2: Advanced GitHub Copilot
+
+> **Note**: Part 2 covers advanced topics introduced in GitHub Copilot's December 2024 release.
+
+### [Lab 5: Copilot Interaction Models](lab-05-interaction-models.md)
+
+**Duration**: 20 minutes
+
+Understand and practice the three modes of interaction with GitHub Copilot.
+
+**What You'll Learn**:
+
+- Ask Mode for quick questions and explanations
+- Edit Mode for iterative code changes
+- Agent Mode for specialized, structured tasks
+- When to use each interaction model
+
+**Key Skills**:
+
+- Choosing the right interaction mode
+- Using each mode effectively
+- Combining modes in workflows
+
+**Prerequisites**:
+
+- Completed Part 1 (Labs 1-4) or familiar with basic Copilot usage
+
+---
+
+### [Lab 6: Introduction to Custom Copilot Agents](lab-06-custom-agents-intro.md)
+
+**Duration**: 30 minutes
+
+Learn about custom agents and how they differ from standard Copilot interactions.
+
+**What You'll Explore**:
+
+- Mental models: Agents vs Instructions vs Prompts
+- Three workshop agents: Architecture Reviewer, Backlog Generator, Test Strategist
+- Hands-on practice with each agent
+- Understanding agent capabilities and limitations
+
+**Key Skills**:
+
+- Selecting appropriate agents for tasks
+- Invoking agents via dropdown selector
+- Interpreting structured agent outputs
+- Understanding agent design patterns
+
+**Prerequisites**:
+
+- Completed Lab 5 or understanding of interaction models
+
+---
+
+### [Lab 7: Workflow Agents in Action](lab-07-workflow-agents.md)
+
+**Duration**: 30 minutes
+
+Apply custom agents in real development workflows.
+
+**What You'll Build**:
+
+- User stories for notification feature (with Backlog Generator)
+- Architecture review of Task aggregate (with Architecture Reviewer)
+- Test strategy for TaskService (with Test Strategist)
+
+**Key Skills**:
+
+- Integrating agents into development workflow
+- Comparing standard chat vs custom agents
+- Sequential agent usage patterns
+- Iterating on agent outputs
+
+**Prerequisites**:
+
+- Completed Lab 6
+- Access to custom agents in repository
+
+---
+
+### [Lab 8: Agent Design Principles](lab-08-agent-design.md)
+
+**Duration**: 25 minutes
+
+Learn how custom agents are designed and structured.
+
+**What You'll Learn**:
+
+- Seven key agent components
+- Agent instruction patterns
+- Testing and iteration strategies
+- Common design pitfalls
+
+**Key Skills**:
+
+- Analyzing agent definitions
+- Understanding agent architecture
+- Identifying quality patterns
+- Recognizing anti-patterns
+
+**Prerequisites**:
+
+- Completed Lab 7
+- Familiarity with all three workshop agents
+
+---
+
+### [Lab 9: Build Your Own Agent (Capstone)](lab-09-capstone-build-agent.md)
+
+**Duration**: 45 minutes
+
+Design, build, test, and document your own custom agent.
+
+**What You'll Build**:
+
+- A custom agent for your chosen role
+- Test scenarios validating agent behavior
+- Documentation for team usage
+- Iteration plan for improvements
+
+**Key Skills**:
+
+- End-to-end agent development
+- Writing effective agent instructions
+- Testing with real scenarios
+- Documenting agent usage
+
+**Prerequisites**:
+
+- Completed Labs 5-8
+- Understanding of agent design guide
+
+---
+
 ## 🚀 Getting Started
 
 ### First Time Setup
@@ -223,6 +358,8 @@ Complete the development lifecycle with AI-assisted testing, docs, and PR prepar
 
 ### Suggested Progression
 
+#### Part 1: Fundamentals
+
 ```text
 Lab 1 (TDD Basics)
     ↓
@@ -231,6 +368,20 @@ Lab 2 (Full-Stack Feature)
 Lab 3 (Generation & Refactoring)
     ↓
 Lab 4 (Documentation & Workflow)
+```
+
+#### Part 2: Advanced Topics
+
+```text
+Lab 5 (Interaction Models)
+    ↓
+Lab 6 (Custom Agents Intro)
+    ↓
+Lab 7 (Workflow Agents)
+    ↓
+Lab 8 (Agent Design)
+    ↓
+Lab 9 (Build Your Own Agent)
     ↓
 Apply to Real Projects! 🎉
 ```
@@ -239,11 +390,20 @@ Apply to Real Projects! 🎉
 
 | Lab | Minimum | Comfortable | With Extensions |
 |-----|---------|-------------|----------------|
+| **Part 1** ||||
 | Lab 1 | 20 min | 30 min | 40 min |
 | Lab 2 | 30 min | 45 min | 60 min |
 | Lab 3 | 30 min | 45 min | 60 min |
 | Lab 4 | 10 min | 15 min | 25 min |
-| **Total** | **90 min** | **135 min** | **185 min** |
+| **Part 1 Total** | **90 min** | **135 min** | **185 min** |
+| **Part 2** ||||
+| Lab 5 | 15 min | 20 min | 30 min |
+| Lab 6 | 20 min | 30 min | 40 min |
+| Lab 7 | 20 min | 30 min | 45 min |
+| Lab 8 | 15 min | 25 min | 35 min |
+| Lab 9 | 30 min | 45 min | 60 min |
+| **Part 2 Total** | **100 min** | **150 min** | **210 min** |
+| **Full Workshop** | **190 min** | **285 min** | **395 min** |
 
 > **Note**: Times include setup verification (~10 min) at workshop start.
 
@@ -405,7 +565,9 @@ See repository root for license information.
 
 ## 🎯 Workshop Goals Recap
 
-By completing these labs, you will:
+### Part 1: Fundamentals
+
+By completing Part 1 labs, you will:
 
 ✅ **Master TDD with AI** - Write tests first, implement second  
 ✅ **Understand Clean Architecture** - Maintain proper layer separation  
@@ -415,6 +577,20 @@ By completing these labs, you will:
 ✅ **Document Thoroughly** - Generate comprehensive documentation quickly  
 ✅ **Follow Best Practices** - Conventional commits, proper testing, code review preparation
 
+### Part 2: Advanced Topics
+
+By completing Part 2 labs, you will:
+
+✅ **Master Interaction Models** - Know when to use Ask, Edit, or Agent modes  
+✅ **Leverage Custom Agents** - Use specialized agents for architecture, testing, and planning  
+✅ **Design Effective Agents** - Understand agent structure and best practices  
+✅ **Build Custom Agents** - Create and test your own agents for team workflows  
+✅ **Integrate into Workflows** - Apply agents throughout development lifecycle  
+✅ **Establish Governance** - Manage agent library with versioning and review processes
+
 ---
 
-**Ready to start?** → [Begin with Lab 1: TDD with GitHub Copilot](lab-01-tdd-with-copilot.md)
+**Ready to start?**
+
+→ **Part 1**: [Begin with Lab 1: TDD with GitHub Copilot](lab-01-tdd-with-copilot.md)  
+→ **Part 2**: [Begin with Lab 5: Copilot Interaction Models](lab-05-interaction-models.md)

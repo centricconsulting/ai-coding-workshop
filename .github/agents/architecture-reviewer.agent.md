@@ -1,7 +1,7 @@
 ---
 name: "architecture-reviewer"
 description: 'Reviews code and design for architectural concerns, boundary violations, and structural quality in Clean Architecture and DDD projects'
-tools: [changes]
+tools: ['read', 'search/changes']
 model: Claude Sonnet 4
 ---
 

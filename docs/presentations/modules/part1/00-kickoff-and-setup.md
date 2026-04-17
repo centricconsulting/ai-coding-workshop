@@ -55,19 +55,39 @@ backgroundColor: #fff
 
 ---
 
+<!-- _class: small -->
+<style scoped>
+section { font-size: 0.95em; }
+h1 { font-size: 1.8em; }
+</style>
+
 # Prerequisites Check
 
 ✅ **GitHub Copilot** - Active subscription  
-✅ **.NET 9 SDK** - `dotnet --version`  
-✅ **VS Code** - With C# Dev Kit extension  
+✅ **VS Code** - Latest stable version  
 ✅ **Git** - Basic familiarity  
+
+**🔷 .NET Track:**  
+✅ **.NET 9 SDK** - `dotnet --version`  
 ✅ **C# Experience** - Comfortable with syntax
+
+**🟩 Spring Boot Track:**  
+✅ **Java 21** - `java -version`  
+✅ **Maven 3.9+** - `mvn --version`  
+✅ **Java/Spring Experience** - Comfortable with syntax
 
 **Environment Check:**
 ```bash
-dotnet --version    # Should show 9.x.x
+# Common
 git --version
 code --version
+
+# .NET Track
+dotnet --version    # Should show 9.x.x
+
+# Spring Boot Track
+java -version       # Should show 21.x.x
+mvn --version       # Should show 3.9+
 ```
 
 ---
@@ -89,6 +109,26 @@ TaskManager.sln
 **Architecture:** Clean Architecture + DDD  
 **Testing:** xUnit + FakeItEasy  
 **API:** .NET 9 Minimal APIs
+
+---
+
+# Repository Structure (Spring Boot)
+
+```
+src-springboot/
+├── taskmanager-domain/            # Business logic & entities
+├── taskmanager-application/       # Use cases & services
+├── taskmanager-infrastructure/    # Data access & persistence
+└── taskmanager-api/               # Spring Boot REST API
+    └── src/main/java/.../api/
+        ├── controllers/           # REST controllers
+        ├── dto/                   # Request/Response models
+        └── config/                # App configuration
+```
+
+**Architecture:** Clean Architecture + DDD  
+**Testing:** JUnit 5 + Mockito  
+**API:** Spring Boot 3 + Java 21
 
 ---
 
@@ -136,15 +176,18 @@ git checkout -b your-name-workshop
 
 # Verify Environment
 
+**🔷 .NET Track:**
 ```bash
-# Check .NET
 dotnet --version
-
-# Build solution
 dotnet build
-
-# Run tests
 dotnet test
+```
+
+**🟩 Spring Boot Track:**
+```bash
+java -version
+cd src-springboot && mvn clean install
+mvn test -f src-springboot/pom.xml
 ```
 
 **Expected:** All should succeed

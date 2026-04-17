@@ -18,7 +18,8 @@ backgroundColor: #fff
 
 # What Are Copilot Instructions?
 
-**Location:** `.github/instructions/dotnet.instructions.md` (auto-loads for C# files)
+**🔷 .NET:** `.github/instructions/dotnet.instructions.md` (auto-loads for C# files)  
+**🟩 Spring Boot:** `.github/instructions/springboot.instructions.md` (auto-loads for `src-springboot/**`)
 
 **Purpose:**
 - Repository-wide AI behavior
@@ -34,12 +35,14 @@ backgroundColor: #fff
 
 Key rules encoded:
 
-- ✅ **TDD first** - Write tests before implementation
-- ✅ **Clean Architecture** - Domain has no dependencies
-- ✅ **DDD patterns** - Aggregates, Value Objects, Entities
-- ✅ **.NET 9** - Minimal APIs, file-scoped namespaces
-- ✅ **Testing** - xUnit + FakeItEasy
-- ✅ **Naming** - PascalCase for types, camelCase for variables
+| Rule | 🔷 .NET | 🟩 Spring Boot |
+|------|---------|----------------|
+| **TDD first** | ✅ Tests before code | ✅ Tests before code |
+| **Clean Architecture** | ✅ Domain has no deps | ✅ Domain has no deps |
+| **DDD patterns** | ✅ Aggregates, VOs | ✅ Aggregates, VOs |
+| **Stack** | ✅ .NET 9, Minimal APIs | ✅ Spring Boot 3, Java 21 |
+| **Testing** | ✅ xUnit + FakeItEasy | ✅ JUnit 5 + Mockito |
+| **Naming** | ✅ PascalCase / camelCase | ✅ camelCase / PascalCase |
 
 ---
 
@@ -76,16 +79,21 @@ Write **minimal code** to make the test pass
 
 # Lab 01 Overview
 
-**Build:** NotificationService with TDD
+**🔷 .NET Track — Build:** `NotificationService` with TDD
 
-**Steps:**
 1. Define `INotificationService` interface (RED)
 2. Generate comprehensive test suite (RED)
 3. Implement `NotificationService` (GREEN)
 4. Refactor for quality (REFACTOR)
 
-**Time:** 25 minutes
+**🟩 Spring Boot Track — Build:** `NotificationService` with TDD
 
+1. Define `NotificationService` interface (RED)
+2. Generate comprehensive JUnit 5 test suite (RED)
+3. Implement `NotificationServiceImpl` (GREEN)
+4. Refactor for quality (REFACTOR)
+
+**Time:** 25 minutes  
 **Key learning:** AI accelerates TDD, doesn't bypass it
 
 ---

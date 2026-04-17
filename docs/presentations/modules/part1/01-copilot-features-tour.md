@@ -16,6 +16,11 @@ backgroundColor: #fff
 
 ---
 
+<style scoped>
+section { font-size: 0.95em; }
+h1, h2 { font-size: 1.8em; }
+</style>
+
 # Three Ways to Interact
 
 ## 1. Inline Completions
@@ -61,6 +66,10 @@ Quick shortcuts for common tasks:
 **Try it now:** Type `/help` in Copilot Chat
 
 ---
+<style scoped>
+section { font-size: 0.95em; }
+h1, h2 { font-size: 1.8em; }
+</style>
 
 # Chat Participants
 
@@ -79,6 +88,10 @@ Provide context for better results:
 - "How to restore packages?"
 
 ---
+<style scoped>
+section { font-size: 0.95em; }
+h1, h2 { font-size: 1.8em; }
+</style>
 
 # Context Variables
 
@@ -99,13 +112,24 @@ Reference specific context:
 ---
 
 # Quick Practice (5 min)
+<style scoped>
+section { font-size: 0.95em; }
+h1, h2 { font-size: 1.8em; }
+</style>
 
-**Try these:**
+**🔷 .NET Track — Try these:**
 
 1. Open `TaskManager.Domain/Tasks/Task.cs`
 2. Use `/explain` on the Task class
 3. Try `@workspace` with: "What's the architecture pattern?"
 4. Use `#file` with: "Suggest improvements for #file:Task.cs"
+
+**🟩 Spring Boot Track — Try these:**
+
+1. Open `src-springboot/taskmanager-domain/src/main/java/com/example/taskmanager/domain/tasks/Task.java`
+2. Use `/explain` on the Task class
+3. Try `@workspace` with: "What's the architecture pattern?"
+4. Use `#file` with: "Suggest improvements for #file:Task.java"
 
 **Goal:** Get comfortable with Copilot's features
 

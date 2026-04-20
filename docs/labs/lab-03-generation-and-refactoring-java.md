@@ -94,7 +94,7 @@ Before generating new code, understand what exists:
 
 Copilot should identify:
 
-- `src-springboot/presentation/controllers/TaskController.java` - Controller definitions
+- `src-springboot/taskmanager-api/src/main/java/com/example/taskmanager/api/controllers/TaskController.java` - Controller definitions
 - `@RestController` and `@RequestMapping` patterns
 - Existing POST /api/tasks endpoint
 - Service layer injection pattern
@@ -412,7 +412,7 @@ Use `@workspace`:
 @workspace Find the LegacyTaskProcessor class in the Spring Boot project
 ```
 
-**Location**: `src-springboot/infrastructure/legacy/LegacyTaskProcessor.java`
+**Location**: `src-springboot/taskmanager-infrastructure/src/main/java/com/example/taskmanager/infrastructure/legacy/LegacyTaskProcessor.java`
 
 ### 2.2 Analyze Current Issues
 
@@ -470,7 +470,7 @@ Follow Spring Boot conventions and best practices
 **Expected Refactored Code**:
 
 ```java
-package com.taskmanager.infrastructure.legacy;
+package com.example.taskmanager.infrastructure.legacy;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -868,11 +868,11 @@ Use Copilot Edits for cross-cutting changes.
 
 Add related files:
 
-- `src-springboot/domain/entities/Task.java`
-- `src-springboot/application/dto/CreateTaskRequest.java`
-- `src-springboot/application/services/TaskServiceImpl.java`
-- `src-springboot/presentation/controllers/TaskController.java`
-- `tests/.../TaskServiceImplTest.java`
+- `src-springboot/taskmanager-domain/src/main/java/com/example/taskmanager/domain/tasks/Task.java`
+- `src-springboot/taskmanager-api/src/main/java/com/example/taskmanager/api/dto/CreateTaskRequest.java`
+- `src-springboot/taskmanager-application/src/main/java/com/example/taskmanager/application/services/TaskService.java`
+- `src-springboot/taskmanager-api/src/main/java/com/example/taskmanager/api/controllers/TaskController.java`
+- `src-springboot/taskmanager-application/src/test/java/com/example/taskmanager/application/services/TaskServiceTest.java`
 
 ### 4.3 Describe Change
 

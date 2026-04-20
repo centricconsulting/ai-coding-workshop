@@ -65,7 +65,9 @@ backgroundColor: #fff
 
 # Lab 03: Part B - Refactoring
 
-**Legacy code:** `LegacyTaskProcessor.cs`
+**Legacy code:**
+- 🔷 .NET: `LegacyTaskProcessor.cs`
+- 🟩 Java: `LegacyTaskProcessor.java`
 
 **Problems:**
 - Nested if statements
@@ -123,7 +125,9 @@ if (task.Status != "Active") return;
 
 # Hands-On Time
 
-**Lab Guide:** [Lab 03: Generation & Refactoring](../../labs/lab-03-generation-and-refactoring.md)
+**Lab Guide:**
+- 🔷 [Lab 03: Generation & Refactoring (.NET)](../../labs/lab-03-generation-and-refactoring.md)
+- 🟩 [Lab 03: Generation & Refactoring (Java)](../../labs/lab-03-generation-and-refactoring-java.md)
 
 **Next Module:** [Testing & Documentation](04-testing-documentation.md)
 

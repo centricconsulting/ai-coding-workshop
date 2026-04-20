@@ -1,3 +1,16 @@
+# Lab 3: Code Generation & Refactoring with GitHub Copilot
+
+> **💡 Also available**: [Java/Spring Boot version](lab-03-generation-and-refactoring-java.md)
+
+**Duration**: 45 minutes  
+**Learning Objectives**:
+
+- Generate complete API endpoints using Copilot and context variables
+- Refactor legacy code using `/refactor` command and Inline Chat
+- Apply Object Calisthenics principles with AI assistance
+- Use `@workspace` for understanding and modifying existing code
+- Leverage Copilot Edits for multi-file refactoring
+
 ---
 
 ## 📝 Plan First with Agents: Safer, Smarter Refactoring
@@ -22,18 +35,6 @@ Before making major changes, try using Copilot (in Agent Mode) to generate a pla
 
 **Facilitator Tip:**
 Model this workflow live, and encourage participants to always ask for a plan before executing large or multi-file changes.
-# Lab 3: Code Generation & Refactoring with GitHub Copilot
-
-> **💡 Also available**: [Java/Spring Boot version](lab-03-generation-and-refactoring-java.md)
-
-**Duration**: 45 minutes  
-**Learning Objectives**:
-
-- Generate complete API endpoints using Copilot and context variables
-- Refactor legacy code using `/refactor` command and Inline Chat
-- Apply Object Calisthenics principles with AI assistance
-- Use `@workspace` for understanding and modifying existing code
-- Leverage Copilot Edits for multi-file refactoring
 
 ---
 

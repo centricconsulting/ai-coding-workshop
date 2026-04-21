@@ -27,25 +27,30 @@ GitHub Copilot offers **four main ways** to customize AI behavior. Understanding
 
 #### The Four Customization Types
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                  Customization Hierarchy                    │
-├─────────────────────────────────────────────────────────────┤
-│  1. Custom Instructions (.instructions.md)                  │
-│     Always-on rules • Coding standards • Glob patterns      │
-│                                                             │
-│  2. Agent Skills (SKILL.md)                                 │
-│     Portable capabilities • Scripts + resources             │
-│     Task-specific • Loaded on-demand                        │
-│                                                             │
-│  3. Custom Agents (.agent.md)                               │
-│     Persistent personas • Tool restrictions                 │
-│     Workflow orchestration • Handoffs                       │
-│                                                             │
-│  4. Prompt Files (.prompt.md)                               │
-│     One-off tasks • Quick automation                        │
-│     No tool restrictions needed                             │
-└─────────────────────────────────────────────────────────────┘
+```mermaid
+block-beta
+    columns 1
+    block:header
+        H["Customization Hierarchy"]
+    end
+    block:instr
+        I["1. Custom Instructions (.instructions.md)<br/>Always-on rules • Coding standards • Glob patterns"]
+    end
+    block:skills
+        S["2. Agent Skills (SKILL.md)<br/>Portable capabilities • Scripts + resources<br/>Task-specific • Loaded on-demand"]
+    end
+    block:agents
+        A["3. Custom Agents (.agent.md)<br/>Persistent personas • Tool restrictions<br/>Workflow orchestration • Handoffs"]
+    end
+    block:prompts
+        P["4. Prompt Files (.prompt.md)<br/>One-off tasks • Quick automation<br/>No tool restrictions needed"]
+    end
+    
+    style I fill:#e1f5ff,stroke:#01579b,stroke-width:2px
+    style S fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    style A fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style P fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
+    style H fill:#f5f5f5,stroke:#333,stroke-width:2px,color:#333
 ```
 
 ### Deep Dive: Agent Skills

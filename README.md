@@ -43,6 +43,9 @@ For the best experience, use the provided **Devcontainer** and recommended VS Co
   - 🔷 **.NET Container** (`.devcontainer/dotnet/`): .NET 9 SDK, C# Dev Kit, xUnit extensions
   - 🟩 **Spring Boot Container** (`.devcontainer/springboot/`): Java 21 JDK, Spring Boot extensions, Maven
   - 🔷🟩 **Bilingual Container** (`.devcontainer/bilingual/`): Both .NET and Java environments (for facilitators or exploring both stacks)
+
+> **Can't use Dev Containers?** Follow the [Local Setup Guide](docs/LOCAL_SETUP.md) to install the required tools and VS Code extensions manually for either the .NET or Spring Boot track.
+
 - **Copilot Custom Instructions**: This repo auto-applies Copilot instructions based on file context:
   - 🔷 **.NET files** (`**/*.cs`): Loads `csharp.instructions.md` + `dotnet.instructions.md`
   - 🟩 **Spring Boot files** (`src-springboot/**`): Loads `springboot.instructions.md`

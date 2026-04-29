@@ -180,6 +180,7 @@ Are you creating workshop content or facilitating?
 ## 🔗 Related Documentation
 
 - [Workshop README](../README.md) - Main workshop overview
+- [Local Setup Guide](../docs/LOCAL_SETUP.md) - **No Dev Container?** Manual setup for .NET and Spring Boot
 - [Pre-Workshop Checklist](../docs/PRE_WORKSHOP_CHECKLIST.md) - Setup requirements
 - [Pattern Translation Guide](../docs/guides/pattern-translation.md) - .NET ↔ Java mappings
 - [Facilitator Guide](../docs/FACILITATOR_GUIDE.md) - Delivery instructions

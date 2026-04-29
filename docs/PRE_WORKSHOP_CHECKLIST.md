@@ -2,6 +2,8 @@
 
 Use this checklist to verify your environment is ready **before** attending the GitHub Copilot workshop. Completing these steps in advance ensures you can focus on learning during the workshop without setup delays.
 
+> **Can't run Docker/Dev Containers?** See the [Local Setup Guide](./LOCAL_SETUP.md) for manual installation instructions covering both the **.NET** and **Spring Boot** tracks.
+
 ## ✅ Required Setup (Complete Before Workshop)
 
 ### 1. GitHub Account & Copilot Subscription

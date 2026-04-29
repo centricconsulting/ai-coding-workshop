@@ -24,6 +24,12 @@ Design, test, and maintain them **like code**
 
 ---
 
+<!-- _class: small -->
+<style scoped>
+section { font-size: 1.00em; }
+h1 { font-size: 1.8em; }
+</style>
+
 # Agent Components
 
 ## Core Instructions:
@@ -96,6 +102,12 @@ Define → Test → Observe → Refine → Repeat
 - Observe improved behavior
 
 ---
+
+<!-- _class: small -->
+<style scoped>
+section { font-size: 0.95em; }
+h1 { font-size: 1.8em; }
+</style>
 
 # Advanced Agent Properties
 

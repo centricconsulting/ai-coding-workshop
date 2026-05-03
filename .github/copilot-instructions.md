@@ -7,8 +7,6 @@ This file defines repo-wide defaults. More specific instruction files take prece
 - `**/*.cs`: also follow `.github/instructions/csharp.instructions.md` and `.github/instructions/dotnet.instructions.md`
 - `src-springboot/**`: also follow `.github/instructions/springboot.instructions.md`
 
-If confidence is below 97% for instruction or prompt work, ask follow-up questions before changing files and include the confidence percentage in every response.
-
 ## 1. Repository Purpose
 
 - Optimize for workshop clarity and educational value.

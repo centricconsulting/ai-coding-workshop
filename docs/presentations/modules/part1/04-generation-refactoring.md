@@ -88,6 +88,8 @@ backgroundColor: #fff
 - Wrap primitives in meaningful types
 - Small methods with clear names
 
+---
+
 **Example:**
 ```csharp
 // ❌ Before
@@ -111,6 +113,8 @@ if (task.Status != "Active") return;
 - Copilot sees your entire codebase
 - Suggests patterns already in use
 - Maintains consistency
+
+---
 
 **Example prompts:**
 - `@workspace Show me all domain entities`

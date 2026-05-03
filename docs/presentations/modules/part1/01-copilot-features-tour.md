@@ -96,6 +96,7 @@ Reference specific context:
 - Current active file
 - Example: `Add tests for #editor`
 
+
 ---
 
 # Quick Practice (5 min)

@@ -25,7 +25,7 @@ This file defines repo-wide defaults. More specific instruction files take prece
 
 ## 3. Technology Stack And Preferred Libraries
 
-- .NET track: .NET 9, ASP.NET Core Minimal API, xUnit 2.9.2, FakeItEasy, `ILogger`, OpenTelemetry, and Testcontainers.
+- .NET track: .NET 9, ASP.NET Core Minimal API, xUnit v3, FakeItEasy, `ILogger`, OpenTelemetry, and Testcontainers.
 - Spring Boot track: Java 21, Spring Boot 3.x, Spring Web, Spring Data JPA when needed, JUnit 5, Mockito, SLF4J, and Testcontainers.
 - Docs and workshop content: Markdown in `docs/`, Marp-compatible slides, and VS Code Dev Container workflows.
 - Prefer existing repo libraries before introducing new ones.

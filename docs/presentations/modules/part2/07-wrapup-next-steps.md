@@ -35,6 +35,8 @@ backgroundColor: #fff
 - Centralized registry of agents
 - Clear usage guidelines
 
+---
+
 ## Govern as Assets
 - Version control
 - PR review process
@@ -61,6 +63,8 @@ backgroundColor: #fff
 3. Document edge cases
 4. Add to team catalog
 5. Set up governance
+
+---
 
 **Continuous improvement:**
 - Collect usage feedback

@@ -38,6 +38,9 @@ h1 { font-size: 1.8em; }
 3. **Context** - What does it need to know?
 4. **Constraints** - Rules it must follow
 5. **Process** - How it approaches tasks
+
+---
+
 6. **Output Format** - Structured results
 7. **Tone** - Communication style
 
@@ -119,6 +122,8 @@ h1 { font-size: 1.8em; }
 - `true`: Prevents auto-invocation by other agents
 - `false`: Callable as subagent (default)
 
+---
+
 ## handoffs
 - Sequential workflow buttons
 - Guide users through processes
@@ -154,6 +159,8 @@ handoffs:
 ## Review Process
 - Agent **and skill** changes require PR review
 - Test before merging
+
+---
 
 ## Team Alignment
 - Agents/Skills encode **team decisions**

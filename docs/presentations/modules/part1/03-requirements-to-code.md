@@ -77,6 +77,8 @@ Integration Tests
 - Lifecycles
 - Example: `Task`, `User`
 
+---
+
 ## Aggregates
 - Consistency boundaries
 - Example: `Task` (aggregate root)

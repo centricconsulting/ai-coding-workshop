@@ -39,6 +39,8 @@ backgroundColor: #fff
 - Copilot Instructions encode team knowledge
 - Better prompts = better results
 
+---
+
 ## 3. Human Accountability
 - Review all AI suggestions
 - Tests validate correctness

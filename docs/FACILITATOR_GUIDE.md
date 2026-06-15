@@ -83,7 +83,7 @@ This document provides a detailed facilitator's guide for running the 3-hour wor
   - **Labs 4-10**: Mostly stack-agnostic (agent concepts, testing philosophy)
 
 - **For Enterprise Java Teams Modernizing from Mule ESB**:
-  - Reference [Pattern Translation Guide](guides/pattern-translation-guide.md) for Mule → Spring Boot mappings
+  - Reference [Pattern Translation Guide](guides/dotnet-to-springboot-patterns.md) for Mule → Spring Boot mappings
   - Highlight **Lab 3** refactoring scenarios (includes Mule ESB legacy code examples)
   - Mention modernization agent (#20 - in development) for Mule → Spring Boot transformation assistance
   - Emphasize Cost of Delay for legacy integration platforms

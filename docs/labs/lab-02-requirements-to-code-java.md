@@ -1071,4 +1071,4 @@ Format as Markdown.
 
 ### Cross-Reference
 - [.NET version of this lab](lab-02-requirements-to-code.md) - Compare patterns and approaches
-- [Pattern Translation Guide](../design/pattern-translation-guide.md) - .NET ↔ Spring Boot equivalencies
+- [Pattern Translation Guide](../guides/dotnet-to-springboot-patterns.md) - .NET ↔ Spring Boot equivalencies

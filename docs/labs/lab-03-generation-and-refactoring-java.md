@@ -1050,4 +1050,4 @@ Move on to [**Lab 4: Testing, Documentation & Workflow**](lab-04-testing-documen
 
 ### Cross-Reference
 - [.NET version of this lab](lab-03-generation-and-refactoring.md) - Compare patterns and approaches
-- [Pattern Translation Guide](../design/pattern-translation-guide.md) - .NET ↔ Spring Boot equivalencies
+- [Pattern Translation Guide](../guides/dotnet-to-springboot-patterns.md) - .NET ↔ Spring Boot equivalencies

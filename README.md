@@ -235,7 +235,7 @@ See [Part 2 Facilitator's Guide](docs/FACILITATOR_GUIDE_PART2.md) for detailed s
 - **[Part 1 Facilitator's Guide](docs/FACILITATOR_GUIDE.md)**: Detailed timing and talking points for Part 1 (Bilingual Edition)
 - **[Part 2 Facilitator's Guide](docs/FACILITATOR_GUIDE_PART2.md)**: Module-by-module guidance for Part 2 (Bilingual Edition - Advanced GitHub Copilot)
 - **[Lab Walkthroughs](docs/labs/README.md)**: Step-by-step guides for all labs with expected outputs and troubleshooting
-- **[Pattern Translation Guide](docs/guides/pattern-translation-guide.md)**: .NET ↔ Spring Boot pattern mappings (including Mule ESB modernization)
+- **[Pattern Translation Guide](docs/guides/dotnet-to-springboot-patterns.md)**: .NET ↔ Spring Boot pattern mappings (including Mule ESB modernization)
 - **[Customization Decision Guide](docs/guides/customization-decision-guide.md)**: Framework for choosing prompts, instructions, skills, or agents
 - **[Custom Agent Catalog](docs/guides/custom-agent-catalog.md)**: Reference guide for workshop agents
 - **[Agent Design Guide](docs/guides/agent-design-guide.md)**: Templates and patterns for building production-ready agents

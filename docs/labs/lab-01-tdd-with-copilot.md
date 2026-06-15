@@ -1214,4 +1214,4 @@ Move on to [**Lab 2: Requirements → Backlog → Code**](lab-02-requirements-to
 
 - [GitHub Copilot Documentation](https://docs.github.com/en/copilot)
 - [Test-Driven Development (TDD) Guide](https://martinfowler.com/bliki/TestDrivenDevelopment.html)
-- [Pattern Translation Guide](/workspaces/ai-code-workshop/docs/design/pattern-translation-guide.md) - .NET ↔ Spring Boot equivalencies
+- [Pattern Translation Guide](/workspaces/ai-code-workshop/docs/guides/dotnet-to-springboot-patterns.md) - .NET ↔ Spring Boot equivalencies

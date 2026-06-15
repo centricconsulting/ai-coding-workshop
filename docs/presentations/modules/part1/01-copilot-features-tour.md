@@ -7,7 +7,7 @@ backgroundColor: #fff
 
 <!-- _class: lead -->
 
-# Module 0.5
+# Module 1
 
 ## GitHub Copilot Features Tour
 ### Capabilities Overview
@@ -140,6 +140,6 @@ h1, h2 { font-size: 1.8em; }
 
 # Ready for TDD
 
-**Next Module:** [Copilot Instructions & TDD](01-copilot-instructions-tdd.md)
+**Next Module:** [Copilot Instructions & TDD](02-copilot-instructions-tdd.md)
 
 **Previous Module:** [Kickoff & Setup](00-kickoff-and-setup.md)

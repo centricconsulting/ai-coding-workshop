@@ -7,7 +7,7 @@ backgroundColor: #fff
 
 <!-- _class: lead -->
 
-# Module 4
+# Module 5
 
 ## Testing, Documentation & Workflow
 ### Completing the Lifecycle
@@ -103,6 +103,6 @@ backgroundColor: #fff
 
 **Lab Guide:** [Lab 04: Testing & Documentation](../../labs/lab-04-testing-documentation-workflow.md)
 
-**Next Module:** [Wrap-Up & Discussion](05-wrapup-discussion.md)
+**Next Module:** [Wrap-Up & Discussion](06-wrapup-discussion.md)
 
 **Previous Module:** [Generation & Refactoring](04-generation-refactoring.md)

@@ -7,7 +7,7 @@ backgroundColor: #fff
 
 <!-- _class: lead -->
 
-# Module 1
+# Module 2
 
 ## Copilot Instructions & TDD
 ### Red-Green-Refactor with AI

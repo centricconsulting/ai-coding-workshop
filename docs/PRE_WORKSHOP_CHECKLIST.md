@@ -29,7 +29,7 @@ Use this checklist to verify your environment is ready **before** attending the 
 
 ### 2. Visual Studio Code Installation
 
-- [ ] **VS Code installed** (version 1.80 or later)
+- [ ] **VS Code installed** (version 1.95 or later)
   - Download: [code.visualstudio.com](https://code.visualstudio.com/)
   - Verify: Run `code --version` in terminal
   
@@ -113,6 +113,54 @@ Expected output:
 
 ---
 
+### 4b. Java 21 & Maven Installation (🟩 Spring Boot Track Only)
+
+> **Skip this section if you are attending the .NET track.**
+
+- [ ] **Java 21 JDK installed**
+  - Download: [adoptium.net](https://adoptium.net/) — choose **Temurin 21 (LTS)**
+  - Or install via package manager:
+    - macOS (Homebrew): `brew install temurin@21`
+    - Windows (winget): `winget install EclipseAdoptium.Temurin.21.JDK`
+    - Linux: Use your distribution's package manager
+
+- [ ] **Verify Java installation**
+
+```bash
+java -version
+```
+
+Expected output:
+```
+openjdk version "21.x.x" ...
+```
+
+- [ ] **Maven 3.9+ installed**
+  - Download: [maven.apache.org/download.cgi](https://maven.apache.org/download.cgi)
+  - Or install via package manager:
+    - macOS (Homebrew): `brew install maven`
+    - Windows (Scoop): `scoop install maven`
+    - Linux: `sudo apt install maven` (or equivalent)
+
+- [ ] **Verify Maven installation**
+
+```bash
+mvn --version
+```
+
+Expected output:
+```
+Apache Maven 3.9.x ...
+Java version: 21.x.x ...
+```
+
+**Common issues:**
+- **`java -version` shows wrong version**: Set `JAVA_HOME` to the Java 21 JDK path and restart terminal
+- **`mvn: command not found`**: Add Maven `bin/` directory to your `PATH` and restart terminal
+- **Maven uses wrong Java**: Ensure `JAVA_HOME` points to Java 21 (`echo $JAVA_HOME`)
+
+---
+
 ### 5. Git Installation & Configuration
 
 - [ ] **Git installed**
@@ -177,6 +225,8 @@ VS Code should open with the workshop repository.
 
 ### 7. Verify Solution Builds
 
+#### 🔷 .NET Track
+
 - [ ] **Restore dependencies**
 
 ```bash
@@ -220,6 +270,32 @@ Test summary: total: 11, failed: 11, succeeded: 0
 - Run `dotnet clean` then try again
 - Check .NET version is 9.x
 - Ensure all extensions are installed
+
+---
+
+#### 🟩 Spring Boot Track
+
+- [ ] **Build and install all modules**
+
+```bash
+cd src-springboot
+mvn clean install
+```
+
+Expected: `BUILD SUCCESS` with no errors
+
+- [ ] **Run tests**
+
+```bash
+mvn test -f src-springboot/pom.xml
+```
+
+Expected: Tests pass (or a known small number of skipped tests — confirm with facilitator)
+
+**Build issues?**
+- Verify `java -version` shows 21.x and `mvn --version` shows 3.9+
+- Check `JAVA_HOME` is set correctly
+- Run `mvn dependency:resolve` to diagnose dependency problems
 
 ---
 
@@ -267,6 +343,7 @@ Test summary: total: 11, failed: 11, succeeded: 0
 
 Run these commands to verify everything still works:
 
+**🔷 .NET Track:**
 ```bash
 # 1. Check .NET
 dotnet --version
@@ -282,6 +359,28 @@ git pull origin main
 # 4. Verify build
 dotnet build
 # Should show: Build succeeded
+
+# 5. Check Copilot status in VS Code
+code .
+# Check status bar icon is active (✅)
+```
+
+**🟩 Spring Boot Track:**
+```bash
+# 1. Check Java and Maven
+java -version    # Should show: 21.x.x
+mvn --version    # Should show: 3.9+
+
+# 2. Navigate to workshop directory
+cd path/to/ai-coding-workshop
+git checkout main
+
+# 3. Pull latest changes
+git pull origin main
+
+# 4. Verify build
+mvn clean install -f src-springboot/pom.xml
+# Should show: BUILD SUCCESS
 
 # 5. Check Copilot status in VS Code
 code .
@@ -368,16 +467,26 @@ If you encounter issues completing this checklist:
 
 Before the workshop, confirm:
 
+**All attendees:**
 - [ ] GitHub Copilot subscription is active
-- [ ] VS Code with all 3 extensions installed (Copilot, Copilot Chat, C# Dev Kit)
-- [ ] .NET 9 SDK installed (`dotnet --version` shows 9.x.x)
+- [ ] VS Code with GitHub Copilot and GitHub Copilot Chat extensions installed
 - [ ] Git installed and configured
 - [ ] Workshop repository cloned and personal branch created from `main`
-- [ ] Solution builds successfully (`dotnet build`)
-- [ ] Tests run and show 11 expected failures (`dotnet test`)
 - [ ] Copilot inline suggestions work
 - [ ] Copilot Chat responds to queries
 - [ ] Workspace context works with `@workspace`
+
+**🔷 .NET Track:**
+- [ ] C# Dev Kit extension installed
+- [ ] .NET 9 SDK installed (`dotnet --version` shows 9.x.x)
+- [ ] Solution builds successfully (`dotnet build`)
+- [ ] Tests run and show 11 expected failures (`dotnet test`)
+
+**🟩 Spring Boot Track:**
+- [ ] Java 21 installed (`java -version` shows 21.x.x)
+- [ ] Maven 3.9+ installed (`mvn --version` shows 3.9+)
+- [ ] Spring Boot build succeeds (`mvn clean install -f src-springboot/pom.xml`)
+- [ ] Tests pass (`mvn test -f src-springboot/pom.xml`)
 
 ---
 

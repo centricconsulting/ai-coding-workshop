@@ -136,12 +136,12 @@ src-springboot/
 
 ```
 0. Kickoff & Setup (15 min)
-0.5. Copilot Features Tour (15 min)
-1. Copilot Instructions & TDD (30 min)
-2. Requirements → Code (45 min)
-3. Code Generation & Refactoring (45 min)
-4. Testing & Documentation (15 min)
-5. Wrap-Up & Discussion (15 min)
+1. Copilot Features Tour (15 min)
+2. Copilot Instructions & TDD (30 min)
+3. Requirements → Code (45 min)
+4. Code Generation & Refactoring (45 min)
+5. Testing & Documentation (15 min)
+6. Wrap-Up & Discussion (15 min)
 ```
 
 **Total:** 3 hours with hands-on labs

@@ -7,7 +7,7 @@ backgroundColor: #fff
 
 <!-- _class: lead -->
 
-# Module 3
+# Module 4
 
 ## Code Generation & Refactoring
 ### Scaffolding and Modernization
@@ -133,6 +133,6 @@ if (task.Status != "Active") return;
 - 🔷 [Lab 03: Generation & Refactoring (.NET)](../../labs/lab-03-generation-and-refactoring.md)
 - 🟩 [Lab 03: Generation & Refactoring (Java)](../../labs/lab-03-generation-and-refactoring-java.md)
 
-**Next Module:** [Testing & Documentation](04-testing-documentation.md)
+**Next Module:** [Testing & Documentation](05-testing-documentation.md)
 
 **Previous Module:** [Requirements to Code](03-requirements-to-code.md)

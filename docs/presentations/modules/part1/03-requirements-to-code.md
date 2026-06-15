@@ -7,7 +7,7 @@ backgroundColor: #fff
 
 <!-- _class: lead -->
 
-# Module 2
+# Module 3
 
 ## Requirements → Backlog → Code
 ### Transforming User Stories
@@ -107,6 +107,6 @@ Use:
 
 **Lab Guide:** [Lab 02: Requirements to Code](../../labs/lab-02-requirements-to-code.md)
 
-**Next Module:** [Generation & Refactoring](03-generation-refactoring.md)
+**Next Module:** [Generation & Refactoring](04-generation-refactoring.md)
 
 **Previous Module:** [Copilot Instructions & TDD](02-copilot-instructions-tdd.md)

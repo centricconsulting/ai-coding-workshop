@@ -7,7 +7,7 @@ backgroundColor: #fff
 
 <!-- _class: lead -->
 
-# Module 4
+# Module 5
 
 ## Designing Effective Agents
 ### Principles, Properties & Patterns

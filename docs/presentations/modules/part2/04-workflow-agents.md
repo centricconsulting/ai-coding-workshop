@@ -95,7 +95,7 @@ You'll apply agents to **3 real workflows:**
 
 # Hands-On Time
 
-**Lab Guide:** [Lab 08: Workflow Agents](../../labs/lab-08-workflow-agents.md)
+**Lab Guide:** [Lab 08: Workflow Agents](../../../labs/lab-08-workflow-agents.md)
 
 **Next Module:** [Agent Design](05-agent-design.md)
 

@@ -105,7 +105,7 @@ Use:
 
 # Hands-On Time
 
-**Lab Guide:** [Lab 02: Requirements to Code](../../labs/lab-02-requirements-to-code.md)
+**Lab Guide:** [Lab 02: Requirements to Code](../../../labs/lab-02-requirements-to-code.md)
 
 **Next Module:** [Generation & Refactoring](04-generation-refactoring.md)
 

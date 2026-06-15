@@ -130,8 +130,8 @@ if (task.Status != "Active") return;
 # Hands-On Time
 
 **Lab Guide:**
-- 🔷 [Lab 03: Generation & Refactoring (.NET)](../../labs/lab-03-generation-and-refactoring.md)
-- 🟩 [Lab 03: Generation & Refactoring (Java)](../../labs/lab-03-generation-and-refactoring-java.md)
+- 🔷 [Lab 03: Generation & Refactoring (.NET)](../../../labs/lab-03-generation-and-refactoring.md)
+- 🟩 [Lab 03: Generation & Refactoring (Java)](../../../labs/lab-03-generation-and-refactoring-java.md)
 
 **Next Module:** [Testing & Documentation](05-testing-documentation.md)
 

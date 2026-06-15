@@ -115,7 +115,7 @@ Write **minimal code** to make the test pass
 
 # Hands-On Time
 
-**Lab Guide:** [Lab 01: TDD with Copilot](../../labs/lab-01-tdd-with-copilot.md)
+**Lab Guide:** [Lab 01: TDD with Copilot](../../../labs/lab-01-tdd-with-copilot.md)
 
 **Next Module:** [Requirements to Code](02-requirements-to-code.md)
 

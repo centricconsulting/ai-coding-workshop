@@ -107,7 +107,7 @@ Use the **right mode** for the **right job**
 
 # Hands-On Time
 
-**Lab Guide:** [Lab 05: Interaction Models](../../labs/lab-05-interaction-models.md)
+**Lab Guide:** [Lab 05: Interaction Models](../../../labs/lab-05-interaction-models.md)
 
 **Next Module:** [Skills & Customization](02-skills-customization.md)
 

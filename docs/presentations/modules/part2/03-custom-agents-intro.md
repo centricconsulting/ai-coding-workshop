@@ -116,7 +116,7 @@ All three work together!
 
 # Hands-On Time
 
-**Lab Guide:** [Lab 07: Custom Agents Intro](../../labs/lab-07-custom-agents-intro.md)
+**Lab Guide:** [Lab 07: Custom Agents Intro](../../../labs/lab-07-custom-agents-intro.md)
 
 **Next Module:** [Workflow Agents](04-workflow-agents.md)
 

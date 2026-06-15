@@ -101,7 +101,7 @@ backgroundColor: #fff
 
 # Hands-On Time
 
-**Lab Guide:** [Lab 04: Testing & Documentation](../../labs/lab-04-testing-documentation-workflow.md)
+**Lab Guide:** [Lab 04: Testing & Documentation](../../../labs/lab-04-testing-documentation-workflow.md)
 
 **Next Module:** [Wrap-Up & Discussion](06-wrapup-discussion.md)
 

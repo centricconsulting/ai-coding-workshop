@@ -182,7 +182,7 @@ handoffs:
 
 # Hands-On Time
 
-**Lab Guide:** [Lab 09: Agent Design](../../labs/lab-09-agent-design.md)
+**Lab Guide:** [Lab 09: Agent Design](../../../labs/lab-09-agent-design.md)
 
 **Next Module:** [Capstone Lab](06-capstone-lab.md)
 

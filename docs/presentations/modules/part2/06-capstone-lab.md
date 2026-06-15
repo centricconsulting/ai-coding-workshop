@@ -106,7 +106,7 @@ By the end of this lab:
 
 # Hands-On Time
 
-**Lab Guide:** [Lab 10: Build Your Own Agent](../../labs/lab-10-capstone-build-agent.md)
+**Lab Guide:** [Lab 10: Build Your Own Agent](../../../labs/lab-10-capstone-build-agent.md)
 
 **Next Module:** [Wrap-Up & Next Steps](07-wrapup-next-steps.md)
 

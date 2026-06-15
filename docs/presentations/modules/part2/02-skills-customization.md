@@ -105,7 +105,7 @@ backgroundColor: #fff
 
 # Hands-On Time
 
-**Lab Guide:** [Lab 06: Skills & Customization](../../labs/lab-06-skills-and-customization.md)
+**Lab Guide:** [Lab 06: Skills & Customization](../../../labs/lab-06-skills-and-customization.md)
 
 **Next Module:** [Custom Agents Intro](03-custom-agents-intro.md)
 

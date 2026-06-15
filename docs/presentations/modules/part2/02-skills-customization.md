@@ -7,7 +7,7 @@ backgroundColor: #fff
 
 <!-- _class: lead -->
 
-# Module 1.5
+# Module 2
 
 ## Skills & Customization Hierarchy
 ### Four Ways to Customize Copilot

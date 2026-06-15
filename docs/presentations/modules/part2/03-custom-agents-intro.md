@@ -7,7 +7,7 @@ backgroundColor: #fff
 
 <!-- _class: lead -->
 
-# Module 2
+# Module 3
 
 ## Custom Copilot Agents
 ### Workflows with Tool Access

@@ -7,7 +7,7 @@ backgroundColor: #fff
 
 <!-- _class: lead -->
 
-# Module 3
+# Module 4
 
 ## Workflow Agents in Action
 ### Hands-On Lab

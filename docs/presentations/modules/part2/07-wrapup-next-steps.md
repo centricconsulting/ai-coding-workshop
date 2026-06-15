@@ -7,7 +7,7 @@ backgroundColor: #fff
 
 <!-- _class: lead -->
 
-# Module 6
+# Module 7
 
 ## Wrap-Up & Next Steps
 ### Governance and Continuous Improvement

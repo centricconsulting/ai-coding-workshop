@@ -59,12 +59,12 @@ Shaping **how teams work** using AI
 ```
 Module 0: Kickoff & Context Reset (10 min)
 Module 1: Interaction Models (25 min)
-Module 1.5: Skills & Customization (30 min) ⭐ NEW
-Module 2: Custom Agents Intro (25 min)
-Module 3: Workflow Agents (30 min)
-Module 4: Agent Design (30 min)
-Module 5: Capstone Lab (35 min)
-Module 6: Wrap-Up & Governance (10 min)
+Module 2: Skills & Customization (30 min)
+Module 3: Custom Agents Intro (25 min)
+Module 4: Workflow Agents (30 min)
+Module 5: Agent Design (30 min)
+Module 6: Capstone Lab (35 min)
+Module 7: Wrap-Up & Governance (10 min)
 ```
 
 ---

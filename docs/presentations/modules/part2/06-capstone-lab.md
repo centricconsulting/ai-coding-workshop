@@ -7,7 +7,7 @@ backgroundColor: #fff
 
 <!-- _class: lead -->
 
-# Module 5
+# Module 6
 
 ## Capstone Lab
 ### Build Your Own Agent

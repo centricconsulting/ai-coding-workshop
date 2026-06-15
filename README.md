@@ -151,7 +151,7 @@ By the end of Part 2, participants will be able to:
 - Clone the repository and create your own branch from `main` before starting the labs
 - Copilot instructions automatically load based on file context (no manual configuration needed)
 
-### 0.5. GitHub Copilot Features Tour (15 min)
+### 1. GitHub Copilot Features Tour (15 min)
 
 - Inline completions, Chat panel, and Inline Chat
 - **Slash commands**: `/explain`, `/fix`, `/tests`, `/doc`, `/refactor`, `/help`, `/agents`, `/skills`, `/init`
@@ -160,18 +160,18 @@ By the end of Part 2, participants will be able to:
 - **Agent/Skill discovery**: Using `/agents` and `/skills` to explore capabilities
 - Quick hands-on practice with each feature
 
-### 1. Controlling Context with Copilot Instructions (30 min)
+### 2. Controlling Context with Copilot Instructions (30 min)
 
 - Understand context-aware Copilot Instructions (`.github/instructions/` with `applyTo` patterns)
 - **Emphasis on TDD workflow**: Write tests before implementation
 - Lab 1: Create NotificationService following Red-Green-Refactor cycle (interface → tests → implementation)
 
-### 2. Requirements → Backlog → Code (45 min)
+### 3. Requirements → Backlog → Code (45 min)
 
 - Turn requirements into backlog items, tests, and code
 - Lab 2: Backlog items → acceptance criteria → TaskService.AddTask
 
-### 3. Code Generation & Refactoring (45 min)
+### 4. Code Generation & Refactoring (45 min)
 
 ### Part 2: Advanced GitHub Copilot (3 hours)
 
@@ -185,41 +185,41 @@ See [Part 2 Facilitator's Guide](docs/FACILITATOR_GUIDE_PART2.md) for detailed s
 - Slash commands for discovery: `/help`, `/agents`, `/skills`
 - **Lab 5:** Compare interaction models with hands-on exercises
 
-#### 1.5. Skills & Customization Hierarchy (30 min) ⭐ NEW
+#### 2. Skills & Customization Hierarchy (30 min)
 - Four customization types: Prompts → Instructions → Skills → Agents
 - Skills system: domain knowledge without tool access
 - **Lab 06:** Explore test-data-generator skill, decision framework exercises
 
-#### 2. Custom Agents Introduction (25 min)
+#### 3. Custom Agents Introduction (25 min)
 - What are custom agents and how they differ from skills
-- **Lab 6:** Explore Architecture Reviewer, Backlog Generator, Test Strategist
+- **Lab 07:** Explore Architecture Reviewer, Backlog Generator, Test Strategist
 
-#### 3. Workflow Agents in Action (30 min)
-- **Lab 7:** Apply agents to backlog, architecture review, and test strategy workflows
+#### 4. Workflow Agents in Action (30 min)
+- **Lab 08:** Apply agents to backlog, architecture review, and test strategy workflows
 
 #### Break (10 min)
 
-#### 4. Designing Effective Agents (30 min)
+#### 5. Designing Effective Agents (30 min)
 - Agent design principles and components
 - Advanced agent properties: user-invocable, disable-model-invocation, handoffs
-- **Lab 8:** Analyze agent instructions and iterate for improvement
+- **Lab 09:** Analyze agent instructions and iterate for improvement
 
-#### 5. Capstone: Build Your Own Agent (35 min)
-- **Lab 9:** Design, build, test, and document a production-ready agent
+#### 6. Capstone: Build Your Own Agent (35 min)
+- **Lab 10:** Design, build, test, and document a production-ready agent
 - **Optional extension:** Add complementary skill to agent
 
-#### 6. Wrap-Up & Governance (10 min)
+#### 7. Wrap-Up & Governance (10 min)
 - Key takeaways, governance, and next steps
 
 - Scaffold APIs, refactor legacy methods with slash commands
 - Lab 3: Minimal API with `@workspace`, refactor with `/refactor`, generate tests with `/tests`
 
-### 4. Testing, Documentation, Workflow (15 min)
+### 5. Testing, Documentation, Workflow (15 min)
 
 - Generate tests, docs, commit/PR messages using Copilot features
 - Lab 4: `/tests` for unit tests, `/doc` for documentation, conventional commits
 
-### 5. Wrap-Up & Discussion (15 min)
+### 6. Wrap-Up & Discussion (15 min)
 
 - Lessons learned
 - Anti-patterns to avoid
@@ -281,7 +281,7 @@ See [Part 2 Facilitator's Guide](docs/FACILITATOR_GUIDE_PART2.md) for detailed s
 > **Note**: Labs 5-10 are mostly **stack-agnostic** - they focus on agent concepts, workflows, and customization patterns that apply across all technology stacks.
 
 - **[Lab 05: Interaction Models](docs/labs/lab-05-interaction-models.md)** (25 min) - Compare Ask, Edit, and Agent modes with slash command discovery
-- **[Lab 06: Skills & Customization Hierarchy](docs/labs/lab-06-skills-and-customization.md)** (25-30 min) ⭐ NEW - Understand customization types and explore Skills
+- **[Lab 06: Skills & Customization Hierarchy](docs/labs/lab-06-skills-and-customization.md)** (25-30 min) - Understand customization types and explore Skills
 - **[Lab 07: Custom Agents Intro](docs/labs/lab-07-custom-agents-intro.md)** (30 min) - Explore pre-built custom agents
 - **[Lab 08: Workflow Agents](docs/labs/lab-08-workflow-agents.md)** (30 min) - Apply agents to real workflows
 - **[Lab 09: Agent Design](docs/labs/lab-09-agent-design.md)** (30 min) - Learn agent properties, handoffs, and design principles

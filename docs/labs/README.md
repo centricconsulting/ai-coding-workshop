@@ -193,7 +193,7 @@ Understand and practice the three modes of interaction with GitHub Copilot.
 
 ---
 
-### [Lab 06: Skills & Customization Hierarchy](lab-06-skills-and-customization.md) ⭐ NEW
+### [Lab 06: Skills & Customization Hierarchy](lab-06-skills-and-customization.md)
 
 **Duration**: 25-30 minutes
 

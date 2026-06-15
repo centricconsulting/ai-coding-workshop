@@ -48,7 +48,7 @@ In this lab, you'll work with both new and existing code:
 
 ---
 
-## 🚀 Agent Mode Challenge: Go Beyond Ask/Edit
+## 🚀 Agent Mode Challenge: Go Beyond Ask/Plan
 
 For this lab, try using **Agent Mode** for at least one major task (such as refactoring `LegacyTaskProcessor` or generating all CRUD endpoints at once). Agent Mode lets Copilot plan and execute multi-step, multi-file changes, and can invoke advanced tools automatically.
 
@@ -58,7 +58,7 @@ For this lab, try using **Agent Mode** for at least one major task (such as refa
 - Review the plan and results, iterate as needed
 
 **Compare:**
-- What did Agent Mode do differently than Ask/Edit?
+- What did Agent Mode do differently than Ask/Plan?
 - Did it propose a plan, use multiple tools, or make changes across files?
 - Was the result more complete or did it need more review?
 

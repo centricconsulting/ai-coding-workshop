@@ -12,7 +12,7 @@ Transform the way you build software with AI-powered development! This comprehen
 Learn AI assistance across the entire development lifecycle—from requirements gathering to code generation, testing, and documentation. Using either **.NET 9** or **Spring Boot 3.x**, **Visual Studio Code**, and **GitHub Copilot**, you'll experience firsthand how AI can amplify developer productivity while following industry best practices like **Clean Architecture**, **Domain-Driven Design**, and **Test-Driven Development**.
 
 ### Part 2: Advanced GitHub Copilot (3 hours)
-Master advanced Copilot features including **interaction models** (Ask/Edit/Agent), **the Skills system**, **custom agents**, and **workflow automation**. Learn the complete customization hierarchy (Prompts → Instructions → Skills → Agents), discover capabilities with slash commands, and design production-ready agents that encode team knowledge and standardize AI-assisted development workflows.
+Master advanced Copilot features including **interaction models** (Ask/Plan/Agent), **the Skills system**, **custom agents**, and **workflow automation**. Learn the complete customization hierarchy (Prompts → Instructions → Skills → Agents), discover capabilities with slash commands, and design production-ready agents that encode team knowledge and standardize AI-assisted development workflows.
 
 **Full workshop duration:** 6 hours (can be delivered as separate sessions or combined)
 
@@ -132,7 +132,7 @@ By the end of Part 1, participants will be able to:
 
 By the end of Part 2, participants will be able to:
 
-- **Understand and use** Ask, Edit, and Agent interaction models appropriately
+- **Understand and use** Ask, Plan, and Agent interaction models appropriately
 - **Navigate the customization hierarchy**: Prompts, Instructions, Skills, and Agents
 - **Discover capabilities** using slash commands (/agents, /skills, /help, etc.)
 - **Leverage Skills** for domain knowledge and template generation without tool access
@@ -181,7 +181,7 @@ See [Part 2 Facilitator's Guide](docs/FACILITATOR_GUIDE_PART2.md) for detailed s
 - Part 1 recap and Part 2 introduction
 
 #### 1. Copilot Interaction Models (25 min)
-- Ask, Edit, and Agent modes
+- Ask, Plan, and Agent modes
 - Slash commands for discovery: `/help`, `/agents`, `/skills`
 - **Lab 5:** Compare interaction models with hands-on exercises
 
@@ -280,7 +280,7 @@ See [Part 2 Facilitator's Guide](docs/FACILITATOR_GUIDE_PART2.md) for detailed s
 
 > **Note**: Labs 5-10 are mostly **stack-agnostic** - they focus on agent concepts, workflows, and customization patterns that apply across all technology stacks.
 
-- **[Lab 05: Interaction Models](docs/labs/lab-05-interaction-models.md)** (25 min) - Compare Ask, Edit, and Agent modes with slash command discovery
+- **[Lab 05: Interaction Models](docs/labs/lab-05-interaction-models.md)** (25 min) - Compare Ask, Plan, and Agent modes with slash command discovery
 - **[Lab 06: Skills & Customization Hierarchy](docs/labs/lab-06-skills-and-customization.md)** (25-30 min) - Understand customization types and explore Skills
 - **[Lab 07: Custom Agents Intro](docs/labs/lab-07-custom-agents-intro.md)** (30 min) - Explore pre-built custom agents
 - **[Lab 08: Workflow Agents](docs/labs/lab-08-workflow-agents.md)** (30 min) - Apply agents to real workflows

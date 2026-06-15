@@ -192,7 +192,7 @@ This document provides a detailed facilitator's guide for running the 3-hour wor
 
 **Facilitator Tips:**
 - Encourage participants to try Agent Mode for at least one lab (e.g., Lab 3 or 4)
-- Compare results from Ask/Edit vs. Agent Mode
+- Compare results from Ask/Plan vs. Agent Mode
 - Demonstrate invoking an MCP tool (e.g., evaluation or tracing) and discuss the output
 
 **Example prompt:**

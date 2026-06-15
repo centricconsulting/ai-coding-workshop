@@ -209,7 +209,7 @@ Part 1: Fundamentals
 
 Part 2: Advanced
 ├─ 00: Recap (10 min) → Review Part 1, preview Part 2
-├─ 01: Interaction Models (25 min) → Ask vs Edit vs Agent
+├─ 01: Interaction Models (25 min) → Ask vs Plan vs Agent
 ├─ 02: Skills (30 min) → Customization hierarchy
 ├─ 03: Agents Intro (25 min) → Meet the workshop agents
 ├─ 04: Workflows (30 min) → Apply agents to real scenarios

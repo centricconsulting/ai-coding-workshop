@@ -13,19 +13,19 @@
 | Time | Module | Duration | Activity | Lab |
 |------|--------|----------|----------|-----|
 | 0:00-0:10 | **Module 0: Kickoff** | 10 min | Welcome, Part 1 recap, Part 2 intro | - |
-| 0:10-0:35 | **Module 1: Interaction Models** | 25 min | Ask/Edit/Agent overview, live demo | [Lab 05](labs/lab-05-interaction-models.md) |
-| 0:35-1:05 | **Module 1.5: Skills & Customization** | 30 min | 4 customization types, Skills introduction | [Lab 06](labs/lab-06-skills-and-customization.md) |
-| 1:05-1:30 | **Module 2: Custom Agents** | 25 min | What are agents? Architecture Reviewer demo | [Lab 07](labs/lab-07-custom-agents-intro.md) |
-| 1:30-2:05 | **Module 3: Workflow Agents** | 35 min | Backlog, Architecture, Test Strategy workflows | [Lab 08](labs/lab-08-workflow-agents.md) |
+| 0:10-0:35 | **Module 1: Interaction Models** | 25 min | Ask/Plan/Agent overview, live demo | [Lab 05](labs/lab-05-interaction-models.md) |
+| 0:35-1:05 | **Module 2: Skills & Customization** | 30 min | 4 customization types, Skills introduction | [Lab 06](labs/lab-06-skills-and-customization.md) |
+| 1:05-1:30 | **Module 3: Custom Agents** | 25 min | What are agents? Architecture Reviewer demo | [Lab 07](labs/lab-07-custom-agents-intro.md) |
+| 1:30-2:05 | **Module 4: Workflow Agents** | 35 min | Backlog, Architecture, Test Strategy workflows | [Lab 08](labs/lab-08-workflow-agents.md) |
 | 2:05-2:15 | **Break** | 10 min | Rest and questions | - |
-| 2:15-2:40 | **Module 4: Agent Design** | 25 min | Design principles, iteration, patterns | [Lab 09](labs/lab-09-agent-design.md) |
-| 2:40-3:10 | **Module 5: Capstone** | 30 min | Build your own production-ready agent | [Lab 10](labs/lab-10-capstone-build-agent.md) |
-| 3:10-3:15 | **Module 6: Wrap-Up** | 5 min | Key takeaways, governance, next steps | - |
+| 2:15-2:40 | **Module 5: Agent Design** | 25 min | Design principles, iteration, patterns | [Lab 09](labs/lab-09-agent-design.md) |
+| 2:40-3:10 | **Module 6: Capstone** | 30 min | Build your own production-ready agent | [Lab 10](labs/lab-10-capstone-build-agent.md) |
+| 3:10-3:15 | **Module 7: Wrap-Up** | 5 min | Key takeaways, governance, next steps | - |
 
 ### Lab Summary
 
-- **Lab 05: Interaction Models** (20 min) - Compare Ask, Edit, and Agent modes
-- **Lab 06: Skills & Customization** (25 min) - Learn the 4 customization types, explore Skills ⭐ NEW
+- **Lab 05: Interaction Models** (20 min) - Compare Ask, Plan, and Agent modes
+- **Lab 06: Skills & Customization** (25 min) - Learn the 4 customization types, explore Skills
 - **Lab 07: Custom Agents Intro** (15 min) - Explore Architecture Reviewer, Backlog Generator, Test Strategist
 - **Lab 08: Workflow Agents** (35 min) - Apply agents to 3 real workflows
 - **Lab 09: Agent Design** (20 min) - Analyze agent components and iterate on instructions
@@ -35,7 +35,7 @@
 
 ## Overview
 
-This guide helps facilitators deliver Part 2 of the AI Code Workshop, focusing on **advanced GitHub Copilot features** including interaction models (Ask/Edit/Agent), the **Skills system**, and **custom agents**. The workshop is highly interactive with 6 hands-on labs.
+This guide helps facilitators deliver Part 2 of the AI Code Workshop, focusing on **advanced GitHub Copilot features** including interaction models (Ask/Plan/Agent), the **Skills system**, and **custom agents**. The workshop is highly interactive with 6 hands-on labs.
 
 ### Presentation Materials
 
@@ -66,7 +66,7 @@ npx @marp-team/marp-cli docs/presentations/modules/part2/*.md --pdf --output par
 ### Learning Objectives
 
 By the end of Part 2, participants will:
-- Understand Ask, Edit, and Agent interaction models
+- Understand Ask, Plan, and Agent interaction models
 - Use custom Copilot agents for specialized workflows
 - Design and build their own production-ready agents
 - Apply governance principles to AI tooling
@@ -140,7 +140,7 @@ A: Less code than Part 1. Focus is on designing agents and evaluating workflows.
 
 ### Section Breakdown
 
-- **0:10-0:15** - Presentation: Ask/Edit/Agent overview (slides 6-10)
+- **0:10-0:15** - Presentation: Ask/Plan/Agent overview (slides 6-10)
 - **0:15-0:25** - Live Demo: Same task, three ways
 - **0:25-0:30** - Guided Exercise: Participants try each mode
 - **0:30-0:35** - Discussion and Q&A
@@ -161,10 +161,10 @@ A: Less code than Part 1. Focus is on designing agents and evaluating workflows.
    - Prompt: "How should I add a Priority property to the Task entity?"
    - Show: You get guidance, but no changes
 
-2. **Edit Mode Demo:**
-   - Open `src/TaskManager.Domain/Tasks/Task.cs`
-   - Use inline chat (`Ctrl+I`): "Add a Priority property of type TaskPriority enum"
-   - Show: Direct file modification
+2. **Plan Mode Demo:**
+   - Open Copilot Chat and switch to **Plan Mode**
+   - Prompt: "I want to add a Priority property to the Task entity"
+   - Show: Copilot gathers requirements and designs the approach **before writing any code**
 
 3. **Agent Mode Demo:**
    - Open Copilot Chat in Agent Mode
@@ -172,9 +172,9 @@ A: Less code than Part 1. Focus is on designing agents and evaluating workflows.
    - Show: Multi-step plan with checkpoints
 
 **Key Observation Points:**
-- Scope: Ask (informational), Edit (file-level), Agent (repository-level)
-- Control: Ask (total), Edit (review diff), Agent (approve steps)
-- Speed: Ask (instant), Edit (fast), Agent (deliberate)
+- Scope: Ask (informational), Plan (requirements + design), Agent (execution)
+- Control: Ask (total), Plan (approve plan), Agent (approve each step)
+- Speed: Ask (instant), Plan (fast), Agent (deliberate)
 
 **Guided Exercise (5 min)**
 - Participants try all three modes with a simple task
@@ -584,7 +584,7 @@ Participants work through Lab 10:
 **Key Takeaways (3 min)**
 - Use slides 31-35 to recap the workshop
 - Hit these points:
-  - ✅ Ask/Edit/Agent - Use the right mode
+  - ✅ Ask/Plan/Agent - Use the right mode
   - ✅ Custom agents - Specialists, not prompts
   - ✅ Role-based design - Focus on WHO
   - ✅ Iterate continuously - Agents improve over time

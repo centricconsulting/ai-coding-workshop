@@ -10,7 +10,7 @@ backgroundColor: #fff
 # Module 1
 
 ## Copilot Interaction Models
-### Ask, Edit, Agent
+### Ask, Plan, Agent
 
 **Duration:** 25 minutes
 
@@ -22,9 +22,9 @@ backgroundColor: #fff
 **Purpose:** Learning, exploration, explanation  
 **Result:** Answers, guidance (no changes)
 
-## Edit Mode
-**Purpose:** Localized, scoped code changes  
-**Result:** Direct file modifications
+## Plan Mode
+**Purpose:** Design approach + gather requirements before code generation  
+**Result:** Structured plan awaiting your approval
 
 ## Agent Mode
 **Purpose:** Multi-step, repository-level workflows  
@@ -47,18 +47,17 @@ backgroundColor: #fff
 
 ---
 
-# Edit Mode: When to Use
+# Plan Mode: When to Use
 
 ✅ **Use when:**
-- Targeted, scoped changes
-- You know exactly what to modify
-- Single file or small set of files
-- Quick fixes or localized refactors
+- You want to understand the approach before any code is written
+- Requirements need clarifying before implementation
+- Complex changes spanning multiple files
+- You want to validate the strategy first
 
 ❌ **Don't use when:**
-- Changes span many files
-- You need analysis first
-- Exploring alternatives
+- You need a quick direct answer
+- You're ready to execute immediately
 
 ---
 
@@ -84,8 +83,8 @@ backgroundColor: #fff
 **Task:** Add Priority property to Task entity
 
 1. **Ask** → Explanation only
-2. **Edit** → Local file change
-3. **Agent** → Repository-wide analysis and plan
+2. **Plan** → Requirement gathering + multi-step design
+3. **Agent** → Repository-wide analysis and execution
 
 **Observe the differences in:**
 - Scope

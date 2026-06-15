@@ -143,13 +143,13 @@ By the end of Part 1, participants will:
 
 ### Learning Objectives
 
-Part 2 shifts from foundations to end-to-end application delivery using advanced Copilot features. Participants learn interaction models (Ask/Edit/Agent), master the complete customization hierarchy (Instructions → Skills → Agents), and build production-ready custom agents that encode team knowledge and standardize workflows.
+Part 2 shifts from foundations to end-to-end application delivery using advanced Copilot features. Participants learn interaction models (Ask/Plan/Agent), master the complete customization hierarchy (Instructions → Skills → Agents), and build production-ready custom agents that encode team knowledge and standardize workflows.
 
 ### Topics Covered
 
 **Copilot Interaction Models** (25 minutes - Lab 5)
 - **Ask Mode**: Quick questions, explanations, and information retrieval
-- **Edit Mode**: Iterative code changes and refinements
+- **Plan Mode**: Design multi-step approach and gather requirements before code generation
 - **Agent Mode**: Specialized, structured tasks with custom instructions
 - Choosing the optimal interaction model for different development scenarios
 
@@ -190,7 +190,7 @@ Part 2 shifts from foundations to end-to-end application delivery using advanced
 
 | Lab | Duration | Focus Area | Deliverable |
 |-----|----------|------------|-------------|
-| **Lab 5: Interaction Models** | 20 min | Ask/Edit/Agent comparison | Understanding of interaction mode selection |
+| **Lab 5: Interaction Models** | 20 min | Ask/Plan/Agent comparison | Understanding of interaction mode selection |
 | **Lab 6: Skills & Customization** | 25 min | 4 customization types + Skills | Configured instructions and Skills exploration |
 | **Lab 7: Custom Agents Intro** | 15 min | Agent exploration | Experience with 3+ pre-built agents |
 | **Lab 8: Workflow Agents** | 35 min | Real-world agent workflows | End-to-end backlog, architecture, test workflows |
@@ -644,7 +644,7 @@ Lab 4: Testing & Documentation (15 min)
 ```
 Lab 5: Interaction Models (20 min)
 ├─ Ask Mode: Quick questions
-├─ Edit Mode: Iterative changes
+├─ Plan Mode: Design approach before coding
 └─ Agent Mode: Specialized tasks
     ↓
 Lab 6: Skills & Customization (25 min)

@@ -85,7 +85,7 @@ backgroundColor: #fff
 
 # Key Takeaways
 
-✅ **Ask, Edit, Agent** - Use the right interaction mode  
+✅ **Ask, Plan, Agent** - Use the right interaction mode  
 ✅ **Customization hierarchy** - Prompts → Instructions → Skills → Agents  
 ✅ **Skills vs Agents** - Knowledge vs Workflows  
 ✅ **Slash commands** - Discover with /help, /agents, /skills  

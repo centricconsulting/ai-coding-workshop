@@ -722,7 +722,7 @@ Congratulations! You've completed the Advanced GitHub Copilot workshop.
 
 ### What You've Learned
 
-- ✅ Ask, Edit, and Agent interaction models
+- ✅ Ask, Plan, and Agent interaction models
 - ✅ When and how to use custom agents
 - ✅ How to design reliable, role-based agents
 - ✅ Iteration and governance for agent maintenance

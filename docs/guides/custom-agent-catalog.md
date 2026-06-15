@@ -401,7 +401,7 @@ Test Implementation → Test Strategist
 | "What tests do I need?" | Test Strategist |
 | "How do I implement X?" | Standard Copilot Chat |
 | "Explain this code" | Standard Copilot Chat (Ask mode) |
-| "Refactor this method" | Standard Copilot Edit mode |
+| "Refactor this method" | Standard Copilot (Ask or Agent mode) |
 
 ---
 

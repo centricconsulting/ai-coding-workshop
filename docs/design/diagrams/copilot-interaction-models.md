@@ -9,15 +9,15 @@ graph TB
     User[Developer] --> Decision{What do I need?}
     
     Decision -->|Information/Learning| Ask[Ask Mode]
-    Decision -->|Localized Changes| Edit[Edit Mode]
-    Decision -->|Multi-step Workflow| Agent[Agent Mode]
+    Decision -->|Design approach first| Plan[Plan Mode]
+    Decision -->|Execute workflow| Agent[Agent Mode]
     
     Ask --> AskResult[Explanations<br/>Guidance<br/>No changes]
-    Edit --> EditResult[Direct file edits<br/>Scoped modifications]
+    Plan --> PlanResult[Multi-step approach<br/>Requirements gathered<br/>No code yet]
     Agent --> AgentResult[Planned changes<br/>Human checkpoints<br/>Repository analysis]
     
     style Ask fill:#e1f5e1
-    style Edit fill:#fff4e1
+    style Plan fill:#fff4e1
     style Agent fill:#e1e8ff
 ```
 
@@ -31,10 +31,11 @@ graph LR
         A3 -.No Changes.-> A4[Learn & Decide]
     end
     
-    subgraph "Edit Mode"
-        E1[Instruction] --> E2[Generate Code]
-        E2 --> E3[Apply Changes]
-        E3 --> E4[Modified Files]
+    subgraph "Plan Mode"
+        P1[Request] --> P2[Gather Requirements]
+        P2 --> P3[Design Approach]
+        P3 --> P4[Structured Plan]
+        P4 -.No Code Yet.-> P5[Awaiting Approval]
     end
     
     subgraph "Agent Mode"
@@ -56,43 +57,31 @@ flowchart TD
     Start([Need Copilot Help]) --> Q1{Do I need<br/>code changes?}
     
     Q1 -->|No| UseAsk[Use Ask Mode]
-    Q1 -->|Yes| Q2{How many<br/>files affected?}
+    Q1 -->|Yes| Q2{Do I want to design<br/>the approach first?}
     
-    Q2 -->|1-2 files| Q3{Do I know exactly<br/>what to change?}
-    Q2 -->|3+ files| Q4{Complex analysis<br/>required?}
-    
-    Q3 -->|Yes| UseEdit[Use Edit Mode]
-    Q3 -->|No| UseAgent1[Use Agent Mode]
-    
-    Q4 -->|Yes| UseAgent2[Use Agent Mode]
-    Q4 -->|No| UseEdit2[Use Edit Mode<br/>with multiple runs]
+    Q2 -->|Yes| UsePlan[Use Plan Mode]
+    Q2 -->|No - ready to execute| UseAgent[Use Agent Mode]
     
     UseAsk --> AskEx[Examples:<br/>- Explain pattern<br/>- How does X work?<br/>- Best practices]
-    UseEdit --> EditEx[Examples:<br/>- Refactor method<br/>- Add property<br/>- Fix bug in file]
-    UseAgent1 --> AgentEx[Examples:<br/>- Multi-file refactor<br/>- Add feature across layers<br/>- Architectural changes]
-    UseAgent2 --> AgentEx
-    UseEdit2 --> EditEx
+    UsePlan --> PlanEx[Examples:<br/>- Gather requirements<br/>- Validate strategy<br/>- Clarify scope before coding]
+    UseAgent --> AgentEx[Examples:<br/>- Multi-file refactor<br/>- Add feature across layers<br/>- Architectural changes]
     
     style UseAsk fill:#e1f5e1
-    style UseEdit fill:#fff4e1
-    style UseEdit2 fill:#fff4e1
-    style UseAgent1 fill:#e1e8ff
-    style UseAgent2 fill:#e1e8ff
+    style UsePlan fill:#fff4e1
+    style UseAgent fill:#e1e8ff
 ```
 
 ## Interaction Characteristics
 
-| Characteristic | Ask Mode | Edit Mode | Agent Mode |
+| Characteristic | Ask Mode | Plan Mode | Agent Mode |
 |----------------|----------|-----------|------------|
-| **Primary Purpose** | Learn & Understand | Modify Code | Complex Workflows |
-| **Output Type** | Explanations | Code Changes | Planned Steps + Changes |
-| **Scope** | Informational | 1-3 files | Repository-wide |
-| **Control Level** | High (no changes) | Medium (review edits) | High (checkpoint approvals) |
+| **Primary Purpose** | Learn & Understand | Design & Clarify | Execute Workflows |
+| **Output Type** | Explanations | Structured Plan | Planned Steps + Changes |
+| **Code Generated** | None | None (plan only) | Yes, with review |
+| **Scope** | Informational | Requirements gathering | Repository-wide |
+| **Control Level** | High (no changes) | High (approve plan) | High (checkpoint approvals) |
 | **Speed** | Fastest | Fast | Deliberate |
-| **Context Awareness** | Current view | File-focused | Repository-wide |
-| **Human Involvement** | Question → Answer | Review → Accept/Reject | Approve each step |
-| **Undo Complexity** | N/A | Simple (revert) | Depends on progress |
-| **Best For** | Exploration | Targeted fixes | Strategic changes |
+| **Best For** | Exploration | Strategy validation | Implementation |
 
 ## Usage Patterns
 
@@ -110,20 +99,20 @@ sequenceDiagram
     Note over D: No automatic changes
 ```
 
-### Edit Mode Flow
+### Plan Mode Flow
 
 ```mermaid
 sequenceDiagram
     participant D as Developer
     participant C as Copilot
-    participant F as Files
     
-    D->>C: Instruction to modify
-    C->>F: Read current content
-    C->>C: Generate changes
-    C->>D: Show diff/preview
-    D->>C: Accept or modify
-    C->>F: Apply changes
+    D->>C: Request with intent
+    C->>D: Clarifying questions
+    D->>C: Answers / requirements
+    C->>C: Design multi-step approach
+    C->>D: Structured plan
+    D->>D: Review & approve strategy
+    Note over D: No code written yet
 ```
 
 ### Agent Mode Flow
@@ -154,6 +143,13 @@ sequenceDiagram
 > **Agent Mode is not "better chat"**  
 > It's a fundamentally different execution model designed for multi-step, repository-level workflows with human oversight at each critical decision point.
 
+## When Plan Mode Shines
+
+✅ Requirements are unclear and need clarifying before coding  
+✅ You want to validate the approach before committing  
+✅ Complex feature with multiple design options  
+✅ Onboarding — understanding what needs to change before changing it  
+
 ## When Agent Mode Shines
 
 ✅ Multi-file refactoring  
@@ -161,14 +157,6 @@ sequenceDiagram
 ✅ Complex analysis requiring repository context  
 ✅ Workflows needing plan-execute-review cycles  
 ✅ Changes with dependencies and ordering
-
-## When Agent Mode Is Overkill
-
-❌ Simple file edits  
-❌ Quick fixes  
-❌ Single-purpose modifications  
-❌ Exploratory questions  
-❌ Learning or understanding code
 
 ---
 

@@ -1,4 +1,4 @@
-# Lab 05: Copilot Interaction Models (Ask, Edit, Agent)
+# Lab 05: Copilot Interaction Models (Ask, Plan, Agent)
 
 **Module:** 1  
 **Duration:** 25 minutes  
@@ -8,7 +8,7 @@
 
 By the end of this lab, you will:
 - Understand the three primary interaction models in GitHub Copilot
-- Know when to use Ask, Edit, and Agent modes
+- Know when to use Ask, Plan, and Agent modes
 - Experience the differences through hands-on exercises
 - Recognize Agent Mode as a distinct execution model
 
@@ -27,10 +27,10 @@ GitHub Copilot in VS Code offers three distinct interaction models, each optimiz
 - **Behavior:** Provides answers without making changes
 - **Use when:** You need to understand code, patterns, or concepts
 
-### 2. **Edit Mode** (Localized Changes)
-- **Purpose:** Scoped, targeted code modifications
-- **Behavior:** Makes direct edits to specific files
-- **Use when:** You know exactly what to change and where
+### 2. **Plan Mode** (Design Before Code)
+- **Purpose:** Design a multi-step approach and gather requirements before code generation begins
+- **Behavior:** Asks clarifying questions, proposes a structured plan, and waits for your approval before any code is written
+- **Use when:** You want to validate the strategy or requirements before committing to implementation
 
 ### 3. **Agent Mode** (Multi-Step Workflows)
 - **Purpose:** Complex, repository-level tasks
@@ -127,42 +127,42 @@ Copilot will:
 
 ---
 
-## Exercise 2: Edit Mode (10 minutes)
+## Exercise 2: Plan Mode (10 minutes)
 
 ### Instructions
 
-1. Open the file: `src/TaskManager.Domain/Tasks/Task.cs`
-2. Open **Copilot Chat** and switch to **Edit Mode**
+1. Open **Copilot Chat** in VS Code
+2. Switch to **Plan Mode** (select from the mode dropdown)
 3. Use this prompt:
 
 ```
-Add a Priority property to this Task entity using a Priority value object.
-Priority should have three levels: Low, Medium, High.
+I want to add a Priority property (Low, Medium, High) to the Task entity.
 ```
 
-4. Review the proposed changes
-5. Accept or modify the edits
+4. **Observe Plan Mode's behavior:**
+   - Copilot will ask clarifying questions about requirements
+   - It will design a multi-step approach before writing any code
+   - Review the proposed plan before approving
+
+5. Respond to any clarifying questions
+6. Review the structured plan that is produced
 
 ### Expected Outcome
 
-Copilot will:
-- Modify the current file directly
-- Add the `Priority` property
-- May create or suggest a `Priority` value object
+Plan Mode will:
+- Ask clarifying questions (e.g., "Should Priority be a value object or an enum?")
+- Propose a structured, multi-step implementation approach
+- **Not write any code yet** — waiting for your approval of the plan
 
 ### Questions to Consider
 
-- Did Edit Mode make changes beyond the current file?
-- What happens if the change requires updates elsewhere?
-- When is Edit Mode the right choice?
+- What requirements did Plan Mode surface that you hadn't considered?
+- How does seeing the plan first change how you approach the implementation?
+- When is Plan Mode the right choice over jumping straight to Agent Mode?
 
 ### Challenge
 
-Try using Edit Mode to:
-- Create the `Priority.cs` value object file
-- Update the Task constructor to include Priority
-
-Did it work smoothly for multi-file changes?
+After reviewing the plan, switch to **Agent Mode** and use the plan output as your prompt. Does Agent Mode follow the proposed approach?
 
 ---
 
@@ -209,9 +209,9 @@ Agent Mode will:
 
 ### Questions to Consider
 
-- How did Agent Mode's approach differ from Edit Mode?
+- How did Agent Mode's approach differ from Plan Mode?
 - What visibility did you have into the Agent's reasoning?
-- When would you prefer Agent Mode over Edit Mode?
+- When would you use Plan Mode first, then hand off to Agent Mode?
 
 ---
 
@@ -219,7 +219,7 @@ Agent Mode will:
 
 Create your own comparison based on the exercises:
 
-| Aspect | Ask Mode | Edit Mode | Agent Mode |
+| Aspect | Ask Mode | Plan Mode | Agent Mode |
 |--------|----------|-----------|------------|
 | **Speed** | [Your observation] | [Your observation] | [Your observation] |
 | **Scope** | [Your observation] | [Your observation] | [Your observation] |
@@ -234,9 +234,9 @@ Create your own comparison based on the exercises:
 ✅ Use for: Learning, exploration, gathering context  
 ❌ Don't use for: Making changes, implementing features
 
-### Edit Mode
-✅ Use for: Localized, scoped changes you can clearly describe  
-❌ Don't use for: Multi-file refactors, exploratory work
+### Plan Mode
+✅ Use for: Designing approach and clarifying requirements before code generation  
+❌ Don't use for: When you're already clear on the approach and ready to execute
 
 ### Agent Mode
 ✅ Use for: Complex workflows, repository-level analysis, staged changes  

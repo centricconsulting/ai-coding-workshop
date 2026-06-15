@@ -177,7 +177,7 @@ Understand and practice the three modes of interaction with GitHub Copilot.
 **What You'll Learn**:
 
 - Ask Mode for quick questions and explanations
-- Edit Mode for iterative code changes
+- Plan Mode for designing approach and gathering requirements before code generation
 - Agent Mode for specialized, structured tasks
 - When to use each interaction model
 
@@ -644,7 +644,7 @@ By completing Part 1 labs, you will:
 
 By completing Part 2 labs, you will:
 
-✅ **Master Interaction Models** - Know when to use Ask, Edit, or Agent modes  
+✅ **Master Interaction Models** - Know when to use Ask, Plan, or Agent modes  
 ✅ **Leverage Custom Agents** - Use specialized agents for architecture, testing, and planning  
 ✅ **Design Effective Agents** - Understand agent structure and best practices  
 ✅ **Build Custom Agents** - Create and test your own agents for team workflows  

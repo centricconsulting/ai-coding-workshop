@@ -29,6 +29,12 @@
         }
     },
     
+    // Allow bubblewrap nested sandboxing (required for Copilot agent terminal execution)
+    "runArgs": [
+        "--cap-add=SYS_ADMIN",
+        "--security-opt", "seccomp=unconfined"
+    ],
+
     // Use 'postCreateCommand' to run commands after the container is created
     "postCreateCommand": "dotnet build TaskManager.sln && mvn clean install -f src-springboot/pom.xml -DskipTests && dotnet dev-certs https --trust && npm install -g @marp-team/marp-cli",
     
@@ -62,6 +68,7 @@
             ],
             "settings": {
                 "github.copilot.advanced": {},
+                "github.copilot.chat.agent.sandbox.enabled": false,
                 "java.configuration.runtimes": [
                     {
                         "name": "JavaSE-21",

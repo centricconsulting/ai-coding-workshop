@@ -10,6 +10,12 @@
         }
     },
     
+    // Allow bubblewrap nested sandboxing (required for Copilot agent terminal execution)
+    "runArgs": [
+        "--cap-add=SYS_ADMIN",
+        "--security-opt", "seccomp=unconfined"
+    ],
+
     // Use 'postCreateCommand' to run commands after the container is created
     "postCreateCommand": "dotnet build TaskManager.sln && dotnet dev-certs https --trust",
     
@@ -26,7 +32,8 @@
                 "yzhang.markdown-all-in-one"
             ],
             "settings": {
-                "github.copilot.advanced": {}
+                "github.copilot.advanced": {},
+                "github.copilot.chat.agent.sandbox.enabled": false
             }
         }
     },

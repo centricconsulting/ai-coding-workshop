@@ -39,7 +39,6 @@
                 "vmware.vscode-spring-boot",
                 "vscjava.vscode-maven",
                 "vscjava.vscode-gradle",
-                "bierner.markdown-mermaid",
                 "marp-team.marp-vscode",
                 "yzhang.markdown-all-in-one"
             ],

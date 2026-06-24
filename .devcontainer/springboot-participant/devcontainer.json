@@ -18,6 +18,12 @@
         }
     },
     
+    // Allow bubblewrap nested sandboxing (required for Copilot agent terminal execution)
+    "runArgs": [
+        "--cap-add=SYS_ADMIN",
+        "--security-opt", "seccomp=unconfined"
+    ],
+
     // Use 'postCreateCommand' to run commands after the container is created
     "postCreateCommand": "mvn clean install -f src-springboot/pom.xml -DskipTests",
     
@@ -33,12 +39,12 @@
                 "vmware.vscode-spring-boot",
                 "vscjava.vscode-maven",
                 "vscjava.vscode-gradle",
-                "bierner.markdown-mermaid",
                 "marp-team.marp-vscode",
                 "yzhang.markdown-all-in-one"
             ],
             "settings": {
                 "github.copilot.advanced": {},
+                "github.copilot.chat.agent.sandbox.enabled": false,
                 "java.configuration.runtimes": [
                     {
                         "name": "JavaSE-21",

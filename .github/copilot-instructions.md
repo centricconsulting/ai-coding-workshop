@@ -5,7 +5,7 @@ This repository is a bilingual GitHub Copilot workshop with shared docs, labs, a
 This file defines repo-wide defaults. More specific instruction files take precedence.
 
 - `**/*.cs`: also follow `.github/instructions/csharp.instructions.md` and `.github/instructions/dotnet.instructions.md`
-- `src-springboot/**`: also follow `.github/instructions/springboot.instructions.md`
+- `src-springboot/**`: also follow `.github/instructions/springboot.instructions.md
 
 ## 1. Repository Purpose
 

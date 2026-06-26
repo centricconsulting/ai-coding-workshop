@@ -1,92 +1,103 @@
-using System.Text;
-using Microsoft.Extensions.Logging;
-using TaskManager.Application.Ports;
-
 namespace TaskManager.Infrastructure.Legacy;
 
 /// <summary>
-/// Processes task data by applying a named transformation strategy.
+/// LEGACY CODE - This is intentionally bad code for refactoring exercise in Lab 3
+/// Anti-patterns included:
+/// - Long method with nested conditionals
+/// - Poor naming
+/// - No logging
+/// - Synchronous code
+/// - No error handling
+/// - Mixed concerns
+/// - Magic numbers and strings
 /// </summary>
-public sealed class TaskProcessor(ILogger<TaskProcessor> logger, ITaskFileWriter fileWriter)
+public class LegacyTaskProcessor
 {
-    private const int MAX_RESULT_LENGTH = 50;
-
-    /// <summary>
-    /// Applies the specified <paramref name="type"/> transformation to <paramref name="data"/> and returns the result.
-    /// </summary>
-    /// <param name="taskId">The unique identifier of the task being processed.</param>
-    /// <param name="data">The input data to transform. Must not be null or empty.</param>
-    /// <param name="type">The transformation to apply.</param>
-    /// <param name="cancellationToken">Token to cancel the operation.</param>
-    /// <returns>The transformed string.</returns>
-    /// <exception cref="ArgumentException">Thrown when <paramref name="data"/> is null or empty.</exception>
-    public async Task<string> ProcessTaskAsync(
-        int taskId,
-        string data,
-        ProcessingType type,
-        CancellationToken cancellationToken = default)
+    public string ProcessTask(int id, string data, int type, bool flag)
     {
-        ArgumentException.ThrowIfNullOrEmpty(data, nameof(data));
-
-        logger.LogInformation("Processing task {TaskId} with type {ProcessingType}", taskId, type);
-
-        var result = type switch
+        var result = "";
+        
+        if (data != null)
         {
-            ProcessingType.NormalizeAndInvertCase => await NormalizeAndInvertCaseAsync(taskId, data, cancellationToken),
-            ProcessingType.Uppercase              => data.ToUpper(),
-            ProcessingType.SentenceCase           => ToSentenceCase(data),
-            ProcessingType.Passthrough or _       => data
-        };
-
-        logger.LogInformation("Task {TaskId} processed successfully", taskId);
-        return result;
-    }
-
-    private async Task<string> NormalizeAndInvertCaseAsync(
-        int taskId,
-        string data,
-        CancellationToken cancellationToken)
-    {
-        var builder = new StringBuilder(data.Length);
-
-        foreach (var ch in data)
-            builder.Append(NormalizeChar(ch));
-
-        if (builder.Length > MAX_RESULT_LENGTH)
-            builder.Remove(MAX_RESULT_LENGTH, builder.Length - MAX_RESULT_LENGTH);
-
-        var result = builder.ToString();
-
-        await Task.Delay(100, cancellationToken);
-
-        try
-        {
-            await fileWriter.WriteAsync(taskId, result, cancellationToken);
+            if (data.Length > 0)
+            {
+                if (type == 1)
+                {
+                    if (flag)
+                    {
+                        for (int i = 0; i < data.Length; i++)
+                        {
+                            if (data[i] == ' ')
+                            {
+                                result += "_";
+                            }
+                            else
+                            {
+                                if (char.IsUpper(data[i]))
+                                {
+                                    result += char.ToLower(data[i]);
+                                }
+                                else
+                                {
+                                    result += char.ToUpper(data[i]);
+                                }
+                            }
+                        }
+                        
+                        if (result.Length > 50)
+                        {
+                            result = result.Substring(0, 50);
+                        }
+                        
+                        // Simulate some processing
+                        System.Threading.Thread.Sleep(100);
+                        
+                        // Write to file (bad practice - mixed concerns)
+                        try
+                        {
+                            System.IO.File.WriteAllText($"task_{id}.txt", result);
+                        }
+                        catch
+                        {
+                            // Swallow exception (bad practice)
+                        }
+                    }
+                    else
+                    {
+                        result = data.ToUpper();
+                    }
+                }
+                else if (type == 2)
+                {
+                    var words = data.Split(' ');
+                    for (int i = 0; i < words.Length; i++)
+                    {
+                        if (i == 0)
+                        {
+                            result = words[i];
+                        }
+                        else
+                        {
+                            result += " " + words[i].ToLower();
+                        }
+                    }
+                }
+                else
+                {
+                    result = data;
+                }
+            }
         }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Failed to write task {TaskId} to file", taskId);
-            throw;
-        }
-
+        
         return result;
-    }
-
-    private static char NormalizeChar(char ch) => ch switch
-    {
-        ' '                     => '_',
-        _ when char.IsUpper(ch) => char.ToLower(ch),
-        _                       => char.ToUpper(ch)
-    };
-
-    private static string ToSentenceCase(string data)
-    {
-        var words = data.Split(' ');
-        var builder = new StringBuilder(words[0]);
-
-        for (var i = 1; i < words.Length; i++)
-            builder.Append(' ').Append(words[i].ToLower());
-
-        return builder.ToString();
     }
 }
+
+// TODO: During Lab 3, participants will use Copilot to refactor this into:
+// - Multiple focused methods
+// - Async implementation
+// - Proper logging with ILogger
+// - Guard clauses instead of nested ifs
+// - Meaningful parameter and variable names
+// - Proper error handling
+// - Separation of concerns

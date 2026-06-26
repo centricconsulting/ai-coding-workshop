@@ -56,7 +56,6 @@
                 "humao.rest-client",
                 
                 // Documentation & Presentations
-                "bierner.markdown-mermaid",
                 "marp-team.marp-vscode",
                 "yzhang.markdown-all-in-one"
             ],

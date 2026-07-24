@@ -3,6 +3,44 @@ name: "architecture-reviewer"
 description: 'Reviews code and design for architectural concerns, boundary violations, and structural quality in Clean Architecture and DDD projects'
 tools: ['read', 'search/changes']
 model: Claude Sonnet 4.5
+handoffs:
+  - label: Create User Stories
+    agent: backlog-generator
+    prompt: |-
+      Based on the architectural review above, create user stories for implementing the following changes:
+      - Architectural violations and required fixes
+      - Recommended refactoring approach and patterns
+      - Component boundaries and responsibilities
+      - Technical constraints and dependencies
+      Include priority and risk assessment for each story.
+    send: false
+  - label: Implement Changes
+    agent: default
+    prompt: |-
+      Implement the architectural changes recommended in the review above. Follow these guidelines:
+      - Apply the specific architectural patterns mentioned
+      - Enforce boundary rules and layer-specific constraints
+      - Include tests for all architectural changes
+      - Ensure code follows Clean Architecture principles
+    send: false
+  - label: Plan Test Strategy
+    agent: test-strategist
+    prompt: |-
+      Based on the architectural review above, create a test strategy covering:
+      - Tests for architectural components identified
+      - Mock strategies for boundary interfaces
+      - Verification of domain invariants
+      - Coverage for integration points
+    send: false
+  - label: Plan Refactoring
+    agent: plan
+    prompt: |-
+      Create a detailed refactoring plan for the architectural issues identified above. Consider:
+      - Architectural problems and violations found
+      - Risk areas and dependencies
+      - Constraints (backward compatibility, deployment, data migration)
+      - Alternative architectural approaches and trade-offs
+    send: false
 ---
 
 # Architecture Reviewer

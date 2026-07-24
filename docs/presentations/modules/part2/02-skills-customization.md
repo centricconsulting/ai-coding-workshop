@@ -23,7 +23,7 @@ backgroundColor: #fff
 
 1. Prompts      → One-off, in-chat
 2. Instructions → Always-on guardrails
-3. Skills       → Domain knowledge (#skill-name)
+3. Skills       → Domain knowledge (/skill-name)
 4. Agents       → Workflows with tools (@agent-name)
 ```
 
@@ -36,12 +36,12 @@ backgroundColor: #fff
 **Skills = Domain Expertise Without Tool Access**
 
 - Portable knowledge modules
-- Invoked with `#skill-name`
+- Invoked with `/skill-name` slash commands
 - Provide templates, patterns, examples
 - **No file access** - pure knowledge
 - Discovered via `/skills` command
 
-**Example:** `#test-data-generator`
+**Example:** `/test-data-generator`
 
 ---
 
@@ -51,7 +51,7 @@ backgroundColor: #fff
 |--------|--------|--------|
 | **Purpose** | Knowledge & templates | Workflows & actions |
 | **Tool Access** | ❌ None | ✅ Read/write files |
-| **Invocation** | `#skill-name` | `@agent-name` |
+| **Invocation** | `/skill-name` | `@agent-name` |
 | **Best For** | Patterns, examples | Multi-step tasks |
 | **Discovery** | `/skills` | `/agents` |
 

@@ -248,7 +248,6 @@ TaskManager.Domain succeeded
 TaskManager.Application succeeded
 TaskManager.Infrastructure succeeded
 TaskManager.Api succeeded
-TaskManager.ConsoleApp succeeded
 TaskManager.UnitTests succeeded
 TaskManager.IntegrationTests succeeded
 ```

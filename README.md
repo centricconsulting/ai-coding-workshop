@@ -9,7 +9,7 @@ Transform the way you build software with AI-powered development! This comprehen
 **This workshop is split into two parts:**
 
 ### Part 1: Fundamentals (3 hours)
-Learn AI assistance across the entire development lifecycle—from requirements gathering to code generation, testing, and documentation. Using either **.NET 9** or **Spring Boot 3.x**, **Visual Studio Code**, and **GitHub Copilot**, you'll experience firsthand how AI can amplify developer productivity while following industry best practices like **Clean Architecture**, **Domain-Driven Design**, and **Test-Driven Development**.
+Learn AI assistance across the entire development lifecycle—from requirements gathering to code generation, testing, and documentation. Using either **.NET 9** or **Spring Boot 3.x**, **Visual Studio Code**, and **GitHub Copilot**, you'll experience firsthand how AI can amplify developer productivity while following industry best practices like **Clean Architecture**, **Domain-Driven Design**, and **Test-Driven DLearn AI assistance across the entire development lifecycle, from requirements gathering to code generation, testing, and documentation. Using either **.NET 9** or **Spring Boot 3.x**, **Visual Studio Code**, and **GitHub Copilot**, you'll experience firsthand how AI can amplify developer productivity while following industry best practices such as **Clean Architecture**, **Domain‑Driven Design**, and **Test‑Driven Development**.evelopment**.
 
 ### Part 2: Advanced GitHub Copilot (3 hours)
 Master advanced Copilot features including **interaction models** (Ask/Plan/Agent), **the Skills system**, **custom agents**, and **workflow automation**. Learn the complete customization hierarchy (Prompts → Instructions → Skills → Agents), discover capabilities with slash commands, and design production-ready agents that encode team knowledge and standardize AI-assisted development workflows.
@@ -44,7 +44,7 @@ For the best experience, use the provided **Devcontainer** and recommended VS Co
   - 🟩 **Spring Boot Container** (`.devcontainer/springboot/`): Java 21 JDK, Spring Boot extensions, Maven
   - 🔷🟩 **Bilingual Container** (`.devcontainer/bilingual/`): Both .NET and Java environments (for facilitators or exploring both stacks)
 
-> **Can't use Dev Containers?** Follow the [Local Setup Guide](docs/LOCAL_SETUP.md) to install the required tools and VS Code extensions manually for either the .NET or Spring Boot track.
+> **Can't use Dev Containers?** Follow the [Local Setup Guide](docs/LOCAL_SETUP.md) to install the required tools and VS Code extensions manually for either the .NET or Spring Boot track. Prefer a lighter footprint? See the [Minimal .NET Setup](docs/MINIMAL_SETUP_DOTNET.md) or [Minimal Spring Boot Setup](docs/MINIMAL_SETUP_JAVA.md) for a Copilot-only setup without extra VS Code extensions.
 
 - **Copilot Custom Instructions**: This repo auto-applies Copilot instructions based on file context:
   - 🔷 **.NET files** (`**/*.cs`): Loads `csharp.instructions.md` + `dotnet.instructions.md`

@@ -3,6 +3,8 @@
 Use this guide if you **cannot run Dev Containers** (Docker not available, corporate policy, resource constraints, etc.). Follow the section for your technology track: **.NET** or **Spring Boot (Java)**.
 
 > **Prefer Dev Containers?** See [`.devcontainer/README.md`](../.devcontainer/README.md) for the faster, pre-configured path.
+>
+> **Prefer a minimal setup?** See [`MINIMAL_SETUP_DOTNET.md`](./MINIMAL_SETUP_DOTNET.md) or [`MINIMAL_SETUP_JAVA.md`](./MINIMAL_SETUP_JAVA.md) for Copilot-only setups without extra VS Code extensions.
 
 ---
 

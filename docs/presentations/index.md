@@ -11,6 +11,16 @@ This directory contains modular presentation files for the GitHub Copilot worksh
 
 ## 📚 Module Catalog
 
+### Pre-Workshop: Non-Technical Crash Course (1 hour)
+
+| Module | Topic | Duration | File |
+|--------|-------|----------|------|
+| 00 | Terminal, VS Code, Git & GitHub Basics | 60 min | [00-non-technical-crash-course.md](modules/pre-workshop/00-non-technical-crash-course.md) |
+
+**For:** BAs, PMs, and other non-engineering participants with no prior tooling experience. Pairs with [Lab 0](../labs/lab-00-non-technical-crash-course.md). Run immediately before Part 1.
+
+---
+
 ### Part 1: Fundamentals (3 hours)
 
 | Module | Topic | Duration | File |

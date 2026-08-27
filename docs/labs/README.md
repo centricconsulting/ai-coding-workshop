@@ -38,6 +38,34 @@ Each lab is designed as a standalone guide with:
 
 ## 🎯 Labs Overview
 
+### [Lab 0: Non-Technical Crash Course (Terminal, VS Code, Git, GitHub)](lab-00-non-technical-crash-course.md)
+
+**Duration**: 60 minutes
+
+Get BAs, PMs, and other non-engineering participants ready for Lab 1 with zero prior tooling experience assumed.
+
+**What You'll Do**:
+
+- Run basic commands in a terminal
+- Navigate VS Code (sidebar, integrated terminal, extensions)
+- Practice the core Git loop: clone, add, commit, push, pull, branch
+- Understand GitHub repos, pull requests, and issues
+- Clone this workshop repo, create a personal branch, and verify the build
+
+**Key Skills**:
+
+- Terminal navigation
+- Git fundamentals
+- GitHub fundamentals
+- Workshop repo setup
+
+**Prerequisites**:
+
+- VS Code, Git, and a GitHub account installed/created
+- GitHub Copilot access
+
+---
+
 ### [Lab 1: Test-Driven Development with GitHub Copilot](lab-01-tdd-with-copilot.md)
 
 **Duration**: 30 minutes

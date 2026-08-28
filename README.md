@@ -33,7 +33,38 @@ Whether you're new to AI-assisted development or looking to level up your Copilo
 
 This repository contains all workshop materials including lab guides, starter code, reference implementations, and facilitator resources.
 
+---
 
+## Getting Started: Choose Your Path
+
+Not sure where to start? Answer a couple of quick questions and follow the path that fits you:
+
+```mermaid
+flowchart TD
+    A([Start here]) --> B{Comfortable with a<br>terminal, VS Code,<br>and basic Git/GitHub?}
+    B -- "No / Not sure" --> C["Lab 0: Non-Technical Crash Course<br>(docs/labs/lab-00-non-technical-crash-course.md)<br>1 hour"]
+    C --> D
+    B -- "Yes" --> D{Which technology<br>stack?}
+    D -- ".NET" --> E[".NET 9 track"]
+    D -- "Spring Boot" --> F["Spring Boot 3.x track"]
+    D -- "Exploring both" --> G["Bilingual track"]
+    E --> H{How do you want<br>to set up your<br>environment?}
+    F --> H
+    G --> H
+    H -- "Fastest, zero setup" --> I["Dev Container<br>.devcontainer/dotnet or springboot"]
+    H -- "Full local IDE setup" --> J["Local Setup Guide<br>docs/LOCAL_SETUP.md"]
+    H -- "Lightweight, Copilot-only" --> K["Minimal Setup Guide<br>docs/MINIMAL_SETUP_DOTNET.md or<br>docs/MINIMAL_SETUP_JAVA.md"]
+    I --> L(["You're ready!<br>Bring this setup to the<br>instructor-led workshop"])
+    J --> L
+    K --> L
+```
+
+> **This is an instructor-led workshop.** The steps above are pre-workshop preparation only — complete them before the session so your environment is ready. Your facilitator will guide the group through Lab 1 and beyond during the live workshop.
+
+- **New to the terminal, VS Code, or Git?** Complete **[Lab 0: Non-Technical Crash Course](docs/labs/lab-00-non-technical-crash-course.md)** (1 hour, [companion slides](docs/presentations/modules/pre-workshop/00-non-technical-crash-course.md)) before the workshop.
+- **Already comfortable with the basics?** Pick a stack and environment below so you arrive ready — see the [Pre-Workshop Environment Checklist](docs/PRE_WORKSHOP_CHECKLIST.md).
+
+---
 
 ## VS Code & Devcontainer Setup
 

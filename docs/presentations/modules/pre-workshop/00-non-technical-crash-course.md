@@ -80,7 +80,7 @@ You don't need to become an engineer today.
 pwd          # Print Working Directory — "where am I?"
 ls           # List files (Mac/Linux)
 dir          # List files (Windows)
-cd Desktop   # Move into a folder
+cd Desktop   # Change Directory — move into a folder
 cd ..        # Move up one level
 ```
 

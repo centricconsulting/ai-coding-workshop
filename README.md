@@ -4,7 +4,7 @@
 
 Transform the way you build software with AI-powered development! This comprehensive workshop teaches developers how to leverage **GitHub Copilot** and modern AI coding assistants to accelerate application development while maintaining high code quality standards.
 
-**Choose Your Technology Stack:** This workshop supports both **🔷 .NET** and **🟩 Spring Boot** implementations, allowing participants to learn AI-assisted development in their preferred ecosystem.
+**Choose Your Technology Stack:** This workshop supports both **🔷 .NET** and **🟩 Spring Boot** implementations, allowing participants to learn AI-assisted development in their preferred ecosystem. An additional **🅰️ Angular** track (a self-contained SPA, no backend) is also available for frontend-focused participants — see the [Getting Started](#getting-started-choose-your-path) flowchart below.
 
 **This workshop is split into two parts:**
 
@@ -48,15 +48,21 @@ flowchart TD
     D -- ".NET" --> E[".NET 9 track"]
     D -- "Spring Boot" --> F["Spring Boot 3.x track"]
     D -- "Exploring both" --> G["Bilingual track"]
+    D -- "Angular" --> M["Angular track<br>(self-contained SPA)"]
     E --> H{How do you want<br>to set up your<br>environment?}
     F --> H
     G --> H
     H -- "Fastest, zero setup" --> I["Dev Container<br>.devcontainer/dotnet or springboot"]
     H -- "Full local IDE setup" --> J["Local Setup Guide<br>docs/LOCAL_SETUP.md"]
     H -- "Lightweight, Copilot-only" --> K["Minimal Setup Guide<br>docs/MINIMAL_SETUP_DOTNET.md or<br>docs/MINIMAL_SETUP_JAVA.md"]
+    M --> N{How do you want<br>to set up your<br>environment?}
+    N -- "Fastest, zero setup" --> O["Dev Container<br>.devcontainer/angular-participant"]
+    N -- "Local setup<br>(exact spec required,<br>no lightweight option)" --> P["Local Setup Guide<br>docs/LOCAL_SETUP_ANGULAR.md"]
     I --> L(["You're ready!<br>Bring this setup to the<br>instructor-led workshop"])
     J --> L
     K --> L
+    O --> L
+    P --> L
 ```
 
 > **This is an instructor-led workshop.** The steps above are pre-workshop preparation only — complete them before the session so your environment is ready. Your facilitator will guide the group through Lab 1 and beyond during the live workshop.
@@ -349,6 +355,12 @@ The `main` branch contains code for both technology stacks:
 - **REST API**: @RestController endpoints with Spring Boot Actuator
 - **Legacy Code Sample**: Mule ESB example code for modernization exercises
 - **Test Infrastructure**: JUnit 5 test stubs with Mockito ready for implementation
+
+**🅰️ Angular Solution** (`src-angular/task-manager/` directory):
+- **Self-contained SPA**: no backend — Domain/Application/Data layers implemented client-side
+  with an in-memory repository
+- **Angular 22**: standalone components, Vitest for testing
+- **Test Infrastructure**: Vitest specs for the `Task` domain aggregate and `App` shell
 
 **Shared Resources**:
 - **Custom Agents** (`.github/agents/`): Architecture Reviewer, Backlog Generator, Test Strategist

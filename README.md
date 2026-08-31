@@ -130,6 +130,11 @@ Before attending this workshop, participants should have:
 - **Spring Boot extension pack** for VS Code
 - **Java Experience**: Comfortable with basic Java syntax and Spring Framework concepts
 
+**🅰️ Angular Track Prerequisites:**
+- **Node.js 24.15+ (or 22.22.3+ / 26.0.0+)**: Installed and verified with `node --version` (a hard requirement of Angular CLI 22)
+- **Angular Language Service extension** for VS Code
+- **TypeScript/Angular Experience**: Comfortable with basic TypeScript and component-based UI concepts
+
 ### Environment Check
 
 Run these commands to verify your setup:
@@ -145,6 +150,13 @@ code --version           # VS Code version
 ```bash
 java -version            # Should show Java 21
 mvn --version            # Maven version (or gradle --version)
+git --version            # Any recent version
+code --version           # VS Code version
+```
+
+**🅰️ Angular Track:**
+```bash
+node --version            # Should show v24.15+ (or 22.22.3+ / 26.0.0+)
 git --version            # Any recent version
 code --version           # VS Code version
 ```
@@ -304,17 +316,17 @@ See [Part 2 Facilitator's Guide](docs/FACILITATOR_GUIDE_PART2.md) for detailed s
 #### Part 1: Fundamentals (Labs 1-4)
 
 - **[Lab 1: TDD with GitHub Copilot](docs/labs/lab-01-tdd-with-copilot.md)** (30 min) - Red-Green-Refactor cycle with NotificationService  
-  _Format: **Bilingual** with 🔷 .NET and 🟩 Spring Boot sections throughout_
+  _Format: **Bilingual** with 🔷 .NET and 🟩 Spring Boot sections throughout · also available as a separate [Angular version](docs/labs/lab-01-tdd-with-copilot-angular.md)_
   
 - **[Lab 2: Requirements to Code](docs/labs/lab-02-requirements-to-code.md)** (45 min) - Transform user stories into working features  
-  _Format: **Separate files** - Choose [.NET version](docs/labs/lab-02-requirements-to-code.md) or [Spring Boot version](docs/labs/lab-02-requirements-to-code-java.md)_
+  _Format: **Separate files** - Choose [.NET version](docs/labs/lab-02-requirements-to-code.md), [Spring Boot version](docs/labs/lab-02-requirements-to-code-java.md), or [Angular version](docs/labs/lab-02-requirements-to-code-angular.md)_
   
 - **[Lab 3: Code Generation & Refactoring](docs/labs/lab-03-generation-and-refactoring.md)** (45 min) - Generate CRUD APIs and modernize legacy code  
-  _Format: **Separate files** - Choose [.NET version](docs/labs/lab-03-generation-and-refactoring.md) or [Spring Boot version](docs/labs/lab-03-generation-and-refactoring-java.md)_  
-  _🟩 Spring Boot version includes **Mule ESB → Spring Boot** refactoring scenarios_
+  _Format: **Separate files** - Choose [.NET version](docs/labs/lab-03-generation-and-refactoring.md), [Spring Boot version](docs/labs/lab-03-generation-and-refactoring-java.md), or [Angular version](docs/labs/lab-03-generation-and-refactoring-angular.md)_  
+  _🟩 Spring Boot version includes **Mule ESB → Spring Boot** refactoring scenarios; 🅰️ Angular version moves business logic from a component into an injectable application service_
   
 - **[Lab 4: Testing, Documentation & Workflow](docs/labs/lab-04-testing-documentation-workflow.md)** (15 min) - Complete the development lifecycle  
-  _Format: **Stack-agnostic** concepts, currently .NET-focused (Spring Boot version planned)_
+  _Format: **Stack-agnostic** concepts, currently .NET-focused (Spring Boot version planned); also available as a separate [Angular version](docs/labs/lab-04-testing-documentation-workflow-angular.md)_
 
 #### Part 2: Advanced GitHub Copilot (Labs 5-10)
 
@@ -387,6 +399,10 @@ Contains:
 - Planned branch with Spring Boot implementations of Labs 1-4
 - Check repository for updates
 
+**🅰️ Angular Reference** (in development):
+- Planned branch with Angular implementations of Labs 1-4
+- Check repository for updates
+
 **Use reference implementations to:**
 - Compare your solution with a working implementation
 - Get unstuck if you encounter issues
@@ -408,6 +424,7 @@ Contains:
    - 🔷 **.NET Track**: Work in `src/` directory with .NET 9 projects
    - 🟩 **Spring Boot Track**: Work in `src-springboot/` directory with Spring Boot 3.x projects
    - 🔷🟩 **Explore Both**: Use bilingual devcontainer to try both ecosystems
+   - 🅰️ **Angular Track**: Work in `src-angular/task-manager/` directory (self-contained SPA, no backend)
 
 3. **Create your own branch from `main`**:
 
@@ -429,6 +446,7 @@ Contains:
      - 🔷 `.devcontainer/dotnet/` for .NET track
      - 🟩 `.devcontainer/springboot/` for Spring Boot track
      - 🔷🟩 `.devcontainer/bilingual/` for both stacks
+     - 🅰️ `.devcontainer/angular-participant/` for the Angular track
 
    **That's it!** Copilot instructions automatically load based on which files you're editing - no manual setup needed.
 
@@ -446,6 +464,15 @@ Contains:
    java -version       # Should show Java 21
    cd src-springboot
    mvn clean test      # Verify build and tests
+   ```
+
+   **🅰️ Angular Track:**
+   ```bash
+   node --version           # Should show v24.15+ (or 22.22.3+ / 26.0.0+)
+   cd src-angular/task-manager
+   npm install
+   npx ng build             # Verify build
+   npx ng test --watch=false  # Verify tests run
    ```
 
 6. **Ready to start!** Follow along with your facilitator or work through the labs independently

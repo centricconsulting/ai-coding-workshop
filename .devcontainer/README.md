@@ -1,6 +1,6 @@
 # DevContainer Selection Guide
 
-This repository contains **4 devcontainer configurations** to support different workshop roles and technology stacks.
+This repository contains **5 devcontainer configurations** to support different workshop roles and technology stacks.
 
 ## 🎯 Which Container Should I Use?
 
@@ -103,6 +103,26 @@ When you open this repository in VS Code, you'll be prompted to select a devcont
 
 ---
 
+### 5️⃣ **JavaScript Participant** (Streamlined)
+
+**Location:** `.devcontainer/javascript-participant/`
+
+**Who should use this:**
+- Workshop participants following the plain-JavaScript, non-technical track
+- Non-engineering participants (BAs, PMs, etc.) doing a lighter-weight version of the workshop
+
+**What's included:**
+- ✅ Node.js 22 LTS (no framework, no TypeScript, no bundler)
+- ✅ GitHub Copilot extensions
+- ✅ Minimal overhead — smallest of the five containers
+
+**Builds:**
+- `src-javascript/task-manager/` (plain JavaScript, zero dependencies — tested with Node's built-in `node:test`)
+
+**Note:** Same no-minimal-setup policy as the Angular track: use this devcontainer or match the [JavaScript section of `LOCAL_SETUP.md`](../docs/LOCAL_SETUP.md#-javascript-track-setup) exactly. In practice this track's local setup is already minimal (just Node + VS Code + Copilot).
+
+---
+
 ## 🚀 How to Select
 
 ### First Time Opening the Repository
@@ -123,17 +143,17 @@ When you open this repository in VS Code, you'll be prompted to select a devcont
 
 ## 📋 Container Comparison
 
-| Feature | Maintainer | .NET Participant | Spring Boot Participant | Angular Participant |
-|---------|-----------|------------------|------------------------|----------------------|
-| **.NET 9 SDK** | ✅ | ✅ | ❌ | ❌ |
-| **Java 21 JDK** | ✅ | ❌ | ✅ | ❌ |
-| **Maven/Gradle** | ✅ | ❌ | ✅ | ❌ |
-| **Node.js / Angular CLI** | ✅ | ❌ | ❌ | ✅ |
-| **Marp CLI** | ✅ | ❌ | ❌ | ❌ |
-| **All Extensions** | ✅ | .NET only | Java only | Angular only |
-| **Build Time** | ~3-5 min | ~1-2 min | ~2-3 min | ~1-2 min |
-| **Container Size** | ~5 GB | ~2 GB | ~3 GB | ~1.5 GB |
-| **Copilot Instructions** | Both | .NET | Spring Boot | N/A (Angular track has no dedicated instructions file yet) |
+| Feature | Maintainer | .NET Participant | Spring Boot Participant | Angular Participant | JavaScript Participant |
+|---------|-----------|------------------|------------------------|----------------------|--------------------------|
+| **.NET 9 SDK** | ✅ | ✅ | ❌ | ❌ | ❌ |
+| **Java 21 JDK** | ✅ | ❌ | ✅ | ❌ | ❌ |
+| **Maven/Gradle** | ✅ | ❌ | ✅ | ❌ | ❌ |
+| **Node.js / Angular CLI** | ✅ | ❌ | ❌ | ✅ | Node.js only (no CLI) |
+| **Marp CLI** | ✅ | ❌ | ❌ | ❌ | ❌ |
+| **All Extensions** | ✅ | .NET only | Java only | Angular only | JavaScript only |
+| **Build Time** | ~3-5 min | ~1-2 min | ~2-3 min | ~1-2 min | <1 min |
+| **Container Size** | ~5 GB | ~2 GB | ~3 GB | ~1.5 GB | ~1 GB |
+| **Copilot Instructions** | Both | .NET | Spring Boot | N/A (Angular track has no dedicated instructions file yet) | N/A (JavaScript track has no dedicated instructions file yet) |
 
 ---
 

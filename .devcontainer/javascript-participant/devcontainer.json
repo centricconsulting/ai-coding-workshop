@@ -1,0 +1,31 @@
+// JavaScript Participant DevContainer - Streamlined for Workshop Participants
+// For participants following the plain-JavaScript (non-technical) track
+{
+    "name": "AI Workshop - JavaScript Participant",
+    "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+
+    "features": {
+        "ghcr.io/devcontainers/features/github-cli:1": {
+            "version": "latest"
+        }
+    },
+
+    // No install step needed — plain JavaScript with zero dependencies.
+    // Use 'postCreateCommand' just to run the starter test suite as a sanity check.
+    "postCreateCommand": "cd src-javascript/task-manager && node --test",
+
+    // Configure tool-specific properties
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "GitHub.copilot",
+                "GitHub.copilot-chat",
+                "marp-team.marp-vscode",
+                "yzhang.markdown-all-in-one"
+            ],
+            "settings": {
+                "github.copilot.advanced": {}
+            }
+        }
+    }
+}

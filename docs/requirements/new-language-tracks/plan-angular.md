@@ -49,7 +49,7 @@ so the TDD labs still exercise real business-rule tests independent of UI render
   all pass inside the actual `mcr.microsoft.com/devcontainers/typescript-node:24` image. Note:
   Angular CLI 22 requires Node 24.15+/22.22.3+/26.0+; the widely-used `:1-22-bookworm` devcontainer
   tag ships Node 22.16 and fails this requirement — use the `:24` tag.
-- Full local setup doc: `docs/LOCAL_SETUP_ANGULAR.md`. **Policy**: unlike the .NET/Java tracks,
+- Full local setup: Angular section of `docs/LOCAL_SETUP.md`. **Policy**: unlike the .NET/Java tracks,
   there is no lightweight "Copilot-only" `MINIMAL_SETUP_*.md` alternative for this track —
   participants must either use the devcontainer or match the local setup doc's spec exactly
   (particularly the Node version requirement).

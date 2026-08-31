@@ -99,7 +99,7 @@ When you open this repository in VS Code, you'll be prompted to select a devcont
 **Builds:**
 - `src-angular/task-manager/` (Angular SPA only — no backend required)
 
-**Note:** There is no minimal/lightweight local-setup alternative for this track (unlike the .NET/Java tracks' `MINIMAL_SETUP_*.md` guides). Angular participants must either use this devcontainer or set up a local environment matching [`LOCAL_SETUP_ANGULAR.md`](../docs/LOCAL_SETUP_ANGULAR.md) exactly.
+**Note:** There is no minimal/lightweight local-setup alternative for this track (unlike the .NET/Java tracks' `MINIMAL_SETUP_*.md` guides). Angular participants must either use this devcontainer or set up a local environment matching the [Angular section of `LOCAL_SETUP.md`](../docs/LOCAL_SETUP.md#-angular-track-setup) exactly.
 
 ---
 

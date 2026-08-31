@@ -57,7 +57,7 @@ flowchart TD
     H -- "Lightweight, Copilot-only" --> K["Minimal Setup Guide<br>docs/MINIMAL_SETUP_DOTNET.md or<br>docs/MINIMAL_SETUP_JAVA.md"]
     M --> N{How do you want<br>to set up your<br>environment?}
     N -- "Fastest, zero setup" --> O["Dev Container<br>.devcontainer/angular-participant"]
-    N -- "Local setup<br>(exact spec required,<br>no lightweight option)" --> P["Local Setup Guide<br>docs/LOCAL_SETUP_ANGULAR.md"]
+    N -- "Local setup<br>(exact spec required,<br>no lightweight option)" --> P["Local Setup Guide<br>docs/LOCAL_SETUP.md (Angular section)"]
     I --> L(["You're ready!<br>Bring this setup to the<br>instructor-led workshop"])
     J --> L
     K --> L
@@ -84,7 +84,7 @@ For the best experience, use the provided **Devcontainer** and recommended VS Co
 
 > **Can't use Dev Containers?** Follow the [Local Setup Guide](docs/LOCAL_SETUP.md) to install the required tools and VS Code extensions manually for either the .NET or Spring Boot track. Prefer a lighter footprint? See the [Minimal .NET Setup](docs/MINIMAL_SETUP_DOTNET.md) or [Minimal Spring Boot Setup](docs/MINIMAL_SETUP_JAVA.md) for a Copilot-only setup without extra VS Code extensions.
 >
-> **Angular track**: there is no minimal-setup alternative — use the devcontainer above or follow [`docs/LOCAL_SETUP_ANGULAR.md`](docs/LOCAL_SETUP_ANGULAR.md) exactly (including its Node.js version requirement).
+> **Angular track**: there is no minimal-setup alternative — use the devcontainer above or follow the [Angular section of `docs/LOCAL_SETUP.md`](docs/LOCAL_SETUP.md#-angular-track-setup) exactly (including its Node.js version requirement).
 
 - **Copilot Custom Instructions**: This repo auto-applies Copilot instructions based on file context:
   - 🔷 **.NET files** (`**/*.cs`): Loads `csharp.instructions.md` + `dotnet.instructions.md`

@@ -6,6 +6,11 @@ Aaron requested feedback on incorporating additional languages into the workshop
 existing bilingual .NET / Spring Boot tracks: **Angular, Swift, Kotlin, and Python**. Developers
 from each of these communities are already part of the workshop audience.
 
+A fifth track, **plain JavaScript**, was added afterward for a genuinely non-technical audience
+(similar profile to Lab 0's BA/PM participants) — see [plan-javascript.md](./plan-javascript.md).
+Unlike the other four, it is intentionally lightweight (no framework, no layering) rather than a
+Clean Architecture port.
+
 This folder contains one plan per track, scoped for Aaron's approval before any scaffolding work
 begins.
 
@@ -43,6 +48,7 @@ begins.
 | Angular | Self-contained SPA, in-memory data layer | Jasmine + Karma | 1–2 days |
 | Kotlin | Plain Kotlin module (no emulator) | JUnit5 + MockK | 1–2 days |
 | Swift | SPM package (no simulator) | XCTest | 1–2 days |
+| JavaScript (non-technical) | Single-file, no framework/layering | `node:test` | 1–2 days |
 
 **Total: ~1 week sequentially by one person, or 2–3 days if each language's developers port their
 own track in parallel** (recommended).
@@ -53,6 +59,7 @@ own track in parallel** (recommended).
 - [Angular](./plan-angular.md)
 - [Kotlin](./plan-kotlin.md)
 - [Swift](./plan-swift.md)
+- [JavaScript (non-technical audience)](./plan-javascript.md)
 - [Execution Plan (day-by-day, 2–3 days per track)](./execution-plan.md)
 
 ## Open Questions For Aaron
@@ -62,3 +69,4 @@ own track in parallel** (recommended).
 3. Confirm Kotlin/Swift UI shell stays deferred, or should it be included from the start?
 4. Any devcontainer requirement for Swift given the macOS-only Xcode toolchain, or is a local
    setup guide acceptable?
+5. Confirm the JavaScript track's audience/prerequisites (see plan-javascript.md's open questions).

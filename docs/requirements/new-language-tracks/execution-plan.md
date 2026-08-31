@@ -45,11 +45,21 @@
   constraint (local setup doc vs. devcontainer), dry run. Recommend confirming Mac availability
   for all Swift-track participants before this day.
 
+### JavaScript — non-technical audience (1–2 days, smallest scope)
+- Day 1: Single-file `task.js` scaffold (no layering), `node:test` setup, TDD exercise for
+  `createTask`/`updateStatus`-equivalent functions in plain language.
+- Day 2: Requirements-to-code (add a field with validation) + beginner-friendly refactor exercise
+  ("does too much" function → smaller named functions), testing/doc workflow, devcontainer
+  (Node LTS only), dry run — likely needs less time than the other tracks since there's no
+  framework or layering to scaffold, but lab-doc language/pacing needs extra care for the
+  non-technical audience.
+
 ## Timeline
 
 - **If run in parallel** (recommended): **3 working days total elapsed**, assuming each track has
   its own developer and no shared blockers.
-- **If run sequentially by one person**: **8–12 working days total** (2–3 days × 4 tracks).
+- **If run sequentially by one person**: **9–14 working days total** (2–3 days × 4 tracks, plus
+  1–2 days for the JavaScript track).
 
 ## Dependencies / Sequencing Risks
 

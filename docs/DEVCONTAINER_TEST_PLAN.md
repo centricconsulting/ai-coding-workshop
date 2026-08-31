@@ -29,7 +29,7 @@
 ### 1.2 Verify Post-Create Command
 
 Check terminal output shows:
-- ✅ `dotnet build TaskManager.sln` completed successfully
+- ✅ `dotnet build src-dotnet/TaskManager.sln` completed successfully
 - ✅ `dotnet dev-certs https --trust` executed
 - ✅ No build errors
 
@@ -46,11 +46,11 @@ dotnet --list-sdks
 
 # Check solution builds
 cd /workspaces/ai-code-workshop
-dotnet build TaskManager.sln
+dotnet build src-dotnet/TaskManager.sln
 # Expected: Build succeeded, 0 errors
 
 # Run .NET tests
-dotnet test TaskManager.sln
+dotnet test src-dotnet/TaskManager.sln
 # Expected: All tests pass
 ```
 
@@ -79,7 +79,7 @@ gh auth status
 
 ```bash
 # Start .NET API
-cd src/TaskManager.Api
+cd src-dotnet/src/TaskManager.Api
 dotnet run
 ```
 
@@ -246,7 +246,7 @@ cat src-springboot/coverage-summary.txt
 ### 3.2 Verify Post-Create Command
 
 Check terminal output shows:
-- ✅ `dotnet build TaskManager.sln` completed
+- ✅ `dotnet build src-dotnet/TaskManager.sln` completed
 - ✅ `mvn clean install -f src-springboot/pom.xml -DskipTests` completed
 - ✅ `dotnet dev-certs https --trust` executed
 - ✅ `npm install -g @marp-team/marp-cli` completed
@@ -258,7 +258,7 @@ Check terminal output shows:
 dotnet --version
 # Expected: 9.0.x
 
-dotnet test TaskManager.sln
+dotnet test src-dotnet/TaskManager.sln
 # Expected: All .NET tests pass
 
 # Test Java/Spring Boot
@@ -321,7 +321,7 @@ For **Issue #28** to be considered complete, all three devcontainers must:
 ```bash
 # Run manually after container starts
 # For .NET:
-dotnet build TaskManager.sln
+dotnet build src-dotnet/TaskManager.sln
 
 # For Spring Boot:
 cd src-springboot && mvn clean install -DskipTests
@@ -360,8 +360,8 @@ gh auth login
 ```bash
 # Build, test, run
 cd /workspaces/ai-code-workshop
-dotnet build TaskManager.sln && \
-dotnet test TaskManager.sln && \
+dotnet build src-dotnet/TaskManager.sln && \
+dotnet test src-dotnet/TaskManager.sln && \
 echo "✅ .NET container working"
 ```
 

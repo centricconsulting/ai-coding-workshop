@@ -271,7 +271,7 @@ This document provides a detailed facilitator's guide for running the 3-hour wor
 **High-Level Steps** (details in lab file):
 
 1. **Create Interface First** (Design)
-   - 🔷 **.NET**: `INotificationService` in `src/TaskManager.Application/Services/`
+   - 🔷 **.NET**: `INotificationService` in `src-dotnet/src/TaskManager.Application/Services/`
    - 🟩 **Spring Boot**: `NotificationService` interface in `notification` package
 
 2. **Write Tests FIRST** (Red)
@@ -461,7 +461,7 @@ This document provides a detailed facilitator's guide for running the 3-hour wor
   - Include stack in prompt: "Generate a Spring Boot @RestController" vs "Generate a .NET Minimal API"
 - **Restart Copilot**: Command Palette → "GitHub Copilot: Restart Language Server"
 - **Wrong patterns**: If Copilot generates .NET code when you want Java (or vice versa):
-  - Open a file in the correct stack's directory (`src-springboot/` for Java, `src/` for .NET)
+  - Open a file in the correct stack's directory (`src-springboot/` for Java, `src-dotnet/src/` for .NET)
   - Include stack-specific keywords in prompts (@Service, JUnit 5, Mockito vs sealed, xUnit, FakeItEasy)
 
 ---

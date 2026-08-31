@@ -95,7 +95,8 @@ mvn --version       # Should show 3.9+
 # Repository Structure
 
 ```
-TaskManager.sln
+src-dotnet/
+├── TaskManager.sln
 ├── src/
 │   ├── TaskManager.Domain/        # Business logic
 │   ├── TaskManager.Application/   # Use cases

@@ -321,7 +321,7 @@ A: Yes - VS Code, GitHub Copilot CLI, and GitHub Copilot coding agent (cloud). T
 1. **Setup:**
    - Open Copilot Chat in Agent Mode
    - Select "Architecture Reviewer" from dropdown
-   - Open `src/TaskManager.Infrastructure/Legacy/LegacyTaskProcessor.cs`
+   - Open `src-dotnet/src/TaskManager.Infrastructure/Legacy/LegacyTaskProcessor.cs`
 
 2. **Demo Prompt:**
    ```

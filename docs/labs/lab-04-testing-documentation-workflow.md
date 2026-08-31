@@ -43,7 +43,7 @@ You have basic tests from TDD, but need comprehensive coverage including edge ca
 
 #### Step 1: Select Target Method
 
-Open `src/TaskManager.Application/Commands/CreateTaskCommandHandler.cs` and select the `HandleAsync` method.
+Open `src-dotnet/src/TaskManager.Application/Commands/CreateTaskCommandHandler.cs` and select the `HandleAsync` method.
 
 #### Step 2: Use /tests Command
 
@@ -236,7 +236,7 @@ Create integration tests for the POST /tasks endpoint using WebApplicationFactor
 Use xUnit and realistic test data
 ```
 
-**Expected Output** - `tests/TaskManager.IntegrationTests/Api/TaskEndpointsTests.cs`:
+**Expected Output** - `src-dotnet/tests/TaskManager.IntegrationTests/Api/TaskEndpointsTests.cs`:
 
 ```csharp
 namespace TaskManager.IntegrationTests.Api;
@@ -353,7 +353,7 @@ Create comprehensive documentation for the Task Manager API.
 
 #### Step 1: Select a Class
 
-Open `src/TaskManager.Application/Commands/CreateTaskCommandHandler.cs` and select the class declaration.
+Open `src-dotnet/src/TaskManager.Application/Commands/CreateTaskCommandHandler.cs` and select the class declaration.
 
 #### Step 2: Use /doc Command
 
@@ -644,9 +644,9 @@ You've made significant changes across multiple files. Write meaningful commit m
 ### 3.1 Stage Changes
 
 ```bash
-git add src/TaskManager.Api/Extensions/EndpointExtensions.cs
-git add src/TaskManager.Application/Queries/
-git add tests/TaskManager.IntegrationTests/
+git add src-dotnet/src/TaskManager.Api/Extensions/EndpointExtensions.cs
+git add src-dotnet/src/TaskManager.Application/Queries/
+git add src-dotnet/tests/TaskManager.IntegrationTests/
 ```
 
 ### 3.2 Generate Commit Message
@@ -694,8 +694,8 @@ with optional filtering by completion status."
 Stage the refactored legacy code:
 
 ```bash
-git add src/TaskManager.Infrastructure/Legacy/LegacyTaskProcessor.cs
-git add tests/TaskManager.UnitTests/Legacy/
+git add src-dotnet/src/TaskManager.Infrastructure/Legacy/LegacyTaskProcessor.cs
+git add src-dotnet/tests/TaskManager.UnitTests/Legacy/
 ```
 
 Ask Copilot:

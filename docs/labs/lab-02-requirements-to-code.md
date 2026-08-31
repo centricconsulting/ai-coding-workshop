@@ -199,7 +199,7 @@ Ask Copilot Chat:
 Create a Priority enum as a value object in the Domain layer following DDD patterns. Include values: Low, Medium, High, Critical. Follow our .NET coding conventions.
 ```
 
-**Expected Output** - `src/TaskManager.Domain/ValueObjects/Priority.cs`:
+**Expected Output** - `src-dotnet/src/TaskManager.Domain/ValueObjects/Priority.cs`:
 
 ```csharp
 namespace TaskManager.Domain.ValueObjects;
@@ -263,7 +263,7 @@ public sealed record Priority
 Use the `/tests` command or ask Copilot Chat:
 
 ```text
-Generate xUnit tests for the Task entity in tests/TaskManager.UnitTests/Domain/Entities/TaskTests.cs that verify:
+Generate xUnit tests for the Task entity in src-dotnet/tests/TaskManager.UnitTests/Domain/Entities/TaskTests.cs that verify:
 - Task.Create with valid title and priority succeeds
 - Task.Create with valid title, priority, and future due date succeeds
 - Task.Create with null/empty/whitespace title throws ArgumentException
@@ -298,7 +298,7 @@ Use `@workspace` to find the Task entity:
 Then ask Copilot to update it:
 
 ```text
-Update the Task entity in #file:src/TaskManager.Domain/Entities/Task.cs to add:
+Update the Task entity in #file:src-dotnet/src/TaskManager.Domain/Entities/Task.cs to add:
 1. Priority property (required)
 2. DueDate property (nullable DateTime)
 3. Validation: DueDate must be in future if provided
@@ -425,7 +425,7 @@ Create a CreateTaskCommand in the Application layer with properties:
 Include validation attributes and follow CQRS patterns.
 ```
 
-**Expected Output** - `src/TaskManager.Application/Commands/CreateTaskCommand.cs`:
+**Expected Output** - `src-dotnet/src/TaskManager.Application/Commands/CreateTaskCommand.cs`:
 
 ```csharp
 namespace TaskManager.Application.Commands;
@@ -444,7 +444,7 @@ public sealed record CreateTaskCommand
 Ask Copilot:
 
 ```text
-Create xUnit tests for CreateTaskCommandHandler in tests/TaskManager.UnitTests/Commands/CreateTaskCommandHandlerTests.cs. Test:
+Create xUnit tests for CreateTaskCommandHandler in src-dotnet/tests/TaskManager.UnitTests/Commands/CreateTaskCommandHandlerTests.cs. Test:
 - Valid command creates task with correct properties
 - Invalid priority string throws exception
 - Past due date throws exception
@@ -472,7 +472,7 @@ Implement CreateTaskCommandHandler in Application layer that:
 Follow Clean Architecture and use ILogger for structured logging
 ```
 
-**Expected Output** - `src/TaskManager.Application/Commands/CreateTaskCommandHandler.cs`:
+**Expected Output** - `src-dotnet/src/TaskManager.Application/Commands/CreateTaskCommandHandler.cs`:
 
 ```csharp
 namespace TaskManager.Application.Commands;
@@ -537,7 +537,7 @@ dotnet test
 Ask Copilot:
 
 ```text
-Create CreateTaskRequest and TaskResponse DTOs in API layer (src/TaskManager.Api/Models/) for the POST /tasks endpoint. Use records with required properties where appropriate.
+Create CreateTaskRequest and TaskResponse DTOs in API layer (src-dotnet/src/TaskManager.Api/Models/) for the POST /tasks endpoint. Use records with required properties where appropriate.
 ```
 
 **Expected Output** - Two DTO files that map between HTTP and Application layers. These are simple data structures, so no tests are needed.
@@ -555,7 +555,7 @@ Use `@workspace` to find the endpoint extensions:
 Then create integration tests FIRST:
 
 ```text
-Create integration tests for POST /tasks endpoint in tests/TaskManager.IntegrationTests/Api/TaskEndpointsTests.cs that verify:
+Create integration tests for POST /tasks endpoint in src-dotnet/tests/TaskManager.IntegrationTests/Api/TaskEndpointsTests.cs that verify:
 - Valid request with all fields returns 201 Created with task details and Location header
 - Valid request with only required fields returns 201 Created
 - Invalid priority returns 400 Bad Request with ProblemDetails
@@ -569,7 +569,7 @@ Use WebApplicationFactory<Program> pattern and xUnit.
 Run the integration tests - they should **FAIL** with 404 Not Found (endpoint doesn't exist yet):
 
 ```bash
-dotnet test tests/TaskManager.IntegrationTests/
+dotnet test src-dotnet/tests/TaskManager.IntegrationTests/
 ```
 
 Expected result: All integration tests fail. This is the **RED** phase! ✅
@@ -579,7 +579,7 @@ Expected result: All integration tests fail. This is the **RED** phase! ✅
 Now implement the endpoint to make the tests pass:
 
 ```text
-Implement POST /tasks endpoint in #file:src/TaskManager.Api/Extensions/EndpointExtensions.cs that:
+Implement POST /tasks endpoint in #file:src-dotnet/src/TaskManager.Api/Extensions/EndpointExtensions.cs that:
 1. Maps CreateTaskRequest DTO to CreateTaskCommand
 2. Calls CreateTaskCommandHandler to create the task
 3. Maps the domain Task entity to TaskResponse DTO
@@ -593,7 +593,7 @@ Use minimal API pattern, dependency injection for handler, and ILogger for loggi
 Run the integration tests again:
 
 ```bash
-dotnet test tests/TaskManager.IntegrationTests/
+dotnet test src-dotnet/tests/TaskManager.IntegrationTests/
 ```
 
 Expected result: All integration tests pass! This is the **GREEN** phase! ✅
@@ -603,7 +603,7 @@ Expected result: All integration tests pass! This is the **GREEN** phase! ✅
 Create a `tasks.http` file in the API project for manual testing with the REST Client extension:
 
 ```text
-Create a tasks.http file in src/TaskManager.Api/ with test scenarios for POST /tasks endpoint including:
+Create a tasks.http file in src-dotnet/src/TaskManager.Api/ with test scenarios for POST /tasks endpoint including:
 - Valid requests with all fields
 - Valid requests with required fields only
 - All priority levels (Low, Medium, High)
@@ -640,7 +640,7 @@ All tests should pass! ✅
 ### 4.1 Run the API
 
 ```bash
-cd src/TaskManager.Api
+cd src-dotnet/src/TaskManager.Api
 dotnet run --launch-profile http
 ```
 
@@ -651,7 +651,7 @@ The API will start on `http://localhost:5215` (configured in `Properties/launchS
 If you created the `tasks.http` file in Step 3.2.4:
 
 1. Install the **REST Client** extension in VS Code (by Huachao Mao)
-2. Open `src/TaskManager.Api/tasks.http`
+2. Open `src-dotnet/src/TaskManager.Api/tasks.http`
 3. Click **"Send Request"** above any test scenario
 4. View the response in a split pane
 

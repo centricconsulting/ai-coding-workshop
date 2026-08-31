@@ -103,7 +103,7 @@ public interface INotificationService
 }
 ```
 
-**Expected Location**: `src/TaskManager.Application/Services/INotificationService.cs`
+**Expected Location**: `src-dotnet/src/TaskManager.Application/Services/INotificationService.cs`
 
 #### 🟩 Spring Boot Interface
 
@@ -201,7 +201,7 @@ Create JUnit 5 tests for NotificationServiceImpl in the pattern specified in our
 Copilot should create a folder structure like:
 
 ```text
-tests/TaskManager.UnitTests/Services/NotificationServiceTests/
+src-dotnet/tests/TaskManager.UnitTests/Services/NotificationServiceTests/
 ├── SendEmailNotificationAsyncTests.cs
 ├── SendSmsNotificationAsyncTests.cs
 └── SendNotificationAsyncTests.cs
@@ -580,7 +580,7 @@ Implement NotificationServiceImpl that passes all the tests. Follow our Spring B
 
 #### 🔷 .NET Implementation
 
-Copilot should generate `src/TaskManager.Application/Services/NotificationService.cs`:
+Copilot should generate `src-dotnet/src/TaskManager.Application/Services/NotificationService.cs`:
 
 ```csharp
 namespace TaskManager.Application.Services;

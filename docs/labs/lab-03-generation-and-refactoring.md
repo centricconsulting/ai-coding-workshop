@@ -94,7 +94,7 @@ Before generating new code, understand what exists:
 
 Copilot should identify:
 
-- `src/TaskManager.Api/Extensions/EndpointExtensions.cs` - Endpoint definitions
+- `src-dotnet/src/TaskManager.Api/Extensions/EndpointExtensions.cs` - Endpoint definitions
 - Minimal API pattern with extension methods
 - Existing POST /tasks endpoint
 - DI container registration in `Program.cs`
@@ -116,9 +116,9 @@ Include unit tests using xUnit and FakeItEasy
 
 **Expected Output**:
 
-- `src/TaskManager.Application/Queries/GetTasksQuery.cs`
-- `src/TaskManager.Application/Queries/GetTasksQueryHandler.cs`
-- `tests/TaskManager.UnitTests/Application/Queries/GetTasksQueryHandlerTests.cs`
+- `src-dotnet/src/TaskManager.Application/Queries/GetTasksQuery.cs`
+- `src-dotnet/src/TaskManager.Application/Queries/GetTasksQueryHandler.cs`
+- `src-dotnet/tests/TaskManager.UnitTests/Application/Queries/GetTasksQueryHandlerTests.cs`
 
 **Note**: The domain model uses `TaskStatus` enum (Todo/InProgress/Done) rather than a boolean `IsCompleted` field.
 
@@ -127,7 +127,7 @@ Include unit tests using xUnit and FakeItEasy
 Use `#file` context variable:
 
 ```text
-Add a GET /tasks endpoint in #file:src/TaskManager.Api/Extensions/EndpointExtensions.cs that:
+Add a GET /tasks endpoint in #file:src-dotnet/src/TaskManager.Api/Extensions/EndpointExtensions.cs that:
 - Accepts optional query parameter: status (string: "Todo", "InProgress", or "Done")
 - Calls GetTasksQueryHandler
 - Returns 200 OK with array of TaskResponse
@@ -241,7 +241,7 @@ Include unit tests for handler
 ```bash
 dotnet build
 dotnet test
-cd src/TaskManager.Api
+cd src-dotnet/src/TaskManager.Api
 dotnet run
 ```
 
@@ -284,7 +284,7 @@ Use `@workspace`:
 @workspace Find the LegacyTaskProcessor class
 ```
 
-**Location**: `src/TaskManager.Infrastructure/Legacy/LegacyTaskProcessor.cs`
+**Location**: `src-dotnet/src/TaskManager.Infrastructure/Legacy/LegacyTaskProcessor.cs`
 
 ### 2.2 Analyze Current Issues
 
@@ -608,10 +608,10 @@ Use Copilot Edits for cross-cutting changes.
 
 Add related files:
 
-- `src/TaskManager.Domain/Entities/Task.cs`
-- `src/TaskManager.Application/Commands/CreateTaskCommand.cs`
-- `src/TaskManager.Application/Commands/CreateTaskCommandHandler.cs`
-- `tests/TaskManager.UnitTests/Commands/CreateTaskCommandHandlerTests.cs`
+- `src-dotnet/src/TaskManager.Domain/Entities/Task.cs`
+- `src-dotnet/src/TaskManager.Application/Commands/CreateTaskCommand.cs`
+- `src-dotnet/src/TaskManager.Application/Commands/CreateTaskCommandHandler.cs`
+- `src-dotnet/tests/TaskManager.UnitTests/Commands/CreateTaskCommandHandlerTests.cs`
 
 ### 4.3 Describe Change
 

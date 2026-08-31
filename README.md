@@ -53,22 +53,14 @@ flowchart TD
     E --> H{How do you want<br>to set up your<br>environment?}
     F --> H
     G --> H
-    H -- "Fastest, zero setup" --> I["Dev Container<br>.devcontainer/dotnet or springboot"]
+    H -- "Fastest, zero setup" --> I["Dev Container<br>.devcontainer/&lt;track&gt;-participant"]
     H -- "Full local IDE setup" --> J["Local Setup Guide<br>docs/LOCAL_SETUP.md"]
-    H -- "Lightweight, Copilot-only" --> K["Minimal Setup Guide<br>docs/MINIMAL_SETUP_DOTNET.md or<br>docs/MINIMAL_SETUP_JAVA.md"]
-    M --> N{How do you want<br>to set up your<br>environment?}
-    N -- "Fastest, zero setup" --> O["Dev Container<br>.devcontainer/angular-participant"]
-    N -- "Local setup<br>(exact spec required,<br>no lightweight option)" --> P["Local Setup Guide<br>docs/LOCAL_SETUP.md (Angular section)"]
-    Q --> R{How do you want<br>to set up your<br>environment?}
-    R -- "Fastest, zero setup" --> S["Dev Container<br>.devcontainer/javascript-participant"]
-    R -- "Local setup<br>(exact spec required,<br>no lightweight option)" --> T["Local Setup Guide<br>docs/LOCAL_SETUP.md (JavaScript section)"]
+    H -- "Lightweight, Copilot-only<br>(.NET / Spring Boot only)" --> K["Minimal Setup Guide<br>docs/MINIMAL_SETUP_DOTNET.md or<br>docs/MINIMAL_SETUP_JAVA.md"]
+    M --> H
+    Q --> H
     I --> L(["You're ready!<br>Bring this setup to the<br>instructor-led workshop"])
     J --> L
     K --> L
-    O --> L
-    P --> L
-    S --> L
-    T --> L
 ```
 
 > **This is an instructor-led workshop.** The steps above are pre-workshop preparation only — complete them before the session so your environment is ready. Your facilitator will guide the group through Lab 1 and beyond during the live workshop.
@@ -91,7 +83,7 @@ For the best experience, use the provided **Devcontainer** and recommended VS Co
 
 > **Can't use Dev Containers?** Follow the [Local Setup Guide](docs/LOCAL_SETUP.md) to install the required tools and VS Code extensions manually for the .NET, Spring Boot, Angular, or JavaScript track. Prefer a lighter footprint (.NET/Spring Boot only)? See the [Minimal .NET Setup](docs/MINIMAL_SETUP_DOTNET.md) or [Minimal Spring Boot Setup](docs/MINIMAL_SETUP_JAVA.md) for a Copilot-only setup without extra VS Code extensions.
 >
-> **Angular and JavaScript tracks**: there is no minimal-setup alternative — use the devcontainer above or follow the [Angular section](docs/LOCAL_SETUP.md#-angular-track-setup) / [JavaScript section](docs/LOCAL_SETUP.md#-javascript-track-setup) of `docs/LOCAL_SETUP.md` exactly.
+> **Angular and JavaScript tracks**: there is no minimal-setup alternative — use the devcontainer above or follow [`docs/LOCAL_SETUP.md`](docs/LOCAL_SETUP.md) exactly.
 
 - **Copilot Custom Instructions**: This repo auto-applies Copilot instructions based on file context:
   - 🔷 **.NET files** (`**/*.cs`): Loads `csharp.instructions.md` + `dotnet.instructions.md`

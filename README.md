@@ -82,7 +82,7 @@ For the best experience, use the provided **Devcontainer** and recommended VS Co
   - 🔷🟩 **Bilingual Container** (`.devcontainer/bilingual/`): Both .NET and Java environments (for facilitators or exploring both stacks)
   - 🅰️ **Angular Container** (`.devcontainer/angular-participant/`): Node 24+, Angular CLI, Angular Language Service (self-contained SPA, no backend)
 
-> **Can't use Dev Containers?** Follow the [Local Setup Guide](docs/LOCAL_SETUP.md) to install the required tools and VS Code extensions manually for either the .NET or Spring Boot track. Prefer a lighter footprint? See the [Minimal .NET Setup](docs/MINIMAL_SETUP_DOTNET.md) or [Minimal Spring Boot Setup](docs/MINIMAL_SETUP_JAVA.md) for a Copilot-only setup without extra VS Code extensions.
+> **Can't use Dev Containers?** Follow the [Local Setup Guide](docs/LOCAL_SETUP.md) to install the required tools and VS Code extensions manually for the .NET, Spring Boot, or Angular track. Prefer a lighter footprint (.NET/Spring Boot only)? See the [Minimal .NET Setup](docs/MINIMAL_SETUP_DOTNET.md) or [Minimal Spring Boot Setup](docs/MINIMAL_SETUP_JAVA.md) for a Copilot-only setup without extra VS Code extensions.
 >
 > **Angular track**: there is no minimal-setup alternative — use the devcontainer above or follow the [Angular section of `docs/LOCAL_SETUP.md`](docs/LOCAL_SETUP.md#-angular-track-setup) exactly (including its Node.js version requirement).
 

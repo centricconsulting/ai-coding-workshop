@@ -1,0 +1,10 @@
+<section class="task-list">
+  <h1>Task Manager</h1>
+  <ul>
+    @for (task of tasks(); track task.id.value) {
+      <li>{{ task.title }} — {{ task.status }}</li>
+    } @empty {
+      <li>No active tasks.</li>
+    }
+  </ul>
+</section>

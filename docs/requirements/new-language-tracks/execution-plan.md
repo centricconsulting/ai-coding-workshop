@@ -25,10 +25,10 @@
 - Day 3: Testing/doc workflow (pytest fixtures, docstrings), devcontainer, dry run.
 
 ### Angular (2–3 days)
-- Day 1: Standalone-components scaffold, in-memory `TaskRepository`, Jasmine/Karma setup.
+- Day 1: Standalone-components scaffold, in-memory `TaskRepository`, Vitest setup.
 - Day 2: Requirements-to-code + refactor exercise (business logic inline in component → extracted
   application service).
-- Day 3: Testing/doc workflow (TSDoc, Jasmine specs), devcontainer, dry run — likely needs the
+- Day 3: Testing/doc workflow (TSDoc, Vitest specs), devcontainer, dry run — likely needs the
   full 3rd day since UI components add more surface area than a pure backend/logic module.
 
 ### Kotlin (2 days realistic, 3 with buffer)

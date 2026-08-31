@@ -40,7 +40,9 @@ src-kotlin/
 
 - New `.devcontainer/kotlin-participant/` (JDK 21, Kotlin plugin, Gradle) — no Android SDK/emulator
   needed for Labs 1–4, keeping the devcontainer lightweight and consistent with existing containers.
-- Minimal setup doc: `docs/MINIMAL_SETUP_KOTLIN.md`.
+- Full local setup doc: `docs/LOCAL_SETUP_KOTLIN.md`. **Policy**: no lightweight "Copilot-only"
+  minimal-setup alternative for this track — participants must either use the devcontainer or
+  match the local setup doc's spec exactly.
 
 ## Estimate
 

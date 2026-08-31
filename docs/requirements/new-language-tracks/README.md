@@ -39,13 +39,17 @@ begins.
 - **Porting approach**: AI-assisted translation of the existing .NET/Spring Boot Domain +
   Application layers and lab content (same method used for the original Java/Spring Boot port,
   which took ~1–2 days).
+- **Setup policy**: unlike the existing .NET/Java tracks (which offer a lightweight
+  `MINIMAL_SETUP_*.md` Copilot-only path alongside the full `LOCAL_SETUP.md`), none of these four
+  new tracks have a minimal-setup alternative. Participants must either use the track's devcontainer
+  or set up a local environment that matches the track's `LOCAL_SETUP_<TRACK>.md` spec exactly.
 
 ## Estimates Summary
 
 | Track | Shape | Test framework | Estimate |
 |---|---|---|---|
 | Python | FastAPI backend | pytest | 1–2 days |
-| Angular | Self-contained SPA, in-memory data layer | Jasmine + Karma | 1–2 days |
+| Angular | Self-contained SPA, in-memory data layer | Vitest | 1–2 days |
 | Kotlin | Plain Kotlin module (no emulator) | JUnit5 + MockK | 1–2 days |
 | Swift | SPM package (no simulator) | XCTest | 1–2 days |
 | JavaScript (non-technical) | Single-file, no framework/layering | `node:test` | 1–2 days |

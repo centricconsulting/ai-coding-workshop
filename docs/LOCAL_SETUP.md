@@ -1,10 +1,11 @@
 # Local Setup Guide (No Dev Container)
 
-Use this guide if you **cannot run Dev Containers** (Docker not available, corporate policy, resource constraints, etc.). Follow the section for your technology track: **.NET** or **Spring Boot (Java)**.
+Use this guide if you **cannot run Dev Containers** (Docker not available, corporate policy, resource constraints, etc.). Follow the section for your technology track: **.NET**, **Spring Boot (Java)**, or **Angular**.
 
 > **Prefer Dev Containers?** See [`.devcontainer/README.md`](../.devcontainer/README.md) for the faster, pre-configured path.
 >
 > **Prefer a minimal setup?** See [`MINIMAL_SETUP_DOTNET.md`](./MINIMAL_SETUP_DOTNET.md) or [`MINIMAL_SETUP_JAVA.md`](./MINIMAL_SETUP_JAVA.md) for Copilot-only setups without extra VS Code extensions.
+> **There is no minimal/lightweight alternative for the Angular track** — your environment must match the Angular section below exactly, or use the [Angular devcontainer](../.devcontainer/angular-participant/) instead.
 
 ---
 
@@ -263,6 +264,54 @@ mvn test -f src-springboot/pom.xml
 
 ---
 
+## 🅰️ Angular Track Setup
+
+### Node.js — Exact Version Requirement
+
+The Angular track requires **Node.js 24.15.0 or later** (or 22.22.3+, or 26.0.0+) — this is a hard
+requirement of Angular CLI 22, not just a recommendation. Older Node 22.x builds (e.g. 22.16)
+**will fail** with an `Angular CLI requires a minimum Node.js version` error.
+
+- **Option A — nvm (macOS/Linux)**:
+  ```bash
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+  nvm install 24
+  nvm use 24
+  ```
+- **Option B — Direct install**: [nodejs.org](https://nodejs.org/) — download the "24.x LTS" or later installer.
+- **Option C — Homebrew (macOS)**: `brew install node@24`
+
+- [ ] **Verify**:
+  ```bash
+  node --version
+  ```
+  Expected: `v24.15.0` or later (or `v22.22.3`+, or `v26.0.0`+)
+
+### Angular VS Code Extensions
+
+| Extension | ID | Purpose |
+|---|---|---|
+| Angular Language Service | `Angular.ng-template` | Template IntelliSense, diagnostics |
+
+```bash
+code --install-extension Angular.ng-template
+```
+
+### Install Dependencies & Verify the Build
+
+```bash
+# From the repository root
+cd src-angular/task-manager
+npm install
+npx ng build
+npx ng test --watch=false
+```
+
+Expected: build completes with "Application bundle generation complete", and all tests pass
+(`Test Files  2 passed`, `Tests  6 passed`).
+
+---
+
 ## ✅ Verify GitHub Copilot Is Working
 
 After setup, confirm Copilot is active:
@@ -270,6 +319,7 @@ After setup, confirm Copilot is active:
 1. Open a source file in VS Code:
    - **.NET**: `src/TaskManager.Domain/Tasks/Task.cs`
    - **Java**: any file in `src-springboot/`
+   - **Angular**: any file in `src-angular/task-manager/src/app/`
 2. Check the **status bar** (bottom-right of VS Code window) — the Copilot icon should be active (not red/crossed out)
 3. Add a new line and type a comment, e.g., `// Method to validate task title`
 4. Press Enter — you should see gray "ghost text" suggestions
@@ -299,6 +349,9 @@ After setup, confirm Copilot is active:
 | Java Language Server not starting | Reload VS Code window; check `java.configuration.runtimes` setting |
 | Build fails with "SDK not found" | Confirm SDK version with `dotnet --list-sdks` / `java -version` |
 | Extensions not loading | Ensure VS Code 1.95+; reload window; reinstall extensions |
+| `Angular CLI requires a minimum Node.js version` | Upgrade Node to 24.15+/22.22.3+/26.0+ (see Angular Track Setup); a devcontainer avoids this entirely |
+| `ng: command not found` | Use `npx ng ...` (no global install needed), or `npm install -g @angular/cli` |
+| Vitest fails to start / `EBADENGINE` warnings | Non-fatal for optional packages, but confirm Node version first |
 
 ---
 
@@ -323,6 +376,17 @@ git pull origin main
 mvn clean install -f src-springboot/pom.xml -DskipTests
 ```
 
+**For Angular participants:**
+```bash
+node --version           # v24.15.0+ (or 22.22.3+ / 26.0.0+)
+cd ai-coding-workshop
+git pull origin main
+cd src-angular/task-manager
+npm install
+npx ng build
+npx ng test --watch=false
+```
+
 Then open VS Code (`code .`) and confirm the Copilot status bar icon is active.
 
 ---
@@ -331,6 +395,7 @@ Then open VS Code (`code .`) and confirm the Copilot status bar icon is active.
 
 - [DevContainer README](../.devcontainer/README.md) — if you'd like to switch to containers later
 - [Pre-Workshop Checklist](./PRE_WORKSHOP_CHECKLIST.md) — .NET-focused detailed checklist
+- [Angular Track Plan](./requirements/new-language-tracks/plan-angular.md) — scope and design notes
 - [Workshop README](../README.md) — overview and lab links
 - [Facilitator Guide](./FACILITATOR_GUIDE.md) — for workshop facilitators
 

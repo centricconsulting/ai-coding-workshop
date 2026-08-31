@@ -68,6 +68,8 @@ Get BAs, PMs, and other non-engineering participants ready for Lab 1 with zero p
 
 ### [Lab 1: Test-Driven Development with GitHub Copilot](lab-01-tdd-with-copilot.md)
 
+> **Also available**: [Angular version](lab-01-tdd-with-copilot-angular.md)
+
 **Duration**: 30 minutes
 
 Learn to follow the Red-Green-Refactor TDD cycle with AI assistance.
@@ -96,7 +98,7 @@ Learn to follow the Red-Green-Refactor TDD cycle with AI assistance.
 
 ### [Lab 2: From Requirements to Code](lab-02-requirements-to-code.md)
 
-> **Also available**: [Java/Spring Boot version](lab-02-requirements-to-code-java.md)
+> **Also available**: [Java/Spring Boot version](lab-02-requirements-to-code-java.md) · [Angular version](lab-02-requirements-to-code-angular.md)
 
 **Duration**: 45 minutes
 
@@ -126,12 +128,13 @@ Transform vague user stories into working, tested features.
 **Available Versions**:
 - [.NET with C# and ASP.NET Core](lab-02-requirements-to-code.md)
 - [Java with Spring Boot](lab-02-requirements-to-code-java.md)
+- [Angular](lab-02-requirements-to-code-angular.md)
 
 ---
 
 ### [Lab 3: Code Generation & Refactoring](lab-03-generation-and-refactoring.md)
 
-> **Also available**: [Java/Spring Boot version](lab-03-generation-and-refactoring-java.md)
+> **Also available**: [Java/Spring Boot version](lab-03-generation-and-refactoring-java.md) · [Angular version](lab-03-generation-and-refactoring-angular.md)
 
 **Duration**: 45 minutes
 
@@ -160,10 +163,13 @@ Generate complete API endpoints and modernize legacy code.
 **Available Versions**:
 - [.NET with C# and ASP.NET Core](lab-03-generation-and-refactoring.md)
 - [Java with Spring Boot](lab-03-generation-and-refactoring-java.md)
+- [Angular](lab-03-generation-and-refactoring-angular.md)
 
 ---
 
 ### [Lab 4: Testing, Documentation & Workflow](lab-04-testing-documentation-workflow.md)
+
+> **Also available**: [Java/Spring Boot version](lab-04-testing-documentation-workflow-java.md) · [Angular version](lab-04-testing-documentation-workflow-angular.md)
 
 **Duration**: 15 minutes
 
@@ -189,6 +195,11 @@ Complete the development lifecycle with AI-assisted testing, docs, and PR prepar
 
 - Completed Labs 1, 2, and 3
 - Git initialized with commits
+
+**Available Versions**:
+- [.NET with C# and ASP.NET Core](lab-04-testing-documentation-workflow.md)
+- [Java with Spring Boot](lab-04-testing-documentation-workflow-java.md)
+- [Angular](lab-04-testing-documentation-workflow-angular.md)
 
 ---
 

@@ -15,13 +15,13 @@ This document describes the testing approach for the Task Manager application, e
 - Target Domain and Application layers.
 - Test business logic, invariants, and use case handlers in isolation.
 - Use FakeItEasy for mocking dependencies.
-- Organize by feature and method (e.g., `tests/TaskManager.UnitTests/Task/CreateTests.cs`).
+- Organize by feature and method (e.g., `src-dotnet/tests/TaskManager.UnitTests/Task/CreateTests.cs`).
 
 ### Integration Tests
 - Target Infrastructure and Api layers.
 - Test adapters, persistence, and endpoint wiring.
 - Use Testcontainers for database and external service integration.
-- Organize by feature (e.g., `tests/TaskManager.IntegrationTests/Task/`).
+- Organize by feature (e.g., `src-dotnet/tests/TaskManager.IntegrationTests/Task/`).
 
 ## 3. Test Organization
 - One test class per method for complex types.

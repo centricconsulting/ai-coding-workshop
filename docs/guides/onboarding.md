@@ -6,14 +6,16 @@ Welcome to the Task Manager application! This guide will help new contributors g
 
 ## 1. Repository Structure
 ```
-src/
-  TaskManager.Domain/
-  TaskManager.Application/
-  TaskManager.Infrastructure/
-  TaskManager.Api/
-tests/
-  TaskManager.UnitTests/
-  TaskManager.IntegrationTests/
+src-dotnet/
+  TaskManager.sln
+  src/
+    TaskManager.Domain/
+    TaskManager.Application/
+    TaskManager.Infrastructure/
+    TaskManager.Api/
+  tests/
+    TaskManager.UnitTests/
+    TaskManager.IntegrationTests/
 docs/
   design/
   api/

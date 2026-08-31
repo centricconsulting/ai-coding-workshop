@@ -11,7 +11,7 @@
     },
     
     // Use 'postCreateCommand' to run commands after the container is created
-    "postCreateCommand": "dotnet build TaskManager.sln && dotnet dev-certs https --trust",
+    "postCreateCommand": "dotnet build src-dotnet/TaskManager.sln && dotnet dev-certs https --trust",
     
     // Configure tool-specific properties
     "customizations": {

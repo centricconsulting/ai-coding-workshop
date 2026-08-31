@@ -364,7 +364,7 @@ Each lab includes:
 
 The `main` branch contains code for both technology stacks:
 
-**🔷 .NET Solution** (`src/` directory):
+**🔷 .NET Solution** (`src-dotnet/` directory):
 - **Complete Solution**: Clean Architecture with Domain/Application/Infrastructure/API layers
 - **Console Application**: .NET 9 console app with DI and logging for initial exercises
 - **Web API**: Minimal API with extension methods and OpenTelemetry integration
@@ -440,7 +440,7 @@ Contains:
    ```
 
 2. **Choose your technology stack**:
-   - 🔷 **.NET Track**: Work in `src/` directory with .NET 9 projects
+   - 🔷 **.NET Track**: Work in `src-dotnet/` directory with .NET 9 projects
    - 🟩 **Spring Boot Track**: Work in `src-springboot/` directory with Spring Boot 3.x projects
    - 🔷🟩 **Explore Both**: Use bilingual devcontainer to try both ecosystems
    - 🅰️ **Angular Track**: Work in `src-angular/task-manager/` directory (self-contained SPA, no backend)
@@ -476,6 +476,7 @@ Contains:
    **🔷 .NET Track:**
    ```bash
    dotnet --version    # Should show 9.x.x or later
+   cd src-dotnet
    dotnet build        # Verify solution builds
    dotnet test         # Verify tests run
    ```

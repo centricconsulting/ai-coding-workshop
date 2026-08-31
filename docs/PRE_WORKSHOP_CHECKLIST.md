@@ -301,7 +301,7 @@ Expected: Tests pass (or a known small number of skipped tests — confirm with 
 ### 8. Verify GitHub Copilot Integration
 
 - [ ] **Open a C# file**
-  - Navigate to `src/TaskManager.Domain/Tasks/Task.cs`
+  - Navigate to `src-dotnet/src/TaskManager.Domain/Tasks/Task.cs`
   
 - [ ] **Check Copilot status bar**
   - Look at bottom-right of VS Code window
@@ -327,7 +327,7 @@ Expected: Tests pass (or a known small number of skipped tests — confirm with 
 
 - [ ] **Test @workspace participant**
   1. In Copilot Chat, type: `@workspace Where is the Task entity defined?`
-  2. Should respond with file path: `src/TaskManager.Domain/Tasks/Task.cs`
+  2. Should respond with file path: `src-dotnet/src/TaskManager.Domain/Tasks/Task.cs`
   3. ✅ Workspace context is working!
 
 **Copilot not working?**

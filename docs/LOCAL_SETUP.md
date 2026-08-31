@@ -125,7 +125,7 @@ code --install-extension ms-dotnettools.csdevkit
 ```bash
 # From the repository root
 dotnet restore
-dotnet build TaskManager.sln
+dotnet build src-dotnet/TaskManager.sln
 dotnet test
 ```
 
@@ -349,7 +349,7 @@ Expected: all 3 starter tests pass (`pass 3`, `fail 0`). There is nothing to ins
 After setup, confirm Copilot is active:
 
 1. Open a source file in VS Code:
-   - **.NET**: `src/TaskManager.Domain/Tasks/Task.cs`
+   - **.NET**: `src-dotnet/src/TaskManager.Domain/Tasks/Task.cs`
    - **Java**: any file in `src-springboot/`
    - **Angular**: any file in `src-angular/task-manager/src/app/`
    - **JavaScript**: `src-javascript/task-manager/task.js`
@@ -399,7 +399,7 @@ Run these commands the morning of the workshop to confirm everything is still se
 dotnet --version        # 9.0.x
 cd ai-coding-workshop
 git pull origin main
-dotnet build TaskManager.sln
+dotnet build src-dotnet/TaskManager.sln
 ```
 
 **For Spring Boot participants:**

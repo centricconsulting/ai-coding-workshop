@@ -1,6 +1,6 @@
 # Repository-Wide GitHub Copilot Instructions
 
-This repository is a bilingual GitHub Copilot workshop with shared docs, labs, and presentations plus two implementation tracks: .NET 9 under `src/` and Spring Boot 3.x under `src-springboot/`.
+This repository is a bilingual GitHub Copilot workshop with shared docs, labs, and presentations plus two implementation tracks: .NET 9 under `src-dotnet/` and Spring Boot 3.x under `src-springboot/`.
 
 This file defines repo-wide defaults. More specific instruction files take precedence.
 

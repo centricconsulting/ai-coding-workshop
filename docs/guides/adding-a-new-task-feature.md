@@ -42,8 +42,8 @@ This walkthrough explains how to add a new feature (e.g., "Task") to the Task Ma
 - Handle errors with ProblemDetails.
 
 ## 6. Testing
-- Add unit tests for domain and application logic in `tests/TaskManager.UnitTests/Task/`.
-- Add integration tests for infrastructure and API in `tests/TaskManager.IntegrationTests/Task/`.
+- Add unit tests for domain and application logic in `src-dotnet/tests/TaskManager.UnitTests/Task/`.
+- Add integration tests for infrastructure and API in `src-dotnet/tests/TaskManager.IntegrationTests/Task/`.
 - Use xUnit, FakeItEasy, and Testcontainers as appropriate.
 
 ## 7. Documentation & Commit

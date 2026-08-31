@@ -52,7 +52,7 @@ When you open this repository in VS Code, you'll be prompted to select a devcont
 - `.github/instructions/dotnet.instructions.md` (automatically loads when editing C# files)
 
 **Builds:**
-- `TaskManager.sln` (.NET solution only)
+- `src-dotnet/TaskManager.sln` (.NET solution only)
 
 ---
 
@@ -203,7 +203,7 @@ Are you creating workshop content or facilitating?
 ## 📚 Next Steps
 
 ### For .NET Participants
-1. Verify build: `dotnet build TaskManager.sln`
+1. Verify build: `dotnet build src-dotnet/TaskManager.sln`
 2. Run tests: `dotnet test`
 3. Start with [Lab 1 (.NET)](../docs/labs/lab-01-tdd-with-copilot/dotnet.md)
 

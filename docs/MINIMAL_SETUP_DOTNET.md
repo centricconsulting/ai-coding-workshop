@@ -83,7 +83,7 @@ code .
 ```bash
 # From the repository root
 dotnet restore
-dotnet build TaskManager.sln
+dotnet build src-dotnet/TaskManager.sln
 dotnet test
 ```
 
@@ -103,7 +103,7 @@ Accept any OS prompt to trust the certificate.
 
 ## ✅ Verify GitHub Copilot Is Working
 
-1. Open `src/TaskManager.Domain/Tasks/Task.cs` in VS Code.
+1. Open `src-dotnet/src/TaskManager.Domain/Tasks/Task.cs` in VS Code.
 2. Check the Copilot icon in the status bar is active (not red/crossed out).
 3. Add a line and type a comment, e.g., `// Method to validate task title`, press Enter — you should see gray ghost-text suggestions.
 4. Press **Tab** to accept, **Esc** to dismiss, then delete the test line.
@@ -130,7 +130,7 @@ Accept any OS prompt to trust the certificate.
 dotnet --version        # 9.0.x
 cd ai-coding-workshop
 git pull origin main
-dotnet build TaskManager.sln
+dotnet build src-dotnet/TaskManager.sln
 ```
 
 Then open VS Code (`code .`) and confirm the Copilot status bar icon is active.

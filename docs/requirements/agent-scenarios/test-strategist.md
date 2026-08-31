@@ -355,7 +355,7 @@ Review our current test coverage for TaskService and identify gaps.
 
 **Context:**
 - TaskManager.Application/Services/TaskService.cs open
-- tests/TaskManager.UnitTests/Services/TaskServiceTests.cs open
+- src-dotnet/tests/TaskManager.UnitTests/Services/TaskServiceTests.cs open
 
 **Current Tests:**
 ```csharp

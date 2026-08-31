@@ -73,7 +73,8 @@ Both implementations follow the same Clean Architecture layers with identical de
 
 **.NET**:
 ```
-TaskManager.sln
+src-dotnet/
+├── TaskManager.sln
 ├── src/
 │   ├── TaskManager.Domain/        # Pure C#, no dependencies
 │   ├── TaskManager.Application/   # Depends on Domain

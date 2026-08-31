@@ -117,7 +117,7 @@ A team member has submitted a pull request that adds a new `NotificationService`
 
 Create a sample file to review (or use an existing Application service):
 
-**File:** `src/TaskManager.Application/Services/NotificationService.cs`
+**File:** `src-dotnet/src/TaskManager.Application/Services/NotificationService.cs`
 
 ```csharp
 namespace TaskManager.Application.Services;

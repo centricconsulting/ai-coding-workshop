@@ -12,7 +12,7 @@ are frontend-focused and should not need backend skills to complete the labs.
 - **State/data layer**: in-memory service (e.g., an injectable `TaskStore`/`TaskRepository` backed
   by a `Map` or array, mirroring the same "in-memory repository" concept used in the other tracks'
   `Infrastructure` layer) — no HTTP calls, no server
-- **Testing**: Jasmine + Karma (Angular CLI default)
+- **Testing**: Vitest (Angular CLI 22 default; Karma/Jasmine are deprecated by the Angular team)
 
 ## Proposed Structure
 
@@ -31,7 +31,7 @@ so the TDD labs still exercise real business-rule tests independent of UI render
 
 ## Labs to Port
 
-- `lab-01-tdd-with-copilot.md` — Angular-specific test commands (`ng test`).
+- `lab-01-tdd-with-copilot.md` — Angular-specific test commands (`ng test`, running on Vitest).
 - `lab-02-requirements-to-code-angular.md` — new variant, building the domain/application layer
   and a component to exercise it.
 - `lab-03-generation-and-refactoring-angular.md` — new variant. **Refactor exercise note**: avoid
@@ -39,14 +39,20 @@ so the TDD labs still exercise real business-rule tests independent of UI render
   inlined directly inside a component (violating separation of concerns) refactored out into an
   injectable application service — demonstrates the same Clean Architecture principle the other
   tracks reinforce, in an idiom Angular devs will recognize.
-- `lab-04-testing-documentation-workflow-angular.md` — new variant, using Jasmine spec docs and
+- `lab-04-testing-documentation-workflow-angular.md` — new variant, using Vitest spec docs and
   TSDoc comments.
 
 ## Devcontainer / Setup
 
-- New `.devcontainer/angular-participant/` (Node LTS, Angular CLI, Angular Language Service
-  extension).
-- Minimal setup doc: `docs/MINIMAL_SETUP_ANGULAR.md`.
+- New `.devcontainer/angular-participant/` (Node 24+, Angular CLI via `npx`, Angular Language
+  Service extension) — **verified**: `npm install && npx ng build && npx ng test --watch=false`
+  all pass inside the actual `mcr.microsoft.com/devcontainers/typescript-node:24` image. Note:
+  Angular CLI 22 requires Node 24.15+/22.22.3+/26.0+; the widely-used `:1-22-bookworm` devcontainer
+  tag ships Node 22.16 and fails this requirement — use the `:24` tag.
+- Full local setup doc: `docs/LOCAL_SETUP_ANGULAR.md`. **Policy**: unlike the .NET/Java tracks,
+  there is no lightweight "Copilot-only" `MINIMAL_SETUP_*.md` alternative for this track —
+  participants must either use the devcontainer or match the local setup doc's spec exactly
+  (particularly the Node version requirement).
 
 ## Estimate
 

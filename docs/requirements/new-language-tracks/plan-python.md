@@ -46,7 +46,9 @@ tests/
 
 - New `.devcontainer/python-participant/` (Python 3.12, Pylance, pytest extension) — same pattern
   as `dotnet-participant` and `springboot-participant`.
-- Minimal setup doc: `docs/MINIMAL_SETUP_PYTHON.md`.
+- Full local setup doc: `docs/LOCAL_SETUP_PYTHON.md`. **Policy**: no lightweight "Copilot-only"
+  minimal-setup alternative for this track — participants must either use the devcontainer or
+  match the local setup doc's spec exactly.
 
 ## Estimate
 

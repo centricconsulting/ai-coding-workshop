@@ -45,7 +45,10 @@ src-swift/
   Linux devcontainer. Recommend:
   - No devcontainer for this track (or a Linux devcontainer covering only the SPM
     package/command-line `swift build`/`swift test`, without simulator support), plus
-  - `docs/MINIMAL_SETUP_SWIFT.md` — local setup guide requiring Xcode Command Line Tools on macOS.
+  - `docs/LOCAL_SETUP_SWIFT.md` — full local setup guide requiring Xcode Command Line Tools on
+    macOS. **Policy**: no lightweight "Copilot-only" minimal-setup alternative for this track —
+    participants must either use the (limited) Linux devcontainer for the SPM package only, or
+    match the local setup doc's spec exactly on macOS.
 - If any participants are on Windows/Linux with no Mac available, they'd only be able to run
   `swift test` if a Linux Swift toolchain is installed — full parity with macOS users is not
   guaranteed. Flagging this as a workshop logistics constraint, not just a technical one.

@@ -1,0 +1,40 @@
+// Angular Participant DevContainer - Streamlined for Workshop Participants
+// For participants following the Angular track
+{
+    "name": "AI Workshop - Angular Participant",
+    "image": "mcr.microsoft.com/devcontainers/typescript-node:24",
+
+    "features": {
+        "ghcr.io/devcontainers/features/github-cli:1": {
+            "version": "latest"
+        }
+    },
+
+    // Use 'postCreateCommand' to run commands after the container is created
+    "postCreateCommand": "cd src-angular/task-manager && npm install && npx ng build",
+
+    // Configure tool-specific properties
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "GitHub.copilot",
+                "GitHub.copilot-chat",
+                "angular.ng-template",
+                "marp-team.marp-vscode",
+                "yzhang.markdown-all-in-one"
+            ],
+            "settings": {
+                "github.copilot.advanced": {}
+            }
+        }
+    },
+
+    // Forward the Angular dev server port
+    "forwardPorts": [4200],
+    "portsAttributes": {
+        "4200": {
+            "protocol": "http",
+            "label": "Angular Dev Server"
+        }
+    }
+}

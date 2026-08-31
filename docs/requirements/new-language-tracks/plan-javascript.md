@@ -51,13 +51,15 @@ still applies, just without architectural ceremony.
 
 ## Devcontainer / Setup
 
-- New `.devcontainer/javascript-participant/` (Node LTS only — no Angular CLI, no TypeScript
-  compiler, minimal image).
-- Full local setup doc: `docs/LOCAL_SETUP_JAVASCRIPT.md`. **Policy** (same as the other four new
-  tracks): no lightweight "Copilot-only" minimal-setup alternative — participants use the
-  devcontainer or match the local setup doc's spec exactly. In practice this track's local setup
-  is already minimal (just Node + VS Code + Copilot), so the devcontainer and local paths are
-  nearly identical in complexity.
+- New `.devcontainer/javascript-participant/` (Node 22 LTS only — no Angular CLI, no TypeScript
+  compiler, minimal image). **Verified**: `node --test` passes inside the actual
+  `mcr.microsoft.com/devcontainers/javascript-node:22` image.
+- Full local setup: JavaScript section of `docs/LOCAL_SETUP.md` (merged into the shared doc
+  alongside .NET/Spring Boot/Angular, rather than a standalone file). **Policy** (same as the
+  other four new tracks): no lightweight "Copilot-only" minimal-setup alternative — participants
+  use the devcontainer or match the local setup doc's spec exactly. In practice this track's
+  local setup is already minimal (just Node + VS Code + Copilot), so the devcontainer and local
+  paths are nearly identical in complexity.
 
 ## Estimate
 

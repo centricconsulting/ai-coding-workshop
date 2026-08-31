@@ -1,15 +1,15 @@
 # Local Setup Guide (No Dev Container)
 
-Use this guide if you **cannot run Dev Containers** (Docker not available, corporate policy, resource constraints, etc.). Follow the section for your technology track: **.NET**, **Spring Boot (Java)**, or **Angular**.
+Use this guide if you **cannot run Dev Containers** (Docker not available, corporate policy, resource constraints, etc.). Follow the section for your technology track: **.NET**, **Spring Boot (Java)**, **Angular**, or **JavaScript**.
 
 > **Prefer Dev Containers?** See [`.devcontainer/README.md`](../.devcontainer/README.md) for the faster, pre-configured path.
 >
 > **Prefer a minimal setup?** See [`MINIMAL_SETUP_DOTNET.md`](./MINIMAL_SETUP_DOTNET.md) or [`MINIMAL_SETUP_JAVA.md`](./MINIMAL_SETUP_JAVA.md) for Copilot-only setups without extra VS Code extensions.
-> **There is no minimal/lightweight alternative for the Angular track** — your environment must match the Angular section below exactly, or use the [Angular devcontainer](../.devcontainer/angular-participant/) instead.
+> **There is no minimal/lightweight alternative for the Angular or JavaScript tracks** — your environment must match the relevant section below exactly, or use the [Angular devcontainer](../.devcontainer/angular-participant/) / [JavaScript devcontainer](../.devcontainer/javascript-participant/) instead.
 
 ---
 
-## 📋 Required for Both Tracks
+## 📋 Required for All Tracks
 
 ### 1. GitHub Account & Copilot Subscription
 
@@ -45,7 +45,7 @@ Use this guide if you **cannot run Dev Containers** (Docker not available, corpo
 
 ---
 
-### 4. Required VS Code Extensions (Both Tracks)
+### 4. Required VS Code Extensions (All Tracks)
 
 Install these regardless of which technology track you choose:
 
@@ -312,6 +312,38 @@ Expected: build completes with "Application bundle generation complete", and all
 
 ---
 
+## 🟨 JavaScript Track Setup
+
+This track is plain JavaScript with **zero dependencies** — no framework, no TypeScript, no
+bundler. Node.js is the only requirement, and any current LTS release works (unlike the Angular
+track, there is no minimum-version pitfall to worry about here).
+
+### Node.js (Current LTS)
+
+- [ ] **Verify**:
+  ```bash
+  node --version
+  ```
+  Expected: any current LTS release (e.g. `v22.x` or later)
+
+If you don't have Node.js installed:
+- **Option A — nvm (macOS/Linux)**: `nvm install --lts && nvm use --lts`
+- **Option B — Direct install**: [nodejs.org](https://nodejs.org/) — download the "LTS" installer
+- **Option C — Homebrew (macOS)**: `brew install node`
+
+### Run the Tests
+
+```bash
+# From the repository root
+cd src-javascript/task-manager
+node --test
+```
+
+Expected: all 3 starter tests pass (`pass 3`, `fail 0`). There is nothing to install —
+`node --test` uses Node's built-in test runner.
+
+---
+
 ## ✅ Verify GitHub Copilot Is Working
 
 After setup, confirm Copilot is active:
@@ -320,6 +352,7 @@ After setup, confirm Copilot is active:
    - **.NET**: `src/TaskManager.Domain/Tasks/Task.cs`
    - **Java**: any file in `src-springboot/`
    - **Angular**: any file in `src-angular/task-manager/src/app/`
+   - **JavaScript**: `src-javascript/task-manager/task.js`
 2. Check the **status bar** (bottom-right of VS Code window) — the Copilot icon should be active (not red/crossed out)
 3. Add a new line and type a comment, e.g., `// Method to validate task title`
 4. Press Enter — you should see gray "ghost text" suggestions
@@ -352,6 +385,8 @@ After setup, confirm Copilot is active:
 | `Angular CLI requires a minimum Node.js version` | Upgrade Node to 24.15+/22.22.3+/26.0+ (see Angular Track Setup); a devcontainer avoids this entirely |
 | `ng: command not found` | Use `npx ng ...` (no global install needed), or `npm install -g @angular/cli` |
 | Vitest fails to start / `EBADENGINE` warnings | Non-fatal for optional packages, but confirm Node version first |
+| `node: command not found` | Restart terminal after install; check PATH |
+| `node --test` reports 0 tests | Confirm you're inside `src-javascript/task-manager` and using Node 18+ (test runner requires it) |
 
 ---
 
@@ -387,6 +422,15 @@ npx ng build
 npx ng test --watch=false
 ```
 
+**For JavaScript participants:**
+```bash
+node --version           # any current LTS
+cd ai-coding-workshop
+git pull origin main
+cd src-javascript/task-manager
+node --test
+```
+
 Then open VS Code (`code .`) and confirm the Copilot status bar icon is active.
 
 ---
@@ -396,6 +440,7 @@ Then open VS Code (`code .`) and confirm the Copilot status bar icon is active.
 - [DevContainer README](../.devcontainer/README.md) — if you'd like to switch to containers later
 - [Pre-Workshop Checklist](./PRE_WORKSHOP_CHECKLIST.md) — .NET-focused detailed checklist
 - [Angular Track Plan](./requirements/new-language-tracks/plan-angular.md) — scope and design notes
+- [JavaScript Track Plan](./requirements/new-language-tracks/plan-javascript.md) — scope and design notes
 - [Workshop README](../README.md) — overview and lab links
 - [Facilitator Guide](./FACILITATOR_GUIDE.md) — for workshop facilitators
 

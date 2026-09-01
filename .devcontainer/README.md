@@ -14,20 +14,23 @@ When you open this repository in VS Code, you'll be prompted to select a devcont
 
 **Who should use this:**
 - Workshop authors and content creators
-- Facilitators preparing for dual-stack delivery
-- Contributors working on both .NET and Spring Boot examples
-- Anyone needing to build/test both implementations
+- Facilitators preparing for multi-stack delivery
+- Contributors working across the .NET, Spring Boot, Angular, JavaScript, Python, and Kotlin tracks
+- Anyone needing to build/test multiple implementations at once
 
 **What's included:**
 - ✅ .NET 9 SDK
 - ✅ Java 21 JDK (LTS)
-- ✅ Maven 3.9+ and Gradle 8+
-- ✅ Node.js 20 + Marp CLI (for presentations)
-- ✅ All VS Code extensions (C#, Java, Spring Boot, Markdown, Marp)
+- ✅ Maven 3.9+ and Gradle 8+ (covers Spring Boot and Kotlin)
+- ✅ Node.js 20 (covers Angular and JavaScript) + Marp CLI (for presentations)
+- ✅ Python 3.12
+- ✅ All VS Code extensions (C#, Java, Spring Boot, Kotlin, Angular, Python, Markdown, Marp)
 - ✅ GitHub CLI
 
 **Builds:**
-- Both `TaskManager.sln` (.NET) and `src-springboot/` (Java)
+- `TaskManager.sln` (.NET), `src-springboot/` (Java), `src-kotlin/` (Kotlin/Gradle)
+- `src-angular/task-manager` (Angular), `src-javascript/task-manager` (JavaScript)
+- `src-python` (Python/pytest)
 - All presentations and documentation
 - Full workshop materials
 
@@ -195,12 +198,12 @@ When you open this repository in VS Code, you'll be prompted to select a devcont
 | **Java 21 JDK** | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ |
 | **Maven/Gradle** | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | Gradle only |
 | **Node.js / Angular CLI** | ✅ | ❌ | ❌ | ✅ | Node.js only (no CLI) | ❌ | ❌ |
-| **Python 3.12** | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
-| **Kotlin/JVM Tooling** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| **Python 3.12** | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
+| **Kotlin/JVM Tooling** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | **Marp CLI** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | **All Extensions** | ✅ | .NET only | Java only | Angular only | JavaScript only | Python only | Kotlin only |
-| **Build Time** | ~3-5 min | ~1-2 min | ~2-3 min | ~1-2 min | <1 min | ~1-2 min | ~1-2 min |
-| **Container Size** | ~5 GB | ~2 GB | ~3 GB | ~1.5 GB | ~1 GB | ~1.5 GB | ~2 GB |
+| **Build Time** | ~6-8 min | ~1-2 min | ~2-3 min | ~1-2 min | <1 min | ~1-2 min | ~1-2 min |
+| **Container Size** | ~6 GB | ~2 GB | ~3 GB | ~1.5 GB | ~1 GB | ~1.5 GB | ~2 GB |
 | **Copilot Instructions** | Both | .NET | Spring Boot | N/A (Angular track has no dedicated instructions file yet) | N/A (JavaScript track has no dedicated instructions file yet) | N/A (Python track has no dedicated instructions file yet) | N/A (Kotlin track has no dedicated instructions file yet) |
 
 ---
@@ -275,7 +278,7 @@ Are you creating workshop content or facilitating?
 3. Start with [Lab 1 (Kotlin)](../docs/labs/lab-01-tdd-with-copilot-kotlin.md)
 
 ### For Maintainers
-1. Verify both builds work
+1. Verify all track builds work (.NET, Spring Boot, Kotlin, Angular, JavaScript, Python)
 2. Test presentations: `marp --version`
 3. Review [Facilitator Guide](../docs/FACILITATOR_GUIDE.md)
 

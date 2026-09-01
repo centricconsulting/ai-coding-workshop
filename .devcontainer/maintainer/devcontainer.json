@@ -1,5 +1,6 @@
 // Workshop Maintainer DevContainer - Full Toolchain
-// For workshop authors and maintainers working with BOTH .NET and Spring Boot
+// For workshop authors and maintainers working across all tracks:
+// .NET, Spring Boot, Angular, JavaScript, Python, and Kotlin
 {
     "name": "AI Workshop - Maintainer (Full Toolchain)",
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
@@ -21,6 +22,9 @@
             "version": "20",
             "nodeGypDependencies": true
         },
+        "ghcr.io/devcontainers/features/python:1": {
+            "version": "3.12"
+        },
         "ghcr.io/devcontainers/features/github-cli:1": {
             "version": "latest"
         },
@@ -29,8 +33,10 @@
         }
     },
     
-    // Use 'postCreateCommand' to run commands after the container is created
-    "postCreateCommand": "dotnet build src-dotnet/TaskManager.sln && mvn clean install -f src-springboot/pom.xml -DskipTests && dotnet dev-certs https --trust && npm install -g @marp-team/marp-cli",
+    // Use 'postCreateCommand' to run commands after the container is created.
+    // Builds/tests every track's starter code as a sanity check (Java feature's
+    // Gradle install also covers the Kotlin track's build).
+    "postCreateCommand": "dotnet build src-dotnet/TaskManager.sln && mvn clean install -f src-springboot/pom.xml -DskipTests && (cd src-kotlin && gradle build) && (cd src-angular/task-manager && npm install && npx ng build) && (cd src-javascript/task-manager && node --test) && (cd src-python && pip install -r requirements.txt && pytest) && dotnet dev-certs https --trust && npm install -g @marp-team/marp-cli",
     
     // Configure tool-specific properties
     "customizations": {
@@ -52,6 +58,17 @@
                 "vscjava.vscode-maven",
                 "vscjava.vscode-gradle",
                 
+                // Kotlin Development
+                "fwcd.kotlin",
+                
+                // Angular Development
+                "angular.ng-template",
+                
+                // Python Development
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "littlefoxteam.vscode-python-test-adapter",
+                
                 // API Testing
                 "humao.rest-client",
                 
@@ -67,13 +84,16 @@
                         "default": true
                     }
                 ],
-                "java.jdt.ls.java.home": "/usr/local/sdkman/candidates/java/current"
+                "java.jdt.ls.java.home": "/usr/local/sdkman/candidates/java/current",
+                "python.testing.pytestEnabled": true,
+                "python.testing.unittestEnabled": false
             }
         }
     },
     
-    // Forward ports for both .NET and Spring Boot apps
-    "forwardPorts": [5000, 5001, 8080, 8443],
+    // Forward ports for .NET, Spring Boot, Angular, and Python dev servers
+    // (the Kotlin and JavaScript tracks are console/library-only for Labs 1-4)
+    "forwardPorts": [5000, 5001, 8080, 8443, 4200, 8000],
     "portsAttributes": {
         "5001": {
             "protocol": "https",
@@ -88,6 +108,14 @@
         "8443": {
             "protocol": "https",
             "label": "Spring Boot HTTPS"
+        },
+        "4200": {
+            "protocol": "http",
+            "label": "Angular Dev Server"
+        },
+        "8000": {
+            "protocol": "http",
+            "label": "FastAPI Dev Server"
         }
     }
 }

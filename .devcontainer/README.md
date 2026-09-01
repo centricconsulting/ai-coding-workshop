@@ -1,6 +1,6 @@
 # DevContainer Selection Guide
 
-This repository contains **5 devcontainer configurations** to support different workshop roles and technology stacks.
+This repository contains **6 devcontainer configurations** to support different workshop roles and technology stacks.
 
 ## 🎯 Which Container Should I Use?
 
@@ -114,12 +114,35 @@ When you open this repository in VS Code, you'll be prompted to select a devcont
 **What's included:**
 - ✅ Node.js 22 LTS (no framework, no TypeScript, no bundler)
 - ✅ GitHub Copilot extensions
-- ✅ Minimal overhead — smallest of the five containers
+- ✅ Minimal overhead — smallest of the six containers
 
 **Builds:**
 - `src-javascript/task-manager/` (plain JavaScript, zero dependencies — tested with Node's built-in `node:test`)
 
 **Note:** Same no-minimal-setup policy as the Angular track: use this devcontainer or match the [JavaScript section of `LOCAL_SETUP.md`](../docs/LOCAL_SETUP.md#-javascript-track-setup) exactly. In practice this track's local setup is already minimal (just Node + VS Code + Copilot).
+
+---
+
+### 6️⃣ **Python Participant** (Streamlined)
+
+**Location:** `.devcontainer/python-participant/`
+
+**Who should use this:**
+- Workshop participants following the Python track
+- Backend developers building the FastAPI TaskManager port
+- Self-paced learners using Python examples
+
+**What's included:**
+- ✅ Python 3.12
+- ✅ Python + Pylance extensions
+- ✅ Python Test Adapter (pytest integration)
+- ✅ GitHub Copilot extensions
+- ✅ Minimal overhead for fast startup
+
+**Builds:**
+- `src-python/` (Python/FastAPI solution — installs `requirements.txt` and runs `pytest` as a sanity check)
+
+**Note:** Same no-minimal-setup policy as the Angular/JavaScript tracks: use this devcontainer or match the [Python section of `LOCAL_SETUP.md`](../docs/LOCAL_SETUP.md#-python-track-setup) exactly.
 
 ---
 
@@ -143,17 +166,18 @@ When you open this repository in VS Code, you'll be prompted to select a devcont
 
 ## 📋 Container Comparison
 
-| Feature | Maintainer | .NET Participant | Spring Boot Participant | Angular Participant | JavaScript Participant |
-|---------|-----------|------------------|------------------------|----------------------|--------------------------|
-| **.NET 9 SDK** | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Java 21 JDK** | ✅ | ❌ | ✅ | ❌ | ❌ |
-| **Maven/Gradle** | ✅ | ❌ | ✅ | ❌ | ❌ |
-| **Node.js / Angular CLI** | ✅ | ❌ | ❌ | ✅ | Node.js only (no CLI) |
-| **Marp CLI** | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **All Extensions** | ✅ | .NET only | Java only | Angular only | JavaScript only |
-| **Build Time** | ~3-5 min | ~1-2 min | ~2-3 min | ~1-2 min | <1 min |
-| **Container Size** | ~5 GB | ~2 GB | ~3 GB | ~1.5 GB | ~1 GB |
-| **Copilot Instructions** | Both | .NET | Spring Boot | N/A (Angular track has no dedicated instructions file yet) | N/A (JavaScript track has no dedicated instructions file yet) |
+| Feature | Maintainer | .NET Participant | Spring Boot Participant | Angular Participant | JavaScript Participant | Python Participant |
+|---------|-----------|------------------|------------------------|----------------------|--------------------------|---------------------|
+| **.NET 9 SDK** | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
+| **Java 21 JDK** | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ |
+| **Maven/Gradle** | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ |
+| **Node.js / Angular CLI** | ✅ | ❌ | ❌ | ✅ | Node.js only (no CLI) | ❌ |
+| **Python 3.12** | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| **Marp CLI** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **All Extensions** | ✅ | .NET only | Java only | Angular only | JavaScript only | Python only |
+| **Build Time** | ~3-5 min | ~1-2 min | ~2-3 min | ~1-2 min | <1 min | ~1-2 min |
+| **Container Size** | ~5 GB | ~2 GB | ~3 GB | ~1.5 GB | ~1 GB | ~1.5 GB |
+| **Copilot Instructions** | Both | .NET | Spring Boot | N/A (Angular track has no dedicated instructions file yet) | N/A (JavaScript track has no dedicated instructions file yet) | N/A (Python track has no dedicated instructions file yet) |
 
 ---
 
@@ -211,6 +235,11 @@ Are you creating workshop content or facilitating?
 1. Verify build: `mvn clean install -f src-springboot/pom.xml`
 2. Run tests: `mvn test -f src-springboot/pom.xml`
 3. Start with [Lab 1 (Spring Boot)](../docs/labs/lab-01-tdd-with-copilot/springboot.md)
+
+### For Python Participants
+1. Verify install: `cd src-python && pip install -r requirements.txt`
+2. Run tests: `pytest`
+3. Start with [Lab 1](../docs/labs/lab-01-tdd-with-copilot.md)
 
 ### For Maintainers
 1. Verify both builds work

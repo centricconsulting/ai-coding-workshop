@@ -1,0 +1,44 @@
+// Python Participant DevContainer - Streamlined for Workshop Participants
+// For participants following the Python track
+{
+    "name": "AI Workshop - Python Participant",
+    "image": "mcr.microsoft.com/devcontainers/python:3.12",
+
+    "features": {
+        "ghcr.io/devcontainers/features/github-cli:1": {
+            "version": "latest"
+        }
+    },
+
+    // Use 'postCreateCommand' to install dependencies and run the starter test suite as a sanity check
+    "postCreateCommand": "cd src-python && pip install -r requirements.txt && pytest",
+
+    // Configure tool-specific properties
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "GitHub.copilot",
+                "GitHub.copilot-chat",
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "littlefoxteam.vscode-python-test-adapter",
+                "marp-team.marp-vscode",
+                "yzhang.markdown-all-in-one"
+            ],
+            "settings": {
+                "github.copilot.advanced": {},
+                "python.testing.pytestEnabled": true,
+                "python.testing.unittestEnabled": false
+            }
+        }
+    },
+
+    // Forward the FastAPI dev server port
+    "forwardPorts": [8000],
+    "portsAttributes": {
+        "8000": {
+            "protocol": "http",
+            "label": "FastAPI Dev Server"
+        }
+    }
+}

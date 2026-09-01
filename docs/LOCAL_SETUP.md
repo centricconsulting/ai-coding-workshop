@@ -1,11 +1,11 @@
 # Local Setup Guide (No Dev Container)
 
-Use this guide if you **cannot run Dev Containers** (Docker not available, corporate policy, resource constraints, etc.). Follow the section for your technology track: **.NET**, **Spring Boot (Java)**, **Angular**, or **JavaScript**.
+Use this guide if you **cannot run Dev Containers** (Docker not available, corporate policy, resource constraints, etc.). Follow the section for your technology track: **.NET**, **Spring Boot (Java)**, **Angular**, **JavaScript**, or **Python**.
 
 > **Prefer Dev Containers?** See [`.devcontainer/README.md`](../.devcontainer/README.md) for the faster, pre-configured path.
 >
 > **Prefer a minimal setup?** See [`MINIMAL_SETUP_DOTNET.md`](./MINIMAL_SETUP_DOTNET.md) or [`MINIMAL_SETUP_JAVA.md`](./MINIMAL_SETUP_JAVA.md) for Copilot-only setups without extra VS Code extensions.
-> **There is no minimal/lightweight alternative for the Angular or JavaScript tracks** — your environment must match the relevant section below exactly, or use the [Angular devcontainer](../.devcontainer/angular-participant/) / [JavaScript devcontainer](../.devcontainer/javascript-participant/) instead.
+> **There is no minimal/lightweight alternative for the Angular, JavaScript, or Python tracks** — your environment must match the relevant section below exactly, or use the [Angular devcontainer](../.devcontainer/angular-participant/) / [JavaScript devcontainer](../.devcontainer/javascript-participant/) / [Python devcontainer](../.devcontainer/python-participant/) instead.
 
 ---
 
@@ -344,6 +344,56 @@ Expected: all 3 starter tests pass (`pass 3`, `fail 0`). There is nothing to ins
 
 ---
 
+## 🐍 Python Track Setup
+
+The Python track requires **Python 3.12 or later**.
+
+- **Option A — Direct install**: [python.org/downloads](https://www.python.org/downloads/) —
+  download the latest 3.12.x (or later) installer.
+- **Option B — Homebrew (macOS)**: `brew install python@3.12`
+- **Option C — pyenv (macOS/Linux)**:
+  ```bash
+  pyenv install 3.12.7
+  pyenv local 3.12.7
+  ```
+
+- [ ] **Verify**:
+  ```bash
+  python3 --version
+  ```
+  Expected: `Python 3.12.x` or later
+
+### Python VS Code Extensions
+
+| Extension | ID | Purpose |
+|---|---|---|
+| Python | `ms-python.python` | Language support, debugging, environment management |
+| Pylance | `ms-python.vscode-pylance` | Fast IntelliSense and type checking |
+| Python Test Adapter | `littlefoxteam.vscode-python-test-adapter` | Run/debug pytest from the Test Explorer |
+
+```bash
+code --install-extension ms-python.python
+code --install-extension ms-python.vscode-pylance
+code --install-extension littlefoxteam.vscode-python-test-adapter
+```
+
+### Create a Virtual Environment & Verify the Tests
+
+```bash
+# From the repository root
+cd src-python
+python3 -m venv .venv
+source .venv/bin/activate      # macOS/Linux
+# .venv\Scripts\activate       # Windows (PowerShell/cmd)
+pip install -r requirements.txt
+pytest
+```
+
+Expected: all starter tests pass (currently 2 placeholder tests — these will be replaced with
+real Domain/Application tests as you work through the labs).
+
+---
+
 ## ✅ Verify GitHub Copilot Is Working
 
 After setup, confirm Copilot is active:
@@ -353,6 +403,7 @@ After setup, confirm Copilot is active:
    - **Java**: any file in `src-springboot/`
    - **Angular**: any file in `src-angular/task-manager/src/app/`
    - **JavaScript**: `src-javascript/task-manager/task.js`
+   - **Python**: any file in `src-python/`
 2. Check the **status bar** (bottom-right of VS Code window) — the Copilot icon should be active (not red/crossed out)
 3. Add a new line and type a comment, e.g., `// Method to validate task title`
 4. Press Enter — you should see gray "ghost text" suggestions
@@ -387,6 +438,8 @@ After setup, confirm Copilot is active:
 | Vitest fails to start / `EBADENGINE` warnings | Non-fatal for optional packages, but confirm Node version first |
 | `node: command not found` | Restart terminal after install; check PATH |
 | `node --test` reports 0 tests | Confirm you're inside `src-javascript/task-manager` and using Node 18+ (test runner requires it) |
+| `python: command not found` (macOS/Linux) | Use `python3` instead, or add an alias; see [`LOCAL_SETUP_PYTHON.md`](./LOCAL_SETUP_PYTHON.md) |
+| `pytest: command not found` | Ensure your virtual environment is activated and `pip install -r requirements.txt` succeeded |
 
 ---
 
@@ -431,6 +484,16 @@ cd src-javascript/task-manager
 node --test
 ```
 
+**For Python participants:**
+```bash
+python3 --version        # 3.12.x or later
+cd ai-coding-workshop
+git pull origin main
+cd src-python
+pip install -r requirements.txt
+pytest
+```
+
 Then open VS Code (`code .`) and confirm the Copilot status bar icon is active.
 
 ---
@@ -441,6 +504,7 @@ Then open VS Code (`code .`) and confirm the Copilot status bar icon is active.
 - [Pre-Workshop Checklist](./PRE_WORKSHOP_CHECKLIST.md) — .NET-focused detailed checklist
 - [Angular Track Plan](./requirements/new-language-tracks/plan-angular.md) — scope and design notes
 - [JavaScript Track Plan](./requirements/new-language-tracks/plan-javascript.md) — scope and design notes
+- [Python Track Plan](./requirements/new-language-tracks/plan-python.md) — scope and design notes
 - [Workshop README](../README.md) — overview and lab links
 - [Facilitator Guide](./FACILITATOR_GUIDE.md) — for workshop facilitators
 

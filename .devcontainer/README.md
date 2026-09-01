@@ -1,6 +1,6 @@
 # DevContainer Selection Guide
 
-This repository contains **6 devcontainer configurations** to support different workshop roles and technology stacks.
+This repository contains **7 devcontainer configurations** to support different workshop roles and technology stacks.
 
 ## 🎯 Which Container Should I Use?
 
@@ -114,7 +114,7 @@ When you open this repository in VS Code, you'll be prompted to select a devcont
 **What's included:**
 - ✅ Node.js 22 LTS (no framework, no TypeScript, no bundler)
 - ✅ GitHub Copilot extensions
-- ✅ Minimal overhead — smallest of the six containers
+- ✅ Minimal overhead — smallest of the participant containers
 
 **Builds:**
 - `src-javascript/task-manager/` (plain JavaScript, zero dependencies — tested with Node's built-in `node:test`)
@@ -146,6 +146,29 @@ When you open this repository in VS Code, you'll be prompted to select a devcont
 
 ---
 
+### 7️⃣ **Kotlin Participant** (Streamlined)
+
+**Location:** `.devcontainer/kotlin-participant/`
+
+**Who should use this:**
+- Workshop participants following the Kotlin track
+- Mobile-oriented developers working on Kotlin/JVM domain and application logic
+- Self-paced learners using the JVM-only Kotlin starter
+
+**What's included:**
+- ✅ Java 21 JDK (LTS)
+- ✅ Gradle 8+
+- ✅ Kotlin language extension
+- ✅ GitHub Copilot extensions
+- ✅ Minimal overhead for fast startup
+
+**Builds:**
+- `src-kotlin/` (Kotlin/JVM multi-module starter — runs `gradle build` as a sanity check)
+
+**Note:** Same no-minimal-setup policy as the Angular/JavaScript/Python tracks: use this devcontainer or match the [Kotlin section of `LOCAL_SETUP.md`](../docs/LOCAL_SETUP.md#-kotlin-track-setup) exactly.
+
+---
+
 ## 🚀 How to Select
 
 ### First Time Opening the Repository
@@ -166,18 +189,19 @@ When you open this repository in VS Code, you'll be prompted to select a devcont
 
 ## 📋 Container Comparison
 
-| Feature | Maintainer | .NET Participant | Spring Boot Participant | Angular Participant | JavaScript Participant | Python Participant |
-|---------|-----------|------------------|------------------------|----------------------|--------------------------|---------------------|
-| **.NET 9 SDK** | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **Java 21 JDK** | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ |
-| **Maven/Gradle** | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ |
-| **Node.js / Angular CLI** | ✅ | ❌ | ❌ | ✅ | Node.js only (no CLI) | ❌ |
-| **Python 3.12** | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **Marp CLI** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **All Extensions** | ✅ | .NET only | Java only | Angular only | JavaScript only | Python only |
-| **Build Time** | ~3-5 min | ~1-2 min | ~2-3 min | ~1-2 min | <1 min | ~1-2 min |
-| **Container Size** | ~5 GB | ~2 GB | ~3 GB | ~1.5 GB | ~1 GB | ~1.5 GB |
-| **Copilot Instructions** | Both | .NET | Spring Boot | N/A (Angular track has no dedicated instructions file yet) | N/A (JavaScript track has no dedicated instructions file yet) | N/A (Python track has no dedicated instructions file yet) |
+| Feature | Maintainer | .NET Participant | Spring Boot Participant | Angular Participant | JavaScript Participant | Python Participant | Kotlin Participant |
+|---------|-----------|------------------|------------------------|----------------------|--------------------------|---------------------|--------------------|
+| **.NET 9 SDK** | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **Java 21 JDK** | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ |
+| **Maven/Gradle** | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | Gradle only |
+| **Node.js / Angular CLI** | ✅ | ❌ | ❌ | ✅ | Node.js only (no CLI) | ❌ | ❌ |
+| **Python 3.12** | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
+| **Kotlin/JVM Tooling** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| **Marp CLI** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **All Extensions** | ✅ | .NET only | Java only | Angular only | JavaScript only | Python only | Kotlin only |
+| **Build Time** | ~3-5 min | ~1-2 min | ~2-3 min | ~1-2 min | <1 min | ~1-2 min | ~1-2 min |
+| **Container Size** | ~5 GB | ~2 GB | ~3 GB | ~1.5 GB | ~1 GB | ~1.5 GB | ~2 GB |
+| **Copilot Instructions** | Both | .NET | Spring Boot | N/A (Angular track has no dedicated instructions file yet) | N/A (JavaScript track has no dedicated instructions file yet) | N/A (Python track has no dedicated instructions file yet) | N/A (Kotlin track has no dedicated instructions file yet) |
 
 ---
 
@@ -188,9 +212,13 @@ When you open this repository in VS Code, you'll be prompted to select a devcont
 ```
 Are you creating workshop content or facilitating?
 ├─ YES → Use Maintainer
-└─ NO → Are you following .NET or Spring Boot track?
+└─ NO → Which track are you following?
     ├─ .NET → Use .NET Participant
-    └─ Spring Boot → Use Spring Boot Participant
+    ├─ Spring Boot → Use Spring Boot Participant
+    ├─ Python → Use Python Participant
+    ├─ Kotlin → Use Kotlin Participant
+    ├─ Angular → Use Angular Participant
+    └─ JavaScript → Use JavaScript Participant
 ```
 
 ### Container Won't Build
@@ -241,6 +269,11 @@ Are you creating workshop content or facilitating?
 2. Run tests: `pytest`
 3. Start with [Lab 1](../docs/labs/lab-01-tdd-with-copilot.md)
 
+### For Kotlin Participants
+1. Verify build: `cd src-kotlin && gradle build`
+2. Run tests: `gradle test`
+3. Start with [Lab 1 (Kotlin)](../docs/labs/lab-01-tdd-with-copilot-kotlin.md)
+
 ### For Maintainers
 1. Verify both builds work
 2. Test presentations: `marp --version`
@@ -251,7 +284,7 @@ Are you creating workshop content or facilitating?
 ## 🔗 Related Documentation
 
 - [Workshop README](../README.md) - Main workshop overview
-- [Local Setup Guide](../docs/LOCAL_SETUP.md) - **No Dev Container?** Manual setup for .NET and Spring Boot
+- [Local Setup Guide](../docs/LOCAL_SETUP.md) - **No Dev Container?** Manual setup for .NET, Spring Boot, Angular, JavaScript, Python, and Kotlin
 - [Pre-Workshop Checklist](../docs/PRE_WORKSHOP_CHECKLIST.md) - Setup requirements
 - [Pattern Translation Guide](../docs/guides/pattern-translation.md) - .NET ↔ Java mappings
 - [Facilitator Guide](../docs/FACILITATOR_GUIDE.md) - Delivery instructions

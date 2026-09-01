@@ -1,6 +1,6 @@
 # Lab 4: Testing, Documentation & Workflow with GitHub Copilot (Python)
 
-> **💡 Also available**: [shared .NET version](lab-04-testing-documentation-workflow.md) · [JavaScript version](lab-04-testing-documentation-workflow-javascript.md) · [Java/Spring Boot version](lab-04-testing-documentation-workflow-java.md) · [Angular version](lab-04-testing-documentation-workflow-angular.md)
+> **💡 Also available**: [shared .NET version](lab-04-testing-documentation-workflow.md) · [JavaScript version](lab-04-testing-documentation-workflow-javascript.md) · [Java/Spring Boot version](lab-04-testing-documentation-workflow-java.md) · [Angular version](lab-04-testing-documentation-workflow-angular.md) · [Kotlin version](lab-04-testing-documentation-workflow-kotlin.md)
 
 **Duration**: 15-20 minutes  
 **Learning Objectives**:

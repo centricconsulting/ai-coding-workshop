@@ -1,11 +1,11 @@
 # Local Setup Guide (No Dev Container)
 
-Use this guide if you **cannot run Dev Containers** (Docker not available, corporate policy, resource constraints, etc.). Follow the section for your technology track: **.NET**, **Spring Boot (Java)**, **Angular**, **JavaScript**, or **Python**.
+Use this guide if you **cannot run Dev Containers** (Docker not available, corporate policy, resource constraints, etc.). Follow the section for your technology track: **.NET**, **Spring Boot (Java)**, **Angular**, **JavaScript**, **Python**, or **Kotlin**.
 
 > **Prefer Dev Containers?** See [`.devcontainer/README.md`](../.devcontainer/README.md) for the faster, pre-configured path.
 >
 > **Prefer a minimal setup?** See [`MINIMAL_SETUP_DOTNET.md`](./MINIMAL_SETUP_DOTNET.md) or [`MINIMAL_SETUP_JAVA.md`](./MINIMAL_SETUP_JAVA.md) for Copilot-only setups without extra VS Code extensions.
-> **There is no minimal/lightweight alternative for the Angular, JavaScript, or Python tracks** — your environment must match the relevant section below exactly, or use the [Angular devcontainer](../.devcontainer/angular-participant/) / [JavaScript devcontainer](../.devcontainer/javascript-participant/) / [Python devcontainer](../.devcontainer/python-participant/) instead.
+> **There is no minimal/lightweight alternative for the Angular, JavaScript, Python, or Kotlin tracks** — your environment must match the relevant section below exactly, or use the [Angular devcontainer](../.devcontainer/angular-participant/) / [JavaScript devcontainer](../.devcontainer/javascript-participant/) / [Python devcontainer](../.devcontainer/python-participant/) / [Kotlin devcontainer](../.devcontainer/kotlin-participant/) instead.
 
 ---
 
@@ -394,6 +394,69 @@ real Domain/Application tests as you work through the labs).
 
 ---
 
+## 🅺 Kotlin Track Setup
+
+The Kotlin track requires **Java 21** and **Gradle 8+**. This track is **JVM-only for Labs 1-4** —
+there is no Android SDK, emulator, or Android Studio requirement.
+
+### Java 21 JDK
+
+The workshop uses **Java 21 LTS**. Any distribution works; Microsoft Build of OpenJDK is recommended.
+
+- **Option A — Microsoft Build of OpenJDK (recommended):**
+  [aka.ms/download-jdk](https://aka.ms/download-jdk) — select Java 21
+- **Option B — Temurin (Eclipse Adoptium):**
+  [adoptium.net](https://adoptium.net/) — select **Temurin 21 (LTS)**
+- **Option C — Homebrew (macOS)**: `brew install --cask microsoft-openjdk21`
+- **Option D — SDKMAN (macOS/Linux)**:
+  ```bash
+  curl -s "https://get.sdkman.io" | bash
+  source "$HOME/.sdkman/bin/sdkman-init.sh"
+  sdk install java 21-ms
+  ```
+
+- [ ] **Verify**:
+  ```bash
+  java -version
+  ```
+  Expected: `openjdk version "21.x.x"` (or similar 21.x output)
+
+### Gradle 8+
+
+- **Option A — Homebrew (macOS)**: `brew install gradle`
+- **Option B — SDKMAN (macOS/Linux)**: `sdk install gradle 8.10.2`
+- **Option C — Direct install**: [gradle.org/install](https://gradle.org/install/)
+
+- [ ] **Verify**:
+  ```bash
+  gradle --version
+  ```
+  Expected: `Gradle 8.x`
+
+### Kotlin VS Code Extensions
+
+| Extension | ID | Purpose |
+|---|---|---|
+| Kotlin Language | `fwcd.kotlin` | Kotlin language support and IntelliSense |
+| Gradle for Java | `vscjava.vscode-gradle` | Gradle project import and task runner |
+
+```bash
+code --install-extension fwcd.kotlin
+code --install-extension vscjava.vscode-gradle
+```
+
+### Verify the Kotlin Build
+
+```bash
+# From the repository root
+cd src-kotlin
+gradle build
+```
+
+Expected: build completes successfully and the starter JUnit 5 tests pass.
+
+---
+
 ## ✅ Verify GitHub Copilot Is Working
 
 After setup, confirm Copilot is active:
@@ -404,6 +467,7 @@ After setup, confirm Copilot is active:
    - **Angular**: any file in `src-angular/task-manager/src/app/`
    - **JavaScript**: `src-javascript/task-manager/task.js`
    - **Python**: any file in `src-python/`
+   - **Kotlin**: `src-kotlin/task-manager-domain/src/main/kotlin/com/example/taskmanager/domain/tasks/Task.kt`
 2. Check the **status bar** (bottom-right of VS Code window) — the Copilot icon should be active (not red/crossed out)
 3. Add a new line and type a comment, e.g., `// Method to validate task title`
 4. Press Enter — you should see gray "ghost text" suggestions
@@ -440,6 +504,8 @@ After setup, confirm Copilot is active:
 | `node --test` reports 0 tests | Confirm you're inside `src-javascript/task-manager` and using Node 18+ (test runner requires it) |
 | `python: command not found` (macOS/Linux) | Use `python3` instead, or add an alias; see [`LOCAL_SETUP_PYTHON.md`](./LOCAL_SETUP_PYTHON.md) |
 | `pytest: command not found` | Ensure your virtual environment is activated and `pip install -r requirements.txt` succeeded |
+| `gradle: command not found` | Install Gradle 8+ and restart your terminal, or use the Kotlin devcontainer |
+| Kotlin language support is missing in VS Code | Confirm `fwcd.kotlin` is installed and reload the VS Code window |
 
 ---
 
@@ -494,6 +560,16 @@ pip install -r requirements.txt
 pytest
 ```
 
+**For Kotlin participants:**
+```bash
+java -version            # 21.x
+gradle --version         # 8.x
+cd ai-coding-workshop
+git pull origin main
+cd src-kotlin
+gradle build
+```
+
 Then open VS Code (`code .`) and confirm the Copilot status bar icon is active.
 
 ---
@@ -505,6 +581,7 @@ Then open VS Code (`code .`) and confirm the Copilot status bar icon is active.
 - [Angular Track Plan](./requirements/new-language-tracks/plan-angular.md) — scope and design notes
 - [JavaScript Track Plan](./requirements/new-language-tracks/plan-javascript.md) — scope and design notes
 - [Python Track Plan](./requirements/new-language-tracks/plan-python.md) — scope and design notes
+- [Kotlin Track Plan](./requirements/new-language-tracks/plan-kotlin.md) — scope and design notes
 - [Workshop README](../README.md) — overview and lab links
 - [Facilitator Guide](./FACILITATOR_GUIDE.md) — for workshop facilitators
 

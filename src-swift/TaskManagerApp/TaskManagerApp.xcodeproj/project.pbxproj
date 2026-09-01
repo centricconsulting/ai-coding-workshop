@@ -1,0 +1,303 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A11111111111111111111111 /* TaskManagerAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11111111111111111111111 /* TaskManagerAppApp.swift */; };
+		A22222222222222222222222 /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22222222222222222222222 /* TaskListView.swift */; };
+		A33333333333333333333333 /* AddTaskSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33333333333333333333333 /* AddTaskSection.swift */; };
+		A44444444444444444444444 /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44444444444444444444444 /* TaskListViewModel.swift */; };
+		A55555555555555555555555 /* TaskManagerDomain in Frameworks */ = {isa = PBXBuildFile; productRef = C11111111111111111111111 /* TaskManagerDomain */; };
+		A66666666666666666666666 /* TaskManagerApplication in Frameworks */ = {isa = PBXBuildFile; productRef = C22222222222222222222222 /* TaskManagerApplication */; };
+		A77777777777777777777777 /* TaskManagerInfrastructure in Frameworks */ = {isa = PBXBuildFile; productRef = C33333333333333333333333 /* TaskManagerInfrastructure */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B11111111111111111111111 /* TaskManagerAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerAppApp.swift; sourceTree = "<group>"; };
+		B22222222222222222222222 /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
+		B33333333333333333333333 /* AddTaskSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskSection.swift; sourceTree = "<group>"; };
+		B44444444444444444444444 /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
+		B55555555555555555555555 /* TaskManagerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskManagerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D11111111111111111111111 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A55555555555555555555555 /* TaskManagerDomain in Frameworks */,
+				A66666666666666666666666 /* TaskManagerApplication in Frameworks */,
+				A77777777777777777777777 /* TaskManagerInfrastructure in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E11111111111111111111111 = {
+			isa = PBXGroup;
+			children = (
+				E22222222222222222222222 /* TaskManagerApp */,
+				E33333333333333333333333 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E22222222222222222222222 /* TaskManagerApp */ = {
+			isa = PBXGroup;
+			children = (
+				B11111111111111111111111 /* TaskManagerAppApp.swift */,
+				B44444444444444444444444 /* TaskListViewModel.swift */,
+				B22222222222222222222222 /* TaskListView.swift */,
+				B33333333333333333333333 /* AddTaskSection.swift */,
+			);
+			path = TaskManagerApp;
+			sourceTree = "<group>";
+		};
+		E33333333333333333333333 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B55555555555555555555555 /* TaskManagerApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F11111111111111111111111 /* TaskManagerApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = H11111111111111111111111 /* Build configuration list for PBXNativeTarget "TaskManagerApp" */;
+			buildPhases = (
+				G11111111111111111111111 /* Sources */,
+				D11111111111111111111111 /* Frameworks */,
+				G22222222222222222222222 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TaskManagerApp;
+			packageProductDependencies = (
+				C11111111111111111111111 /* TaskManagerDomain */,
+				C22222222222222222222222 /* TaskManagerApplication */,
+				C33333333333333333333333 /* TaskManagerInfrastructure */,
+			);
+			productName = TaskManagerApp;
+			productReference = B55555555555555555555555 /* TaskManagerApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		P11111111111111111111111 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					F11111111111111111111111 = {
+						CreatedOnToolsVersion = 16.0;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = H22222222222222222222222 /* Build configuration list for PBXProject "TaskManagerApp" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E11111111111111111111111;
+			packageReferences = (
+				Q11111111111111111111111 /* XCLocalSwiftPackageReference ".." */,
+			);
+			productRefGroup = E33333333333333333333333 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F11111111111111111111111 /* TaskManagerApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		G22222222222222222222222 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		G11111111111111111111111 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A33333333333333333333333 /* AddTaskSection.swift in Sources */,
+				A11111111111111111111111 /* TaskManagerAppApp.swift in Sources */,
+				A22222222222222222222222 /* TaskListView.swift in Sources */,
+				A44444444444444444444444 /* TaskListViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		J11111111111111111111111 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		J22222222222222222222222 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		J33333333333333333333333 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = TaskManagerApp;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.centricconsulting.workshop.TaskManagerApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		J44444444444444444444444 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = TaskManagerApp;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.centricconsulting.workshop.TaskManagerApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		H11111111111111111111111 /* Build configuration list for PBXNativeTarget "TaskManagerApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				J33333333333333333333333 /* Debug */,
+				J44444444444444444444444 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		H22222222222222222222222 /* Build configuration list for PBXProject "TaskManagerApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				J11111111111111111111111 /* Debug */,
+				J22222222222222222222222 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		Q11111111111111111111111 /* XCLocalSwiftPackageReference ".." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ..;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C11111111111111111111111 /* TaskManagerDomain */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = Q11111111111111111111111 /* XCLocalSwiftPackageReference ".." */;
+			productName = TaskManagerDomain;
+		};
+		C22222222222222222222222 /* TaskManagerApplication */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = Q11111111111111111111111 /* XCLocalSwiftPackageReference ".." */;
+			productName = TaskManagerApplication;
+		};
+		C33333333333333333333333 /* TaskManagerInfrastructure */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = Q11111111111111111111111 /* XCLocalSwiftPackageReference ".." */;
+			productName = TaskManagerInfrastructure;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = P11111111111111111111111 /* Project object */;
+}

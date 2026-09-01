@@ -1,6 +1,6 @@
 # Lab 3: Code Generation & Refactoring with GitHub Copilot (JavaScript)
 
-> **💡 Also available**: [shared .NET version](lab-03-generation-and-refactoring.md) · [Java/Spring Boot version](lab-03-generation-and-refactoring-java.md) · [Angular version](lab-03-generation-and-refactoring-angular.md) · [Kotlin version](lab-03-generation-and-refactoring-kotlin.md)
+> **💡 Also available**: [shared .NET version](lab-03-generation-and-refactoring.md) · [Java/Spring Boot version](lab-03-generation-and-refactoring-java.md) · [Angular version](lab-03-generation-and-refactoring-angular.md) · [Kotlin version](lab-03-generation-and-refactoring-kotlin.md) · [Swift version](lab-03-generation-and-refactoring-swift.md)
 
 **Duration**: 35-45 minutes  
 **Learning Objectives**:

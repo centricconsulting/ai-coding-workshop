@@ -109,9 +109,9 @@ For a fully pre-configured development environment, you can use one of the inclu
 2. Open the Command Palette (`Cmd+Shift+P` or `Ctrl+Shift+P`).
 3. Select: `Dev Containers: Reopen in Container`
 4. **Choose your stack**:
-   - 🔷 **.NET Developers**: Select `.devcontainer/dotnet/devcontainer.json`
-   - 🟩 **Spring Boot Developers**: Select `.devcontainer/springboot/devcontainer.json`
-   - 🔷🟩 **Both Stacks** (facilitators/explorers): Select `.devcontainer/bilingual/devcontainer.json`
+   - 🔷 **.NET Developers**: Select `.devcontainer/dotnet-participant/devcontainer.json`
+   - 🟩 **Spring Boot Developers**: Select `.devcontainer/springboot-participant/devcontainer.json`
+   - 🔷🟩 **Both Stacks** (facilitators/explorers): Select `.devcontainer/maintainer/devcontainer.json`
    - 🅰️ **Angular Developers**: Select `.devcontainer/angular-participant/devcontainer.json`
    - 🟨 **JavaScript Participants**: Select `.devcontainer/javascript-participant/devcontainer.json`
    - 🐍 **Python Developers**: Select `.devcontainer/python-participant/devcontainer.json`

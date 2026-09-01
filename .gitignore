@@ -131,6 +131,13 @@ pids/
 
 # Dependency directories
 node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
 
 # Optional npm cache directory
 .npm

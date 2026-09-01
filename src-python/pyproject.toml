@@ -1,0 +1,9 @@
+[project]
+name = "task-manager-python"
+version = "0.1.0"
+description = "Python/FastAPI port of the TaskManager reference app (AI Coding Workshop)"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

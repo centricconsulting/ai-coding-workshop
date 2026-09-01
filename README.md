@@ -4,7 +4,7 @@
 
 Transform the way you build software with AI-powered development! This comprehensive workshop teaches developers how to leverage **GitHub Copilot** and modern AI coding assistants to accelerate application development while maintaining high code quality standards.
 
-**Choose Your Technology Stack:** This workshop supports both **🔷 .NET** and **🟩 Spring Boot** implementations, allowing participants to learn AI-assisted development in their preferred ecosystem. An additional **🅰️ Angular** track (a self-contained SPA, no backend) and a lighter-weight **🟨 JavaScript** track (for non-technical participants) are also available — see the [Getting Started](#getting-started-choose-your-path) flowchart below.
+**Choose Your Technology Stack:** This workshop supports both **🔷 .NET** and **🟩 Spring Boot** implementations, allowing participants to learn AI-assisted development in their preferred ecosystem. An additional **🅰️ Angular** track (a self-contained SPA, no backend), a lighter-weight **🟨 JavaScript** track (for non-technical participants), and a **🐍 Python** track (FastAPI backend) are also available — see the [Getting Started](#getting-started-choose-your-path) flowchart below.
 
 **This workshop is split into two parts:**
 
@@ -50,6 +50,7 @@ flowchart TD
     D -- "Exploring both" --> G["Bilingual track"]
     D -- "Angular" --> M["Angular track<br>(self-contained SPA)"]
     D -- "JavaScript<br>(non-technical)" --> Q["JavaScript track<br>(plain JS, no framework)"]
+    D -- "Python" --> P["Python track<br>(FastAPI backend)"]
     E --> H{How do you want<br>to set up your<br>environment?}
     F --> H
     G --> H
@@ -58,6 +59,7 @@ flowchart TD
     H -- "Lightweight, Copilot-only<br>(.NET / Spring Boot only)" --> K["Minimal Setup Guide<br>docs/MINIMAL_SETUP_DOTNET.md or<br>docs/MINIMAL_SETUP_JAVA.md"]
     M --> H
     Q --> H
+    P --> H
     I --> L(["You're ready!<br>Bring this setup to the<br>instructor-led workshop"])
     J --> L
     K --> L
@@ -80,10 +82,11 @@ For the best experience, use the provided **Devcontainer** and recommended VS Co
   - 🔷🟩 **Bilingual Container** (`.devcontainer/bilingual/`): Both .NET and Java environments (for facilitators or exploring both stacks)
   - 🅰️ **Angular Container** (`.devcontainer/angular-participant/`): Node 24+, Angular CLI, Angular Language Service (self-contained SPA, no backend)
   - 🟨 **JavaScript Container** (`.devcontainer/javascript-participant/`): Node 22 LTS only, no framework or TypeScript — for the non-technical plain-JS track
+  - 🐍 **Python Container** (`.devcontainer/python-participant/`): Python 3.12, Pylance, pytest extension — FastAPI backend track
 
-> **Can't use Dev Containers?** Follow the [Local Setup Guide](docs/LOCAL_SETUP.md) to install the required tools and VS Code extensions manually for the .NET, Spring Boot, Angular, or JavaScript track. Prefer a lighter footprint (.NET/Spring Boot only)? See the [Minimal .NET Setup](docs/MINIMAL_SETUP_DOTNET.md) or [Minimal Spring Boot Setup](docs/MINIMAL_SETUP_JAVA.md) for a Copilot-only setup without extra VS Code extensions.
+> **Can't use Dev Containers?** Follow the [Local Setup Guide](docs/LOCAL_SETUP.md) to install the required tools and VS Code extensions manually for the .NET, Spring Boot, Angular, JavaScript, or Python track. Prefer a lighter footprint (.NET/Spring Boot only)? See the [Minimal .NET Setup](docs/MINIMAL_SETUP_DOTNET.md) or [Minimal Spring Boot Setup](docs/MINIMAL_SETUP_JAVA.md) for a Copilot-only setup without extra VS Code extensions.
 >
-> **Angular and JavaScript tracks**: there is no minimal-setup alternative — use the devcontainer above or follow [`docs/LOCAL_SETUP.md`](docs/LOCAL_SETUP.md) exactly.
+> **Angular, JavaScript, and Python tracks**: there is no minimal-setup alternative — use the devcontainer above or follow [`docs/LOCAL_SETUP.md`](docs/LOCAL_SETUP.md) exactly.
 
 - **Copilot Custom Instructions**: This repo auto-applies Copilot instructions based on file context:
   - 🔷 **.NET files** (`**/*.cs`): Loads `csharp.instructions.md` + `dotnet.instructions.md`
@@ -138,6 +141,11 @@ Before attending this workshop, participants should have:
 - **Node.js (any current LTS)**: Installed and verified with `node --version` — no minimum-version pitfalls like Angular
 - **No prior programming experience required**: this track is intentionally lighter-weight (plain functions, no framework, no TypeScript)
 
+**🐍 Python Track Prerequisites:**
+- **Python 3.12+**: Installed and verified with `python3 --version`
+- **Python extension** for VS Code (plus Pylance)
+- **Python Experience**: Comfortable with basic Python syntax; FastAPI experience is helpful but not required
+
 ### Environment Check
 
 Run these commands to verify your setup:
@@ -167,6 +175,13 @@ code --version           # VS Code version
 **🟨 JavaScript Track:**
 ```bash
 node --version            # Any current LTS
+git --version            # Any recent version
+code --version           # VS Code version
+```
+
+**🐍 Python Track:**
+```bash
+python3 --version         # Should show 3.12.x or later
 git --version            # Any recent version
 code --version           # VS Code version
 ```
@@ -326,17 +341,17 @@ See [Part 2 Facilitator's Guide](docs/FACILITATOR_GUIDE_PART2.md) for detailed s
 #### Part 1: Fundamentals (Labs 1-4)
 
 - **[Lab 1: TDD with GitHub Copilot](docs/labs/lab-01-tdd-with-copilot.md)** (30 min) - Red-Green-Refactor cycle with NotificationService  
-  _Format: **Bilingual** with 🔷 .NET and 🟩 Spring Boot sections throughout · also available as separate [Angular](docs/labs/lab-01-tdd-with-copilot-angular.md) and [JavaScript](docs/labs/lab-01-tdd-with-copilot-javascript.md) versions_
+  _Format: **Trilingual** with 🔷 .NET, 🟩 Spring Boot, and 🐍 Python sections throughout · also available as separate [Angular](docs/labs/lab-01-tdd-with-copilot-angular.md) and [JavaScript](docs/labs/lab-01-tdd-with-copilot-javascript.md) versions_
   
 - **[Lab 2: Requirements to Code](docs/labs/lab-02-requirements-to-code.md)** (45 min) - Transform user stories into working features  
-  _Format: **Separate files** - Choose [.NET version](docs/labs/lab-02-requirements-to-code.md), [Spring Boot version](docs/labs/lab-02-requirements-to-code-java.md), [Angular version](docs/labs/lab-02-requirements-to-code-angular.md), or [JavaScript version](docs/labs/lab-02-requirements-to-code-javascript.md)_
+  _Format: **Separate files** - Choose [.NET version](docs/labs/lab-02-requirements-to-code.md), [Spring Boot version](docs/labs/lab-02-requirements-to-code-java.md), [Angular version](docs/labs/lab-02-requirements-to-code-angular.md), [JavaScript version](docs/labs/lab-02-requirements-to-code-javascript.md), or [Python version](docs/labs/lab-02-requirements-to-code-python.md)_
   
 - **[Lab 3: Code Generation & Refactoring](docs/labs/lab-03-generation-and-refactoring.md)** (45 min) - Generate CRUD APIs and modernize legacy code  
-  _Format: **Separate files** - Choose [.NET version](docs/labs/lab-03-generation-and-refactoring.md), [Spring Boot version](docs/labs/lab-03-generation-and-refactoring-java.md), [Angular version](docs/labs/lab-03-generation-and-refactoring-angular.md), or [JavaScript version](docs/labs/lab-03-generation-and-refactoring-javascript.md)_  
-  _🟩 Spring Boot version includes **Mule ESB → Spring Boot** refactoring scenarios; 🅰️ Angular version moves business logic from a component into an injectable application service; 🟨 JavaScript version refactors an overloaded function into smaller named functions_
+  _Format: **Separate files** - Choose [.NET version](docs/labs/lab-03-generation-and-refactoring.md), [Spring Boot version](docs/labs/lab-03-generation-and-refactoring-java.md), [Angular version](docs/labs/lab-03-generation-and-refactoring-angular.md), [JavaScript version](docs/labs/lab-03-generation-and-refactoring-javascript.md), or [Python version](docs/labs/lab-03-generation-and-refactoring-python.md)_  
+  _🟩 Spring Boot version includes **Mule ESB → Spring Boot** refactoring scenarios; 🅰️ Angular version moves business logic from a component into an injectable application service; 🟨 JavaScript version refactors an overloaded function into smaller named functions; 🐍 Python version refactors a fat function into small, single-purpose functions with guard clauses_
   
 - **[Lab 4: Testing, Documentation & Workflow](docs/labs/lab-04-testing-documentation-workflow.md)** (15 min) - Complete the development lifecycle  
-  _Format: **Stack-agnostic** concepts, currently .NET-focused (Spring Boot version planned); also available as separate [Angular](docs/labs/lab-04-testing-documentation-workflow-angular.md) and [JavaScript](docs/labs/lab-04-testing-documentation-workflow-javascript.md) versions_
+  _Format: **Stack-agnostic** concepts, currently .NET-focused (Spring Boot version planned); also available as separate [Angular](docs/labs/lab-04-testing-documentation-workflow-angular.md), [JavaScript](docs/labs/lab-04-testing-documentation-workflow-javascript.md), and [Python](docs/labs/lab-04-testing-documentation-workflow-python.md) versions_
 
 #### Part 2: Advanced GitHub Copilot (Labs 5-10)
 
@@ -389,6 +404,13 @@ The `main` branch contains code for both technology stacks:
   functions and object literals — no framework, TypeScript, or build step
 - **Test Infrastructure**: Node's built-in `node:test` module, zero dependencies to install
 
+**🐍 Python Solution** (`src-python/` directory) — *in development, skeleton only*:
+- **Clean Architecture layering**: `task_manager_domain`/`task_manager_application`/
+  `task_manager_api`/`task_manager_infrastructure` packages, mirroring the .NET/Spring Boot layout
+- **FastAPI**: planned web framework for the API layer (Minimal-API-equivalent ergonomics)
+- **Test Infrastructure**: pytest, with placeholder unit/integration test packages ready for
+  Lab 1+ content
+
 **Shared Resources**:
 - **Custom Agents** (`.github/agents/`): Architecture Reviewer, Backlog Generator, Test Strategist
 - **Skills** (`.github/skills/`): test-data-generator skill with examples
@@ -422,6 +444,10 @@ Contains:
 - Planned branch with plain-JavaScript implementations of Labs 1-4
 - Check repository for updates
 
+**🐍 Python Reference** (in development):
+- Planned branch with Python implementations of Labs 1-4
+- Check repository for updates
+
 **Use reference implementations to:**
 - Compare your solution with a working implementation
 - Get unstuck if you encounter issues
@@ -445,6 +471,7 @@ Contains:
    - 🔷🟩 **Explore Both**: Use bilingual devcontainer to try both ecosystems
    - 🅰️ **Angular Track**: Work in `src-angular/task-manager/` directory (self-contained SPA, no backend)
    - 🟨 **JavaScript Track**: Work in `src-javascript/task-manager/` directory (plain JS, non-technical audience)
+   - 🐍 **Python Track**: Work in `src-python/` directory with FastAPI projects
 
 3. **Create your own branch from `main`**:
 
@@ -468,6 +495,7 @@ Contains:
      - 🔷🟩 `.devcontainer/bilingual/` for both stacks
      - 🅰️ `.devcontainer/angular-participant/` for the Angular track
      - 🟨 `.devcontainer/javascript-participant/` for the JavaScript track
+     - 🐍 `.devcontainer/python-participant/` for the Python track
 
    **That's it!** Copilot instructions automatically load based on which files you're editing - no manual setup needed.
 
@@ -502,6 +530,15 @@ Contains:
    node --version           # Any current LTS
    cd src-javascript/task-manager
    node --test              # Verify tests run (no install needed)
+   ```
+
+   **🐍 Python Track:**
+   ```bash
+   python3 --version        # Should show 3.12.x or later
+   cd src-python
+   python3 -m venv .venv && source .venv/bin/activate
+   pip install -r requirements.txt
+   pytest                   # Verify tests run
    ```
 
 6. **Ready to start!** Follow along with your facilitator or work through the labs independently

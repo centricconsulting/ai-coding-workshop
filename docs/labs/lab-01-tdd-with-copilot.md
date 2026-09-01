@@ -7,19 +7,20 @@
 - Use Copilot to generate tests before implementation
 - Apply repository Copilot Instructions for consistent code quality
 - Understand how TDD enforces better design decisions
-- Compare TDD patterns across .NET and Spring Boot
+- Compare TDD patterns across .NET, Spring Boot, and Python
 
 ---
 
 ## Tech Stack Selection
 
-> **Choose Your Path**: This lab supports both **.NET** and **Spring Boot** implementations.  
+> **Choose Your Path**: This lab supports **.NET**, **Spring Boot**, and **Python** implementations.  
 > 
 > - **For .NET**: Follow sections marked with 🔷 or "(.NET)"
 > - **For Spring Boot**: Follow sections marked with 🟩 or "(Spring Boot)"
+> - **For Python**: Follow sections marked with 🐍 or "(Python)"
 > - **Mixed Groups**: Facilitators can demonstrate both approaches side-by-side
 >
-> The TDD principles and workflow are identical across both stacks—only syntax and frameworks differ.
+> The TDD principles and workflow are identical across all three stacks—only syntax and frameworks differ.
 
 ---
 
@@ -32,7 +33,7 @@ In this lab, you'll create a `NotificationService` that sends task notifications
 3. **Green** - Implement code to pass tests
 4. **Refactor** - Improve and reflect
 
-> **Why TDD?** Writing tests first forces you to think about your API design, ensures testability, and provides living documentation of behavior. This principle applies equally to .NET and Spring Boot development.
+> **Why TDD?** Writing tests first forces you to think about your API design, ensures testability, and provides living documentation of behavior. This principle applies equally to .NET, Spring Boot, and Python development.
 
 ---
 
@@ -54,6 +55,15 @@ In this lab, you'll create a `NotificationService` that sends task notifications
 - ✅ Java 21 and Maven 3.9+ installed
 - ✅ Initial build successful: `cd src-springboot && mvn clean test`
 - ✅ DevContainer: Use `.devcontainer/springboot-participant` or `.devcontainer/maintainer`
+
+### 🐍 Python Prerequisites
+
+- ✅ Repository cloned and `main` branch checked out
+- ✅ VS Code open with GitHub Copilot enabled
+- ✅ Python 3.12+ installed, or use `.devcontainer/python-participant`
+- ✅ `src-python/requirements.txt` installed with `cd src-python && pip install -r requirements.txt`
+- ✅ Initial baseline successful: `cd src-python && pytest`
+- ✅ DevContainer: Use `.devcontainer/python-participant` or `.devcontainer/maintainer`
 
 ---
 
@@ -82,6 +92,14 @@ In the chat panel, enter:
 
 ```text
 Create a NotificationService interface in the application layer for sending email and SMS notifications about tasks. Use Java naming conventions and CompletableFuture for async operations.
+```
+
+#### 🐍 Python Prompt
+
+In the chat panel, enter:
+
+```text
+Create a NotificationService protocol in the Python application layer for sending email and SMS notifications about tasks. Use typing.Protocol, async method signatures, and Python naming conventions. Include methods for email, SMS, and combined notifications.
 ```
 
 ### 1.3 Review Generated Interface
@@ -152,18 +170,55 @@ public interface NotificationService {
 
 > **Note**: Spring Boot applications typically use synchronous methods—Spring manages threading internally. If async is needed, use `CompletableFuture<Void>` return types.
 
+#### 🐍 Python Interface
+
+Copilot should generate something like:
+
+```python
+from typing import Protocol
+
+
+class NotificationService(Protocol):
+    async def send_email_notification(
+        self,
+        recipient: str,
+        subject: str,
+        message: str,
+    ) -> None: ...
+
+    async def send_sms_notification(
+        self,
+        phone_number: str,
+        message: str,
+    ) -> None: ...
+
+    async def send_notification(
+        self,
+        recipient: str,
+        phone_number: str,
+        subject: str,
+        message: str,
+    ) -> None: ...
+```
+
+**Expected Location**: `src-python/task_manager_application/services/notification_service.py`
+
+> **Note**: The Python track keeps this service independent from FastAPI. The protocol lives in the Application layer, and the implementation can use `logging` plus `async` methods without any HTTP framework dependency.
+
 ### 1.4 Verify Design
 
 Review the interface and ask yourself:
 
 - ✅ Does it belong in the Application layer?  
-  - **Yes** - it's a service interface (port in Clean Architecture)
+  - **Yes** - it's a service interface or protocol (port in Clean Architecture)
 - ✅ Are method names descriptive and intention-revealing?
   - **.NET**: Uses `Async` suffix following C# conventions
   - **Spring Boot**: Uses camelCase following Java conventions
+  - **Python**: Uses snake_case following PEP 8
 - ✅ Does it follow framework conventions?
   - **.NET**: `async`/`await` with `CancellationToken`
   - **Spring Boot**: Synchronous methods (Spring handles threading)
+  - **Python**: `async def` methods with no FastAPI dependency
 - ✅ Is the API easy to use and understand?
 
 If satisfied, accept the code. If not, refine your prompt.
@@ -192,6 +247,14 @@ In Copilot Chat, enter:
 
 ```text
 Create JUnit 5 tests for NotificationServiceImpl in the pattern specified in our Spring Boot instructions. Organize tests with @Nested classes for each method. Use Mockito for mocking. Test happy path and all guard clauses. Use @DisplayName for readable test names.
+```
+
+#### 🐍 Python Prompt
+
+In Copilot Chat, enter:
+
+```text
+Create pytest tests for a Python NotificationService implementation in src-python/tests/task_manager_unit_tests/. Use unittest.mock for a fake logger, pytest fixtures for setup, and cover the happy path plus guard clauses for recipient, phone number, subject, and message. Keep the service FastAPI-independent.
 ```
 
 ### 2.2 Review Test Structure
@@ -367,20 +430,75 @@ class NotificationServiceImplTest {
 }
 ```
 
+#### 🐍 Python Test Structure
+
+Copilot should create test files in:
+
+```text
+src-python/tests/task_manager_unit_tests/services/
+└── test_notification_service.py
+```
+
+Example test file:
+
+```python
+import asyncio
+import logging
+from unittest.mock import MagicMock
+
+import pytest
+
+from task_manager_application.services.logging_notification_service import (
+    LoggingNotificationService,
+)
+
+
+@pytest.fixture
+def fake_logger() -> MagicMock:
+    return MagicMock(spec=logging.Logger)
+
+
+@pytest.fixture
+def service(fake_logger: MagicMock) -> LoggingNotificationService:
+    return LoggingNotificationService(fake_logger)
+
+
+def test_send_email_notification_logs_messages(
+    service: LoggingNotificationService,
+    fake_logger: MagicMock,
+) -> None:
+    asyncio.run(
+        service.send_email_notification(
+            "test@example.com",
+            "Test Subject",
+            "Test Message",
+        )
+    )
+
+    assert fake_logger.info.call_count >= 2
+
+
+def test_send_email_notification_raises_for_blank_recipient(
+    service: LoggingNotificationService,
+) -> None:
+    with pytest.raises(ValueError):
+        asyncio.run(service.send_email_notification("   ", "subject", "message"))
+```
+
 ### 2.3 Key Testing Pattern Differences
 
-| Aspect | .NET (xUnit + FakeItEasy) | Spring Boot (JUnit 5 + Mockito) |
-|--------|---------------------------|----------------------------------|
-| **Test Attribute** | `[Fact]` | `@Test` |
-| **Parameterized** | `[Theory]` + `[InlineData]` | `@ParameterizedTest` + `@ValueSource` |
-| **Test Organization** | Separate class files | `@Nested` classes in one file |
-| **Mocking** | `A.Fake<T>()` | `@Mock` annotation |
-| **Setup** | Constructor injection | `@BeforeEach` method |
-| **Assertions** | `Assert.ThrowsAsync<T>()` | `assertThrows()` |
-| **Verification** | `A.CallTo().MustHaveHappened()` | `verify(mock, times(n)).method()` |
-| **Display Names** | Method name | `@DisplayName` annotation |
+| Aspect | .NET (xUnit + FakeItEasy) | Spring Boot (JUnit 5 + Mockito) | Python (pytest + unittest.mock) |
+|--------|---------------------------|----------------------------------|----------------------------------|
+| **Test Attribute** | `[Fact]` | `@Test` | `def test_...` |
+| **Parameterized** | `[Theory]` + `[InlineData]` | `@ParameterizedTest` + `@ValueSource` | `@pytest.mark.parametrize` |
+| **Test Organization** | Separate class files | `@Nested` classes in one file | Test modules plus pytest fixtures |
+| **Mocking** | `A.Fake<T>()` | `@Mock` annotation | `MagicMock` / `AsyncMock` |
+| **Setup** | Constructor injection | `@BeforeEach` method | `@pytest.fixture` |
+| **Assertions** | `Assert.ThrowsAsync<T>()` | `assertThrows()` | `pytest.raises(...)` |
+| **Verification** | `A.CallTo().MustHaveHappened()` | `verify(mock, times(n)).method()` | `mock.assert_called_*()` |
+| **Display Names** | Method name | `@DisplayName` annotation | Test function names and docstrings |
 
-> **Pattern Reference**: See [Testing Patterns](../guides/dotnet-to-springboot-p atterns.md#testing-patterns) for detailed comparisons.
+> **Pattern Reference**: See [Testing Patterns](../guides/dotnet-to-springboot-patterns.md#testing-patterns) for detailed comparisons.
 
 ### 2.4 Run Tests and Verify They Fail
 
@@ -415,6 +533,17 @@ You should see compilation errors like:
 [ERROR]   location: package com.example.taskmanager.application.services
 ```
 
+#### 🐍 Python
+
+```bash
+cd src-python
+pytest
+```
+
+**Expected Result**: ❌ **Tests FAIL**
+
+You should see errors such as import failures or `AttributeError`/`ModuleNotFoundError` messages because the implementation file has not been created yet.
+
 **This is GOOD!** You're in the "Red" phase of TDD. The tests define what you need to build.
 
 ### 2.5 Reflect on Test Design
@@ -424,13 +553,15 @@ Before implementing, review:
 - ✅ Do test names clearly describe behavior?
   - **.NET**: Method names are the description
   - **Spring Boot**: `@DisplayName` provides readable descriptions
+  - **Python**: `test_...` names state the behavior in plain English
 - ✅ Are guard clause tests comprehensive?
-  - Both stacks test null, empty, and whitespace
+  - All three stacks should cover null/empty/blank-style invalid input
 - ✅ Is the happy path covered?
-  - Both have positive test cases
+  - Each stack should include positive test cases
 - ✅ Are tests organized logically?
   - **.NET**: Multiple test class files
   - **Spring Boot**: `@Nested` classes in single file
+  - **Python**: Test modules with shared fixtures where helpful
 ├── SendSmsNotificationAsyncTests.cs
 └── SendNotificationAsyncTests.cs
 ```
@@ -574,6 +705,14 @@ In Copilot Chat, enter:
 
 ```text
 Implement NotificationServiceImpl that passes all the tests. Follow our Spring Boot coding style: @Service annotation, constructor injection with @RequiredArgsConstructor, SLF4J logging, guard clauses with IllegalArgumentException, JavaDoc comments.
+```
+
+#### 🐍 Python Prompt
+
+In Copilot Chat, enter:
+
+```text
+Implement a Python NotificationService implementation that passes the pytest tests. Follow Python 3.12 conventions: async methods, type hints, logging.Logger dependency injection, guard clauses with ValueError, and no FastAPI dependency.
 ```
 
 ### 3.2 Review Generated Implementation
@@ -780,6 +919,75 @@ public class NotificationServiceImpl implements NotificationService {
 - Helper method `validateParameter()` to reduce duplication
 - `Thread.sleep()` for simulation (not `async`/`await`)
 
+#### 🐍 Python Implementation
+
+Copilot should generate `src-python/task_manager_application/services/logging_notification_service.py`:
+
+```python
+import asyncio
+import logging
+
+from task_manager_application.services.notification_service import NotificationService
+
+
+class LoggingNotificationService(NotificationService):
+    def __init__(self, logger: logging.Logger) -> None:
+        self._logger = logger
+
+    async def send_email_notification(
+        self,
+        recipient: str,
+        subject: str,
+        message: str,
+    ) -> None:
+        self._validate_text(recipient, "recipient")
+        self._validate_text(subject, "subject")
+        self._validate_text(message, "message")
+
+        self._logger.info(
+            "Sending email notification to %s with subject %s",
+            recipient,
+            subject,
+        )
+        await asyncio.sleep(0)
+        self._logger.info("Email notification sent successfully to %s", recipient)
+
+    async def send_sms_notification(self, phone_number: str, message: str) -> None:
+        self._validate_text(phone_number, "phone_number")
+        self._validate_text(message, "message")
+
+        self._logger.info("Sending SMS notification to %s", phone_number)
+        await asyncio.sleep(0)
+        self._logger.info("SMS notification sent successfully to %s", phone_number)
+
+    async def send_notification(
+        self,
+        recipient: str,
+        phone_number: str,
+        subject: str,
+        message: str,
+    ) -> None:
+        self._validate_text(recipient, "recipient")
+        self._validate_text(phone_number, "phone_number")
+        self._validate_text(subject, "subject")
+        self._validate_text(message, "message")
+
+        await self.send_email_notification(recipient, subject, message)
+        await self.send_sms_notification(phone_number, message)
+
+    @staticmethod
+    def _validate_text(value: str, field_name: str) -> None:
+        if not value or not value.strip():
+            raise ValueError(f"{field_name} cannot be blank")
+```
+
+**Key Python Patterns**:
+- `Protocol` defines the Application-layer contract without `INotificationService` naming
+- `async def` methods align with the rest of the Python/FastAPI track
+- `logging.Logger` is injected so tests can use `MagicMock`
+- `ValueError` is a simple, idiomatic validation exception for this lab
+- `asyncio.sleep(0)` keeps the example asynchronous without adding framework dependencies
+
 ### 3.3 Verify Code Quality
 
 #### 🔷 .NET Code Quality Checks
@@ -808,6 +1016,18 @@ Check that the implementation follows all conventions:
 - ✅ **No constructor needed** - Lombok generates it for `final` fields (if any dependencies added)
 - ✅ **Single responsibility** - Class only handles notifications
 - ✅ **Exception messages** - Clear, descriptive error messages
+
+#### 🐍 Python Code Quality Checks
+
+Check that the implementation follows all conventions:
+
+- ✅ **Protocol-based design** - `NotificationService` stays as an Application-layer contract
+- ✅ **Type hints** - Public methods and constructor are typed
+- ✅ **Guard clauses** - Validation happens at the top of each method
+- ✅ **`logging` dependency injection** - Logger is passed in so tests can mock it easily
+- ✅ **Async methods** - All service methods use `async def`
+- ✅ **No FastAPI dependency** - This is pure Application-layer code
+- ✅ **Single responsibility** - The implementation only coordinates notifications
 
 ### 3.4 Run Tests (Expect Success - GREEN)
 
@@ -850,6 +1070,19 @@ You should see:
 [INFO] BUILD SUCCESS
 ```
 
+#### 🐍 Python - Run Tests
+
+In the terminal, run:
+
+```bash
+cd src-python
+pytest
+```
+
+**Expected Result**: ✅ **Tests PASS**
+
+You should see pytest collect your new unit tests and finish with `0 failed`.
+
 **Congratulations!** You've completed the Red-Green cycle.
 
 ---
@@ -884,11 +1117,24 @@ Ask yourself:
 - ✅ **Spring Best Practices**: Using `@Service` for component scanning?
   - Yes - proper Spring stereotype annotation
 
+#### 🐍 Python Architecture Review
+
+Ask yourself:
+
+- ✅ **Layer Separation**: Is the notification contract in `src-python/task_manager_application/services/`?
+  - Yes - it belongs in the Application layer as a protocol or service abstraction
+- ✅ **Dependencies**: Does the implementation avoid FastAPI and infrastructure adapters?
+  - Yes - this lab stays framework-independent on purpose
+- ✅ **Crosscutting Concerns**: Is logging injected instead of hard-coded globally in the tests?
+  - Yes - that keeps the code easy to isolate with `unittest.mock`
+- ✅ **Async Style**: Do the method signatures align with the rest of the Python track?
+  - Yes - using `async def` keeps the service ready for async workflows later
+
 ### 4.2 Review Test Quality
 
 Ask yourself:
 
-- ✅ **Test Organization**: Are tests organized by method (nested test classes)?
+- ✅ **Test Organization**: Are tests organized by method or focused test modules?
 - ✅ **Descriptive Names**: Can you understand behavior just by reading test names?
 - ✅ **Test Coverage**: Are all edge cases covered (null, empty, whitespace)?
 - ✅ **Test Independence**: Does each test run independently?
@@ -897,7 +1143,7 @@ Ask yourself:
 
 ### 4.3 Ask Copilot for Improvements
 
-> **Reusable Prompt (works for both stacks):**
+> **Reusable Prompt (works for all three stacks):**
 > 
 > Use the `/check` slash command in Copilot Chat to get code review and improvement suggestions:
 > 
@@ -912,6 +1158,7 @@ Copilot might suggest:
 - **Add integration tests** for actual email/SMS providers
 - **Add telemetry/tracing** with OpenTelemetry (workshop bonus!)
 - **Spring Boot specific**: Consider using Spring Validation annotations (`@NotBlank`, `@Email`)
+- **Python specific**: Consider a small helper for repeated guard-clause validation
 
 ### 4.4 Optional Refactoring Exercise
 
@@ -959,6 +1206,27 @@ validateParameter(message, "message");
 
 **Run tests again**: `mvn test` - Should still pass! ✅
 
+#### 🐍 Python - Extract Validation Logic
+
+If time permits, try extracting parameter validation:
+
+```python
+@staticmethod
+def _validate_text(value: str, field_name: str) -> None:
+    if not value or not value.strip():
+        raise ValueError(f"{field_name} cannot be blank")
+```
+
+Then refactor methods to use:
+
+```python
+self._validate_text(recipient, "recipient")
+self._validate_text(subject, "subject")
+self._validate_text(message, "message")
+```
+
+**Run tests again**: `cd src-python && pytest` - Should still pass! ✅
+
 ---
 
 ## Key Learning Points
@@ -986,6 +1254,13 @@ validateParameter(message, "message");
 2. **Quality**: Guard clauses, exception handling, SLF4J logging automatically included
 3. **Best Practices**: `@Service` annotations, Lombok annotations, proper interface implementation
 4. **Test Patterns**: JUnit 5 + Mockito patterns consistently applied
+
+#### 🐍 Python Code Generation
+
+1. **Consistency**: Generated code can follow PEP 8, type hints, and async method conventions
+2. **Quality**: Guard clauses and small helpers make Application-layer code easier to review
+3. **Best Practices**: `Protocol`, `logging`, and pytest fixtures keep the track idiomatic
+4. **Test Patterns**: `pytest` plus `unittest.mock` keeps the tests lightweight and readable
 
 ### ⚠️ Common TDD Mistakes (Avoid These!)
 
@@ -1015,6 +1290,13 @@ validateParameter(message, "message");
 3. Consider using Spring's `@Email` validation or Apache Commons Validator
 4. Ensure tests pass
 
+#### 🐍 Python Version
+
+1. Write a pytest case that verifies email format validation
+2. Implement a small helper inside the notification service
+3. Consider using a simple regex or `email.utils`-style parsing without adding new dependencies
+4. Ensure `cd src-python && pytest` still passes
+
 ### Exercise 2: Add OpenTelemetry Tracing
 
 #### 🔷 .NET Version
@@ -1029,6 +1311,12 @@ validateParameter(message, "message");
 2. Add `@WithSpan` annotations or manual span creation
 3. Write tests that verify spans are created
 
+#### 🐍 Python Version
+
+1. Research Python OpenTelemetry basics
+2. Add lightweight tracing around notification methods or helper functions
+3. Keep the example framework-independent so it still belongs in the Application layer
+
 ### Exercise 3: Add Batch Notifications
 
 #### 🔷 .NET Version
@@ -1042,6 +1330,12 @@ validateParameter(message, "message");
 1. Design an interface method: `void sendBatchNotifications(List<Notification> notifications)`
 2. Write tests for batch sending (multiple recipients)
 3. Implement batch notification logic
+
+#### 🐍 Python Version
+
+1. Design a protocol method such as `async def send_batch_notifications(self, notifications: list[NotificationRequest]) -> None`
+2. Write pytest coverage for multiple recipients and guard clauses
+3. Implement the batch method without introducing FastAPI dependencies
 
 ---
 
@@ -1066,6 +1360,15 @@ You've completed this lab successfully when:
 - ✅ You followed Red-Green-Refactor cycle (saw tests fail, then pass)
 - ✅ Code uses: `@Service`, Lombok annotations, guard clauses, SLF4J logging
 - ✅ Tests run successfully with `mvn test`
+
+### 🐍 Python Success Criteria
+
+- ✅ `NotificationService` protocol created in `src-python/task_manager_application/services/`
+- ✅ Pytest coverage exists for happy paths and guard clauses
+- ✅ The implementation stays independent from FastAPI and infrastructure code
+- ✅ You followed Red-Green-Refactor cycle (saw tests fail, then pass)
+- ✅ Code uses: type hints, `async def`, guard clauses, and injected `logging`
+- ✅ Tests run successfully with `cd src-python && pytest`
 
 ### 🌐 Common Success Criteria
 
@@ -1160,15 +1463,53 @@ You've completed this lab successfully when:
 2. Test exception paths
 3. Run `mvn test jacoco:report` to see coverage details
 
-### Common to Both Stacks
+### 🐍 Python Issues
+
+#### Tests Won't Import the Service
+
+**Problem**: `ModuleNotFoundError` or import path errors appear  
+**Solution**:
+
+1. Check that files live under `src-python/` and package names match folders
+2. Run tests from `cd src-python` so `pyproject.toml` sets the correct `pythonpath`
+3. Verify `__init__.py` files exist where needed
+
+#### Async Tests Feel Awkward
+
+**Problem**: Copilot suggests extra plugins or the tests never await the methods  
+**Solution**:
+
+1. Keep the workshop lightweight and use `asyncio.run(...)` in unit tests
+2. Use `pytest.raises(...)` around the `asyncio.run(...)` call for guard-clause scenarios
+3. Add `AsyncMock` only when you introduce async collaborators in later labs
+
+#### Logger Assertions Keep Failing
+
+**Problem**: the mock logger was not injected or the assertions are too strict  
+**Solution**:
+
+1. Pass a `MagicMock(spec=logging.Logger)` into the service constructor
+2. Assert the important call happened instead of depending on an exact full log string
+3. Re-check that the service logs before and after the simulated send
+
+#### Pytest Fails Immediately in the DevContainer
+
+**Problem**: dependencies were not installed  
+**Solution**:
+
+1. From `src-python/`, run `pip install -r requirements.txt`
+2. Re-run `pytest`
+3. If needed, rebuild or reopen the Python participant devcontainer
+
+### Common to All Stacks
 
 #### Copilot Generates Wrong Framework Code
 
-**Problem**: Copilot gives .NET code when you want Java or vice versa  
+**Problem**: Copilot gives .NET, Spring Boot, or Python code for the wrong track  
 **Solution**:
 
-1. Be explicit: "using Spring Boot" or "using .NET"
-2. Reference file context: "in this Java file..." or "in this C# file..."
+1. Be explicit: "using Spring Boot", "using .NET", or "using Python"
+2. Reference file context: "in this Java file...", "in this C# file...", or "in this Python file..."
 3. Check that correct instructions file is loading (status bar shows active instructions)
 
 #### Tests Are Flaky
@@ -1191,6 +1532,8 @@ Move on to [**Lab 2: Requirements → Backlog → Code**](lab-02-requirements-to
 - Build features from requirements
 - Practice the full development workflow
 
+If you are following the Python track, continue to [**Lab 2: Requirements to Code (Python)**](lab-02-requirements-to-code-python.md).
+
 ---
 
 ## Additional Resources
@@ -1209,6 +1552,14 @@ Move on to [**Lab 2: Requirements → Backlog → Code**](lab-02-requirements-to
 - [Spring Boot Testing](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.testing)
 - [Clean Architecture in Spring Boot](https://reflectoring.io/spring-boot-clean-architecture/)
 - [Spring Dependency Injection](https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-collaborators.html)
+
+### 🐍 Python Resources
+
+- [pytest Documentation](https://docs.pytest.org/)
+- [Python `unittest.mock` Documentation](https://docs.python.org/3/library/unittest.mock.html)
+- [Python `typing.Protocol` Documentation](https://docs.python.org/3/library/typing.html#typing.Protocol)
+- [FastAPI Testing](https://fastapi.tiangolo.com/tutorial/testing/)
+- [Python Logging HOWTO](https://docs.python.org/3/howto/logging.html)
 
 ### 🌐 General Resources
 

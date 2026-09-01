@@ -4,7 +4,6 @@ import com.example.taskmanager.domain.tasks.Task
 import com.example.taskmanager.domain.tasks.TaskStatus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

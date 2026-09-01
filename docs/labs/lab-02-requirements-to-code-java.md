@@ -1,6 +1,6 @@
 # Lab 2: From Requirements to Code with GitHub Copilot (Java/Spring Boot)
 
-> **💡 Also available**: [.NET version](lab-02-requirements-to-code.md) using C# and ASP.NET Core
+> **💡 Also available**: [.NET version](lab-02-requirements-to-code.md) using C# and ASP.NET Core · [Kotlin version](lab-02-requirements-to-code-kotlin.md)
 
 **Duration**: 45 minutes  
 **Learning Objectives**:

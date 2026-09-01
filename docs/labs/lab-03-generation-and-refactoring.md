@@ -1,6 +1,6 @@
 # Lab 3: Code Generation & Refactoring with GitHub Copilot
 
-> **💡 Also available**: [Java/Spring Boot version](lab-03-generation-and-refactoring-java.md)
+> **💡 Also available**: [Java/Spring Boot version](lab-03-generation-and-refactoring-java.md) · [Kotlin version](lab-03-generation-and-refactoring-kotlin.md)
 
 **Duration**: 45 minutes  
 **Learning Objectives**:

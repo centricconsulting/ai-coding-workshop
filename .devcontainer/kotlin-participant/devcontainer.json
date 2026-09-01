@@ -1,0 +1,44 @@
+// Kotlin Participant DevContainer - Streamlined for workshop participants
+// For participants following the Kotlin track
+{
+    "name": "AI Workshop - Kotlin Participant",
+    "image": "mcr.microsoft.com/devcontainers/java:21-bookworm",
+
+    "features": {
+        "ghcr.io/devcontainers/features/java:1": {
+            "version": "21",
+            "jdkDistro": "ms",
+            "installGradle": "true",
+            "gradleVersion": "8.5"
+        },
+        "ghcr.io/devcontainers/features/github-cli:1": {
+            "version": "latest"
+        }
+    },
+
+    "postCreateCommand": "cd src-kotlin && gradle build",
+
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "GitHub.copilot",
+                "GitHub.copilot-chat",
+                "fwcd.kotlin",
+                "vscjava.vscode-gradle",
+                "humao.rest-client",
+                "bierner.markdown-mermaid",
+                "marp-team.marp-vscode",
+                "yzhang.markdown-all-in-one"
+            ],
+            "settings": {
+                "github.copilot.advanced": {},
+                "java.configuration.runtimes": [
+                    {
+                        "name": "JavaSE-21",
+                        "default": true
+                    }
+                ]
+            }
+        }
+    }
+}

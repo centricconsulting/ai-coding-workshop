@@ -1,6 +1,6 @@
 # Lab 2: From Requirements to Code with GitHub Copilot
 
-> **💡 Also available**: [Java/Spring Boot version](lab-02-requirements-to-code-java.md)
+> **💡 Also available**: [Java/Spring Boot version](lab-02-requirements-to-code-java.md) · [Kotlin version](lab-02-requirements-to-code-kotlin.md)
 
 **Duration**: 45 minutes  
 **Learning Objectives**:

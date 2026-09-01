@@ -1,6 +1,6 @@
 # Lab 2: From Requirements to Code with GitHub Copilot (Python)
 
-> **💡 Also available**: [shared .NET version](lab-02-requirements-to-code.md) · [JavaScript version](lab-02-requirements-to-code-javascript.md) · [Java/Spring Boot version](lab-02-requirements-to-code-java.md) · [Angular version](lab-02-requirements-to-code-angular.md)
+> **💡 Also available**: [shared .NET version](lab-02-requirements-to-code.md) · [JavaScript version](lab-02-requirements-to-code-javascript.md) · [Java/Spring Boot version](lab-02-requirements-to-code-java.md) · [Angular version](lab-02-requirements-to-code-angular.md) · [Kotlin version](lab-02-requirements-to-code-kotlin.md)
 
 **Duration**: 40-45 minutes  
 **Learning Objectives**:

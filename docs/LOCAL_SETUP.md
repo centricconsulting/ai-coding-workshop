@@ -1,8 +1,10 @@
 # Local Setup Guide (No Dev Container)
 
-Use this guide if you **cannot run Dev Containers** (Docker not available, corporate policy, resource constraints, etc.). Follow the section for your technology track: **.NET**, **Spring Boot (Java)**, **Angular**, **JavaScript**, **Python**, or **Kotlin**.
+Use this guide if you **cannot run Dev Containers** (Docker not available, corporate policy, resource constraints, etc.). Follow the section for your technology track: **.NET**, **Spring Boot (Java)**, **Angular**, **JavaScript**, **Python**, or **Kotlin**. **Swift/iOS participants should use the standalone [LOCAL_SETUP_SWIFT.md](./LOCAL_SETUP_SWIFT.md) guide instead.**
 
-> **Prefer Dev Containers?** See [`.devcontainer/README.md`](../.devcontainer/README.md) for the faster, pre-configured path.
+> **Prefer Dev Containers?** See [`.devcontainer/README.md`](../.devcontainer/README.md) for the faster, pre-configured path for the non-Swift tracks.
+>
+> **Swift/iOS track:** use the dedicated [LOCAL_SETUP_SWIFT.md](./LOCAL_SETUP_SWIFT.md) guide — there is no devcontainer for Swift because the track depends on macOS, Xcode, and the iOS Simulator.
 >
 > **Prefer a minimal setup?** See [`MINIMAL_SETUP_DOTNET.md`](./MINIMAL_SETUP_DOTNET.md) or [`MINIMAL_SETUP_JAVA.md`](./MINIMAL_SETUP_JAVA.md) for Copilot-only setups without extra VS Code extensions.
 > **There is no minimal/lightweight alternative for the Angular, JavaScript, Python, or Kotlin tracks** — your environment must match the relevant section below exactly, or use the [Angular devcontainer](../.devcontainer/angular-participant/) / [JavaScript devcontainer](../.devcontainer/javascript-participant/) / [Python devcontainer](../.devcontainer/python-participant/) / [Kotlin devcontainer](../.devcontainer/kotlin-participant/) instead.

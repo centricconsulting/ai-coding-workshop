@@ -306,3 +306,12 @@ fastlane/test_output
 participant-notes/
 my-solutions/
 personal-scratch/
+
+# Swift / Xcode
+.build/
+.swiftpm/
+DerivedData/
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcuserstate

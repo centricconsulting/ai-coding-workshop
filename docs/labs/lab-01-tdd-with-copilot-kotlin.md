@@ -1,6 +1,6 @@
 # Lab 1: Test-Driven Development with GitHub Copilot (Kotlin)
 
-> **💡 Also available**: [shared .NET / Spring Boot / Python version](lab-01-tdd-with-copilot.md) · [Angular version](lab-01-tdd-with-copilot-angular.md) · [JavaScript version](lab-01-tdd-with-copilot-javascript.md)
+> **💡 Also available**: [shared .NET / Spring Boot / Python version](lab-01-tdd-with-copilot.md) · [Angular version](lab-01-tdd-with-copilot-angular.md) · [JavaScript version](lab-01-tdd-with-copilot-javascript.md) · [Swift version](lab-01-tdd-with-copilot-swift.md)
 
 **Duration**: 30-40 minutes  
 **Learning Objectives**:

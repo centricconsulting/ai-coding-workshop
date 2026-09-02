@@ -1,6 +1,6 @@
 # DevContainer Selection Guide
 
-This repository contains **7 devcontainer configurations** to support different workshop roles and technology stacks.
+This repository contains **7 devcontainer configurations** to support different workshop roles and technology stacks, plus **one Swift/iOS track that is local-setup-only**.
 
 ## 🎯 Which Container Should I Use?
 
@@ -15,7 +15,7 @@ When you open this repository in VS Code, you'll be prompted to select a devcont
 **Who should use this:**
 - Workshop authors and content creators
 - Facilitators preparing for multi-stack delivery
-- Contributors working across the .NET, Spring Boot, Angular, JavaScript, Python, and Kotlin tracks
+- Contributors working across the .NET, Spring Boot, Angular, JavaScript, Python, Kotlin, and Swift tracks
 - Anyone needing to build/test multiple implementations at once
 
 **What's included:**
@@ -172,6 +172,30 @@ When you open this repository in VS Code, you'll be prompted to select a devcont
 
 ---
 
+### 8️⃣ **Swift/iOS Track** (Local Setup Only)
+
+**Location:** `N/A — see ../docs/LOCAL_SETUP_SWIFT.md`
+
+**Who should use this:**
+- Workshop participants following the Swift/iOS track
+- Mobile developers working on the Swift Package and SwiftUI shell
+- Self-paced learners using the macOS + Xcode local workflow
+
+**What's included:**
+- ✅ Swift Package under `src-swift/`
+- ✅ Thin SwiftUI app shell under `src-swift/TaskManagerApp/`
+- ✅ XCTest-based package tests
+- ✅ GitHub Copilot-friendly local editing in VS Code
+- ❌ No devcontainer (Xcode, the iOS SDK, and Simulator require local macOS tooling)
+
+**Builds:**
+- `src-swift/` with `swift build` / `swift test`
+- `src-swift/TaskManagerApp/TaskManagerApp.xcodeproj` in Xcode or `xcodebuild`
+
+**Note:** Follow [`LOCAL_SETUP_SWIFT.md`](../docs/LOCAL_SETUP_SWIFT.md) exactly. This track has **no devcontainer** and **no lightweight/minimal alternative**.
+
+---
+
 ## 🚀 How to Select
 
 ### First Time Opening the Repository
@@ -192,19 +216,20 @@ When you open this repository in VS Code, you'll be prompted to select a devcont
 
 ## 📋 Container Comparison
 
-| Feature | Maintainer | .NET Participant | Spring Boot Participant | Angular Participant | JavaScript Participant | Python Participant | Kotlin Participant |
-|---------|-----------|------------------|------------------------|----------------------|--------------------------|---------------------|--------------------|
-| **.NET 9 SDK** | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **Java 21 JDK** | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ |
-| **Maven/Gradle** | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | Gradle only |
-| **Node.js / Angular CLI** | ✅ | ❌ | ❌ | ✅ | Node.js only (no CLI) | ❌ | ❌ |
-| **Python 3.12** | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
-| **Kotlin/JVM Tooling** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **Marp CLI** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **All Extensions** | ✅ | .NET only | Java only | Angular only | JavaScript only | Python only | Kotlin only |
-| **Build Time** | ~6-8 min | ~1-2 min | ~2-3 min | ~1-2 min | <1 min | ~1-2 min | ~1-2 min |
-| **Container Size** | ~6 GB | ~2 GB | ~3 GB | ~1.5 GB | ~1 GB | ~1.5 GB | ~2 GB |
-| **Copilot Instructions** | Both | .NET | Spring Boot | N/A (Angular track has no dedicated instructions file yet) | N/A (JavaScript track has no dedicated instructions file yet) | N/A (Python track has no dedicated instructions file yet) | N/A (Kotlin track has no dedicated instructions file yet) |
+| Feature | Maintainer | .NET Participant | Spring Boot Participant | Angular Participant | JavaScript Participant | Python Participant | Kotlin Participant | Swift/iOS (Local Only) |
+|---------|-----------|------------------|------------------------|----------------------|--------------------------|---------------------|--------------------|------------------------|
+| **.NET 9 SDK** | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | N/A |
+| **Java 21 JDK** | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | N/A |
+| **Maven/Gradle** | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | Gradle only | N/A |
+| **Node.js / Angular CLI** | ✅ | ❌ | ❌ | ✅ | Node.js only (no CLI) | ❌ | ❌ | N/A |
+| **Python 3.12** | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | N/A |
+| **Kotlin/JVM Tooling** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | N/A |
+| **Xcode / iOS SDK** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | macOS local only |
+| **Marp CLI** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | N/A |
+| **All Extensions** | ✅ | .NET only | Java only | Angular only | JavaScript only | Python only | Kotlin only | Swift + Copilot locally |
+| **Build Time** | ~6-8 min | ~1-2 min | ~2-3 min | ~1-2 min | <1 min | ~1-2 min | ~1-2 min | N/A — local machine dependent |
+| **Container Size** | ~6 GB | ~2 GB | ~3 GB | ~1.5 GB | ~1 GB | ~1.5 GB | ~2 GB | N/A — see Local Setup Guide |
+| **Copilot Instructions** | Both | .NET | Spring Boot | N/A (Angular track has no dedicated instructions file yet) | N/A (JavaScript track has no dedicated instructions file yet) | N/A (Python track has no dedicated instructions file yet) | N/A (Kotlin track has no dedicated instructions file yet) | N/A (Swift track has no dedicated instructions file yet) |
 
 ---
 
@@ -220,6 +245,7 @@ Are you creating workshop content or facilitating?
     ├─ Spring Boot → Use Spring Boot Participant
     ├─ Python → Use Python Participant
     ├─ Kotlin → Use Kotlin Participant
+    ├─ Swift/iOS → Use LOCAL_SETUP_SWIFT.md (no devcontainer)
     ├─ Angular → Use Angular Participant
     └─ JavaScript → Use JavaScript Participant
 ```
@@ -277,8 +303,13 @@ Are you creating workshop content or facilitating?
 2. Run tests: `gradle test`
 3. Start with [Lab 1 (Kotlin)](../docs/labs/lab-01-tdd-with-copilot-kotlin.md)
 
+### For Swift Participants
+1. Verify package build: `cd src-swift && swift build`
+2. Run tests: `swift test`
+3. Open `src-swift/TaskManagerApp/TaskManagerApp.xcodeproj` in Xcode and start with [Lab 1 (Swift)](../docs/labs/lab-01-tdd-with-copilot-swift.md)
+
 ### For Maintainers
-1. Verify all track builds work (.NET, Spring Boot, Kotlin, Angular, JavaScript, Python)
+1. Verify all track builds work (.NET, Spring Boot, Kotlin, Angular, JavaScript, Python, Swift)
 2. Test presentations: `marp --version`
 3. Review [Facilitator Guide](../docs/FACILITATOR_GUIDE.md)
 
@@ -288,6 +319,7 @@ Are you creating workshop content or facilitating?
 
 - [Workshop README](../README.md) - Main workshop overview
 - [Local Setup Guide](../docs/LOCAL_SETUP.md) - **No Dev Container?** Manual setup for .NET, Spring Boot, Angular, JavaScript, Python, and Kotlin
+- [Swift Local Setup Guide](../docs/LOCAL_SETUP_SWIFT.md) - Swift/iOS track setup on macOS with Xcode (no devcontainer)
 - [Pre-Workshop Checklist](../docs/PRE_WORKSHOP_CHECKLIST.md) - Setup requirements
 - [Pattern Translation Guide](../docs/guides/pattern-translation.md) - .NET ↔ Java mappings
 - [Facilitator Guide](../docs/FACILITATOR_GUIDE.md) - Delivery instructions

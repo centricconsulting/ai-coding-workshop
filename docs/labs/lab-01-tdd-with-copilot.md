@@ -1,6 +1,6 @@
 # Lab 1: Test-Driven Development with GitHub Copilot
 
-> **💡 Also available**: [Angular version](lab-01-tdd-with-copilot-angular.md) · [JavaScript version](lab-01-tdd-with-copilot-javascript.md) · [Kotlin version](lab-01-tdd-with-copilot-kotlin.md)
+> **💡 Also available**: [Angular version](lab-01-tdd-with-copilot-angular.md) · [JavaScript version](lab-01-tdd-with-copilot-javascript.md) · [Kotlin version](lab-01-tdd-with-copilot-kotlin.md) · [Swift version](lab-01-tdd-with-copilot-swift.md)
 
 **Duration**: 30-40 minutes  
 **Learning Objectives**:
@@ -15,12 +15,13 @@
 
 ## Tech Stack Selection
 
-> **Choose Your Path**: This lab supports **.NET**, **Spring Boot**, and **Python** implementations. A separate standalone guide is available for **Kotlin**.
+> **Choose Your Path**: This lab supports **.NET**, **Spring Boot**, and **Python** implementations. Separate standalone guides are also available for **Kotlin** and **Swift/iOS**.
 > 
 > - **For .NET**: Follow sections marked with 🔷 or "(.NET)"
 > - **For Spring Boot**: Follow sections marked with 🟩 or "(Spring Boot)"
 > - **For Python**: Follow sections marked with 🐍 or "(Python)"
 > - **For Kotlin**: Use the standalone [Kotlin Lab 1 guide](lab-01-tdd-with-copilot-kotlin.md)
+> - **For Swift**: Use the standalone [Swift Lab 1 guide](lab-01-tdd-with-copilot-swift.md)
 > - **Mixed Groups**: Facilitators can demonstrate both approaches side-by-side
 >
 > The TDD principles and workflow are identical across all three stacks—only syntax and frameworks differ.

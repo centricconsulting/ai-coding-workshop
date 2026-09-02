@@ -4,7 +4,7 @@
 
 Transform the way you build software with AI-powered development! This comprehensive workshop teaches developers how to leverage **GitHub Copilot** and modern AI coding assistants to accelerate application development while maintaining high code quality standards.
 
-**Choose Your Technology Stack:** This workshop supports both **🔷 .NET** and **🟩 Spring Boot** implementations, allowing participants to learn AI-assisted development in their preferred ecosystem. Additional tracks include **🅰️ Angular** (a self-contained SPA, no backend), **🟨 JavaScript** (for non-technical participants), **🐍 Python** (FastAPI backend), and **🅺 Kotlin** (JVM-only, mobile-oriented logic modules with no Android SDK or emulator for Labs 1-4) — see the [Getting Started](#getting-started-choose-your-path) flowchart below.
+**Choose Your Technology Stack:** This workshop supports both **🔷 .NET** and **🟩 Spring Boot** implementations, allowing participants to learn AI-assisted development in their preferred ecosystem. Additional tracks include **🅰️ Angular** (a self-contained SPA, no backend), **🟨 JavaScript** (for non-technical participants), **🐍 Python** (FastAPI backend), **🅺 Kotlin** (JVM-only, mobile-oriented logic modules with no Android SDK or emulator for Labs 1-4), and **🍎 Swift** (a Swift Package plus a minimal SwiftUI iOS shell, macOS/Xcode local setup only) — see the [Getting Started](#getting-started-choose-your-path) flowchart below.
 
 **This workshop is split into two parts:**
 
@@ -22,7 +22,7 @@ Master advanced Copilot features including **interaction models** (Ask/Plan/Agen
 - **Complete customization hierarchy**: Instructions, Skills, and Agents working together
 - **Enterprise-grade patterns** including Clean Architecture and DDD
 - **TDD-first approach** with AI generating tests before implementation  
-- **Pre-configured dev environment** via VS Code Dev Containers—no setup hassles across maintainer and participant container options
+- **Pre-configured dev environment** via VS Code Dev Containers for most tracks, plus a dedicated macOS/Xcode local setup for the Swift/iOS track
 - **Repository-level Copilot instructions** with context-aware loading per technology stack
 - **Skills exploration** with working examples (test-data-generator) showcasing domain knowledge without tool access
 - **Production-ready agent design** including handoffs, invocation control, and governance patterns
@@ -52,6 +52,7 @@ flowchart TD
     D -- "JavaScript<br>(non-technical)" --> Q["JavaScript track<br>(plain JS, no framework)"]
     D -- "Python" --> P["Python track<br>(FastAPI backend)"]
     D -- "Kotlin" --> R["Kotlin track<br>(JVM-only mobile logic)"]
+    D -- "Swift / iOS" --> S["Swift/iOS track<br>(SPM + SwiftUI shell)"]
     E --> H{How do you want<br>to set up your<br>environment?}
     F --> H
     G --> H
@@ -62,6 +63,8 @@ flowchart TD
     Q --> H
     P --> H
     R --> H
+    S --> T["Swift Local Setup Guide<br>docs/LOCAL_SETUP_SWIFT.md"]
+    T --> L
     I --> L(["You're ready!<br>Bring this setup to the<br>instructor-led workshop"])
     J --> L
     K --> L
@@ -86,10 +89,11 @@ For the best experience, use the provided **Devcontainer** and recommended VS Co
   - 🟨 **JavaScript Container** (`.devcontainer/javascript-participant/`): Node 22 LTS only, no framework or TypeScript — for the non-technical plain-JS track
   - 🐍 **Python Container** (`.devcontainer/python-participant/`): Python 3.12, Pylance, pytest extension — FastAPI backend track
   - 🅺 **Kotlin Container** (`.devcontainer/kotlin-participant/`): Java 21, Gradle 8+, Kotlin language support — JVM-only track for mobile-oriented domain logic
+  - 🍎 **Swift/iOS Track**: **no devcontainer** — use [`docs/LOCAL_SETUP_SWIFT.md`](docs/LOCAL_SETUP_SWIFT.md) on macOS with Xcode and the iOS Simulator
 
-> **Can't use Dev Containers?** Follow the [Local Setup Guide](docs/LOCAL_SETUP.md) to install the required tools and VS Code extensions manually for the .NET, Spring Boot, Angular, JavaScript, Python, or Kotlin track. Prefer a lighter footprint (.NET/Spring Boot only)? See the [Minimal .NET Setup](docs/MINIMAL_SETUP_DOTNET.md) or [Minimal Spring Boot Setup](docs/MINIMAL_SETUP_JAVA.md) for a Copilot-only setup without extra VS Code extensions.
+> **Can't use Dev Containers?** Follow the [Local Setup Guide](docs/LOCAL_SETUP.md) to install the required tools and VS Code extensions manually for the .NET, Spring Boot, Angular, JavaScript, Python, or Kotlin track. For the Swift/iOS track, use the standalone [Swift Local Setup Guide](docs/LOCAL_SETUP_SWIFT.md). Prefer a lighter footprint (.NET/Spring Boot only)? See the [Minimal .NET Setup](docs/MINIMAL_SETUP_DOTNET.md) or [Minimal Spring Boot Setup](docs/MINIMAL_SETUP_JAVA.md) for a Copilot-only setup without extra VS Code extensions.
 >
-> **Angular, JavaScript, Python, and Kotlin tracks**: there is no minimal-setup alternative — use the devcontainer above or follow [`docs/LOCAL_SETUP.md`](docs/LOCAL_SETUP.md) exactly.
+> **Angular, JavaScript, Python, and Kotlin tracks**: there is no minimal-setup alternative — use the devcontainer above or follow [`docs/LOCAL_SETUP.md`](docs/LOCAL_SETUP.md) exactly. **Swift/iOS** is also local-only: there is no devcontainer and no minimal alternative for that track.
 
 - **Copilot Custom Instructions**: This repo auto-applies Copilot instructions based on file context:
   - 🔷 **.NET files** (`**/*.cs`): Loads `csharp.instructions.md` + `dotnet.instructions.md`
@@ -116,6 +120,7 @@ For a fully pre-configured development environment, you can use one of the inclu
    - 🟨 **JavaScript Participants**: Select `.devcontainer/javascript-participant/devcontainer.json`
    - 🐍 **Python Developers**: Select `.devcontainer/python-participant/devcontainer.json`
    - 🅺 **Kotlin Developers**: Select `.devcontainer/kotlin-participant/devcontainer.json`
+   - 🍎 **Swift/iOS Developers**: skip devcontainers and follow [`docs/LOCAL_SETUP_SWIFT.md`](docs/LOCAL_SETUP_SWIFT.md), then open `src-swift/TaskManagerApp/TaskManagerApp.xcodeproj` in Xcode
 5. VS Code will build and open the project in a container with all tools, SDKs, and extensions.
 
 _This is optional but highly recommended, especially if you want to avoid manual environment setup or ensure consistency across all participants._
@@ -158,6 +163,12 @@ Before attending this workshop, participants should have:
 - **Gradle 8+**: Installed and verified with `gradle --version`
 - **Kotlin Language extension** for VS Code
 - **Kotlin Experience**: Comfortable with basic Kotlin syntax; Android experience is optional because this track stays JVM-only
+
+**🍎 Swift Track Prerequisites:**
+- **macOS with Xcode 15+**: Installed and verified with `xcodebuild -version`
+- **Xcode Command Line Tools**: Installed and verified with `swift --version`
+- **iOS Simulator**: Available through Xcode for running the SwiftUI shell
+- **Swift Experience**: Comfortable with basic Swift syntax; prior SwiftUI experience is helpful but not required
 
 ### Environment Check
 
@@ -203,6 +214,14 @@ code --version           # VS Code version
 ```bash
 java -version            # Should show Java 21
 gradle --version         # Should show Gradle 8.x
+git --version            # Any recent version
+code --version           # VS Code version
+```
+
+**🍎 Swift Track:**
+```bash
+xcodebuild -version      # Should show Xcode 15.x or later
+swift --version          # Should show Swift 5.9 or later
 git --version            # Any recent version
 code --version           # VS Code version
 ```
@@ -362,17 +381,17 @@ See [Part 2 Facilitator's Guide](docs/FACILITATOR_GUIDE_PART2.md) for detailed s
 #### Part 1: Fundamentals (Labs 1-4)
 
 - **[Lab 1: TDD with GitHub Copilot](docs/labs/lab-01-tdd-with-copilot.md)** (30 min) - Red-Green-Refactor cycle with NotificationService  
-  _Format: **Trilingual** with 🔷 .NET, 🟩 Spring Boot, and 🐍 Python sections throughout · also available as separate [Angular](docs/labs/lab-01-tdd-with-copilot-angular.md), [JavaScript](docs/labs/lab-01-tdd-with-copilot-javascript.md), and [Kotlin](docs/labs/lab-01-tdd-with-copilot-kotlin.md) versions_
+  _Format: **Trilingual** with 🔷 .NET, 🟩 Spring Boot, and 🐍 Python sections throughout · also available as separate [Angular](docs/labs/lab-01-tdd-with-copilot-angular.md), [JavaScript](docs/labs/lab-01-tdd-with-copilot-javascript.md), [Kotlin](docs/labs/lab-01-tdd-with-copilot-kotlin.md), and [Swift](docs/labs/lab-01-tdd-with-copilot-swift.md) versions_
   
 - **[Lab 2: Requirements to Code](docs/labs/lab-02-requirements-to-code.md)** (45 min) - Transform user stories into working features  
-  _Format: **Separate files** - Choose [.NET version](docs/labs/lab-02-requirements-to-code.md), [Spring Boot version](docs/labs/lab-02-requirements-to-code-java.md), [Angular version](docs/labs/lab-02-requirements-to-code-angular.md), [JavaScript version](docs/labs/lab-02-requirements-to-code-javascript.md), [Python version](docs/labs/lab-02-requirements-to-code-python.md), or [Kotlin version](docs/labs/lab-02-requirements-to-code-kotlin.md)_
+  _Format: **Separate files** - Choose [.NET version](docs/labs/lab-02-requirements-to-code.md), [Spring Boot version](docs/labs/lab-02-requirements-to-code-java.md), [Angular version](docs/labs/lab-02-requirements-to-code-angular.md), [JavaScript version](docs/labs/lab-02-requirements-to-code-javascript.md), [Python version](docs/labs/lab-02-requirements-to-code-python.md), [Kotlin version](docs/labs/lab-02-requirements-to-code-kotlin.md), or [Swift version](docs/labs/lab-02-requirements-to-code-swift.md)_
   
 - **[Lab 3: Code Generation & Refactoring](docs/labs/lab-03-generation-and-refactoring.md)** (45 min) - Generate CRUD APIs and modernize legacy code  
-  _Format: **Separate files** - Choose [.NET version](docs/labs/lab-03-generation-and-refactoring.md), [Spring Boot version](docs/labs/lab-03-generation-and-refactoring-java.md), [Angular version](docs/labs/lab-03-generation-and-refactoring-angular.md), [JavaScript version](docs/labs/lab-03-generation-and-refactoring-javascript.md), [Python version](docs/labs/lab-03-generation-and-refactoring-python.md), or [Kotlin version](docs/labs/lab-03-generation-and-refactoring-kotlin.md)_
-  _🟩 Spring Boot version includes **Mule ESB → Spring Boot** refactoring scenarios; 🅰️ Angular version moves business logic from a component into an injectable application service; 🟨 JavaScript version refactors an overloaded function into smaller named functions; 🐍 Python version refactors a fat function into small, single-purpose functions with guard clauses; 🅺 Kotlin version refactors null-check-heavy legacy code into idiomatic null-safe Kotlin_
+  _Format: **Separate files** - Choose [.NET version](docs/labs/lab-03-generation-and-refactoring.md), [Spring Boot version](docs/labs/lab-03-generation-and-refactoring-java.md), [Angular version](docs/labs/lab-03-generation-and-refactoring-angular.md), [JavaScript version](docs/labs/lab-03-generation-and-refactoring-javascript.md), [Python version](docs/labs/lab-03-generation-and-refactoring-python.md), [Kotlin version](docs/labs/lab-03-generation-and-refactoring-kotlin.md), or [Swift version](docs/labs/lab-03-generation-and-refactoring-swift.md)_
+  _🟩 Spring Boot version includes **Mule ESB → Spring Boot** refactoring scenarios; 🅰️ Angular version moves business logic from a component into an injectable application service; 🟨 JavaScript version refactors an overloaded function into smaller named functions; 🐍 Python version refactors a fat function into small, single-purpose functions with guard clauses; 🅺 Kotlin version refactors null-check-heavy legacy code into idiomatic null-safe Kotlin; 🍎 Swift version refactors force-unwrapped optionals and loose error handling into safer Swift patterns_
   
 - **[Lab 4: Testing, Documentation & Workflow](docs/labs/lab-04-testing-documentation-workflow.md)** (15 min) - Complete the development lifecycle  
-  _Format: **Stack-agnostic** concepts, currently .NET-focused (Spring Boot version planned); also available as separate [Angular](docs/labs/lab-04-testing-documentation-workflow-angular.md), [JavaScript](docs/labs/lab-04-testing-documentation-workflow-javascript.md), [Python](docs/labs/lab-04-testing-documentation-workflow-python.md), and [Kotlin](docs/labs/lab-04-testing-documentation-workflow-kotlin.md) versions_
+  _Format: **Stack-agnostic** concepts, currently .NET-focused (Spring Boot version planned); also available as separate [Angular](docs/labs/lab-04-testing-documentation-workflow-angular.md), [JavaScript](docs/labs/lab-04-testing-documentation-workflow-javascript.md), [Python](docs/labs/lab-04-testing-documentation-workflow-python.md), [Kotlin](docs/labs/lab-04-testing-documentation-workflow-kotlin.md), and [Swift](docs/labs/lab-04-testing-documentation-workflow-swift.md) versions_
 
 #### Part 2: Advanced GitHub Copilot (Labs 5-10)
 
@@ -438,6 +457,12 @@ The `main` branch contains starter code across the workshop tracks:
 - **Mobile-oriented JVM logic only**: no Android SDK or emulator required for Labs 1-4
 - **Test Infrastructure**: JUnit 5 + MockK with a Gradle multi-module build
 
+**🍎 Swift Solution** (`src-swift/`, including `src-swift/TaskManagerApp/`) — *in development, package + iOS shell*:
+- **Clean Architecture layering**: `TaskManagerDomain` / `TaskManagerApplication` / `TaskManagerInfrastructure` in a Swift Package under `src-swift/`
+- **Minimal iOS UI shell**: a thin SwiftUI app target in `src-swift/TaskManagerApp/` that lists, adds, and completes tasks through the package
+- **Local macOS workflow only**: no devcontainer; build the package with SwiftPM and run the app from Xcode
+- **Test Infrastructure**: XCTest targets for Domain, Application, and Infrastructure
+
 **Shared Resources**:
 - **Custom Agents** (`.github/agents/`): Architecture Reviewer, Backlog Generator, Test Strategist
 - **Skills** (`.github/skills/`): test-data-generator skill with examples
@@ -479,6 +504,10 @@ Contains:
 - Planned branch with Kotlin implementations of Labs 1-4
 - Check repository for updates
 
+**🍎 Swift Reference** (in development):
+- Planned branch with Swift implementations of Labs 1-4 and the iOS shell
+- Check repository for updates
+
 **Use reference implementations to:**
 - Compare your solution with a working implementation
 - Get unstuck if you encounter issues
@@ -504,6 +533,7 @@ Contains:
    - 🟨 **JavaScript Track**: Work in `src-javascript/task-manager/` directory (plain JS, non-technical audience)
    - 🐍 **Python Track**: Work in `src-python/` directory with FastAPI projects
    - 🅺 **Kotlin Track**: Work in `src-kotlin/` directory with JVM-only modules for mobile-oriented business logic
+   - 🍎 **Swift Track**: Work in `src-swift/` for the Swift Package (including `src-swift/TaskManagerApp/`) for the thin iOS shell on macOS
 
 3. **Create your own branch from `main`**:
 
@@ -529,6 +559,7 @@ Contains:
      - 🟨 `.devcontainer/javascript-participant/` for the JavaScript track
      - 🐍 `.devcontainer/python-participant/` for the Python track
      - 🅺 `.devcontainer/kotlin-participant/` for the Kotlin track
+     - 🍎 no devcontainer for Swift/iOS — use [`docs/LOCAL_SETUP_SWIFT.md`](docs/LOCAL_SETUP_SWIFT.md) and then open `src-swift/TaskManagerApp/TaskManagerApp.xcodeproj` in Xcode
 
    **That's it!** Copilot instructions automatically load based on which files you're editing - no manual setup needed.
 
@@ -581,6 +612,16 @@ Contains:
    cd src-kotlin
    gradle build             # Verify build and starter tests
    gradle test              # Verify tests run
+   ```
+
+   **🍎 Swift Track:**
+   ```bash
+   xcodebuild -version      # Should show Xcode 15.x or later
+   swift --version          # Should show Swift 5.9 or later
+   cd src-swift
+   swift build              # Verify the package builds
+   swift test               # Verify the XCTest suites run
+   open TaskManagerApp/TaskManagerApp.xcodeproj
    ```
 
 6. **Ready to start!** Follow along with your facilitator or work through the labs independently

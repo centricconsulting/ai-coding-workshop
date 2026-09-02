@@ -68,7 +68,7 @@ Get BAs, PMs, and other non-engineering participants ready for Lab 1 with zero p
 
 ### [Lab 1: Test-Driven Development with GitHub Copilot](lab-01-tdd-with-copilot.md)
 
-> **Also available**: [Angular version](lab-01-tdd-with-copilot-angular.md) · [JavaScript version](lab-01-tdd-with-copilot-javascript.md) · [Kotlin version](lab-01-tdd-with-copilot-kotlin.md)
+> **Also available**: [Angular version](lab-01-tdd-with-copilot-angular.md) · [JavaScript version](lab-01-tdd-with-copilot-javascript.md) · [Kotlin version](lab-01-tdd-with-copilot-kotlin.md) · [Swift version](lab-01-tdd-with-copilot-swift.md)
 
 **Duration**: 30 minutes
 
@@ -98,7 +98,7 @@ Learn to follow the Red-Green-Refactor TDD cycle with AI assistance.
 
 ### [Lab 2: From Requirements to Code](lab-02-requirements-to-code.md)
 
-> **Also available**: [Java/Spring Boot version](lab-02-requirements-to-code-java.md) · [Angular version](lab-02-requirements-to-code-angular.md) · [JavaScript version](lab-02-requirements-to-code-javascript.md) · [Python version](lab-02-requirements-to-code-python.md) · [Kotlin version](lab-02-requirements-to-code-kotlin.md)
+> **Also available**: [Java/Spring Boot version](lab-02-requirements-to-code-java.md) · [Angular version](lab-02-requirements-to-code-angular.md) · [JavaScript version](lab-02-requirements-to-code-javascript.md) · [Python version](lab-02-requirements-to-code-python.md) · [Kotlin version](lab-02-requirements-to-code-kotlin.md) · [Swift version](lab-02-requirements-to-code-swift.md)
 
 **Duration**: 45 minutes
 
@@ -132,12 +132,13 @@ Transform vague user stories into working, tested features.
 - [JavaScript](lab-02-requirements-to-code-javascript.md)
 - [Python](lab-02-requirements-to-code-python.md)
 - [Kotlin](lab-02-requirements-to-code-kotlin.md)
+- [Swift](lab-02-requirements-to-code-swift.md)
 
 ---
 
 ### [Lab 3: Code Generation & Refactoring](lab-03-generation-and-refactoring.md)
 
-> **Also available**: [Java/Spring Boot version](lab-03-generation-and-refactoring-java.md) · [Angular version](lab-03-generation-and-refactoring-angular.md) · [JavaScript version](lab-03-generation-and-refactoring-javascript.md) · [Python version](lab-03-generation-and-refactoring-python.md) · [Kotlin version](lab-03-generation-and-refactoring-kotlin.md)
+> **Also available**: [Java/Spring Boot version](lab-03-generation-and-refactoring-java.md) · [Angular version](lab-03-generation-and-refactoring-angular.md) · [JavaScript version](lab-03-generation-and-refactoring-javascript.md) · [Python version](lab-03-generation-and-refactoring-python.md) · [Kotlin version](lab-03-generation-and-refactoring-kotlin.md) · [Swift version](lab-03-generation-and-refactoring-swift.md)
 
 **Duration**: 45 minutes
 
@@ -170,12 +171,13 @@ Generate complete API endpoints and modernize legacy code.
 - [JavaScript](lab-03-generation-and-refactoring-javascript.md)
 - [Python](lab-03-generation-and-refactoring-python.md)
 - [Kotlin](lab-03-generation-and-refactoring-kotlin.md)
+- [Swift](lab-03-generation-and-refactoring-swift.md)
 
 ---
 
 ### [Lab 4: Testing, Documentation & Workflow](lab-04-testing-documentation-workflow.md)
 
-> **Also available**: [Java/Spring Boot version](lab-04-testing-documentation-workflow-java.md) · [Angular version](lab-04-testing-documentation-workflow-angular.md) · [JavaScript version](lab-04-testing-documentation-workflow-javascript.md) · [Python version](lab-04-testing-documentation-workflow-python.md) · [Kotlin version](lab-04-testing-documentation-workflow-kotlin.md)
+> **Also available**: [Java/Spring Boot version](lab-04-testing-documentation-workflow-java.md) · [Angular version](lab-04-testing-documentation-workflow-angular.md) · [JavaScript version](lab-04-testing-documentation-workflow-javascript.md) · [Python version](lab-04-testing-documentation-workflow-python.md) · [Kotlin version](lab-04-testing-documentation-workflow-kotlin.md) · [Swift version](lab-04-testing-documentation-workflow-swift.md)
 
 **Duration**: 15 minutes
 
@@ -209,6 +211,7 @@ Complete the development lifecycle with AI-assisted testing, docs, and PR prepar
 - [JavaScript](lab-04-testing-documentation-workflow-javascript.md)
 - [Python](lab-04-testing-documentation-workflow-python.md)
 - [Kotlin](lab-04-testing-documentation-workflow-kotlin.md)
+- [Swift](lab-04-testing-documentation-workflow-swift.md)
 
 ---
 

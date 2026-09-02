@@ -1,8 +1,10 @@
 # Requirements Elicitation Primer (Pre-Read for Non-Technical Participants)
 
-**Who this is for**: Business analysts, product owners, subject matter experts, project sponsors, and anyone attending the workshop who doesn't write code day-to-day.
+**Who this is for**:
+Business analysts, product owners, subject matter experts, project sponsors, and anyone attending the workshop who doesn't write code day-to-day.
 
-**Why read this first**: Throughout this workshop, developers will use GitHub Copilot to turn requirements into working software. You don't need to write a line of code to contribute — but understanding *how* Copilot elicits, clarifies, and documents requirements will help you participate actively, ask better questions, and get more value out of the sessions. Read this before Day 1.
+**Why read this first**:
+Throughout this workshop, developers will use GitHub Copilot to turn requirements into working software. You don't need to write a line of code to contribute — but understanding *how* Copilot elicits, clarifies, and documents requirements will help you participate actively, ask better questions, and get more value out of the sessions. Read this before Day 1.
 
 **Time to read**: ~10 minutes
 

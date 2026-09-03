@@ -9,6 +9,7 @@ This directory contains modular presentation files for the GitHub Copilot worksh
 
 ---
 
+
 ## 📚 Module Catalog
 
 ### Pre-Workshop: Non-Technical Crash Course (1 hour)

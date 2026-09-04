@@ -1,11 +1,16 @@
 # Repository-Wide GitHub Copilot Instructions
 
-This repository is a bilingual GitHub Copilot workshop with shared docs, labs, and presentations plus two implementation tracks: .NET 9 under `src-dotnet/` and Spring Boot 3.x under `src-springboot/`.
+This repository is a bilingual GitHub Copilot workshop with shared docs, labs, and presentations plus multiple implementation tracks of the same TaskManager reference app: .NET 9 (`src-dotnet/`), Spring Boot 3.x (`src-springboot/`), Angular (`src-angular/`), plain JavaScript (`src-javascript/`), Python (`src-python/`), Kotlin (`src-kotlin/`), and Swift (`src-swift/`).
 
 This file defines repo-wide defaults. More specific instruction files take precedence.
 
 - `**/*.cs`: also follow `.github/instructions/csharp.instructions.md` and `.github/instructions/dotnet.instructions.md`
 - `src-springboot/**`: also follow `.github/instructions/springboot.instructions.md`
+- `src-angular/**`: also follow `.github/instructions/angular.instructions.md`
+- `src-javascript/**`: also follow `.github/instructions/javascript.instructions.md`
+- `src-python/**`: also follow `.github/instructions/python.instructions.md`
+- `src-kotlin/**`: also follow `.github/instructions/kotlin.instructions.md`
+- `src-swift/**`: also follow `.github/instructions/swift.instructions.md`
 
 ## 1. Repository Purpose
 
@@ -27,6 +32,11 @@ This file defines repo-wide defaults. More specific instruction files take prece
 
 - .NET track: .NET 9, ASP.NET Core Minimal API, xUnit v3, FakeItEasy, `ILogger`, OpenTelemetry, and Testcontainers.
 - Spring Boot track: Java 21, Spring Boot 3.x, Spring Web, Spring Data JPA when needed, JUnit 5, Mockito, SLF4J, and Testcontainers.
+- Angular track: Angular 22 standalone components, TypeScript, signals, RxJS, and Vitest (via `ng test`).
+- JavaScript track: plain Node.js, CommonJS, and the built-in `node:test` runner — intentionally unlayered, no framework.
+- Python track: Python 3.12+, FastAPI, dataclasses/`Protocol`, and pytest.
+- Kotlin track: Kotlin/JVM 21, Gradle Kotlin DSL, JUnit 5, and MockK.
+- Swift track: Swift 5.9+ (SwiftPM), SwiftUI, and XCTest.
 - Docs and workshop content: Markdown in `docs/`, Marp-compatible slides, and VS Code Dev Container workflows.
 - Prefer existing repo libraries before introducing new ones.
 - Avoid mediator frameworks, heavy abstractions, alternate test frameworks, or extra dependencies unless explicitly requested.

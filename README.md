@@ -1,4 +1,4 @@
-# Workshop: Using AI for Application Development with GitHub Copilot (Bilingual Edition)
+# Workshop: Using AI for Application Development with GitHub Copilot (Multi-Platform Edition)
 
 ## Overview
 
@@ -9,7 +9,7 @@ Transform the way you build software with AI-powered development! This comprehen
 **This workshop is split into two parts:**
 
 ### Part 1: Fundamentals (3 hours)
-Learn AI assistance across the entire development lifecycle—from requirements gathering to code generation, testing, and documentation. Using either **.NET 9** or **Spring Boot 3.x**, **Visual Studio Code**, and **GitHub Copilot**, you'll experience firsthand how AI can amplify developer productivity while following industry best practices like **Clean Architecture**, **Domain-Driven Design**, and **Test-Driven DLearn AI assistance across the entire development lifecycle, from requirements gathering to code generation, testing, and documentation. Using either **.NET 9** or **Spring Boot 3.x**, **Visual Studio Code**, and **GitHub Copilot**, you'll experience firsthand how AI can amplify developer productivity while following industry best practices such as **Clean Architecture**, **Domain‑Driven Design**, and **Test‑Driven Development**.evelopment**.
+Learn AI assistance across the entire development lifecycle, from requirements gathering to code generation, testing, and documentation. Using your choice of **.NET 9**, **Spring Boot 3.x**, **Angular**, **JavaScript**, **Python**, **Kotlin**, or **Swift**, alongside **Visual Studio Code** and **GitHub Copilot**, you'll experience firsthand how AI can amplify developer productivity while following industry best practices such as **Clean Architecture**, **Domain‑Driven Design**, and **Test‑Driven Development**.
 
 ### Part 2: Advanced GitHub Copilot (3 hours)
 Master advanced Copilot features including **interaction models** (Ask/Plan/Agent), **the Skills system**, **custom agents**, and **workflow automation**. Learn the complete customization hierarchy (Prompts → Instructions → Skills → Agents), discover capabilities with slash commands, and design production-ready agents that encode team knowledge and standardize AI-assisted development workflows.
@@ -17,7 +17,7 @@ Master advanced Copilot features including **interaction models** (Ask/Plan/Agen
 **Full workshop duration:** 6 hours (can be delivered as separate sessions or combined)
 
 **What makes this workshop unique:**
-- **Bilingual support**: Choose .NET or Spring Boot—same concepts, your technology stack
+- **Multi-platform support**: Choose from seven tracks — .NET, Spring Boot, Angular, JavaScript, Python, Kotlin, or Swift — same concepts, your technology stack
 - **Practical, hands-on labs** with real-world scenarios, not just demos
 - **Complete customization hierarchy**: Instructions, Skills, and Agents working together
 - **Enterprise-grade patterns** including Clean Architecture and DDD
@@ -26,7 +26,7 @@ Master advanced Copilot features including **interaction models** (Ask/Plan/Agen
 - **Repository-level Copilot instructions** with context-aware loading per technology stack
 - **Skills exploration** with working examples (test-data-generator) showcasing domain knowledge without tool access
 - **Production-ready agent design** including handoffs, invocation control, and governance patterns
-- **Modern stacks**: .NET 9 with Minimal APIs and OpenTelemetry OR Spring Boot 3.x with actuators
+- **Modern stacks**: .NET 9 with Minimal APIs and OpenTelemetry, Spring Boot 3.x with actuators, Angular 22 with signals, plain Node.js/JavaScript, Python with FastAPI, Kotlin/JVM, and Swift/SwiftUI
 - **Enterprise Java modernization scenarios**: Includes Mule ESB → Spring Boot refactoring examples
 
 Whether you're new to AI-assisted development or looking to level up your Copilot skills, this workshop provides the practical experience and best practices you need to integrate AI into your daily workflow effectively.

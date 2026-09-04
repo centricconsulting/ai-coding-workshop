@@ -105,21 +105,19 @@ Export completes within 5 seconds for lists of up to 500 tasks.
 - Only tasks visible to the current user's permissions may be included in the export.
 
 ## Diagrams
-Mermaid is the diagram language used to render the flowchart below — it uses simple text syntax (e.g., `-->` for arrows connecting steps, `A[Label]` for a labeled box) to describe diagrams like flowcharts, sequence diagrams, and more.
 ```mermaid
 flowchart LR
     A[User clicks Export to PDF] --> B[Apply current filters/search]
     B --> C[Generate PDF document]
     C --> D[Download PDF to user's device]
 ```
-`flowchart LR` tells Mermaid to lay the flowchart out left-to-right (LR).
 
 ## Open Questions
 - Should branding/logo be included on the exported PDF?
 - Is there a maximum task count per export?
 
 ## Assumptions
-- Export is client-triggered (client-triggered means the user does something to cause the action to occur) and does not need to be scheduled or emailed.
+- Export is client-triggered and does not need to be scheduled or emailed.
 
 ## Risks
 - Very large task lists may need pagination or a background export process.
@@ -129,8 +127,19 @@ A few things to notice about this output:
 
 - **It's immediately usable.** FR-001 and FR-002 already match Jira/Azure DevOps ticket format: title, priority, description, acceptance criteria. Copy them into a new issue with minimal rework.
 - **Nothing is hidden.** Open questions, assumptions, and risks are called out explicitly instead of silently resolved. Your team can review and confirm them before work begins.
-- **It includes a visual.** The Mermaid diagram renders as an actual flowchart in most markdown viewers, including GitHub. Stakeholders get a quick visual of the process without a separate diagramming tool.
+- **It includes a visual.** The Mermaid diagram renders as an actual flowchart in most markdown viewers, including GitHub. Mermaid is the diagram language used here — the `flowchart LR` line tells Mermaid to lay the flowchart out left-to-right. Stakeholders get a quick visual of the process without a separate diagramming tool.
 - **It's both human- and agent-readable.** The same plain markdown file a stakeholder reads and reviews is also structured well enough for Copilot to read back in later — for example, when a developer asks Copilot to generate backlog items, test cases, or code from this exact document. Nothing gets re-typed or reformatted going from "requirements" to "development input"; the document serves both audiences as-is.
+- **Assumptions are spelled out too.** For example, "client-triggered" means the user does something to cause the action to occur, rather than it running on a schedule or being triggered automatically.
+
+Here's what that Mermaid syntax renders as — a simple left-to-right flowchart:
+
+```mermaid
+flowchart LR
+    A[Start] --> B[Do something]
+    B --> C[End]
+```
+
+The `-->` arrows connect steps in order, and `flowchart LR` lays it out left-to-right (as opposed to top-to-bottom).
 
 ## 8. Try It Yourself (Optional, No Coding Required)
 

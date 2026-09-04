@@ -198,7 +198,7 @@ Working on your own branch means you can't break anyone else's work.
 # Clone & Branch the Workshop Repo
 
 ```bash
-git clone https://github.com/centricconsulting/ai-coding-workshop.git
+git clone https://github.com/centricconsulting/ai-coding-workshop
 cd ai-coding-workshop
 
 git checkout main

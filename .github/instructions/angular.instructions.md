@@ -22,7 +22,7 @@ applyTo: 'src-angular/**'
 
 ## 2) Project Architecture (Clean Architecture, single app)
 `src-angular/task-manager` is a single Angular application; layer by **folder** instead of by project:
-- `src/app/domain/` — entities, value objects, repository interface (port). No Angular imports.
+- `src/app/domain/` — entities, value objects, repository interface (port), and DI `InjectionToken`s. Keep entities/value objects framework-free; minimize Angular imports here.
 - `src/app/application/` — application services orchestrating use cases (`@Injectable`). Depends on `domain/` only.
 - `src/app/data/` — infrastructure adapters (e.g., `InMemoryTaskRepository`, future `HttpTaskRepository`) implementing the domain repository port.
 - `src/app/features/<feature>/` — standalone components (presentation layer). Thin views that delegate to `application/` services; no business logic in components.

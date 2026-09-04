@@ -174,6 +174,7 @@ There's no wrong way to do this. The goal is to experience the question-and-answ
 | **Markdown** | A lightweight plain-text formatting syntax (e.g., `# heading`, `**bold**`) used to write documents that render cleanly on GitHub and other tools. |
 | **Agent** | A specially configured version of Copilot set up for a particular role or task (like Ellie, the BA agent). |
 | **Diagram (Mermaid)** | A simple text-based way to generate flowcharts/diagrams that Copilot can create automatically from a conversation. |
+| **Mermaid** | The plain-text diagram language used to describe diagrams like flowcharts (e.g., `flowchart LR`, `-->` arrows) so tools like GitHub can render them visually. |
 
 ## 11. Questions to Bring With You
 

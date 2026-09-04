@@ -29,7 +29,7 @@ AI coding assistants are good at building *something* fast. But they'll build th
 
 Beyond speed, Copilot brings a few specific advantages worth knowing before the workshop:
 
-- **It can understand existing code.** Copilot can read the actual codebase — the domain model, existing features, API contracts — and use that as context. It can flag when a new requirement conflicts with how the system already works. It can point out related functionality that already exists. It grounds new requirements in reality, not assumptions.
+- **It can understand existing code.** Copilot can read the actual codebase — the [domain model](#10-key-terms-youll-hear), existing features, [API contracts](#10-key-terms-youll-hear) — and use that as context. It can flag when a new requirement conflicts with how the system already works. It can point out related functionality that already exists. It grounds new requirements in reality, not assumptions.
 - **It can write requirements directly into your team's tools.** Copilot can draft issues, epics, or backlog items in a structure ready to paste into **Jira** or **Azure DevOps** — titles, descriptions, acceptance criteria, labels/tags. This cuts the manual re-typing that normally happens between "we decided this in a meeting" and "it's a ticket in the backlog."
 - **It can reference your source documents.** Point Copilot at meeting transcripts, requirements documents, emails, design docs, or notes. Ask it to extract and organize the requirements buried inside them. This is especially useful for turning messy input — a 45-minute meeting transcript, a chain of Slack/Teams messages — into a clean, structured requirements document, while preserving traceability back to where each requirement came from.
 
@@ -53,7 +53,7 @@ This workshop includes a specialized Copilot configuration named **Ellie**, buil
 - Ask one clarifying question at a time, in plain business language (not technical jargon)
 - Confirm its understanding before moving forward
 - Call out assumptions and open questions explicitly, so nothing gets silently guessed
-- Produce organized markdown documents — requirements, user stories, and diagrams — that anyone can read, not just developers
+- Produce organized [Markdown](#10-key-terms-youll-hear) documents — requirements, user stories, and diagrams — that anyone can read, not just developers
 
 **What Ellie deliberately won't do**: make architecture/design decisions, write code, approve requirements, estimate effort, or commit to timelines. Those stay with your team, exactly as they would today.
 
@@ -105,19 +105,21 @@ Export completes within 5 seconds for lists of up to 500 tasks.
 - Only tasks visible to the current user's permissions may be included in the export.
 
 ## Diagrams
+Mermaid is the diagram language used to render the flowchart below — it uses simple text syntax (e.g., `-->` for arrows connecting steps, `A[Label]` for a labeled box) to describe diagrams like flowcharts, sequence diagrams, and more.
 ```mermaid
 flowchart LR
     A[User clicks Export to PDF] --> B[Apply current filters/search]
     B --> C[Generate PDF document]
     C --> D[Download PDF to user's device]
 ```
+`flowchart LR` tells Mermaid to lay the flowchart out left-to-right (LR).
 
 ## Open Questions
 - Should branding/logo be included on the exported PDF?
 - Is there a maximum task count per export?
 
 ## Assumptions
-- Export is client-triggered and does not need to be scheduled or emailed.
+- Export is client-triggered (client-triggered means the user does something to cause the action to occur) and does not need to be scheduled or emailed.
 
 ## Risks
 - Very large task lists may need pagination or a background export process.
@@ -132,7 +134,7 @@ A few things to notice about this output:
 
 ## 8. Try It Yourself (Optional, No Coding Required)
 
-If you have access to GitHub Copilot Chat before the workshop (in VS.com, GitHub.com, or the mobile app), you can try this hands-on:
+If you have access to GitHub Copilot Chat before the workshop (in Visual Studio Code (VS Code), GitHub.com, or the mobile app), you can try this hands-on:
 
 1. Open a Copilot Chat conversation.
 2. Describe a vague idea for a feature, in one or two sentences — something from your own work is great, or use: *"Users want to be reminded before a task's due date."*
@@ -154,9 +156,13 @@ There's no wrong way to do this. The goal is to experience the question-and-answ
 | Term | Plain-language meaning |
 |---|---|
 | **Prompt** | The instruction or question you type to Copilot. |
+| **Elicitation pattern** | A repeatable way a business analyst, product owner, or AI agent gathers and clarifies requirements. |
 | **User story** | A short description of a feature from the user's point of view (e.g., "As a user, I want to... so that..."). |
 | **Acceptance criteria** | The specific, testable conditions that must be true for a feature to be considered complete. |
 | **Backlog item** | A discrete, actionable piece of work broken out from a larger requirement. |
+| **Domain model** | The business concepts, data, and rules that make up how the application actually works (e.g., "task," "user," "due date"). |
+| **API contract** | The agreed-upon way software components exchange data — what a request must send and what response it returns. |
+| **Markdown** | A lightweight plain-text formatting syntax (e.g., `# heading`, `**bold**`) used to write documents that render cleanly on GitHub and other tools. |
 | **Agent** | A specially configured version of Copilot set up for a particular role or task (like Ellie, the BA agent). |
 | **Diagram (Mermaid)** | A simple text-based way to generate flowcharts/diagrams that Copilot can create automatically from a conversation. |
 

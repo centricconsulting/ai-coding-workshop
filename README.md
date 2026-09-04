@@ -33,6 +33,8 @@ Whether you're new to AI-assisted development or looking to level up your Copilo
 
 This repository contains all workshop materials including lab guides, starter code, reference implementations, and facilitator resources.
 
+📦 **Versioning**: This repo uses [semantic versioning](https://semver.org/). See the [Releases page](../../releases) for what's changed between versions before each delivery.
+
 ---
 
 ## Getting Started: Choose Your Path

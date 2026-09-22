@@ -48,23 +48,26 @@ Slash commands start with `/` and help you find agents, skills, and other capabi
 
 | Command | Purpose | Example Usage |
 |---------|---------|---------------|
-| `/help` | Show all available commands | Type `/help` in chat |
-| `/agents` | List all available custom agents | `/agents` to see @architect, @planner, etc. |
-| `/skills` | List all available skills | `/skills` to see #test-data-generator, etc. |
-| `/init` | Start a new project or workspace | `/init dotnet webapi` |
-| `/create-workspace` | Create new workspace | `/create-workspace my-project` |
-| `/create-notebook` | Create new Jupyter notebook | `/create-notebook data-analysis` |
-| `/create-file` | Create new file with AI assistance | `/create-file readme.md` |
-| `/install-extension` | Install VS Code extension | `/install-extension ms-python.python` |
+| `/` (type slash alone) | Show the slash commands available in your current chat session | Type `/` in chat to see the list |
+| `/agents` | Configure and browse your custom agents | `/agents` to see architecture-reviewer, plan, etc. |
+| `/skills` | Configure and browse your agent skills | `/skills` to see #test-data-generator, etc. |
+| `/init` | Generate or update workspace instructions (`copilot-instructions.md`/`AGENTS.md`) | `/init` in an agent session |
+| `/new` | Scaffold a new workspace or file from a natural-language description | `/new dotnet web api project` |
+| `/newNotebook` | Scaffold a new Jupyter notebook from a natural-language description | `/newNotebook data analysis starter` |
+| `/plan` | Create a detailed implementation plan before coding | `/plan Add Priority property to Task entity` |
 
-### Agent Discovery with @-mentions
+> **Note:** Available slash commands depend on your chat surface (VS Code Copilot Chat panel, Agent sessions, or the Copilot CLI) and enabled features — if a command listed here isn't recognized, type `/` alone to see what's actually available in your environment.
 
-Once you know which agents exist (from `/agents`), you can invoke them with `@`:
+### Agent Discovery via Mode Selection
+
+Once you know which agents exist (from `/agents`), you invoke them by **selecting them from the Agent Mode dropdown** in VS Code Copilot Chat, or with `/agent <name>` in the Copilot CLI:
 
 ```
-@architect Review the domain model for this feature
-@planner Create an implementation plan for user authentication
+Switch to Agent Mode → select "architecture-reviewer" from the dropdown → 
+Review the domain model for this feature
 ```
+
+> **Note:** `@` is used for mentioning files and chat participants (e.g., `@workspace`), **not** for invoking custom agents. Custom agents (`.github/agents/*.agent.md`) are selected via the mode dropdown (VS Code) or `/agent` (CLI).
 
 ### Skills Discovery with #-mentions
 
@@ -79,7 +82,7 @@ Skills are specialized knowledge modules invoked with `#`:
 ### Try It Now (2 minutes)
 
 1. Open Copilot Chat
-2. Type `/help` to see all available commands
+2. Type `/` to see all available commands for this chat session
 3. Type `/agents` to see available custom agents
 4. Type `/skills` to see available skills
 
@@ -182,10 +185,11 @@ Ensure the change is properly integrated across Domain, Application, and Api lay
 **Alternative:** If you want to use a **custom agent** (discovered via `/agents`):
 
 ```
-@plan Add Priority property to Task entity with full integration
+Switch to Agent Mode → select "plan" from the agent dropdown → 
+Add Priority property to Task entity with full integration
 ```
 
-This invokes the `@plan` agent, which specializes in creating implementation plans.
+This runs the `plan` agent, which specializes in creating implementation plans.
 
 4. **Observe the Agent's process:**
    - Planning phase

@@ -53,9 +53,9 @@ This document provides a detailed facilitator's guide for running the 3-hour wor
   ```
 
 - **Select DevContainer** based on your technology stack:
-  - 🔷 **.NET Participants**: "Reopen in Container" → Choose `.devcontainer/dotnet/devcontainer.json`
-  - 🟩 **Spring Boot Participants**: "Reopen in Container" → Choose `.devcontainer/springboot/devcontainer.json`
-  - 🔷🟩 **Both Stacks** (facilitators/explorers): Choose `.devcontainer/bilingual/devcontainer.json`
+  - 🔷 **.NET Participants**: "Reopen in Container" → Choose `.devcontainer/dotnet-participant/devcontainer.json`
+  - 🟩 **Spring Boot Participants**: "Reopen in Container" → Choose `.devcontainer/springboot-participant/devcontainer.json`
+  - 🔷🟩 **Both Stacks** (facilitators/explorers): Choose `.devcontainer/maintainer/devcontainer.json`
 
 - **Copilot Instructions automatically load** based on file context via `.github/instructions/` (no manual setup needed!)
 
@@ -448,7 +448,7 @@ This document provides a detailed facilitator's guide for running the 3-hour wor
 - **Wrong Java version**: Ensure Java 21 JDK is installed (`java -version`)
 - **Missing dependencies**: Run `mvn clean install` or `./gradlew build` in `src-springboot/` directory
 - **Port conflicts**: Application may fail to start if port 8080 is in use - check `application.properties`
-- **DevContainer issues**: Ensure you selected the correct devcontainer (`.devcontainer/springboot/` or `.devcontainer/bilingual/`)
+- **DevContainer issues**: Ensure you selected the correct devcontainer (`.devcontainer/springboot-participant/` or `.devcontainer/maintainer/`)
 - **Maven wrapper**: Use `./mvnw` instead of `mvn` if Maven is not globally installed
 
 ### Copilot Generating Wrong Code

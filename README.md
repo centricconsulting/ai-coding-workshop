@@ -85,9 +85,9 @@ flowchart TD
 For the best experience, use the provided **Devcontainer** and recommended VS Code settings:
 
 - **Devcontainer Options** (choose based on your stack):
-  - 🔷 **.NET Container** (`.devcontainer/dotnet/`): .NET 9 SDK, C# Dev Kit, xUnit extensions
-  - 🟩 **Spring Boot Container** (`.devcontainer/springboot/`): Java 21 JDK, Spring Boot extensions, Maven
-  - 🔷🟩 **Bilingual Container** (`.devcontainer/bilingual/`): Both .NET and Java environments (for facilitators or exploring both stacks)
+  - 🔷 **.NET Container** (`.devcontainer/dotnet-participant/`): .NET 9 SDK, C# Dev Kit, xUnit extensions
+  - 🟩 **Spring Boot Container** (`.devcontainer/springboot-participant/`): Java 21 JDK, Spring Boot extensions, Maven
+  - 🔷🟩 **Bilingual Container** (`.devcontainer/maintainer/`): Both .NET and Java environments (for facilitators or exploring both stacks)
   - 🅰️ **Angular Container** (`.devcontainer/angular-participant/`): Node 24+, Angular CLI, Angular Language Service (self-contained SPA, no backend)
   - 🟨 **JavaScript Container** (`.devcontainer/javascript-participant/`): Node 22 LTS only, no framework or TypeScript — for the non-technical plain-JS track
   - 🐍 **Python Container** (`.devcontainer/python-participant/`): Python 3.12, Pylance, pytest extension — FastAPI backend track
@@ -555,9 +555,9 @@ Contains:
    
    - When prompted, select "Reopen in Container"
    - **Choose your devcontainer**:
-     - 🔷 `.devcontainer/dotnet/` for .NET track
-     - 🟩 `.devcontainer/springboot/` for Spring Boot track
-     - 🔷🟩 `.devcontainer/bilingual/` for both stacks
+     - 🔷 `.devcontainer/dotnet-participant/` for .NET track
+     - 🟩 `.devcontainer/springboot-participant/` for Spring Boot track
+     - 🔷🟩 `.devcontainer/maintainer/` for both stacks
      - 🅰️ `.devcontainer/angular-participant/` for the Angular track
      - 🟨 `.devcontainer/javascript-participant/` for the JavaScript track
      - 🐍 `.devcontainer/python-participant/` for the Python track

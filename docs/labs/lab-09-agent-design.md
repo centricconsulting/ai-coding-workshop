@@ -366,11 +366,11 @@ handoffs:
 ```
 
 **Usage Flow:**
-1. User invokes `@planner`: "Plan a user authentication feature"
+1. User selects the `planner` agent from the Agent Mode dropdown: "Plan a user authentication feature"
 2. Planner provides plan
-3. User clicks "Start Implementation" → switches to `@implementer`
+3. User clicks "Start Implementation" → hands off to the `implementer` agent
 4. Implementer generates code
-5. User clicks "Request Code Review" → switches to `@code-reviewer`
+5. User clicks "Request Code Review" → hands off to the `code-reviewer` agent
 
 ---
 
@@ -386,7 +386,7 @@ handoffs:
 ```
 
 **Usage Flow:**
-1. User invokes `@test-first`: "Create tests for order validation"
+1. User selects the `test-first` agent from the Agent Mode dropdown: "Create tests for order validation"
 2. Agent generates failing tests (easier to review than big implementations)
 3. User reviews tests, clicks "Implement to Pass Tests"
 4. Implementer writes code to satisfy tests

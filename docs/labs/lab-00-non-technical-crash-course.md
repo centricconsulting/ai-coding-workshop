@@ -12,6 +12,8 @@
 
 > **Facilitator note**: This lab is designed to run **immediately before Lab 1**. It assumes zero prior command-line or Git experience. Keep the pace brisk — the goal is working familiarity, not mastery. Participants should leave with the repo cloned, on their own branch, and building successfully.
 
+> 📖 **Tip**: Keep the [Workshop Terminology glossary](../terminology.md) open as a reference — it defines every tooling and development term used in this lab (and beyond) in plain language.
+
 ---
 
 ## Overview

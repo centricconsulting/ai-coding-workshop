@@ -7,6 +7,7 @@ Welcome! This page links to all key instructions, standards, and guides for this
 ## 🏁 Start Here
 - [README.md](../README.md): Workshop overview, setup, and key links
 - [Pre-Workshop Checklist](PRE_WORKSHOP_CHECKLIST.md): Environment and tool setup
+- [Workshop Terminology](terminology.md): Plain-language glossary of TDD, DDD, Git, Copilot, and other key terms for non-technical attendees
 
 - [Modular Presentation Catalog](presentations/index.md): All modules with delivery patterns
   - [Part 1 Modules](presentations/modules/part1/): 7 standalone modules (Copilot fundamentals, TDD, refactoring)

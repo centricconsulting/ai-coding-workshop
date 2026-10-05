@@ -35,6 +35,8 @@ This repository contains all workshop materials including lab guides, starter co
 
 📦 **Versioning**: This repo uses [semantic versioning](https://semver.org/). See the [Releases page](../../releases) for what's changed between versions before each delivery.
 
+📖 **New to terms like TDD, DDD, or Git?** See the [Workshop Terminology glossary](docs/terminology.md) for plain-language definitions of concepts, tools, and AI/Copilot vocabulary used throughout this workshop.
+
 ---
 
 ## Getting Started: Choose Your Path

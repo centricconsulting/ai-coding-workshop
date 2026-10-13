@@ -112,7 +112,7 @@ sequenceDiagram
     Dev->>AR: Review design approach
     AR->>Dev: Architecture guidance
     
-    Dev->>Code: Implement with Edit mode
+    Dev->>Code: Implement in Interactive mode
     Code->>Dev: Code changes
     
     Dev->>TS: Request test strategy
@@ -131,8 +131,7 @@ sequenceDiagram
 
 **Example scenario:**
 - Use agents for planning and strategy
-- Use Edit mode for implementation
-- Use Ask mode for quick questions
+- Use Interactive mode for implementation and quick questions
 
 ---
 
@@ -380,8 +379,8 @@ graph LR
     style Overhead fill:#ff6666,color:#fff
 ```
 
-**Problem:** Using agent when Ask mode would suffice  
-**Solution:** Use Ask for quick questions, agents for structured analysis
+**Problem:** Using agent when Interactive mode would suffice  
+**Solution:** Use Interactive mode for quick questions, agents for structured analysis
 
 ---
 

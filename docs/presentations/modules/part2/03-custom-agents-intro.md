@@ -90,8 +90,8 @@ Proposes comprehensive test strategies
 
 **Try the Architecture Reviewer agent:**
 
-1. Open Copilot Chat in Agent Mode
-2. Select "Architecture Reviewer" from dropdown
+1. Open Copilot Chat in Interactive mode
+2. Select "Architecture Reviewer" from the Agent picker
 3. Prompt: "Review the Task domain model"
 4. Compare to standard Copilot Chat output
 

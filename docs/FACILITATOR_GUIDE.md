@@ -150,10 +150,10 @@ This document provides a detailed facilitator's guide for running the 3-hour wor
 ---
 ### 📝 Plan First with Agents (Demo)
 
-**Goal:** Demonstrate how Copilot (in Agent Mode) or a custom agent like `@planner` can propose a step-by-step plan before any code is changed.
+**Goal:** Demonstrate how Copilot in **Plan** mode or a custom agent like `@planner` can propose a step-by-step plan before any code is changed.
 
 **How to show it:**
-- In Copilot Chat (Agent Mode), ask: "Propose a step-by-step plan to refactor LegacyTaskProcessor to use async/await, add logging, and follow Object Calisthenics."
+- In Copilot Chat, select **Plan** in the Agent mode picker and ask: "Propose a step-by-step plan to refactor LegacyTaskProcessor to use async/await, add logging, and follow Object Calisthenics."
 - Review the plan with the group. Edit or reorder steps as needed.
 - Only then, ask Copilot (or `@engineer`) to implement the plan, step by step.
 
@@ -165,38 +165,38 @@ This document provides a detailed facilitator's guide for running the 3-hour wor
 **Tip:** Encourage participants to always ask for a plan before executing large or multi-file changes.
 
 
-### **Agent Mode & MCP Tools**
+### **Autopilot Mode & MCP Tools**
 
-**Agent Mode** allows Copilot to operate more autonomously, chaining together multiple steps, tools, and reasoning to solve complex tasks. This is especially powerful for:
+**Autopilot** mode allows Copilot to operate more autonomously, within your **Permissions**, chaining together multiple steps, tools, and reasoning to solve complex tasks. *This section is facilitator reference for discussion; Autopilot is not used in the labs.* It is especially powerful for:
 - Multi-file or cross-cutting changes
 - Automated codebase analysis or refactoring
 - Running evaluation or test suites with minimal manual intervention
 - Integrating with Model Context Protocol (MCP) tools for advanced workflows
 
-**MCP Tools** provide specialized capabilities (e.g., evaluation, tracing, agent orchestration) that can be invoked directly in Agent Mode. These tools enable:
+**MCP Tools** provide specialized capabilities (e.g., evaluation, tracing, agent orchestration) that can be invoked directly in Autopilot. These tools enable:
 - Automated evaluation of code or models
 - Tracing and observability for AI workflows
 - Agent-driven code generation and review
 
-**How to use Agent Mode:**
-1. Select "Agent" from the Copilot agents dropdown (or use the command palette).
+**How to use Autopilot:**
+1. Select **Autopilot** in the Agent mode picker below the chat box (keep **Permissions** on Manual, and work on a branch).
 2. Describe your goal in natural language (e.g., "Refactor all service classes to use async/await and add logging").
 3. For advanced scenarios, reference MCP tools directly (e.g., "Evaluate this model using the aitk-evaluation_planner tool").
 4. Review the proposed plan and results; iterate as needed.
 
-**When to use Agent Mode:**
+**When to use Autopilot:**
 - When a task spans multiple files or requires orchestration
 - For codebase-wide refactoring or analysis
 - To automate repetitive or evaluation-heavy workflows
 - When you want Copilot to propose and execute a plan, not just a single edit
 
 **Facilitator Tips:**
-- Encourage participants to try Agent Mode for at least one lab (e.g., Lab 3 or 4)
-- Compare results from Ask/Plan vs. Agent Mode
+- Encourage participants to implement a plan in Interactive mode for at least one lab (e.g., Lab 3 or 4)
+- Compare results from Interactive vs. Plan, and discuss (don't practice) Autopilot
 - Demonstrate invoking an MCP tool (e.g., evaluation or tracing) and discuss the output
 
 **Example prompt:**
-> "Use Agent Mode to generate unit tests for all public methods in the Application layer, then run the tests and summarize the results."
+> "Use Autopilot to generate unit tests for all public methods in the Application layer, then run the tests and summarize the results."
 
 ---
 ### **Chat Participants (Agents)** - Specialized assistants:

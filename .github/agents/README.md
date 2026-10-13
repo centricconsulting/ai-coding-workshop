@@ -31,9 +31,9 @@ Custom agents are chat participants (invoked with `@agentName`) that have:
 
 ### In VS Code
 1. Open Copilot Chat
-2. Click the **agent dropdown** to select an agent
+2. Click the **Agent picker** to select an agent
 3. Provide your request or context
-4. Use **Agent Mode** for multi-step workflows
+4. Use **Plan** mode for multi-step workflows
 
 ### Example Usage
 ```

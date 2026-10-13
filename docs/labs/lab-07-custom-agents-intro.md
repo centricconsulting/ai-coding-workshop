@@ -9,7 +9,7 @@
 By the end of this lab, you will:
 - Understand what Custom Copilot Agents are and how they work
 - Differentiate between agents, prompts, and Copilot Instructions
-- Use a pre-built custom agent in Agent Mode
+- Use a pre-built custom agent from the Agent picker
 - Recognize when custom agents improve consistency over ad-hoc prompting
 
 ## Prerequisites
@@ -87,9 +87,9 @@ You suspect there might be architectural issues in the Task entity or the reposi
    - Read the agent's responsibilities and constraints
    - Note the structured output format
 
-2. **Open Copilot Chat** and switch to **Agent Mode**
+2. **Open Copilot Chat** and set the **Agent mode** picker to **Interactive**
 
-3. **Select the Architecture Reviewer agent** from the dropdown
+3. **Select the Architecture Reviewer agent** from the Agent picker
 
 4. **Use this prompt:**
    ```
@@ -135,8 +135,8 @@ Perform the same task twice:
 3. Record the response structure and depth
 
 #### Round 2: Architecture Reviewer Agent
-1. Switch to Agent Mode
-2. Select **Architecture Reviewer** from dropdown
+1. Set the Agent mode picker to **Interactive**
+2. Select **Architecture Reviewer** from the Agent picker
 3. Same prompt: `Review the Task domain model for DDD compliance`
 4. Record the response structure and depth
 

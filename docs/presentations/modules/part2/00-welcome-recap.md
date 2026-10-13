@@ -19,7 +19,7 @@ backgroundColor: #fff
 
 ## What You'll Learn
 
-- Understand **Ask, Plan, and Agent** interaction models
+- Understand **Interactive, Plan, and Autopilot** agent modes
 - Master the **customization hierarchy**: Prompts → Instructions → Skills → Agents
 - Discover capabilities with **slash commands** (/agents, /skills, /help)
 - Differentiate **Skills** (knowledge) from **Agents** (workflows)

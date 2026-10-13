@@ -400,8 +400,8 @@ Test Implementation → Test Strategist
 | "What stories cover this epic?" | Backlog Generator |
 | "What tests do I need?" | Test Strategist |
 | "How do I implement X?" | Standard Copilot Chat |
-| "Explain this code" | Standard Copilot Chat (Ask mode) |
-| "Refactor this method" | Standard Copilot (Ask or Agent mode) |
+| "Explain this code" | Standard Copilot Chat (Interactive mode) |
+| "Refactor this method" | Standard Copilot (Interactive mode) |
 
 ---
 

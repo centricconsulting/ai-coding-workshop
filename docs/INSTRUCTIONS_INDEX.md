@@ -42,4 +42,4 @@ Welcome! This page links to all key instructions, standards, and guides for this
 
 ---
 
-**Tip:** For advanced topics (Agent Mode, MCP tools, etc.), see the Facilitator Guide and Lab 3.
+**Tip:** For advanced topics (Autopilot, MCP tools, etc.), see the Facilitator Guide and Lab 3.

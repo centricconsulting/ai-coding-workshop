@@ -13,7 +13,7 @@
 | Time | Module | Duration | Activity | Lab |
 |------|--------|----------|----------|-----|
 | 0:00-0:10 | **Module 0: Kickoff** | 10 min | Welcome, Part 1 recap, Part 2 intro | - |
-| 0:10-0:35 | **Module 1: Interaction Models** | 25 min | Ask/Plan/Agent overview, live demo | [Lab 05](labs/lab-05-interaction-models.md) |
+| 0:10-0:35 | **Module 1: Interaction Models** | 25 min | Interactive/Plan/Autopilot overview, live demo | [Lab 05](labs/lab-05-interaction-models.md) |
 | 0:35-1:05 | **Module 2: Skills & Customization** | 30 min | 4 customization types, Skills introduction | [Lab 06](labs/lab-06-skills-and-customization.md) |
 | 1:05-1:30 | **Module 3: Custom Agents** | 25 min | What are agents? Architecture Reviewer demo | [Lab 07](labs/lab-07-custom-agents-intro.md) |
 | 1:30-2:05 | **Module 4: Workflow Agents** | 35 min | Backlog, Architecture, Test Strategy workflows | [Lab 08](labs/lab-08-workflow-agents.md) |
@@ -24,7 +24,7 @@
 
 ### Lab Summary
 
-- **Lab 05: Interaction Models** (20 min) - Compare Ask, Plan, and Agent modes
+- **Lab 05: Interaction Models** (20 min) - Compare Interactive and Plan modes (Autopilot discussed)
 - **Lab 06: Skills & Customization** (25 min) - Learn the 4 customization types, explore Skills
 - **Lab 07: Custom Agents Intro** (15 min) - Explore Architecture Reviewer, Backlog Generator, Test Strategist
 - **Lab 08: Workflow Agents** (35 min) - Apply agents to 3 real workflows
@@ -35,7 +35,7 @@
 
 ## Overview
 
-This guide helps facilitators deliver Part 2 of the AI Code Workshop, focusing on **advanced GitHub Copilot features** including interaction models (Ask/Plan/Agent), the **Skills system**, and **custom agents**. The workshop is highly interactive with 6 hands-on labs.
+This guide helps facilitators deliver Part 2 of the AI Code Workshop, focusing on **advanced GitHub Copilot features** including agent modes (Interactive/Plan/Autopilot), the **Skills system**, and **custom agents**. The workshop is highly interactive with 6 hands-on labs.
 
 ### Presentation Materials
 
@@ -66,7 +66,7 @@ npx @marp-team/marp-cli docs/presentations/modules/part2/*.md --pdf --output par
 ### Learning Objectives
 
 By the end of Part 2, participants will:
-- Understand Ask, Plan, and Agent interaction models
+- Understand the Interactive, Plan, and Autopilot agent modes
 - Use custom Copilot agents for specialized workflows
 - Design and build their own production-ready agents
 - Apply governance principles to AI tooling
@@ -140,59 +140,63 @@ A: Less code than Part 1. Focus is on designing agents and evaluating workflows.
 
 ### Section Breakdown
 
-- **0:10-0:15** - Presentation: Ask/Plan/Agent overview (slides 6-10)
-- **0:15-0:25** - Live Demo: Same task, three ways
+- **0:10-0:15** - Presentation: Interactive/Plan/Autopilot overview (Module 1 slides)
+- **0:15-0:25** - Live Demo: Same task, two ways (plus Autopilot talking point)
 - **0:25-0:30** - Guided Exercise: Participants try each mode
 - **0:30-0:35** - Discussion and Q&A
+
+> **Returning facilitators:** The former Ask / Edit / Agent modes are now **Interactive / Plan / Autopilot**, chosen from the **Agent mode** picker below the chat box. **Permissions** (e.g., Manual) and the **Agent picker** (custom agents) are separate controls.
 
 ### Facilitator Actions
 
 **Presentation (5 min)**
-- Use slides 6-10 to explain the three modes
-- Key point: **Agent Mode is not "better chat"** – it's a different execution model
+- Use the Module 1 slides to explain the three modes and the three separate controls (Agent mode, Permissions, Agent picker)
+- Key point: **Autonomy is a dial** – choose the least autonomy that fits the job
 - Show the decision tree diagram ([copilot-interaction-models.md](design/diagrams/copilot-interaction-models.md))
 
-**Live Demo: Same Task, Three Ways (10 min)**
+**Live Demo: Same Task, Two Ways (10 min)**
 
 **Task:** Add a `Priority` property to the Task entity
 
-1. **Ask Mode Demo:**
-   - Open Copilot Chat
-   - Prompt: "How should I add a Priority property to the Task entity?"
-   - Show: You get guidance, but no changes
+1. **Interactive Demo:**
+   - Open Copilot Chat and select **Interactive** in the Agent mode picker
+   - Prompt: "How should I add a Priority property to the Task entity? Explain only; do not change any files."
+   - Show: You get guidance, and any change would be approved step by step
 
-2. **Plan Mode Demo:**
-   - Open Copilot Chat and switch to **Plan Mode**
+2. **Plan Demo:**
+   - Select **Plan** in the Agent mode picker
    - Prompt: "I want to add a Priority property to the Task entity"
    - Show: Copilot gathers requirements and designs the approach **before writing any code**
 
-3. **Agent Mode Demo:**
-   - Open Copilot Chat in Agent Mode
-   - Prompt: "Add a Priority property to Task entity across all layers"
-   - Show: Multi-step plan with checkpoints
+3. **Autopilot (talking point only, no demo):**
+   - Point out the **Autopilot** option in the Agent mode picker and explain that it works autonomously within **Permissions**, with review afterward
+   - Discuss what you would want in place first (a branch, tests, narrow Permissions)
 
 **Key Observation Points:**
-- Scope: Ask (informational), Plan (requirements + design), Agent (execution)
-- Control: Ask (total), Plan (approve plan), Agent (approve each step)
-- Speed: Ask (instant), Plan (fast), Agent (deliberate)
+- Scope: Interactive (questions + focused changes), Plan (requirements + design), Autopilot (discussion: multi-file execution)
+- Control: Interactive (every step), Plan (approve plan), Autopilot (Permissions + review afterward)
+- Speed: Interactive (deliberate), Plan (fast), Autopilot (fastest end to end)
 
 **Guided Exercise (5 min)**
-- Participants try all three modes with a simple task
-- Circulate to help with agent mode activation
-- Troubleshoot: If agents don't appear, check `.agent.md` files exist
+- Participants try Interactive and Plan with a simple task (Autopilot is not part of the lab)
+- Circulate to help participants find the Agent mode picker and Permissions
+- Troubleshoot: If custom agents don't appear in the Agent picker, check `.agent.md` files exist
 
 **Discussion Questions (5 min)**
-- When would you use Ask vs Edit?
-- What scenarios require Agent mode?
-- What are the risks of Agent mode?
+- When would you choose Interactive over Autopilot?
+- What scenarios call for Plan first?
+- What risks come with more autonomy (Autopilot), and how do Permissions mitigate them?
 
 ### Common Issues
 
-**Issue:** Agent mode doesn't appear  
-**Fix:** Ensure Copilot extension is updated, restart VS Code, verify `.agent.md` files
+**Issue:** Agent mode picker doesn't show Interactive/Plan/Autopilot  
+**Fix:** Ensure the Copilot extension is updated and restart VS Code
 
-**Issue:** Agent mode produces unexpected results  
-**Fix:** Agents are non-deterministic; emphasize human review of plans
+**Issue:** Custom agents don't appear in the Agent picker  
+**Fix:** Verify `.agent.md` files exist in `.github/agents/`
+
+**Issue:** Copilot produces unexpected results  
+**Fix:** Agents are non-deterministic; work on a branch, review the diff, and use Plan first
 
 ---
 
@@ -319,8 +323,8 @@ A: Yes - VS Code, GitHub Copilot CLI, and GitHub Copilot coding agent (cloud). T
 **Live Demo: Architecture Reviewer (10 min)**
 
 1. **Setup:**
-   - Open Copilot Chat in Agent Mode
-   - Select "Architecture Reviewer" from dropdown
+   - Open Copilot Chat in Interactive mode
+   - Select "Architecture Reviewer" from the Agent picker
    - Open `src-dotnet/src/TaskManager.Infrastructure/Legacy/LegacyTaskProcessor.cs`
 
 2. **Demo Prompt:**
@@ -584,7 +588,7 @@ Participants work through Lab 10:
 **Key Takeaways (3 min)**
 - Use slides 31-35 to recap the workshop
 - Hit these points:
-  - ✅ Ask/Plan/Agent - Use the right mode
+  - ✅ Interactive/Plan/Autopilot - Use the right mode
   - ✅ Custom agents - Specialists, not prompts
   - ✅ Role-based design - Focus on WHO
   - ✅ Iterate continuously - Agents improve over time
@@ -809,7 +813,7 @@ A: Less coding, more conceptual. Focus is on design, workflows, and governance.
 A: Agents provide consistency, encode team knowledge, and are reusable across the team.
 
 **Q: Can agents execute code changes automatically?**  
-A: Agent mode requires human approval at checkpoints. Never blindly trust agent output.
+A: Only within the Permissions you set. Interactive mode asks you at each step, and Autopilot works autonomously within permissions, so use Manual permissions, work on a branch, and review the diff. Never blindly trust agent output.
 
 **Q: How do we prevent "prompt sprawl" with many agents?**  
 A: Maintain a catalog, enforce review process, deprecate unused agents.

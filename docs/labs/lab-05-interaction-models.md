@@ -1,4 +1,4 @@
-# Lab 05: Copilot Interaction Models (Ask, Plan, Agent)
+# Lab 05: Copilot Interaction Models (Interactive, Plan, Autopilot)
 
 **Module:** 1  
 **Duration:** 25 minutes  
@@ -7,10 +7,10 @@
 ## Objectives
 
 By the end of this lab, you will:
-- Understand the three primary interaction models in GitHub Copilot
-- Know when to use Ask, Plan, and Agent modes
+- Understand the Interactive and Plan agent modes in GitHub Copilot (Autopilot is discussed, not practiced)
+- Know when to use each mode and how it differs from Permissions and the Agent picker
 - Experience the differences through hands-on exercises
-- Recognize Agent Mode as a distinct execution model
+- Recognize autonomy as a dial: choose the least autonomy that fits the job
 
 ## Prerequisites
 
@@ -20,23 +20,35 @@ By the end of this lab, you will:
 
 ## Background
 
-GitHub Copilot in VS Code offers three distinct interaction models, each optimized for different workflows:
+GitHub Copilot in VS Code offers three **agent modes**, selected from the **Agent mode** picker in the control bar below the chat text box:
 
-### 1. **Ask Mode** (Informational)
-- **Purpose:** Learning, exploration, explanation
-- **Behavior:** Provides answers without making changes
-- **Use when:** You need to understand code, patterns, or concepts
+### 1. **Interactive** (Step-by-Step Collaboration)
+- **Purpose:** Questions, exploration, and focused changes with you steering each step
+- **Behavior:** Answers questions and makes changes while you review and approve along the way
+- **Use when:** You want to learn, explore, or keep tight control
 
-### 2. **Plan Mode** (Design Before Code)
+> **Note:** The former separate *Ask* and *Edit* modes are gone. Asking a question is simply a prompt in Interactive mode.
+
+### 2. **Plan** (Plan First, Execute When Ready)
 - **Purpose:** Design a multi-step approach and gather requirements before code generation begins
 - **Behavior:** Asks clarifying questions, proposes a structured plan, and waits for your approval before any code is written
 - **Use when:** You want to validate the strategy or requirements before committing to implementation
 
-### 3. **Agent Mode** (Multi-Step Workflows)
-- **Purpose:** Complex, repository-level tasks
-- **Behavior:** Plan → execute → review with human checkpoints
-- **Use when:** Work spans multiple files or requires analysis
-- **Key trait:** Human-in-the-loop by design
+### 3. **Autopilot** (Autonomous Within Permissions) — *discussion only*
+- **Purpose:** Complex, multi-file tasks completed with minimal interruption
+- **Behavior:** Works autonomously within the limits set by **Permissions**; you review the result afterward
+- **Use when:** The task is well defined (ideally from an approved plan) and easy to verify
+- **Key trait:** Less supervision, so scope and permissions matter more
+
+> **Note:** Your facilitator will discuss Autopilot, but it is **not used in the labs**. You'll build the foundations (Interactive and Plan) first.
+
+### Three Separate Controls
+
+| Control | Answers the question | Examples |
+|---------|----------------------|----------|
+| **Agent mode** | *How* does Copilot work? | Interactive, Plan, Autopilot |
+| **Permissions** | *What* may it do without asking? | Manual (the default in this lab) |
+| **Agent picker** | *Who* does the work? | Custom agents such as `plan`, `architecture-reviewer` |
 
 ## Discovering Copilot Capabilities
 
@@ -60,14 +72,14 @@ Slash commands start with `/` and help you find agents, skills, and other capabi
 
 ### Agent Discovery via Mode Selection
 
-Once you know which agents exist (from `/agents`), you invoke them by **selecting them from the Agent Mode dropdown** in VS Code Copilot Chat, or with `/agent <name>` in the Copilot CLI:
+Once you know which agents exist (from `/agents`), you invoke them by **selecting them from the Agent picker** next to the **+** button in VS Code Copilot Chat, or with `/agent <name>` in the Copilot CLI:
 
 ```
-Switch to Agent Mode → select "architecture-reviewer" from the dropdown → 
+Select "architecture-reviewer" from the Agent picker → 
 Review the domain model for this feature
 ```
 
-> **Note:** In the VS Code and Copilot CLI flows used in this workshop, custom agents (`.github/agents/*.agent.md`) are selected via the mode dropdown (VS Code) or `/agent` (CLI). `@` is still used for mentioning files and chat participants (for example, `@workspace`), and older docs or chat surfaces may still show `@agentName`.
+> **Note:** In the VS Code and Copilot CLI flows used in this workshop, custom agents (`.github/agents/*.agent.md`) are selected via the Agent picker (VS Code) or `/agent` (CLI). This is separate from the **Agent mode** picker (Interactive, Plan, Autopilot). `@` is still used for mentioning files and chat participants (for example, `@workspace`), and older docs or chat surfaces may still show `@agentName`.
 
 ### Skills Discovery with #-mentions
 
@@ -92,7 +104,7 @@ Skills are specialized knowledge modules invoked with `#`:
 
 ## Lab Structure
 
-You'll perform **the same task** using all three modes to understand their strengths and limitations.
+You'll perform **the same task** in Interactive and Plan modes to understand their strengths and limitations, then carry the plan through in Interactive mode.
 
 ### The Task
 
@@ -100,33 +112,35 @@ You'll perform **the same task** using all three modes to understand their stren
 
 ---
 
-## Exercise 1: Ask Mode (5 minutes)
+## Exercise 1: Interactive Mode (5 minutes)
 
 ### Instructions
 
 1. Open **Copilot Chat** in VS Code
-2. Ensure you're in **Ask mode** (default chat behavior)
-3. Enter this prompt:
+2. In the **Agent mode** picker below the chat box, select **Interactive**
+3. Confirm **Permissions** is set to **Manual**
+4. Enter this prompt:
 
 ```
 I want to add a Priority property (Low, Medium, High) to the Task entity. 
 How should I implement this following Clean Architecture and DDD patterns?
+Explain only; do not change any files.
 ```
 
-4. Review the response
+5. Review the response
 
 ### Expected Outcome
 
 Copilot will:
 - Explain how to add the property
 - Suggest using a Value Object for Priority
-- Describe the pattern, but **not make any changes**
+- Describe the pattern, but **not make any changes** (you asked a question, and Manual permissions would prompt you before any edit)
 
 ### Questions to Consider
 
 - Did Copilot provide enough detail to implement this yourself?
 - What follow-up questions would you ask?
-- When is this mode most valuable?
+- If you had said "go ahead" instead, how would Interactive mode have involved you in each step?
 
 ---
 
@@ -135,14 +149,14 @@ Copilot will:
 ### Instructions
 
 1. Open **Copilot Chat** in VS Code
-2. Switch to **Plan Mode** (select from the mode dropdown)
+2. In the **Agent mode** picker, select **Plan**
 3. Use this prompt:
 
 ```
 I want to add a Priority property (Low, Medium, High) to the Task entity.
 ```
 
-4. **Observe Plan Mode's behavior:**
+4. **Observe Plan's behavior:**
    - Copilot will ask clarifying questions about requirements
    - It will design a multi-step approach before writing any code
    - Review the proposed plan before approving
@@ -152,7 +166,7 @@ I want to add a Priority property (Low, Medium, High) to the Task entity.
 
 ### Expected Outcome
 
-Plan Mode will:
+Plan will:
 - Ask clarifying questions (e.g., "Should Priority be a value object or an enum?")
 - Propose a structured, multi-step implementation approach
 - **Not write any code yet** — waiting for your approval of the plan
@@ -161,61 +175,73 @@ Plan Mode will:
 
 - What requirements did Plan Mode surface that you hadn't considered?
 - How does seeing the plan first change how you approach the implementation?
-- When is Plan Mode the right choice over jumping straight to Agent Mode?
-
-### Challenge
-
-After reviewing the plan, switch to **Agent Mode** and use the plan output as your prompt. Does Agent Mode follow the proposed approach?
+- When is Plan Mode the right choice over jumping straight to implementation?
 
 ---
 
-## Exercise 3: Agent Mode (10 minutes)
+## Exercise 3: Carry Out the Plan in Interactive Mode (10 minutes)
 
 ### Instructions
 
-1. Open **Copilot Chat**
-2. Switch to **Agent Mode** (look for the Agent mode toggle/button)
-3. Use this prompt:
+1. Create a throwaway branch so the result is easy to review or discard:
+
+```bash
+git switch -c lab-05-priority
+```
+
+2. Start a new chat and select **Interactive** in the **Agent mode** picker
+3. Leave **Permissions** on **Manual**
+4. Paste the plan from Exercise 2 (or use this prompt) and ask Copilot to implement it **one step at a time**:
 
 ```
 Add a Priority property (Low, Medium, High) to the Task entity following DDD patterns.
 Ensure the change is properly integrated across Domain, Application, and Api layers.
+Implement one layer at a time and wait for my approval before moving on.
 ```
 
 **Alternative:** If you want to use a **custom agent** (discovered via `/agents`):
 
 ```
-Switch to Agent Mode → select "plan" from the agent dropdown → 
+Select "plan" from the Agent picker → 
 Add Priority property to Task entity with full integration
 ```
 
 This runs the `plan` agent, which specializes in creating implementation plans.
 
-4. **Observe the Agent's process:**
-   - Planning phase
+5. **Observe the process:**
    - File analysis
    - Proposed changes
-   - Checkpoints for your review
+   - Approval prompts for edits and commands
 
-5. Review each step before proceeding
-6. Accept or reject individual changes
+6. Review each step before proceeding
+7. Accept or reject individual changes
+8. When finished, review the full diff in the Source Control view, then keep or discard the changes (`git switch -` and delete the branch to discard)
 
 ### Expected Outcome
 
-Agent Mode will:
+Interactive mode will:
 1. **Analyze** the codebase structure
-2. **Plan** the changes across multiple files
-3. **Propose** changes in stages:
+2. **Propose** changes in stages:
    - Domain layer (value object + entity)
    - Application layer (if needed)
    - Api layer (request/response mapping)
-4. **Wait for your approval** at key checkpoints
+3. **Wait for your approval** at each step
 
 ### Questions to Consider
 
-- How did Agent Mode's approach differ from Plan Mode?
-- What visibility did you have into the Agent's reasoning?
-- When would you use Plan Mode first, then hand off to Agent Mode?
+- How did implementing from a plan differ from the Exercise 1 prompt?
+- What visibility did you have into Copilot's reasoning at each step?
+- Did the result follow the plan from Exercise 2?
+
+---
+
+## Discussion: Where Does Autopilot Fit? (facilitator-led, no exercise)
+
+**Autopilot** works autonomously within your **Permissions** and leaves review until the end. We won't use it in the labs, but consider:
+
+- Which tasks would you trust to run with minimal interruption?
+- What would you want in place first (a branch, tests, narrower Permissions)?
+- Why do the Interactive and Plan skills you just practiced still matter?
 
 ---
 
@@ -223,38 +249,38 @@ Agent Mode will:
 
 Create your own comparison based on the exercises:
 
-| Aspect | Ask Mode | Plan Mode | Agent Mode |
-|--------|----------|-----------|------------|
-| **Speed** | [Your observation] | [Your observation] | [Your observation] |
-| **Scope** | [Your observation] | [Your observation] | [Your observation] |
-| **Control** | [Your observation] | [Your observation] | [Your observation] |
-| **Best For** | [Your observation] | [Your observation] | [Your observation] |
+| Aspect | Interactive | Plan |
+|--------|-------------|------|
+| **Speed** | [Your observation] | [Your observation] |
+| **Scope** | [Your observation] | [Your observation] |
+| **Control** | [Your observation] | [Your observation] |
+| **Best For** | [Your observation] | [Your observation] |
 
 ---
 
 ## Key Takeaways
 
-### Ask Mode
-✅ Use for: Learning, exploration, gathering context  
-❌ Don't use for: Making changes, implementing features
+### Interactive
+✅ Use for: Learning, exploration, focused changes with step-by-step control  
+❌ Don't use for: Large, well-defined tasks where approving every step is wasteful
 
-### Plan Mode
+### Plan
 ✅ Use for: Designing approach and clarifying requirements before code generation  
 ❌ Don't use for: When you're already clear on the approach and ready to execute
 
-### Agent Mode
-✅ Use for: Complex workflows, repository-level analysis, staged changes  
-❌ Don't use for: Simple edits, quick fixes  
-⚠️ Remember: Agent Mode is **not just "better chat"** — it's a different execution model
+### Autopilot (discussion only)
+✅ Fits: Well-defined, verifiable, multi-file work (ideally from an approved plan)  
+❌ Doesn't fit: Unclear requirements, risky or hard-to-undo changes  
+⚠️ Remember: Autonomy is a dial. Choose the **least autonomy** that fits the job, and let **Permissions** set the guardrails
 
 ---
 
 ## Reflection Questions
 
 1. **Which mode felt most natural for this task? Why?**
-2. **When would you deliberately choose Ask Mode over Agent Mode?**
-3. **What are the risks of using Agent Mode for everything?**
-4. **How does Agent Mode enforce "human-in-the-loop"?**
+2. **When would you deliberately choose Interactive over a more autonomous mode like Autopilot?**
+3. **What are the risks of giving an agent more autonomy than the task needs?**
+4. **How do Permissions and the Agent mode picker work together to keep a human in the loop?**
 
 ---
 

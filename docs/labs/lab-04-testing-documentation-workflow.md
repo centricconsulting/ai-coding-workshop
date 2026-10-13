@@ -359,10 +359,16 @@ Open `src-dotnet/src/TaskManager.Application/Commands/CreateTaskCommandHandler.c
 
 #### Step 2: Use /doc Command
 
-With the class selected, use Inline Chat (`Ctrl+I`):
+With the class selected, open **Inline Chat** (`Ctrl+I` / `⌘I`). The `/doc` command only works here, not in the Chat view:
 
 ``` text
 /doc
+```
+
+**Fallback** (if `/doc` isn't offered, or you're in the Chat view): attach the file and ask in plain language:
+
+``` text
+Add XML documentation comments to the selected class and its public members. Explain behavior and exceptions, not just the signature.
 ```
 
 **Expected Output**:

@@ -134,8 +134,9 @@ Copilot should generate something like:
 ```java
 package com.example.taskmanager.application.services;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
- * Service interface for sending task notifications via multiple channels.
  * Follows Clean Architecture principles - defined in application layer,
  * implemented by infrastructure adapters.
  */
@@ -147,16 +148,20 @@ public interface NotificationService {
      * @param recipient email address
      * @param subject email subject
      * @param message email body
+     * @return a future that completes when the email has been sent
+     * @throws IllegalArgumentException if any argument is null or blank
      */
-    void sendEmailNotification(String recipient, String subject, String message);
+    CompletableFuture<Void> sendEmailNotification(String recipient, String subject, String message);
     
     /**
      * Send SMS notification.
      *
      * @param phoneNumber recipient phone number
      * @param message SMS message body
+     * @return a future that completes when the SMS has been sent
+     * @throws IllegalArgumentException if any argument is null or blank
      */
-    void sendSmsNotification(String phoneNumber, String message);
+    CompletableFuture<Void> sendSmsNotification(String phoneNumber, String message);
     
     /**
      * Send both email and SMS notification.
@@ -165,14 +170,16 @@ public interface NotificationService {
      * @param phoneNumber phone number
      * @param subject email subject
      * @param message notification message
+     * @return a future that completes when both notifications have been sent
+     * @throws IllegalArgumentException if any argument is null or blank
      */
-    void sendNotification(String recipient, String phoneNumber, String subject, String message);
+    CompletableFuture<Void> sendNotification(String recipient, String phoneNumber, String subject, String message);
 }
 ```
 
 **Expected Location**: `src-springboot/taskmanager-application/src/main/java/com/example/taskmanager/application/services/NotificationService.java`
 
-> **Note**: Spring Boot applications typically use synchronous methods—Spring manages threading internally. If async is needed, use `CompletableFuture<Void>` return types.
+> **Note**: This lab uses `CompletableFuture<Void>` return types so the interface can be backed by a real asynchronous provider later. Guard clauses throw `IllegalArgumentException` **eagerly**, before any future is returned, so invalid calls fail fast instead of completing exceptionally.
 
 #### 🐍 Python Interface
 
@@ -221,7 +228,7 @@ Review the interface and ask yourself:
   - **Python**: Uses snake_case following PEP 8
 - ✅ Does it follow framework conventions?
   - **.NET**: `async`/`await` with `CancellationToken`
-  - **Spring Boot**: Synchronous methods (Spring handles threading)
+  - **Spring Boot**: Async methods returning `CompletableFuture<Void>`, with guard clauses that throw eagerly
   - **Python**: `async def` methods with no FastAPI dependency
 - ✅ Is the API easy to use and understand?
 
@@ -383,11 +390,11 @@ class NotificationServiceImplTest {
             
             // Act
             assertDoesNotThrow(() -> 
-                service.sendEmailNotification(recipient, subject, message)
+                service.sendEmailNotification(recipient, subject, message).join()
             );
             
             // Assert
-            verify(logger, times(2)).info(anyString(), any());
+            verify(logger, times(2)).info(anyString(), any(Object.class));
         }
         
         @Test
@@ -523,9 +530,18 @@ error CS0246: The type or namespace name 'NotificationService' could not be foun
 #### 🟩 Spring Boot
 
 ```bash
+# macOS / Linux
 cd src-springboot
-mvn test -Dtest=NotificationServiceImplTest
+mvn test -Dtest=NotificationServiceImplTest -Dsurefire.failIfNoSpecifiedTests=false
 ```
+
+```powershell
+# Windows PowerShell — the quotes are required
+cd src-springboot
+mvn test "-Dtest=NotificationServiceImplTest" "-Dsurefire.failIfNoSpecifiedTests=false"
+```
+
+> **Why the extra flag?** `mvn test` runs every module. Modules without a matching test (such as `taskmanager-domain`) would otherwise fail with `No tests matching pattern ... were executed!` before the compile error you are meant to see.
 
 **Expected Result**: ❌ **Tests FAIL**
 
@@ -566,126 +582,6 @@ Before implementing, review:
   - **.NET**: Multiple test class files
   - **Spring Boot**: `@Nested` classes in single file
   - **Python**: Test modules with shared fixtures where helpful
-├── SendSmsNotificationAsyncTests.cs
-└── SendNotificationAsyncTests.cs
-```
-
-Each test class should contain:
-
-- ✅ Tests for the happy path (valid inputs)
-- ✅ Tests for guard clauses (null/empty parameters)
-- ✅ Descriptive test method names (e.g., `SendEmailNotificationAsync_WithValidInputs_SendsEmail`)
-- ✅ FakeItEasy mocks for `ILogger<NotificationService>`
-- ✅ Async test methods with proper assertions
-
-### 2.3 Example Test (SendEmailNotificationAsyncTests.cs)
-
-```csharp
-namespace TaskManager.UnitTests.Services.NotificationServiceTests;
-
-public sealed class SendEmailNotificationAsyncTests
-{
-    private readonly ILogger<NotificationService> _logger;
-    private readonly NotificationService _sut;
-
-    public SendEmailNotificationAsyncTests()
-    {
-        _logger = A.Fake<ILogger<NotificationService>>();
-        _sut = new NotificationService(_logger);
-    }
-
-    [Fact]
-    public async Task SendEmailNotificationAsync_WithValidInputs_SendsEmail()
-    {
-        // Arrange
-        const string recipient = "user@example.com";
-        const string subject = "Task Update";
-        const string message = "Your task has been updated";
-
-        // Act
-        await _sut.SendEmailNotificationAsync(recipient, subject, message);
-
-        // Assert
-        // Verify logging occurred (implementation detail we'll check)
-        A.CallTo(_logger).Where(call => 
-            call.Method.Name == "Log" && 
-            call.GetArgument<LogLevel>(0) == LogLevel.Information)
-            .MustHaveHappened();
-    }
-
-    [Theory]
-    [InlineData(null)]
-    [InlineData("")]
-    [InlineData("   ")]
-    public async Task SendEmailNotificationAsync_WithInvalidRecipient_ThrowsArgumentException(string invalidRecipient)
-    {
-        // Arrange
-        const string subject = "Test";
-        const string message = "Test message";
-
-        // Act & Assert
-        await Assert.ThrowsAsync<ArgumentException>(() => 
-            _sut.SendEmailNotificationAsync(invalidRecipient, subject, message));
-    }
-
-    [Theory]
-    [InlineData(null)]
-    [InlineData("")]
-    [InlineData("   ")]
-    public async Task SendEmailNotificationAsync_WithInvalidSubject_ThrowsArgumentException(string invalidSubject)
-    {
-        // Arrange
-        const string recipient = "user@example.com";
-        const string message = "Test message";
-
-        // Act & Assert
-        await Assert.ThrowsAsync<ArgumentException>(() => 
-            _sut.SendEmailNotificationAsync(recipient, invalidSubject, message));
-    }
-
-    [Theory]
-    [InlineData(null)]
-    [InlineData("")]
-    [InlineData("   ")]
-    public async Task SendEmailNotificationAsync_WithInvalidMessage_ThrowsArgumentException(string invalidMessage)
-    {
-        // Arrange
-        const string recipient = "user@example.com";
-        const string subject = "Test";
-
-        // Act & Assert
-        await Assert.ThrowsAsync<ArgumentException>(() => 
-            _sut.SendEmailNotificationAsync(recipient, subject, invalidMessage));
-    }
-}
-```
-
-### 2.4 Run Tests (Expect Failure - RED)
-
-In the terminal, run:
-
-```bash
-dotnet test
-```
-
-**Expected Result**: ❌ **Tests FAIL**
-
-You should see errors like:
-
-```text
-error CS0246: The type or namespace name 'NotificationService' could not be found
-```
-
-**This is GOOD!** You're in the "Red" phase of TDD. The tests define what you need to build.
-
-### 2.5 Reflect on Test Design
-
-Before implementing, review:
-
-- ✅ Do test names clearly describe behavior?
-- ✅ Are guard clause tests comprehensive?
-- ✅ Is the happy path covered?
-- ✅ Are tests organized by method?
 
 ---
 
@@ -708,7 +604,7 @@ Implement NotificationService that passes all the tests. Follow our .NET coding 
 In Copilot Chat, enter:
 
 ```text
-Implement NotificationServiceImpl that passes all the tests. Follow our Spring Boot coding style: @Service annotation, constructor injection with @RequiredArgsConstructor, SLF4J logging, guard clauses with IllegalArgumentException, JavaDoc comments.
+Implement NotificationServiceImpl that passes all the tests. Follow our Spring Boot coding style: @Service annotation, constructor injection with @RequiredArgsConstructor for a final SLF4J Logger field plus an explicit no-arg constructor that uses LoggerFactory.getLogger (Logger is not a Spring bean, so the app context needs it), methods returning CompletableFuture<Void>, guard clauses with IllegalArgumentException, JavaDoc comments.
 ```
 
 #### 🐍 Python Prompt
@@ -828,6 +724,8 @@ Copilot should generate `src-springboot/taskmanager-application/src/main/java/co
 ```java
 package com.example.taskmanager.application.services;
 
+import java.util.concurrent.CompletableFuture;
+
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -844,10 +742,18 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class NotificationServiceImpl implements NotificationService {
     
-    private static final Logger log = LoggerFactory.getLogger(NotificationServiceImpl.class);
+    private final Logger log;
+    
+    /**
+     * Used by Spring. Logger is not a Spring bean, so it cannot be constructor-injected by the container.
+     * Tests use the Logger constructor generated by Lombok to pass in a mock.
+     */
+    public NotificationServiceImpl() {
+        this(LoggerFactory.getLogger(NotificationServiceImpl.class));
+    }
     
     @Override
-    public void sendEmailNotification(String recipient, String subject, String message) {
+    public CompletableFuture<Void> sendEmailNotification(String recipient, String subject, String message) {
         validateParameter(recipient, "Recipient");
         validateParameter(subject, "Subject");
         validateParameter(message, "Message");
@@ -855,26 +761,26 @@ public class NotificationServiceImpl implements NotificationService {
         log.info("Sending email notification to {} with subject {}", recipient, subject);
         
         // Simulate email sending
-        simulateDelay(100);
         
         log.info("Email notification sent successfully to {}", recipient);
+        return CompletableFuture.completedFuture(null);
     }
     
     @Override
-    public void sendSmsNotification(String phoneNumber, String message) {
+    public CompletableFuture<Void> sendSmsNotification(String phoneNumber, String message) {
         validateParameter(phoneNumber, "Phone number");
         validateParameter(message, "Message");
         
         log.info("Sending SMS notification to {}", phoneNumber);
         
         // Simulate SMS sending
-        simulateDelay(100);
         
         log.info("SMS notification sent successfully to {}", phoneNumber);
+        return CompletableFuture.completedFuture(null);
     }
     
     @Override
-    public void sendNotification(String recipient, String phoneNumber, String subject, String message) {
+    public CompletableFuture<Void> sendNotification(String recipient, String phoneNumber, String subject, String message) {
         validateParameter(recipient, "Recipient");
         validateParameter(phoneNumber, "Phone number");
         validateParameter(subject, "Subject");
@@ -882,10 +788,10 @@ public class NotificationServiceImpl implements NotificationService {
         
         log.info("Sending combined notification to email {} and phone {}", recipient, phoneNumber);
         
-        sendEmailNotification(recipient, subject, message);
-        sendSmsNotification(phoneNumber, message);
-        
-        log.info("Combined notification sent successfully");
+        return CompletableFuture.allOf(
+            sendEmailNotification(recipient, subject, message),
+            sendSmsNotification(phoneNumber, message)
+        ).thenRun(() -> log.info("Combined notification sent successfully"));
     }
     
     /**
@@ -900,28 +806,16 @@ public class NotificationServiceImpl implements NotificationService {
             throw new IllegalArgumentException(parameterName + " cannot be null or empty");
         }
     }
-    
-    /**
-     * Simulate async operation delay.
-     */
-    private void simulateDelay(int milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException("Simulation interrupted", e);
-        }
-    }
 }
 ```
 
 **Key Spring Boot Patterns**:
 - `@Service` annotation registers in Spring IoC container
-- `@RequiredArgsConstructor` (Lombok) generates constructor
-- Static `Logger` instance (common Java pattern)
-- `IllegalArgumentException` for validation (Java standard)
+- `@RequiredArgsConstructor` (Lombok) generates the constructor for the `final Logger` field, so tests can inject a mock
+- `Logger` is **not** a Spring bean, so an explicit no-arg constructor supplies a real logger. Spring uses it because neither constructor is `@Autowired`
+- `IllegalArgumentException` for validation (Java standard), thrown eagerly before a future is returned
 - Helper method `validateParameter()` to reduce duplication
-- `Thread.sleep()` for simulation (not `async`/`await`)
+- `CompletableFuture.completedFuture(null)` stands in for a real asynchronous provider
 
 #### 🐍 Python Implementation
 
@@ -1014,10 +908,10 @@ Check that the implementation follows all conventions:
 
 - ✅ **`@Service` annotation** - Marks as Spring service component
 - ✅ **Interface implementation** - `implements NotificationService`
-- ✅ **Lombok annotations** - `@Slf4j` for logging, `@RequiredArgsConstructor` for DI
-- ✅ **Guard clauses** - All parameters validated at method start with `IllegalArgumentException`
+- ✅ **Lombok annotation** - `@RequiredArgsConstructor` generates the constructor for the `final Logger` field
+- ✅ **Logger wiring** - `Logger` is not an injectable Spring bean, so the class has an explicit no-arg constructor (used by Spring) that delegates to `LoggerFactory.getLogger(...)`
+- ✅ **Guard clauses** - All parameters validated at method start with `IllegalArgumentException`, thrown eagerly before any `CompletableFuture` is returned
 - ✅ **SLF4J structured logging** - Uses parameterized logging: `log.info("...", param1, param2)`
-- ✅ **No constructor needed** - Lombok generates it for `final` fields (if any dependencies added)
 - ✅ **Single responsibility** - Class only handles notifications
 - ✅ **Exception messages** - Clear, descriptive error messages
 
@@ -1436,8 +1330,9 @@ You've completed this lab successfully when:
 **Solution**:
 
 1. Ensure SLF4J dependency is included
-2. Use static logger: `private static final Logger log = LoggerFactory.getLogger(ClassName.class);`
-3. Or inject with constructor if using a logging facade
+2. Remember that `org.slf4j.Logger` is **not** a Spring bean. A `Logger` constructor parameter on a `@Service` fails with `No qualifying bean of type 'org.slf4j.Logger'`
+3. Add an explicit no-arg constructor that delegates to `LoggerFactory.getLogger(ClassName.class)`, as shown in Step 3.2
+4. Keep the `Logger` constructor for tests, which pass in a mock
 
 #### Maven Build Failing
 

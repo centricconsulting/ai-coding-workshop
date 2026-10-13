@@ -24,6 +24,20 @@ This lab brings together everything you've learned by focusing on the "glue" act
 
 These activities are often rushed or skipped, but Copilot makes them fast and consistent.
 
+> **⚠️ Golden rule for this lab**: Copilot will happily invent class names, test counts, coverage percentages and "no breaking changes" claims. Every fact in a test, doc, commit message or PR description must be checked against the real code, the real test run, and the real `git diff`.
+
+### Reference values used in this lab
+
+Keep these in mind when reviewing anything Copilot generates:
+
+| Item | Real value |
+|------|-----------|
+| Task statuses (`TaskStatus`) | `PENDING`, `IN_PROGRESS`, `COMPLETED`, `CANCELLED` |
+| Build tool | Maven (`mvn`) — there is no `mvnw` and no Gradle build |
+| Domain package | `com.example.taskmanager.domain.tasks` (`Task`, `TaskId`, `TaskStatus`, `TaskRepository`) |
+| Application package | `com.example.taskmanager.application.services` (`TaskService`) |
+| API DTO package | `com.example.taskmanager.api.dto` (`CreateTaskRequest`, `UpdateTaskRequest`, `TaskResponse` records) |
+
 ---
 
 ## Prerequisites
@@ -45,364 +59,143 @@ You have basic tests from TDD, but need comprehensive coverage including edge ca
 
 #### Step 1: Select Target Method
 
-Open `src-springboot/taskmanager-application/src/main/java/com/example/taskmanager/application/service/CreateTaskService.java` and select the `createTask` method.
+Open `src-springboot/taskmanager-application/src/main/java/com/example/taskmanager/application/services/TaskService.java` and select the `createTask(String title, String description)` method.
+
+`TaskService` is a single concrete class holding all task use cases. It already has a test class (`TaskServiceTest`), so `/tests` is asked to find what is *missing*, not to start from zero.
 
 #### Step 2: Use /tests Command
 
 With the method selected, open Copilot Chat (`Ctrl+Alt+I` / `Cmd+Shift+I`) and enter:
 
 ``` text
-/tests
-```
-
-Or use Inline Chat (`Ctrl+I` / `Cmd+I`):
-
-``` text
-/tests
+/tests Add missing edge cases for createTask(String, String): title trimming, title longer than 200 characters, null description. Use JUnit 5 and Mockito, follow the style of the existing TaskServiceTest. Do not duplicate existing tests.
 ```
 
 #### Step 3: Review Generated Tests
 
-Copilot should generate comprehensive tests covering:
+Copilot should generate tests like these (inside the existing `CreateTaskOperations` nested class of `TaskServiceTest`, which already declares the `@Mock TaskRepository taskRepository` and `@InjectMocks TaskService taskService`):
 
 ```java
-package com.example.taskmanager.application.service;
+@Test
+@DisplayName("should trim title before saving")
+void shouldTrimTitleBeforeSaving() {
+    // Arrange
+    when(taskRepository.save(any(Task.class)))
+        .thenAnswer(invocation -> invocation.getArgument(0));
 
-import com.example.taskmanager.application.dto.CreateTaskRequest;
-import com.example.taskmanager.domain.entity.Task;
-import com.example.taskmanager.domain.repository.TaskRepository;
-import com.example.taskmanager.domain.valueobject.Priority;
-import com.example.taskmanager.domain.valueobject.TaskStatus;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.slf4j.Logger;
+    // Act
+    Task result = taskService.createTask("  Write docs  ", "Lab 4");
 
-import java.time.LocalDateTime;
-import java.util.UUID;
+    // Assert
+    assertEquals("Write docs", result.getTitle());
+    assertEquals(TaskStatus.PENDING, result.getStatus());
+}
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+@Test
+@DisplayName("should allow a null description")
+void shouldAllowNullDescription() {
+    when(taskRepository.save(any(Task.class)))
+        .thenAnswer(invocation -> invocation.getArgument(0));
 
-@ExtendWith(MockitoExtension.class)
-class CreateTaskServiceTest {
+    Task result = taskService.createTask("Write docs", null);
 
-    @Mock
-    private TaskRepository taskRepository;
+    assertNull(result.getDescription());
+}
 
-    @Mock
-    private Logger logger;
+@Test
+@DisplayName("should reject a title longer than 200 characters")
+void shouldRejectTitleLongerThan200Characters() {
+    String tooLong = "x".repeat(201);
 
-    @InjectMocks
-    private CreateTaskService sut;
+    assertThrows(IllegalArgumentException.class,
+        () -> taskService.createTask(tooLong, null));
+    verify(taskRepository, never()).save(any(Task.class));
+}
 
-    private CreateTaskRequest validRequest;
-
-    @BeforeEach
-    void setUp() {
-        validRequest = CreateTaskRequest.builder()
-                .title("Test Task")
-                .description("Test Description")
-                .priority("HIGH")
-                .dueDate(LocalDateTime.now().plusDays(7))
-                .build();
-    }
-
-    @Test
-    void createTask_WithValidRequest_CreatesTask() {
-        // Arrange
-        Task expectedTask = Task.builder()
-                .id(UUID.randomUUID())
-                .title("Test Task")
-                .description("Test Description")
-                .priority(Priority.HIGH)
-                .status(TaskStatus.TODO)
-                .dueDate(validRequest.getDueDate())
-                .createdAt(LocalDateTime.now())
-                .build();
-
-        when(taskRepository.save(any(Task.class))).thenReturn(expectedTask);
-
-        // Act
-        Task result = sut.createTask(validRequest);
-
-        // Assert
-        assertThat(result).isNotNull();
-        assertThat(result.getTitle()).isEqualTo("Test Task");
-        assertThat(result.getPriority()).isEqualTo(Priority.HIGH);
-        assertThat(result.getStatus()).isEqualTo(TaskStatus.TODO);
-        verify(taskRepository, times(1)).save(any(Task.class));
-    }
-
-    @Test
-    void createTask_WithNullRequest_ThrowsIllegalArgumentException() {
-        // Act & Assert
-        assertThatThrownBy(() -> sut.createTask(null))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("request cannot be null");
-    }
-
-    @ParameterizedTest
-    @NullAndEmptySource
-    @ValueSource(strings = {"   ", "\t", "\n"})
-    void createTask_WithInvalidTitle_ThrowsIllegalArgumentException(String invalidTitle) {
-        // Arrange
-        validRequest.setTitle(invalidTitle);
-
-        // Act & Assert
-        assertThatThrownBy(() -> sut.createTask(validRequest))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("title");
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"INVALID", "SUPER_URGENT", "NONE", ""})
-    void createTask_WithInvalidPriority_ThrowsIllegalArgumentException(String invalidPriority) {
-        // Arrange
-        validRequest.setPriority(invalidPriority);
-
-        // Act & Assert
-        assertThatThrownBy(() -> sut.createTask(validRequest))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("priority");
-    }
-
-    @Test
-    void createTask_WithPastDueDate_ThrowsIllegalArgumentException() {
-        // Arrange
-        validRequest.setDueDate(LocalDateTime.now().minusDays(1));
-
-        // Act & Assert
-        assertThatThrownBy(() -> sut.createTask(validRequest))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("due date cannot be in the past");
-    }
-
-    @Test
-    void createTask_WithNullDueDate_CreatesTaskSuccessfully() {
-        // Arrange
-        validRequest.setDueDate(null);
-        Task expectedTask = Task.builder()
-                .id(UUID.randomUUID())
-                .title("Test Task")
-                .priority(Priority.HIGH)
-                .status(TaskStatus.TODO)
-                .dueDate(null)
-                .createdAt(LocalDateTime.now())
-                .build();
-
-        when(taskRepository.save(any(Task.class))).thenReturn(expectedTask);
-
-        // Act
-        Task result = sut.createTask(validRequest);
-
-        // Assert
-        assertThat(result).isNotNull();
-        assertThat(result.getDueDate()).isNull();
-    }
-
-    @Test
-    void createTask_LogsInformationMessages() {
-        // Arrange
-        when(taskRepository.save(any(Task.class))).thenReturn(any(Task.class));
-
-        // Act
-        sut.createTask(validRequest);
-
-        // Assert
-        verify(logger, atLeast(2)).info(anyString(), any());
-    }
-
-    @Test
-    void createTask_WhenRepositoryThrowsException_PropagatesException() {
-        // Arrange
-        when(taskRepository.save(any(Task.class)))
-                .thenThrow(new RuntimeException("Database error"));
-
-        // Act & Assert
-        assertThatThrownBy(() -> sut.createTask(validRequest))
-                .isInstanceOf(RuntimeException.class)
-                .hasMessageContaining("Database error");
-    }
-
-    @Test
-    void createTask_SetsCorrectDefaultStatus() {
-        // Arrange
-        Task capturedTask = Task.builder().build();
-        when(taskRepository.save(any(Task.class))).thenAnswer(invocation -> {
-            Task task = invocation.getArgument(0);
-            return task;
-        });
-
-        // Act
-        Task result = sut.createTask(validRequest);
-
-        // Assert
-        assertThat(result.getStatus()).isEqualTo(TaskStatus.TODO);
-    }
+@Test
+@DisplayName("should not touch the repository when the title is null")
+void shouldNotSaveWhenTitleIsNull() {
+    assertThrows(NullPointerException.class,
+        () -> taskService.createTask(null, "description"));
+    verify(taskRepository, never()).save(any(Task.class));
 }
 ```
+
+**What to check in anything Copilot generates here:**
+
+- ✅ **No builders or setters.** `Task` has a private constructor and is created with `Task.create(title)` / `Task.create(title, description)`. Its status is assigned by the aggregate (`PENDING` on creation) and changes only through `start()`, `complete()` and `cancel()`.
+- ✅ **Stubbing returns a real value.** `thenAnswer(invocation -> invocation.getArgument(0))` echoes the saved task. Never write `thenReturn(any(Task.class))` — a matcher is not a value, and Mockito throws `InvalidUseOfMatchersException` (often reported on a *different*, later stubbing).
+- ✅ **No unused variables** left over from generation.
+- ✅ **Status names exist.** Only `PENDING`, `IN_PROGRESS`, `COMPLETED`, `CANCELLED`.
+- ✅ **Imports resolve** to `com.example.taskmanager.domain.tasks.*` and `com.example.taskmanager.application.services.TaskService`.
+
+#### Optional: Let Coverage Pick the Target
+
+Instead of picking a method by hand, measure first, then write the tests the measurement justifies:
+
+```bash
+cd src-springboot
+mvn clean test jacoco:report
+```
+
+Open `taskmanager-<module>/target/site/jacoco/index.html` for each module, find a class with low coverage (for example in `taskmanager-infrastructure`), select it, and run `/tests` on it. Compare with `src-springboot/coverage-summary.txt`, which records an earlier snapshot — numbers go stale, so always re-measure.
 
 ### 1.2 Generate Integration Tests
 
-For REST API endpoints, generate integration tests:
+Open `src-springboot/taskmanager-api/src/test/java/com/example/taskmanager/api/TaskApiIntegrationTest.java` (it already uses `@SpringBootTest`, `@AutoConfigureMockMvc` and H2) and ask Copilot Chat:
 
 ``` text
-Create integration tests for the POST /api/tasks endpoint using @SpringBootTest and MockMvc. Test:
-- Valid request returns 201 Created
-- Invalid priority returns 400 Bad Request with ProblemDetail
-- Past due date returns 400 Bad Request
-- Missing required fields returns 400 Bad Request
-- Response body contains all expected fields
-Use JUnit 5, AssertJ, and realistic test data
+Add integration tests to TaskApiIntegrationTest for the POST /api/tasks validation rules: blank title returns 400, title over 200 characters returns 400, and a valid request returns 201 with status PENDING. Match the existing test style (MockMvc, ObjectMapper).
 ```
 
-**Expected Output** - `src-springboot/taskmanager-api/src/test/java/com/example/taskmanager/api/TaskControllerIntegrationTest.java`:
+**Expected shape** (build requests with the `CreateTaskRequest` record — records are immutable, so create a new request per case instead of mutating a shared fixture):
 
 ```java
-package com.example.taskmanager.api;
+@Test
+@DisplayName("POST /api/tasks creates a PENDING task")
+void shouldCreateTaskWithPendingStatus() throws Exception {
+    CreateTaskRequest request = CreateTaskRequest.of("Write docs", "Lab 4");
 
-import com.example.taskmanager.application.dto.CreateTaskRequest;
-import com.example.taskmanager.application.dto.TaskResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
+    mockMvc.perform(post("/api/tasks")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.title").value("Write docs"))
+        .andExpect(jsonPath("$.status").value("PENDING"));
+}
 
-import java.time.LocalDateTime;
+@Test
+@DisplayName("POST /api/tasks rejects a blank title")
+void shouldRejectBlankTitle() throws Exception {
+    CreateTaskRequest request = CreateTaskRequest.of("   ");
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+    mockMvc.perform(post("/api/tasks")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isBadRequest());
+}
 
-@SpringBootTest
-@AutoConfigureMockMvc
-class TaskControllerIntegrationTest {
+@Test
+@DisplayName("POST /api/tasks rejects a title over 200 characters")
+void shouldRejectTitleOver200Characters() throws Exception {
+    CreateTaskRequest request = CreateTaskRequest.of("x".repeat(201));
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @Test
-    void postTask_WithValidRequest_Returns201Created() throws Exception {
-        // Arrange
-        CreateTaskRequest request = CreateTaskRequest.builder()
-                .title("Integration Test Task")
-                .description("Testing POST endpoint")
-                .priority("HIGH")
-                .dueDate(LocalDateTime.now().plusDays(7))
-                .build();
-
-        // Act
-        MvcResult result = mockMvc.perform(post("/api/tasks")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.title").value("Integration Test Task"))
-                .andExpect(jsonPath("$.priority").value("HIGH"))
-                .andExpect(jsonPath("$.status").value("TODO"))
-                .andExpect(jsonPath("$.id").exists())
-                .andExpect(jsonPath("$.createdAt").exists())
-                .andReturn();
-
-        // Assert
-        String responseBody = result.getResponse().getContentAsString();
-        TaskResponse taskResponse = objectMapper.readValue(responseBody, TaskResponse.class);
-        assertThat(taskResponse).isNotNull();
-        assertThat(taskResponse.getTitle()).isEqualTo("Integration Test Task");
-        assertThat(taskResponse.getPriority()).isEqualTo("HIGH");
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"INVALID", "SUPER_URGENT", "NONE"})
-    void postTask_WithInvalidPriority_Returns400BadRequest(String invalidPriority) throws Exception {
-        // Arrange
-        CreateTaskRequest request = CreateTaskRequest.builder()
-                .title("Test Task")
-                .priority(invalidPriority)
-                .dueDate(LocalDateTime.now().plusDays(1))
-                .build();
-
-        // Act & Assert
-        mockMvc.perform(post("/api/tasks")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.type").exists())
-                .andExpect(jsonPath("$.title").value("Bad Request"))
-                .andExpect(jsonPath("$.status").value(400))
-                .andExpect(jsonPath("$.detail").value(org.hamcrest.Matchers.containsStringIgnoringCase("priority")));
-    }
-
-    @Test
-    void postTask_WithPastDueDate_Returns400BadRequest() throws Exception {
-        // Arrange
-        CreateTaskRequest request = CreateTaskRequest.builder()
-                .title("Test Task")
-                .priority("MEDIUM")
-                .dueDate(LocalDateTime.now().minusDays(7))
-                .build();
-
-        // Act & Assert
-        mockMvc.perform(post("/api/tasks")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.detail").value(org.hamcrest.Matchers.containsStringIgnoringCase("due date")));
-    }
-
-    @Test
-    void postTask_WithMissingTitle_Returns400BadRequest() throws Exception {
-        // Arrange
-        CreateTaskRequest request = CreateTaskRequest.builder()
-                .priority("LOW")
-                .dueDate(LocalDateTime.now().plusDays(1))
-                .build();
-
-        // Act & Assert
-        mockMvc.perform(post("/api/tasks")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.detail").value(org.hamcrest.Matchers.containsStringIgnoringCase("title")));
-    }
-
-    @Test
-    void postTask_WithEmptyBody_Returns400BadRequest() throws Exception {
-        // Act & Assert
-        mockMvc.perform(post("/api/tasks")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{}"))
-                .andExpect(status().isBadRequest());
-    }
+    mockMvc.perform(post("/api/tasks")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isBadRequest());
 }
 ```
 
+Review checklist: record accessors are `title()` / `status()` (not `getTitle()`); `TaskResponse.status` is a `String` such as `"PENDING"`; there are no builders or setters on the DTOs. The existing test class already contains some of these cases — delete any generated duplicates.
+
 ### 1.3 Run Complete Test Suite
 
-```bash
-./mvnw test
-```
-
-Or if using Gradle:
+The Spring Boot track is Maven-only and has no wrapper, so use plain `mvn` from `src-springboot/`:
 
 ```bash
-./gradlew test
+cd src-springboot
+mvn clean test
 ```
 
 Verify coverage includes:
@@ -412,7 +205,6 @@ Verify coverage includes:
 - ✅ Edge case tests (nulls, empty strings, boundaries)
 - ✅ Validation tests
 - ✅ Error handling tests
-- ✅ Logging verification tests
 - ✅ Integration tests
 
 ---
@@ -421,339 +213,114 @@ Verify coverage includes:
 
 ### Scenario: Document Your API
 
-Create comprehensive documentation for the Task Manager API.
+Create accurate documentation for the Task Manager API.
 
 ### 2.1 Add Javadoc to Classes
 
 #### Step 1: Select a Class
 
-Open `src-springboot/taskmanager-application/src/main/java/com/example/taskmanager/application/service/CreateTaskService.java` and select the class declaration.
+Open `src-springboot/taskmanager-application/src/main/java/com/example/taskmanager/application/services/TaskService.java` and select the `createTask(String title, String description)` method (or the class declaration).
 
 #### Step 2: Use /doc Command
 
-With the class selected, use Inline Chat (`Ctrl+I`):
+With the selection active, use Inline Chat (`Ctrl+I`):
 
 ``` text
 /doc
 ```
 
-**Expected Output**:
+**What good output looks like** — it explains behavior and failure modes, not just the signature:
 
 ```java
-package com.example.taskmanager.application.service;
-
-import com.example.taskmanager.application.dto.CreateTaskRequest;
-import com.example.taskmanager.domain.entity.Task;
-import com.example.taskmanager.domain.repository.TaskRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
 /**
- * Service for handling task creation in the task management system.
- * Validates input, creates task entities, and persists them to the repository.
- * 
- * <p>This service ensures all business rules are enforced including:
- * <ul>
- *   <li>Title validation (non-empty)</li>
- *   <li>Priority validation (must be valid enum value)</li>
- *   <li>Due date validation (must be in the future if provided)</li>
- *   <li>Default status assignment (TODO)</li>
- * </ul>
- * 
- * @author Task Manager Team
- * @version 1.0
- * @since 1.0
+ * Creates a new task in PENDING status and persists it.
+ *
+ * @param title the task title; trimmed, must not be blank or exceed 200 characters
+ * @param description optional task description, may be null
+ * @return the persisted task
+ * @throws NullPointerException if title is null
+ * @throws IllegalArgumentException if title is blank or too long
  */
-@Service
-public class CreateTaskService {
-
-    private static final Logger logger = LoggerFactory.getLogger(CreateTaskService.class);
-
-    private final TaskRepository taskRepository;
-
-    /**
-     * Constructs a new CreateTaskService with the specified repository.
-     *
-     * @param taskRepository the repository for persisting task entities
-     * @throws IllegalArgumentException if taskRepository is null
-     */
-    public CreateTaskService(TaskRepository taskRepository) {
-        if (taskRepository == null) {
-            throw new IllegalArgumentException("taskRepository cannot be null");
-        }
-        this.taskRepository = taskRepository;
-    }
-
-    /**
-     * Creates a new task based on the provided request.
-     * 
-     * <p>This method validates the request, constructs a task entity,
-     * persists it to the repository, and returns the created task.
-     *
-     * @param request the request containing task creation details
-     * @return the newly created task entity with generated ID and timestamps
-     * @throws IllegalArgumentException if request is null, contains invalid data
-     *         (empty title, invalid priority, or past due date)
-     * @throws RuntimeException if repository operation fails
-     */
-    public Task createTask(CreateTaskRequest request) {
-        if (request == null) {
-            logger.error("Attempted to create task with null request");
-            throw new IllegalArgumentException("request cannot be null");
-        }
-
-        logger.info("Creating task with title: {}", request.getTitle());
-
-        // Validate title
-        if (request.getTitle() == null || request.getTitle().trim().isEmpty()) {
-            logger.error("Task creation failed: invalid title");
-            throw new IllegalArgumentException("title cannot be null or empty");
-        }
-
-        // ... rest of implementation
-    }
-}
 ```
+
+The Javadoc in `TaskService` already covers most public methods. If Copilot only restates the signature, add business context to the prompt or skip the method — a comment that repeats the code is noise.
+
+Records have accessors, not getters: when documenting DTOs, refer to `request.title()` and `response.status()`.
 
 ### 2.2 Generate API Documentation (README)
 
-Ask Copilot Chat:
+`src-springboot/README.md` **already has** an "API Endpoints" section. Update it rather than adding a second one. Ask:
 
-```
-Create an API documentation section for #file:README.md that documents all the Task Manager API endpoints (POST, GET, GET by ID, PUT, DELETE). Include:
-- Endpoint URL
-- HTTP method
-- Request body examples
-- Response examples
-- Status codes
-- Error responses
-Format as Markdown
+```text
+@workspace Compare the API Endpoints section in src-springboot/README.md with TaskController, CreateTaskRequest, UpdateTaskRequest and TaskResponse. List anything that is missing or wrong, then propose corrections. Only document what exists in the code.
 ```
 
-**Expected Output** - Added to `README.md`:
+For reference, here is the real API that the README must match (verify against `TaskController`):
 
 ````markdown
-## API Documentation
-
-### Base URL
-
-`http://localhost:8080`
-
 ### Endpoints
 
-#### 1. Create Task
-Creates a new task with priority and optional due date.
+Base URL: `http://localhost:8080/api/tasks`
 
-**Endpoint**: `POST /api/tasks`
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/tasks` | Create a task (starts as `PENDING`) |
+| `GET` | `/api/tasks` | List all tasks (plain JSON array, no filtering or paging) |
+| `GET` | `/api/tasks/{id}` | Get a task by ID |
+| `PATCH` | `/api/tasks/{id}` | Partially update title and/or description |
+| `PUT` | `/api/tasks/{id}/start` | `PENDING` → `IN_PROGRESS` |
+| `PUT` | `/api/tasks/{id}/complete` | → `COMPLETED` |
+| `PUT` | `/api/tasks/{id}/cancel` | → `CANCELLED` |
+| `DELETE` | `/api/tasks/{id}` | Delete a task |
 
-**Request Body:**
+**Create a task**
+
+```bash
+curl -X POST http://localhost:8080/api/tasks \
+  -H "Content-Type: application/json" \
+  -d '{"title": "Write docs", "description": "Finish Lab 4"}'
+```
+
+Request fields: `title` (required, max 200 characters), `description` (optional, max 2000 characters).
+
+Response `201 Created`:
+
 ```json
 {
-    "title": "Complete project documentation",
-    "description": "Write comprehensive API documentation",
-    "priority": "HIGH",
-    "dueDate": "2025-10-30T17:00:00"
+  "id": "123e4567-e89b-12d3-a456-426614174000",
+  "title": "Write docs",
+  "description": "Finish Lab 4",
+  "status": "PENDING",
+  "createdAt": "2026-01-15T10:30:00",
+  "completedAt": null
 }
 ```
 
-**Success Response** (201 Created):
-```json
-{
-    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    "title": "Complete project documentation",
-    "description": "Write comprehensive API documentation",
-    "priority": "HIGH",
-    "status": "TODO",
-    "dueDate": "2025-10-30T17:00:00",
-    "createdAt": "2025-10-20T10:30:00"
-}
-```
+**Status values**: `PENDING`, `IN_PROGRESS`, `COMPLETED`, `CANCELLED`
 
-**Note**: The response uses `status` field (enum: TODO, IN_PROGRESS, DONE, CANCELLED).
-
-**Error Responses:**
-```json
-{
-    "type": "about:blank",
-    "title": "Bad Request",
-    "status": 400,
-    "detail": "Invalid priority: SUPER_URGENT",
-    "instance": "/api/tasks"
-}
-```
-Other possible errors:
-- `400 Bad Request` - Invalid priority or past due date
-- `500 Internal Server Error` - Server error
-
----
-
-#### 2. List All Tasks
-
-Retrieves all tasks, optionally filtered by completion status.
-
-**Endpoint**: `GET /api/tasks`
-
-**Query Parameters** (optional):
-- `completed` (boolean): Filter by completion status
-
-**Examples:**
-```
-GET /api/tasks
-GET /api/tasks?completed=true
-GET /api/tasks?completed=false
-```
-
-**Success Response** (200 OK):
-```json
-[
-  {
-    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    "title": "Complete project documentation",
-    "priority": "HIGH",
-    "status": "TODO",
-    "createdAt": "2025-10-20T10:30:00"
-  },
-  {
-    "id": "8bd42f99-1234-5678-abcd-ef0123456789",
-    "title": "Review pull requests",
-    "priority": "MEDIUM",
-    "status": "IN_PROGRESS",
-    "createdAt": "2025-10-20T11:15:00"
-  }
-]
-```
-
----
-
-#### 3. Get Task by ID
-
-Retrieves a specific task by its unique identifier.
-
-**Endpoint**: `GET /api/tasks/{id}`
-
-**Path Parameters**:
-
-- `id` (required): Task unique identifier (UUID)
-
-**Success Response** (200 OK):
+**Errors** use RFC 7807 Problem Details, for example `404 Not Found`:
 
 ```json
 {
-  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "title": "Complete project documentation",
-  "description": "Write comprehensive API documentation",
-  "priority": "HIGH",
-  "status": "TODO",
-  "dueDate": "2025-10-30T17:00:00",
-  "createdAt": "2025-10-20T10:30:00"
-}
-```
-
-**Error Responses**:
-
-- `404 Not Found` - Task with specified ID does not exist
-
----
-
-#### 4. Update Task
-
-Updates an existing task's properties.
-
-**Endpoint**: `PUT /api/tasks/{id}`
-
-**Request Body**:
-
-```json
-{
-  "title": "Updated task title",
-  "description": "Updated description",
-  "priority": "CRITICAL",
-  "status": "DONE",
-  "dueDate": "2025-11-01T17:00:00"
-}
-```
-
-**Success Response** (200 OK):
-
-```json
-{
-  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "title": "Updated task title",
-  "description": "Updated description",
-  "priority": "CRITICAL",
-  "status": "DONE",
-  "dueDate": "2025-11-01T17:00:00",
-  "createdAt": "2025-10-20T10:30:00"
-}
-```
-
-**Error Responses**:
-
-- `400 Bad Request` - Invalid data
-- `404 Not Found` - Task not found
-
----
-
-#### 5. Delete Task
-
-Permanently deletes a task.
-
-**Endpoint**: `DELETE /api/tasks/{id}`
-
-**Success Response** (204 No Content)
-
-**Error Responses**:
-
-- `404 Not Found` - Task not found
-
----
-
-### Priority Values
-
-Valid priority values for task creation and updates:
-
-- `LOW` (0)
-- `MEDIUM` (1)
-- `HIGH` (2)
-- `CRITICAL` (3)
-
-### Status Values
-
-Valid status values:
-
-- `TODO` - Task not started
-- `IN_PROGRESS` - Task currently being worked on
-- `DONE` - Task completed
-- `CANCELLED` - Task cancelled
-
-### Error Response Format
-
-All error responses follow [RFC 7807 Problem Details](https://datatracker.ietf.org/doc/html/rfc7807) format using Spring's ProblemDetail:
-
-```json
-{
-    "type": "about:blank",
-    "title": "Bad Request",
-    "status": 400,
-    "detail": "Invalid priority: SUPER_URGENT",
-    "instance": "/api/tasks"
+  "type": "https://api.taskmanager.example.com/problems/task-not-found",
+  "title": "Task Not Found",
+  "status": 404,
+  "detail": "Task not found with ID: 123e4567-e89b-12d3-a456-426614174000"
 }
 ```
 ````
 
+If Copilot documents query filters, a paged envelope, a `completed` flag, a `PUT` update, or status values like `TODO`/`DONE`, it is describing a different API. Correct it.
+
 ### 2.3 Generate Architecture Documentation (ADR)
 
-Ask Copilot:
+[ADR 0001 – Use Clean Architecture](../adr/0001-use-clean-architecture.md) already exists. **Do not recreate or overwrite it.** Check `docs/adr/` for the next free number (currently `0002`) and document a decision you actually made during the labs. A good candidate: *`TaskService` is a concrete class rather than an interface-per-use-case*. Ask Copilot:
 
 ```text
-Create an Architecture Decision Record (ADR) in docs/adr/0001-use-clean-architecture.md documenting why we chose Clean Architecture for this Task Manager application. Include:
-- Context
-- Decision
-- Consequences (positive and negative)
-- Alternatives considered
-Follow the ADR template format
+Create an Architecture Decision Record at docs/adr/0002-<short-decision-title>.md, following the format of docs/adr/0001-use-clean-architecture.md. The decision: TaskService is a single concrete application service (no interface, no CQRS, no mediator library). Base the context on src-springboot/taskmanager-application/.../services/TaskService.java and .github/instructions/springboot.instructions.md. Include Context, Decision, Consequences (positive and negative) and Alternatives considered. Do not invent facts that are not in the code.
 ```
+
+Any decision from your own work is fine — the point is a fresh decision with real trade-offs.
 
 ---
 
@@ -761,104 +328,72 @@ Follow the ADR template format
 
 ### Scenario: Commit Your Changes
 
-You've made significant changes across multiple files. Write meaningful commit messages following Conventional Commits format.
+You've made changes across several files. Write meaningful commit messages following the Conventional Commits format.
 
 ### 3.1 Stage Changes
 
+First see what you actually changed, then stage those real paths:
+
 ```bash
-git add src-springboot/taskmanager-api/src/main/java/com/example/taskmanager/api/
-git add src-springboot/taskmanager-application/src/main/java/com/example/taskmanager/application/query/
-git add src-springboot/taskmanager-api/src/test/java/com/example/taskmanager/api/
+git status
+git diff --stat
 ```
+
+For example, if you completed Parts 1 and 2:
+
+```bash
+git add src-springboot/taskmanager-application/src/test/java/com/example/taskmanager/application/services/TaskServiceTest.java
+git add src-springboot/taskmanager-api/src/test/java/com/example/taskmanager/api/TaskApiIntegrationTest.java
+git add src-springboot/README.md docs/adr/
+```
+
+`git add` on a path that does not exist fails with `pathspec ... did not match any files` — if you see that, you are staging something you did not create.
 
 ### 3.2 Generate Commit Message
 
 In Copilot Chat:
 
 ```text
-Write a Conventional Commit message for the staged changes. Include a concise subject line (<=72 chars) and a detailed body explaining what was added.
+Write a Conventional Commit message for the staged changes. Use only what appears in `git diff --staged`. Include a concise subject line (<=72 chars) and a short body explaining what was added and why.
 ```
 
-**Expected Output**:
+**Example of a faithful result** (yours will differ — it must describe *your* diff):
 
 ```text
-feat(api): add GET endpoints for task retrieval
+test(application): cover createTask edge cases
 
-- Add GET /api/tasks endpoint with optional completed filter
-- Add GET /api/tasks/{id} endpoint for single task retrieval
-- Implement GetTasksQuery and GetTaskByIdQuery handlers
-- Add integration tests using @SpringBootTest and MockMvc
-- Update endpoint documentation in README
+- Add tests for title trimming, null description and 200-character limit
+- Add POST /api/tasks validation tests to TaskApiIntegrationTest
+- Align README API section with TaskController
 
-These endpoints complete the CRUD API for task management,
-allowing clients to retrieve tasks individually or as a list
-with optional filtering by completion status.
+The existing tests only covered the happy path and null/blank titles.
 ```
+
+**Verify before committing**: every bullet maps to a file in the diff. Do not accept class names, handlers, test counts or metrics (such as "reduces complexity from 15 to 4") that Copilot cannot point to in the diff — inventing them is the failure mode this step is meant to teach you to catch.
 
 ### 3.3 Commit with Generated Message
 
 ```bash
-git commit -m "feat(api): add GET endpoints for task retrieval
-
-- Add GET /api/tasks endpoint with optional completed filter
-- Add GET /api/tasks/{id} endpoint for single task retrieval
-- Implement GetTasksQuery and GetTaskByIdQuery handlers
-- Add integration tests using @SpringBootTest and MockMvc
-- Update endpoint documentation in README
-
-These endpoints complete the CRUD API for task management,
-allowing clients to retrieve tasks individually or as a list
-with optional filtering by completion status."
+git commit -m "test(application): cover createTask edge cases" \
+  -m "Add tests for title trimming, null description and the 200-character limit. Add POST /api/tasks validation tests. Align the README API section with TaskController."
 ```
 
 ### 3.4 Practice: Stage More Changes
 
-Stage the refactored legacy code:
+If you refactored `LegacyTaskProcessor` in Lab 3, stage it and its tests (use `git status` to find the real test path):
 
 ```bash
 git add src-springboot/taskmanager-infrastructure/src/main/java/com/example/taskmanager/infrastructure/legacy/LegacyTaskProcessor.java
-git add src-springboot/taskmanager-infrastructure/src/test/java/com/example/taskmanager/infrastructure/legacy/
+git status
 ```
 
 Ask Copilot:
 
 ```text
-Write a Conventional Commit message for refactoring LegacyTaskProcessor. Include details about what was improved (extracted methods, guard clauses, logging, removed nested loops).
+Write a Conventional Commit message for the staged LegacyTaskProcessor refactoring. Describe only the changes visible in `git diff --staged`.
 ```
 
-**Expected Output**:
-
-```text
-refactor(legacy): modernize LegacyTaskProcessor with clean code principles
-
-- Extract processTask and validateTask methods for single responsibility
-- Replace nested if statements with guard clauses
-- Add structured logging with SLF4J throughout
-- Remove nested for loops and replace with Stream API
-- Improve error handling with specific exception types
-- Add comprehensive unit tests with Mockito
-
-Reduces cyclomatic complexity from 15 to 4 per method.
-Follows Object Calisthenics: one level of indentation per method.
-```
-
-Commit:
-
-```bash
-git commit -F- <<'EOF'
-refactor(legacy): modernize LegacyTaskProcessor with clean code principles
-
-- Extract processTask and validateTask methods for single responsibility
-- Replace nested if statements with guard clauses
-- Add structured logging with SLF4J throughout
-- Remove nested for loops and replace with Stream API
-- Improve error handling with specific exception types
-- Add comprehensive unit tests with Mockito
-
-Reduces cyclomatic complexity from 15 to 4 per method.
-Follows Object Calisthenics: one level of indentation per method.
-EOF
-```
+Check the result against the diff: if the message says "Stream API" but the code uses a `StringBuilder` loop, or quotes complexity figures nobody measured, fix the message. If your change alters behavior, mark it with `!` and a `BREAKING CHANGE:` footer.
 
 ---
 
@@ -866,155 +401,69 @@ EOF
 
 ### Scenario: Prepare for Code Review
 
-You've completed the workshop implementation. Create a comprehensive PR description for review.
+You've completed your changes. Create an honest PR description for review.
 
 ### 4.1 Generate PR Description with @workspace
 
 In Copilot Chat:
 
 ```text
-@workspace Draft a Pull Request description for all the changes made in this branch. Include:
+@workspace Draft a Pull Request description for the changes on this branch compared with main. Base it on `git diff main...HEAD` only. Include:
 - Summary of changes
 - What was implemented (features, refactoring, tests)
 - Intent and motivation
-- Testing performed
-- Breaking changes (if any)
+- Testing performed (list the exact commands and their results)
+- Breaking changes (list them, or state how you verified there are none)
 - Checklist for reviewers
-Use Markdown formatting
+Do not state test counts, coverage percentages or performance figures unless they come from a command output I provide. Use Markdown formatting.
 ```
 
-**Expected Output**:
+**Example of an honest result** (fill in the numbers from your own run):
 
 ````markdown
-# Task Manager API - Complete Implementation (Spring Boot)
+# Add createTask edge-case tests and align README (Spring Boot)
 
 ## Summary
-This PR implements a complete CRUD API for task management following Clean Architecture and DDD patterns, with comprehensive test coverage and documentation.
+Adds unit and integration tests for task creation validation and corrects the
+API section of `src-springboot/README.md` to match `TaskController`.
 
 ## Changes
-
-### Features Implemented
-- ✅ **Create Task** (`POST /api/tasks`) - Create tasks with priority and due date
-- ✅ **List Tasks** (`GET /api/tasks`) - Retrieve all tasks with optional completion filter
-- ✅ **Get Task by ID** (`GET /api/tasks/{id}`) - Retrieve single task
-- ✅ **Update Task** (`PUT /api/tasks/{id}`) - Update task properties
-- ✅ **Delete Task** (`DELETE /api/tasks/{id}`) - Remove task
-
-### Architecture & Design
-- Implemented Clean Architecture layers (Domain, Application, Infrastructure, API)
-- Applied DDD patterns: Aggregates, Value Objects, Factory Methods
-- CQRS pattern for commands and queries
-- Dependency injection with Spring Framework
-- Proper error handling with Spring's ProblemDetail (RFC 7807)
-
-### Code Quality Improvements
-- Refactored `LegacyTaskProcessor` to modern standards:
-  - Extracted methods for single responsibility
-  - Guard clauses (no nested ifs)
-  - Structured logging with SLF4J
-  - Stream API instead of nested loops
-  - Reduced cyclomatic complexity from 15 to 4
-- Applied Object Calisthenics principles:
-  - One level of indentation per method
-  - No else keyword
-  - Wrapped primitives in value objects
-  - Descriptive naming (no abbreviations)
-
-### Testing
-- **Unit Tests**: 45+ tests covering all services, commands, queries, and domain logic
-- **Integration Tests**: 12+ tests for all REST endpoints
-- Test framework: JUnit 5 with Mockito for mocking
-- Test organization: Feature-based with clear naming conventions
-- Assertions: AssertJ for fluent assertions
-- Coverage: ~92% code coverage (excluding infrastructure)
-
-### Documentation
-- Javadoc for all public APIs
-- Comprehensive README with:
-  - API endpoint documentation
-  - Request/response examples
-  - Error response formats
-- Architecture Decision Records (ADRs) for key decisions
-- Inline comments for complex business logic
-
-## Intent & Motivation
-This implementation serves as a reference for:
-- AI-assisted development workflow with GitHub Copilot
-- Clean Architecture in Spring Boot 3
-- TDD practices (Red-Green-Refactor)
-- DDD patterns in practice
-- Modern Java conventions and best practices
+- `TaskServiceTest`: trimming, null description, 200-character title limit
+- `TaskApiIntegrationTest`: POST /api/tasks validation cases
+- `README.md`: endpoint table and examples now match the code
+- `docs/adr/0002-...`: records the "concrete TaskService" decision
 
 ## Testing Performed
-
-### Automated Tests
 ```bash
-./mvnw clean test    # ✅ Success, 0 failures
-./mvnw verify        # ✅ All integration tests passed
+cd src-springboot
+mvn clean test
 ```
+Result: <paste BUILD SUCCESS/FAILURE and the "Tests run" total from your output>
 
-### Manual API Testing
-All endpoints tested with curl:
-- ✅ Valid requests return correct responses
-- ✅ Invalid data returns 400 Bad Request with ProblemDetail
-- ✅ Not found scenarios return 404
-- ✅ Server errors return 500 with ProblemDetail
-
-### Performance
-- Average response time: <50ms for CRUD operations
-- No memory leaks detected in load testing
-- Database connection pooling configured appropriately
+Coverage: <paste figures from `mvn test jacoco:report`, or write "not measured">
 
 ## Breaking Changes
-⚠️ **None** - This is initial implementation
+None to production code — this PR only adds tests and documentation.
+(If you changed an API contract, list each change here.)
 
-## Migration Required
-None - Uses in-memory H2 database for workshop purposes
+## Known Gaps
+- No load or performance testing was done.
 
 ## Reviewer Checklist
-Please verify:
-- [ ] All tests pass (`./mvnw test`)
-- [ ] Build succeeds with no warnings (`./mvnw clean package`)
-- [ ] Code follows Spring Boot conventions (automatically loaded from `.github/instructions/`)
-- [ ] Clean Architecture dependencies respected (no circular references)
-- [ ] Domain logic stays in Domain layer (no business logic in API/Infrastructure)
-- [ ] All public APIs have Javadoc
-- [ ] Error handling uses proper status codes and ProblemDetail
-- [ ] Structured logging with SLF4J (no System.out.println)
-- [ ] Guard clauses for parameter validation
-- [ ] Tests organized by feature with clear naming
-- [ ] No Spring annotations in Domain layer
-
-## Related Issues
-Closes #1 - Implement Task Manager CRUD API  
-Closes #2 - Refactor legacy code  
-Closes #3 - Add comprehensive test coverage  
-
-## Screenshots
-N/A - API only, no UI
-
-## Deployment Notes
-- Requires Java 21 or higher
-- Uses H2 in-memory database (no external database required)
-- Default port: 8080
-- Spring profiles: `dev`, `test`, `prod`
-
-## Next Steps (Future Work)
-- [ ] Add database persistence (PostgreSQL or MySQL)
-- [ ] Implement Spring Security for authentication/authorization
-- [ ] Add pagination and advanced filtering with Spring Data JPA Specifications
-- [ ] Implement task notification service with Spring Events
-- [ ] Add distributed tracing with Micrometer and Zipkin
-- [ ] Generate OpenAPI/Swagger documentation with SpringDoc
+- [ ] README endpoints match `TaskController`
+- [ ] New tests fail when the behavior they cover is broken
+- [ ] ADR reflects a decision actually made in the code
 ````
+
+> **⚠️ Verify every claim.** An assistant will confidently write "45+ tests", "92% coverage", "no memory leaks detected" or "Breaking Changes: None" with nothing behind it. Before posting, check each factual statement against command output and the diff. "Breaking Changes: None" is only acceptable if you checked that no API contract, database schema or public behavior changed.
 
 ### 4.2 Review and Refine
 
 Review the generated PR description and adjust:
 
+- Replace placeholders with real command output (test totals, coverage)
 - Add specific issue numbers
-- Include actual test counts
-- Add screenshots if you created a UI
+- Delete anything you cannot verify
 - Highlight any specific areas needing review
 
 ---
@@ -1023,33 +472,32 @@ Review the generated PR description and adjust:
 
 ### ✅ Testing Best Practices
 
-1. **/tests Command**: Generates comprehensive test suites instantly
-2. **Test Coverage**: Happy path, edge cases, error conditions
+1. **/tests Command**: Generates test suites quickly — but you must verify they compile against the real API
+2. **Measure, Then Test**: JaCoCo shows where real gaps are
 3. **Test Organization**: Clear package structure, descriptive test names
 4. **Integration Tests**: @SpringBootTest with MockMvc for full API testing
-5. **AssertJ**: Fluent assertions for readable tests
-6. **Mockito**: Clean mocking with @Mock and @InjectMocks
+5. **Mockito**: Stub with real values (`thenAnswer`), never matchers as return values
 
 ### ✅ Documentation Efficiency
 
 1. **/doc Command**: Javadoc generated from code context
-2. **API Docs**: Clear examples with request/response formats
-3. **Architecture Docs**: ADRs document important decisions
-4. **Consistency**: AI ensures consistent documentation style
+2. **API Docs**: Update the existing README section and check it against the controller
+3. **Architecture Docs**: ADRs document decisions you really made, at the next free number
+4. **Consistency**: Use one status list everywhere: `PENDING`, `IN_PROGRESS`, `COMPLETED`, `CANCELLED`
 
 ### ✅ Version Control Quality
 
 1. **Conventional Commits**: Structured, parsable commit messages
 2. **Semantic Commits**: Type, scope, description format
-3. **Detailed Bodies**: Explain what, why, and how
+3. **Faithful Bodies**: Describe only what is in the diff
 4. **Changelog Ready**: Commits can generate CHANGELOG.md automatically
 
 ### ✅ Code Review Preparation
 
-1. **@workspace Context**: Full codebase understanding for PR description
-2. **Comprehensive PRs**: All changes documented and explained
+1. **@workspace Context**: Full codebase understanding for the PR description
+2. **Honest PRs**: Real command output, no invented metrics
 3. **Reviewer Checklist**: Clear acceptance criteria
-4. **Impact Analysis**: Breaking changes, migrations, deployment notes
+4. **Impact Analysis**: Breaking changes stated only after verification
 
 ---
 
@@ -1081,7 +529,7 @@ Create a CONTRIBUTING.md file that explains:
 Generate documentation for consuming the API:
 
 ```text
-Create a quick start guide in docs/guides/api-quickstart.md for developers consuming our Task Manager API. Include authentication (if applicable), endpoint examples with Java RestTemplate or WebClient, and common error handling patterns.
+Create a quick start guide in docs/guides/api-quickstart.md for developers consuming our Task Manager API. Include endpoint examples with Java RestTemplate or WebClient, and common error handling patterns. Only document endpoints that exist in TaskController.
 ```
 
 ---
@@ -1090,12 +538,12 @@ Create a quick start guide in docs/guides/api-quickstart.md for developers consu
 
 You've completed this lab successfully when:
 
-- ✅ Comprehensive test suite generated with `/tests` (unit + integration)
-- ✅ All public APIs have Javadoc via `/doc`
-- ✅ API documentation in README.md with examples
-- ✅ Conventional Commit messages written for all changes
-- ✅ Complete PR description drafted with `@workspace`
-- ✅ All tests passing
+- ✅ New tests generated with `/tests` compile and pass (unit + integration)
+- ✅ Public APIs you touched have meaningful Javadoc via `/doc`
+- ✅ README API section matches `TaskController`
+- ✅ Conventional Commit messages describe only real changes
+- ✅ PR description drafted with `@workspace` and every claim verified
+- ✅ `mvn clean test` passes
 - ✅ Documentation is clear and maintainable
 - ✅ Ready for code review
 
@@ -1130,7 +578,7 @@ Congratulations! You've completed all four labs (Java version). You now know how
 - Generate comprehensive test coverage
 - Create clear documentation
 - Write meaningful commit messages
-- Prepare thorough PR descriptions
+- Prepare thorough, verified PR descriptions
 
 ---
 
@@ -1141,15 +589,20 @@ Congratulations! You've completed all four labs (Java version). You now know how
 **Problem**: Tests don't cover all edge cases  
 **Solution**: Be explicit: "/tests including edge cases, validation errors, and null handling"
 
+### /tests Generates Code That Does Not Compile
+
+**Problem**: Generated tests use builders, setters, `getTitle()` on records, or status values such as `TODO`/`DONE`  
+**Solution**: Point Copilot at the real types (`Task.create(...)`, `CreateTaskRequest.of(...)`, record accessors like `title()`) and the real `TaskStatus` values
+
 ### /doc Generates Generic Comments
 
 **Problem**: Javadoc comments don't add value beyond method signature  
 **Solution**: Select more context (class + method), provide business context in prompt
 
-### Commit Message Too Generic
+### Commit Message Too Generic or Invented
 
-**Problem**: Copilot generates "Update files" type messages  
-**Solution**: Stage related changes only, provide context: "Write commit for adding GET endpoints"
+**Problem**: Copilot generates "Update files" messages, or describes classes and metrics that are not in the diff  
+**Solution**: Stage related changes only and tell Copilot to use `git diff --staged` as the only source
 
 ### PR Description Missing Details
 
@@ -1159,7 +612,7 @@ Congratulations! You've completed all four labs (Java version). You now know how
 ### Integration Tests Fail to Start Spring Context
 
 **Problem**: @SpringBootTest tests fail with bean creation errors  
-**Solution**: Ensure test configuration matches main configuration, check application-test.properties
+**Solution**: Ensure test configuration matches main configuration, check `application-test.yml`
 
 ---
 

@@ -104,7 +104,7 @@ backgroundColor: #fff
 # Next Steps: Part 2
 
 **Advanced GitHub Copilot (Part 2):**
-- Interaction models (Ask, Plan, Agent)
+- Agent modes (Interactive, Plan, Autopilot)
 - Skills & Customization Hierarchy
 - Custom Copilot Agents
 - Agent design and handoffs

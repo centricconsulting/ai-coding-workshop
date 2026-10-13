@@ -10,40 +10,53 @@ backgroundColor: #fff
 # Module 1
 
 ## Copilot Interaction Models
-### Ask, Plan, Agent
+### Interactive, Plan, Autopilot
 
 **Duration:** 25 minutes
 
 ---
 
-# Three Ways to Interact with Copilot
+# Three Agent Modes
 
-## Ask Mode
-**Purpose:** Learning, exploration, explanation  
-**Result:** Answers, guidance (no changes)
+Select from the **Agent mode** picker below the chat box.
 
-## Plan Mode
-**Purpose:** Design approach + gather requirements before code generation  
+## Interactive
+**Purpose:** Step-by-step collaboration  
+**Result:** Answers and changes, with you steering each step
+
+## Plan
+**Purpose:** Plan first, execute when ready  
 **Result:** Structured plan awaiting your approval
 
-## Agent Mode
-**Purpose:** Multi-step, repository-level workflows  
-**Result:** Planned changes with human checkpoints
+## Autopilot
+**Purpose:** Works autonomously within permissions  
+**Result:** Completed work for you to review afterward
 
 ---
 
-# Ask Mode: When to Use
+# Three Separate Controls
+
+| Control | Answers the question | Examples |
+|---------|----------------------|----------|
+| **Agent mode** | *How* does Copilot work? | Interactive, Plan, Autopilot |
+| **Permissions** | *What* may it do without asking? | Manual (default) and others |
+| **Agent picker** | *Who* is doing the work? | Custom agents such as `plan`, `architecture-reviewer` |
+
+> The old Ask / Edit / Agent split is gone. A question is simply a prompt in Interactive mode.
+
+---
+
+# Interactive Mode: When to Use
 
 ✅ **Use when:**
-- Understanding code or concepts
-- Exploring options
-- Learning patterns
-- Getting explanations
+- Asking questions and exploring code
+- Learning patterns and getting explanations
+- Small or focused changes
+- You want to approve each step
 
 ❌ **Don't use when:**
-- You need actual code changes
-- Implementing features
-- Refactoring across files
+- A large task needs little supervision
+- You already have an approved plan to execute
 
 ---
 
@@ -61,45 +74,45 @@ backgroundColor: #fff
 
 ---
 
-# Agent Mode: When to Use
+# Autopilot Mode: Discussion
 
-✅ **Use when:**
-- Multi-file workflows
-- Repository-level analysis
-- Complex refactoring
-- Need plan-execute-review cycle
+*We will discuss Autopilot, but we won't use it in the labs.*
+
+✅ **Fits when:**
+- The task is well defined, ideally from an approved plan
+- Work is repeatable and easy to verify (tests, builds)
+- Work is on a branch you can review and revert
 
 ❌ **Don't use when:**
-- Simple, quick edits
-- Single file changes
-- Learning or exploring
+- Requirements are unclear
+- Changes are risky or hard to undo
+- You are still learning the codebase
 
-**Key:** Agent Mode = Human-in-the-loop by design
+**Key:** Autopilot acts *within permissions*. Review the result like a pull request.
 
 ---
 
-# Demo: Same Task, Three Ways
+# Demo: Same Task, Two Ways
 
 **Task:** Add Priority property to Task entity
 
-1. **Ask** → Explanation only
-2. **Plan** → Requirement gathering + multi-step design
-3. **Agent** → Repository-wide analysis and execution
+1. **Interactive** → Ask, then approve each step
+2. **Plan** → Requirement gathering + multi-step design, then implement the plan step by step
 
 **Observe the differences in:**
-- Scope
+- Autonomy
 - Control
 - Visibility
-- Workflow
+- Review effort
 
 ---
 
 # Key Takeaway
 
-> Agent Mode is not "better chat"  
-> It's a **different execution model**
+> Autonomy is a dial, not a switch  
+> Choose the **least autonomy** that fits the job
 
-Use the **right mode** for the **right job**
+Plan first, then hand off to Autopilot with **permissions** you are comfortable with
 
 ---
 

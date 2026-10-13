@@ -206,8 +206,8 @@ Provide your [review/analysis/report] in this structured format:
 
 ### Test Procedure
 
-1. **Open Copilot Chat** in Agent Mode
-2. **Select your custom agent** from the dropdown
+1. **Open Copilot Chat** in Interactive mode
+2. **Select your custom agent** from the Agent picker
 3. **Run each test scenario** you defined in Step 2
 4. **Record the results:**
    - Did the agent follow the output format?
@@ -722,7 +722,7 @@ Congratulations! You've completed the Advanced GitHub Copilot workshop.
 
 ### What You've Learned
 
-- ✅ Ask, Plan, and Agent interaction models
+- ✅ Interactive and Plan agent modes
 - ✅ When and how to use custom agents
 - ✅ How to design reliable, role-based agents
 - ✅ Iteration and governance for agent maintenance

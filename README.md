@@ -12,7 +12,7 @@ Transform the way you build software with AI-powered development! This comprehen
 Learn AI assistance across the entire development lifecycle, from requirements gathering to code generation, testing, and documentation. Using your choice of **.NET 9**, **Spring Boot 3.x**, **Angular**, **JavaScript**, **Python**, **Kotlin**, or **Swift**, alongside **Visual Studio Code** and **GitHub Copilot**, you'll experience firsthand how AI can amplify developer productivity while following industry best practices such as **Clean Architecture**, **Domain‑Driven Design**, and **Test‑Driven Development**.
 
 ### Part 2: Advanced GitHub Copilot (3 hours)
-Master advanced Copilot features including **interaction models** (Ask/Plan/Agent), **the Skills system**, **custom agents**, and **workflow automation**. Learn the complete customization hierarchy (Prompts → Instructions → Skills → Agents), discover capabilities with slash commands, and design production-ready agents that encode team knowledge and standardize AI-assisted development workflows.
+Master advanced Copilot features including **agent modes** (Interactive/Plan/Autopilot), **the Skills system**, **custom agents**, and **workflow automation**. Learn the complete customization hierarchy (Prompts → Instructions → Skills → Agents), discover capabilities with slash commands, and design production-ready agents that encode team knowledge and standardize AI-assisted development workflows.
 
 **Full workshop duration:** 6 hours (can be delivered as separate sessions or combined)
 
@@ -252,7 +252,7 @@ By the end of Part 1, participants will be able to:
 
 By the end of Part 2, participants will be able to:
 
-- **Understand and use** Ask, Plan, and Agent interaction models appropriately
+- **Understand and use** Interactive, Plan, and Autopilot agent modes appropriately
 - **Navigate the customization hierarchy**: Prompts, Instructions, Skills, and Agents
 - **Discover capabilities** using slash commands (/agents, /skills, /help, etc.)
 - **Leverage Skills** for domain knowledge and template generation without tool access
@@ -301,7 +301,7 @@ See [Part 2 Facilitator's Guide](docs/FACILITATOR_GUIDE_PART2.md) for detailed s
 - Part 1 recap and Part 2 introduction
 
 #### 1. Copilot Interaction Models (25 min)
-- Ask, Plan, and Agent modes
+- Interactive, Plan, and Autopilot modes
 - Slash commands for discovery: `/help`, `/agents`, `/skills`
 - **Lab 5:** Compare interaction models with hands-on exercises
 
@@ -400,7 +400,7 @@ See [Part 2 Facilitator's Guide](docs/FACILITATOR_GUIDE_PART2.md) for detailed s
 
 > **Note**: Labs 5-10 are mostly **stack-agnostic** - they focus on agent concepts, workflows, and customization patterns that apply across all technology stacks.
 
-- **[Lab 05: Interaction Models](docs/labs/lab-05-interaction-models.md)** (25 min) - Compare Ask, Plan, and Agent modes with slash command discovery
+- **[Lab 05: Interaction Models](docs/labs/lab-05-interaction-models.md)** (25 min) - Compare Interactive and Plan modes (Autopilot discussed) with slash command discovery
 - **[Lab 06: Skills & Customization Hierarchy](docs/labs/lab-06-skills-and-customization.md)** (25-30 min) - Understand customization types and explore Skills
 - **[Lab 07: Custom Agents Intro](docs/labs/lab-07-custom-agents-intro.md)** (30 min) - Explore pre-built custom agents
 - **[Lab 08: Workflow Agents](docs/labs/lab-08-workflow-agents.md)** (30 min) - Apply agents to real workflows
@@ -636,7 +636,7 @@ Contains:
 To get the most out of Copilot, Skills, and AI agents in this workshop:
 
 - **Discover capabilities first**: Use `/help`, `/agents`, and `/skills` slash commands to explore what's available
-- **Always ask for a plan first**: Use Copilot or Agent Mode to propose a step-by-step plan before making large or multi-file changes
+- **Always ask for a plan first**: Use Plan mode to propose a step-by-step plan before making large or multi-file changes
 - **Use Skills for knowledge**: Invoke skills like `#test-data-generator` for domain expertise and templates without needing file access
 - **Use Agents for workflows**: Select custom agents like `@plan`, `@architect`, or `@architecture-reviewer` for multi-step tasks requiring tool access
 - **Use the Check agent for code review**: Select the **Check** Copilot agent from the agents dropdown in Copilot Chat to get improvement suggestions before submitting a PR

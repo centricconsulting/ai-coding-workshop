@@ -366,7 +366,7 @@ graph TB
 2. `#test-data-generator` creates test fixtures
 3. `@plan` creates implementation plan
 4. Prompts clarify acceptance criteria
-5. Edit mode implements with standards applied
+5. Interactive mode implements with standards applied
 6. `@architecture-reviewer` validates approach
 
 ---

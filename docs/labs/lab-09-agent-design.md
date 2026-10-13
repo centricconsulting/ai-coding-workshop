@@ -366,7 +366,7 @@ handoffs:
 ```
 
 **Usage Flow:**
-1. User selects the `planner` agent from the Agent Mode dropdown: "Plan a user authentication feature"
+1. User selects the `planner` agent from the Agent picker: "Plan a user authentication feature"
 2. Planner provides plan
 3. User clicks "Start Implementation" → hands off to the `implementer` agent
 4. Implementer generates code
@@ -386,7 +386,7 @@ handoffs:
 ```
 
 **Usage Flow:**
-1. User selects the `test-first` agent from the Agent Mode dropdown: "Create tests for order validation"
+1. User selects the `test-first` agent from the Agent picker: "Create tests for order validation"
 2. Agent generates failing tests (easier to review than big implementations)
 3. User reviews tests, clicks "Implement to Pass Tests"
 4. Implementer writes code to satisfy tests
@@ -524,8 +524,8 @@ The **Test Strategist** agent sometimes provides too many tests, including low-v
 
 ### Part A: Baseline Behavior
 
-1. Open Copilot Chat in Agent Mode
-2. Select **Test Strategist**
+1. Open Copilot Chat in Interactive mode
+2. Select **Test Strategist** from the Agent picker
 3. Prompt: `Propose test scenarios for a simple getter method that returns a task's title`
 
 **Observe:** Does it over-test? Does it recommend unnecessary tests?
@@ -549,7 +549,7 @@ The **Test Strategist** agent sometimes provides too many tests, including low-v
 
 ### Part C: Re-test Behavior
 
-1. Return to Copilot Chat (Agent Mode)
+1. Return to Copilot Chat (Interactive mode)
 2. Select **Test Strategist** again
 3. Use the same prompt: `Propose test scenarios for a simple getter method that returns a task's title`
 

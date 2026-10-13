@@ -15,13 +15,13 @@
 
 ## 📝 Plan First with Agents: Safer, Smarter Refactoring
 
-Before making major changes, try using Copilot (in Agent Mode) to generate a plan first. This helps you:
+Before making major changes, try using Copilot's **Plan** mode to generate a plan first. This helps you:
 - Understand the scope and impact of your changes
 - Catch misunderstandings or missing steps early
 - Collaborate and iterate on the approach before any code is changed
 
 **How to try it:**
-- In Copilot Chat (Agent Mode), ask: "Propose a step-by-step plan to refactor LegacyTaskProcessor to add proper exception handling, logging, and follow Object Calisthenics."
+- In Copilot Chat (**Plan** mode), ask: "Propose a step-by-step plan to refactor LegacyTaskProcessor to add proper exception handling, logging, and follow Object Calisthenics."
 - Review the plan. Edit or reorder steps as needed.
 - Only then, ask Copilot (or a custom agent like `@engineer`) to implement the plan, one step at a time or all at once.
 
@@ -48,22 +48,22 @@ In this lab, you'll work with both new and existing code:
 
 ---
 
-## 🚀 Agent Mode Challenge: Go Beyond Ask/Plan
+## 🚀 Interactive Challenge: Implement the Plan Step by Step
 
-For this lab, try using **Agent Mode** for at least one major task (such as refactoring `LegacyTaskProcessor` or generating all CRUD endpoints at once). Agent Mode lets Copilot plan and execute multi-step, multi-file changes, and can invoke advanced tools automatically.
+For this lab, take the plan you created and implement it in **Interactive** mode, one step at a time (such as refactoring `LegacyTaskProcessor` or generating all CRUD endpoints in stages). Interactive mode lets Copilot make multi-file changes while you approve each step, and it can invoke advanced tools (like MCP evaluation or tracing) when you ask.
 
 **How to try it:**
-- Switch Copilot Chat to "Agent" mode (dropdown in chat panel)
+- Select **Interactive** in the Agent mode picker below the chat box (keep Permissions on Manual and work on a branch)
 - Describe your goal in natural language (e.g., "Refactor LegacyTaskProcessor to add proper exception handling, logging, and follow clean code principles")
 - Review the plan and results, iterate as needed
 
 **Compare:**
-- What did Agent Mode do differently than Ask/Plan?
-- Did it propose a plan, use multiple tools, or make changes across files?
+- How did implementing from a plan differ from a single direct prompt?
+- Did it follow the plan, use multiple tools, or make changes across files?
 - Was the result more complete or did it need more review?
 
 **Facilitator Tip:**
-Encourage participants to share their Agent Mode results and discuss when this approach is most effective.
+Encourage participants to share their results and discuss when this approach is most effective.
 
 ---
 

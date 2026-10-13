@@ -68,8 +68,8 @@ Include acceptance criteria.
 
 **Instructions:**
 
-1. Switch to **Agent Mode**
-2. Select **Backlog Generator** from the agent dropdown
+1. Set the Agent mode picker to **Interactive**
+2. Select **Backlog Generator** from the Agent picker
 3. Use the same (or similar) prompt:
 
 ```
@@ -166,8 +166,8 @@ Review this NotificationService for Clean Architecture compliance and suggest im
 
 **Instructions:**
 
-1. Switch to **Agent Mode**
-2. Select **Architecture Reviewer** from dropdown
+1. Set the Agent mode picker to **Interactive**
+2. Select **Architecture Reviewer** from the Agent picker
 3. Same prompt:
 
 ```
@@ -236,8 +236,8 @@ Validate user and task exist, record timestamp, emit domain event.
 
 **Instructions:**
 
-1. Switch to **Agent Mode**
-2. Select **Test Strategist** from dropdown
+1. Set the Agent mode picker to **Interactive**
+2. Select **Test Strategist** from the Agent picker
 3. Same prompt:
 
 ```

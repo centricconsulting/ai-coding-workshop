@@ -48,7 +48,7 @@ Quick shortcuts for common tasks:
 | `/explain` | Explain code | `/explain this function` |
 | `/fix` | Suggest fixes | `/fix this error` |
 | `/tests` | Generate tests | `/tests for this class` |
-| `/doc` | Add documentation | `/doc this API` |
+| `/doc` | Add documentation (inline chat only, `Cmd/Ctrl+I`) | Select code, then `/doc` |
 | `/refactor` | Improve code | `/refactor to use guard clauses` |
 
 ---

@@ -127,7 +127,7 @@ This document provides a detailed facilitator's guide for running the 3-hour wor
 - `/explain` - Understand code functionality
 - `/fix` - Suggest fixes for errors or bugs
 - `/tests` - Generate unit tests for selected code
-- `/doc` - Create documentation comments
+- `/doc` - Create documentation comments (editor inline chat only, `Cmd/Ctrl+I`; in the Chat view, ask in plain language)
 - `/refactor` - Improve code structure
 - `/new` - Scaffold new files or projects
 

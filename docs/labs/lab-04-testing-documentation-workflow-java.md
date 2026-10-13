@@ -223,10 +223,16 @@ Open `src-springboot/taskmanager-application/src/main/java/com/example/taskmanag
 
 #### Step 2: Use /doc Command
 
-With the selection active, use Inline Chat (`Ctrl+I`):
+With the selection active, open **Inline Chat** (`Ctrl+I` / `⌘I`). The `/doc` command only works here, not in the Chat view:
 
 ``` text
 /doc
+```
+
+**Fallback** (if `/doc` isn't offered, or you're in the Chat view): attach the file and ask in plain language:
+
+``` text
+Add Javadoc to the selected method. Explain behavior and failure modes, not just the signature.
 ```
 
 **What good output looks like** — it explains behavior and failure modes, not just the signature:

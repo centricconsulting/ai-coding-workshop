@@ -5,11 +5,12 @@
 **Duration**: 45 minutes  
 **Learning Objectives**:
 
-- Generate complete REST API endpoints using Copilot and context variables
+- Generate a missing REST API feature using Copilot and context variables
+- Pin legacy behavior with characterization tests *before* refactoring
 - Refactor legacy code using `/refactor` command and Inline Chat
 - Apply Object Calisthenics principles with AI assistance
 - Use `@workspace` for understanding and modifying existing code
-- Leverage Copilot Edits for multi-file refactoring
+- Understand how Copilot Edits handles multi-file changes (safely, on a scratch branch)
 
 ---
 
@@ -21,7 +22,7 @@ Before making major changes, try using Copilot's **Plan** mode to generate a pla
 - Collaborate and iterate on the approach before any code is changed
 
 **How to try it:**
-- In Copilot Chat (**Plan** mode), ask: "Propose a step-by-step plan to refactor LegacyTaskProcessor to add proper exception handling, logging, and follow Object Calisthenics."
+- In Copilot Chat (**Plan** mode), ask: "Propose a step-by-step plan to refactor LegacyTaskProcessor to add proper exception handling, logging, and follow Object Calisthenics. Start with characterization tests."
 - Review the plan. Edit or reorder steps as needed.
 - Only then, ask Copilot (or a custom agent like `@engineer`) to implement the plan, one step at a time or all at once.
 
@@ -42,19 +43,20 @@ Model this workflow live, and encourage participants to always ask for a plan be
 
 In this lab, you'll work with both new and existing code:
 
-- **Part 1**: Generate new API endpoints efficiently using Copilot's context awareness
-- **Part 2**: Refactor legacy code (`LegacyTaskProcessor`) to modern standards
-- **Part 3**: Apply advanced refactoring patterns (Object Calisthenics)
+- **Part 1**: Add the one genuinely missing API feature: a `status` filter on `GET /api/tasks`
+- **Part 2**: Pin the behavior of `LegacyTaskProcessor` with characterization tests, then refactor it
+- **Part 3**: Apply Object Calisthenics (primitive obsession in the legacy class, plus a check of the domain)
+- **Part 4** *(optional demo)*: Multi-file refactoring with Copilot Edits, on a throwaway branch
 
 ---
 
 ## 🚀 Interactive Challenge: Implement the Plan Step by Step
 
-For this lab, take the plan you created and implement it in **Interactive** mode, one step at a time (such as refactoring `LegacyTaskProcessor` or generating all CRUD endpoints in stages). Interactive mode lets Copilot make multi-file changes while you approve each step, and it can invoke advanced tools (like MCP evaluation or tracing) when you ask.
+For this lab, take the plan you created and implement it in **Interactive** mode, one step at a time (such as adding the status filter, then writing characterization tests, then refactoring `LegacyTaskProcessor`). Interactive mode lets Copilot make multi-file changes while you approve each step, and it can invoke advanced tools (like MCP evaluation or tracing) when you ask.
 
 **How to try it:**
 - Select **Interactive** in the Agent mode picker below the chat box (keep Permissions on Manual and work on a branch)
-- Describe your goal in natural language (e.g., "Refactor LegacyTaskProcessor to add proper exception handling, logging, and follow clean code principles")
+- Describe your goal in natural language (e.g., "Add an optional status filter to GET /api/tasks following the existing controller patterns")
 - Review the plan and results, iterate as needed
 
 **Compare:**
@@ -78,335 +80,170 @@ Encourage participants to share their results and discuss when this approach is 
 
 ---
 
-## Part 1: Generate REST API Endpoints (20 minutes)
+## Part 1: Fill the API Gap, a Status Filter (15 minutes)
 
-### Scenario: Complete CRUD Operations
+### Scenario: Find What Is Missing Before Generating Anything
 
-You have the POST /api/tasks endpoint from Lab 2. Now complete the REST API with GET, PUT, and DELETE operations.
+Earlier labs already built most of the Task API. Generating endpoints that exist is wasted effort, so the first skill in this lab is **discovering the gap**.
 
 ### 1.1 Understand Existing Structure with @workspace
 
-Before generating new code, understand what exists:
-
 ```text
-@workspace Show me the API controller structure in the Spring Boot project. Where are endpoints defined and how are they organized?
+@workspace List every endpoint in TaskController and the TaskService method each one calls. Which common query capabilities are missing?
 ```
 
-Copilot should identify:
+`TaskController` (`src-springboot/taskmanager-api/src/main/java/com/example/taskmanager/api/controllers/TaskController.java`) already exposes:
 
-- `src-springboot/taskmanager-api/src/main/java/com/example/taskmanager/api/controllers/TaskController.java` - Controller definitions
-- `@RestController` and `@RequestMapping` patterns
-- Existing POST /api/tasks endpoint
-- Service layer injection pattern
-- DTO classes for requests/responses
+| Method | Path | Purpose |
+|---|---|---|
+| POST | `/api/tasks` | Create a task |
+| GET | `/api/tasks` | List all tasks (**no filters**) |
+| GET | `/api/tasks/{id}` | Get one task |
+| PATCH | `/api/tasks/{id}` | Partial update (title, description) |
+| PUT | `/api/tasks/{id}/start` | Start a task |
+| PUT | `/api/tasks/{id}/complete` | Complete a task |
+| PUT | `/api/tasks/{id}/cancel` | Cancel a task |
+| DELETE | `/api/tasks/{id}` | Delete a task |
 
-### 1.2 Generate Endpoint: GET /api/tasks (List All)
+> **Check the real controller**: the exact endpoint list can evolve between labs. Trust what `@workspace` finds in your checkout over this table.
 
-#### Step 1: Design Service Method
+The gap: `GET /api/tasks` returns everything. There is no way to ask for only `IN_PROGRESS` tasks.
 
-Ask Copilot Chat:
+Real domain facts the generated code must respect:
 
-```text
-Create a service method in TaskService to retrieve all tasks with optional filtering:
-- Method: findAllTasks(TaskStatus status) where status is optional
-- Return List<Task>
-- Support optional filtering by TaskStatus (enum: TODO, IN_PROGRESS, DONE)
-- Order results by createdAt descending
-Include JUnit 5 tests using Mockito for TaskRepository
-```
+- `TaskStatus` has four values: `PENDING`, `IN_PROGRESS`, `COMPLETED`, `CANCELLED` (it is not a boolean `completed` flag, and there is no `TODO` or `DONE`)
+- `Task.getId()` returns a `TaskId` record wrapping a `UUID`; the controller maps with `id.value()`/`new TaskId(uuid)`
+- `TaskResponse` carries a `status` string, and is built with `TaskResponse.from(task)`; never construct it positionally
+- A missing task throws `TaskService.TaskNotFoundException`; `GlobalExceptionHandler` turns `IllegalArgumentException` into a 400 `ProblemDetail`
 
-**Expected Output**:
-
-- Method added to `TaskService` interface
-- Implementation in `TaskServiceImpl`
-- Unit test: `tests/.../ services/TaskServiceImplTest.java` (updated with new test methods)
-
-**Note**: The domain model uses `TaskStatus` enum (TODO/IN_PROGRESS/DONE) rather than a boolean `completed` field.
-
-#### Step 2: Implement Controller Endpoint
-
-Use `#file` context variable:
+### 1.2 Check What the Service Already Offers
 
 ```text
-Add a GET /api/tasks endpoint in #file:src-springboot/presentation/controllers/TaskController.java that:
-- Accepts optional query parameter: status (string: "TODO", "IN_PROGRESS", or "DONE")
-- Calls TaskService.findAllTasks()
-- Returns 200 OK with array of TaskResponse
-- Handles invalid status values with 400 Bad Request
-Follow the existing endpoint pattern with proper exception handling
+@workspace Does TaskService already have a method that filters tasks by status? Which repository port method does it use?
 ```
 
-**Expected Addition**:
+`TaskService` already has `findAllTasks()` and `findTasksByStatus(TaskStatus)`, backed by `TaskRepository.findByStatus(TaskStatus)`. So the **service and domain port need no change**; the work is in the API layer. If the service lacked it, you would add it test-first (Lab 1).
+
+### 1.3 Write the Failing Test First
+
+Open `src-springboot/taskmanager-api/src/test/java/com/example/taskmanager/api/TaskApiIntegrationTest.java` and ask:
+
+```text
+#file:src-springboot/taskmanager-api/src/test/java/com/example/taskmanager/api/TaskApiIntegrationTest.java
+Add tests for GET /api/tasks?status=:
+1. status=IN_PROGRESS returns only in-progress tasks
+2. status is case-insensitive ("in_progress" works)
+3. no status returns all tasks (existing behavior unchanged)
+4. status=DONE returns 400 and the ProblemDetail message names the valid values PENDING, IN_PROGRESS, COMPLETED, CANCELLED
+Follow the existing test style.
+```
+
+Run them and confirm they fail for the right reason.
+
+### 1.4 Implement the Controller Change
+
+Use `#file` so Copilot follows the existing pattern:
+
+```text
+Update listTasks in #file:src-springboot/taskmanager-api/src/main/java/com/example/taskmanager/api/controllers/TaskController.java
+to accept an optional `status` query parameter.
+- Parse it case-insensitively into TaskStatus
+- Invalid values throw IllegalArgumentException listing the valid values (GlobalExceptionHandler maps it to 400)
+- Use taskService.findTasksByStatus when present, findAllTasks otherwise
+- Map with TaskResponse::from
+- Keep the existing OpenAPI annotations and logging style
+Design it so another optional filter can be combined later.
+```
+
+**Expected shape** (yours will differ in detail):
 
 ```java
 @GetMapping
-public ResponseEntity<List<TaskResponse>> getAllTasks(
+public ResponseEntity<List<TaskResponse>> listTasks(
         @RequestParam(required = false) String status) {
-    
-    log.info("Received GET /api/tasks with status filter: {}", status);
+    logger.debug("Listing tasks with status filter: {}", status);
 
-    // Parse status string to TaskStatus enum if provided
-    TaskStatus taskStatus = null;
-    if (status != null && !status.isBlank()) {
-        try {
-            taskStatus = TaskStatus.valueOf(status.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            log.warn("Invalid status value: {}", status);
-            throw new IllegalArgumentException(
-                "Invalid status: " + status + 
-                ". Valid values: TODO, IN_PROGRESS, DONE");
-        }
-    }
+    List<Task> tasks = (status == null || status.isBlank())
+            ? taskService.findAllTasks()
+            : taskService.findTasksByStatus(parseStatus(status));
 
-    List<Task> tasks = taskService.findAllTasks(taskStatus);
-    
-    List<TaskResponse> response = tasks.stream()
-        .map(task -> new TaskResponse(
-            task.getId(),
-            task.getTitle(),
-            task.getDescription(),
-            task.getPriority(),
-            task.getDueDate(),
-            task.isCompleted(),
-            task.getCreatedAt(),
-            task.getCompletedAt()
-        ))
-        .toList();
-
-    log.info("Returned {} tasks", response.size());
-    return ResponseEntity.ok(response);
+    return ResponseEntity.ok(tasks.stream().map(TaskResponse::from).toList());
 }
-```
 
-### 1.3 Generate Endpoint: GET /api/tasks/{id} (Get by ID)
-
-Ask Copilot:
-
-```text
-Create a service method TaskService.findTaskById(UUID id) that:
-- Returns Optional<Task>
-- Queries repository by ID
-Include JUnit 5 unit tests
-
-Then add GET /api/tasks/{id} endpoint in TaskController that:
-- Returns 200 OK with TaskResponse if found
-- Returns 404 Not Found if task doesn't exist
-- Handles validation errors
-```
-
-**Key Learning**: Notice how Copilot reuses patterns from existing code (error handling, response mapping, validation).
-
-**Expected Service Method**:
-
-```java
-@Override
-public Optional<Task> findTaskById(UUID id) {
-    if (id == null) {
-        throw new IllegalArgumentException("Task ID cannot be null");
-    }
-    
-    log.info("Finding task by ID: {}", id);
-    return taskRepository.findById(id);
-}
-```
-
-**Expected Controller Method**:
-
-```java
-@GetMapping("/{id}")
-public ResponseEntity<TaskResponse> getTaskById(@PathVariable UUID id) {
-    log.info("Received GET /api/tasks/{}", id);
-    
-    Optional<Task> taskOpt = taskService.findTaskById(id);
-    
-    if (taskOpt.isEmpty()) {
-        log.warn("Task not found: {}", id);
-        return ResponseEntity.notFound().build();
-    }
-    
-    Task task = taskOpt.get();
-    TaskResponse response = new TaskResponse(
-        task.getId(),
-        task.getTitle(),
-        task.getDescription(),
-        task.getPriority(),
-        task.getDueDate(),
-        task.isCompleted(),
-        task.getCreatedAt(),
-        task.getCompletedAt()
-    );
-    
-    return ResponseEntity.ok(response);
-}
-```
-
-### 1.4 Generate Endpoint: PUT /api/tasks/{id} (Update)
-
-Use Inline Chat (`Ctrl+I` / `Cmd+I`):
-
-1. Open `TaskController.java`
-2. Position cursor after the GET endpoints
-3. Press `Ctrl+I` / `Cmd+I`
-4. Enter:
-
-```text
-Add PUT /api/tasks/{id} endpoint that:
-- Accepts UpdateTaskRequest (title, description, priority, dueDate)
-- Calls TaskService.updateTask(UUID id, UpdateTaskRequest request)
-- Returns 200 OK with updated TaskResponse if found
-- Returns 404 Not Found if task doesn't exist
-- Validates all inputs
-Include service method in TaskServiceImpl with unit tests
-```
-
-**Expected Service Method**:
-
-```java
-@Override
-@Transactional
-public Task updateTask(UUID id, UpdateTaskRequest request) {
-    if (id == null) {
-        throw new IllegalArgumentException("Task ID cannot be null");
-    }
-    if (request == null) {
-        throw new IllegalArgumentException("Request cannot be null");
-    }
-
-    log.info("Updating task: {}", id);
-
-    Task task = taskRepository.findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("Task not found: " + id));
-
-    // Update fields if provided
-    if (request.title() != null && !request.title().isBlank()) {
-        // Assuming Task has a setTitle method or update method
-        task.updateTitle(request.title());
-    }
-    if (request.description() != null) {
-        task.updateDescription(request.description());
-    }
-    if (request.priority() != null) {
-        Priority priority = Priority.fromString(request.priority());
-        task.updatePriority(priority);
-    }
-    if (request.dueDate() != null) {
-        task.updateDueDate(request.dueDate());
-    }
-
-    Task updatedTask = taskRepository.save(task);
-    log.info("Task updated successfully: {}", id);
-    
-    return updatedTask;
-}
-```
-
-**Expected DTO**:
-
-```java
-public record UpdateTaskRequest(
-    String title,
-    String description,
-    String priority,
-    LocalDateTime dueDate
-) {}
-```
-
-### 1.5 Generate Endpoint: DELETE /api/tasks/{id}
-
-Ask Copilot Chat:
-
-```text
-Create a service method TaskService.deleteTask(UUID id) that:
-- Deletes task from repository
-- Throws EntityNotFoundException if task not found
-- Returns void
-
-Add DELETE /api/tasks/{id} endpoint that:
-- Returns 204 No Content on success
-- Returns 404 Not Found if task doesn't exist
-Include JUnit 5 unit tests for service method
-```
-
-**Expected Service Method**:
-
-```java
-@Override
-@Transactional
-public void deleteTask(UUID id) {
-    if (id == null) {
-        throw new IllegalArgumentException("Task ID cannot be null");
-    }
-
-    log.info("Deleting task: {}", id);
-
-    if (!taskRepository.existsById(id)) {
-        throw new EntityNotFoundException("Task not found: " + id);
-    }
-
-    taskRepository.deleteById(id);
-    log.info("Task deleted successfully: {}", id);
-}
-```
-
-**Expected Controller Method**:
-
-```java
-@DeleteMapping("/{id}")
-public ResponseEntity<Void> deleteTask(@PathVariable UUID id) {
-    log.info("Received DELETE /api/tasks/{}", id);
-    
+private static TaskStatus parseStatus(String status) {
     try {
-        taskService.deleteTask(id);
-        return ResponseEntity.noContent().build();
-    } catch (EntityNotFoundException e) {
-        log.warn("Task not found for deletion: {}", id);
-        return ResponseEntity.notFound().build();
+        return TaskStatus.valueOf(status.trim().toUpperCase());
+    } catch (IllegalArgumentException e) {
+        throw new IllegalArgumentException(
+            "Invalid status: " + status + ". Valid values: PENDING, IN_PROGRESS, COMPLETED, CANCELLED");
     }
 }
 ```
 
-### 1.6 Run and Test
+**Review prompts**: Is the valid-value list hard-coded? (Better: build it from `TaskStatus.values()` so it cannot drift.) Does the parsing belong in the controller, or at the boundary in a converter? Discuss.
+
+> **Combining filters**: The current `Task` model has no priority or due date. If your branch has gained a `priority` filter, ask Copilot to combine it with `status` rather than adding a parallel endpoint. Both parameters optional, applied together (AND).
+
+### 1.5 Run and Test
+
+From the repo root:
 
 ```bash
-mvn clean test
 cd src-springboot
-mvn spring-boot:run
+mvn clean install -DskipTests
+mvn spring-boot:run -pl taskmanager-api -Dspring-boot.run.profiles=dev
 ```
 
-Test the full API:
+> **Why this sequence?** The default profile targets PostgreSQL, so the `dev` profile is needed for a local run. `-pl taskmanager-api` resolves sibling modules from your local Maven repository, so they must be installed first or you get stale jars.
+>
+> **Windows PowerShell**: quote the `-D` argument: `mvn spring-boot:run -pl taskmanager-api "-Dspring-boot.run.profiles=dev"`
+
+Then run the tests in a second terminal:
 
 ```bash
-# Create a task
+cd src-springboot
+mvn test
+```
+
+Exercise the API (task creation takes only `title` and `description`, so there are no dates to go stale):
+
+```bash
+# Create two tasks
 curl -X POST http://localhost:8080/api/tasks \
   -H "Content-Type: application/json" \
-  -d '{"title": "Test Task", "priority": "MEDIUM", "dueDate": "2026-04-30T12:00:00"}'
+  -d '{"title": "Write report", "description": "Quarterly numbers"}'
 
-# List all tasks
+curl -X POST http://localhost:8080/api/tasks \
+  -H "Content-Type: application/json" \
+  -d '{"title": "Review PR"}'
+
+# Start one of them (use an ID from the create response)
+curl -X PUT http://localhost:8080/api/tasks/{id}/start
+
+# Filtered and unfiltered lists
+curl "http://localhost:8080/api/tasks?status=IN_PROGRESS"
 curl http://localhost:8080/api/tasks
 
-# Get specific task (use ID from create response)
-curl http://localhost:8080/api/tasks/{id}
+# Invalid status -> 400 naming PENDING, IN_PROGRESS, COMPLETED, CANCELLED
+curl -i "http://localhost:8080/api/tasks?status=DONE"
 
-# Update task
-curl -X PUT http://localhost:8080/api/tasks/{id} \
+# Partial update uses PATCH, not PUT
+curl -X PATCH http://localhost:8080/api/tasks/{id} \
   -H "Content-Type: application/json" \
-  -d '{"title": "Updated Task", "priority": "HIGH", "dueDate": "2026-05-01T12:00:00"}'
-
-# Delete task
-curl -X DELETE http://localhost:8080/api/tasks/{id}
+  -d '{"title": "Updated title"}'
 ```
+
+> **Dates**: if your task model gains a due date, API validation will require it to be in the future. Use a far-future value (for example `2099-12-31T12:00:00`) or compute one relative to today, never a fixed date that will go stale.
 
 ---
 
-## Part 2: Refactor Legacy Code (15 minutes)
+## Part 2: Characterize, Then Refactor Legacy Code (20 minutes)
 
-### Scenario: Legacy Task Processor
+### Scenario: The Legacy Task Processor
 
-The repository contains `LegacyTaskProcessor` - poorly written code that needs refactoring.
+The repository contains `LegacyTaskProcessor`: intentionally poor code. Despite the name, it is a **string transformer**, not something that processes `Task` aggregates.
 
 ### 2.1 Find the Legacy Code
-
-Use `@workspace`:
 
 ```text
 @workspace Find the LegacyTaskProcessor class in the Spring Boot project
@@ -416,234 +253,273 @@ Use `@workspace`:
 
 ### 2.2 Analyze Current Issues
 
-Use `/explain` on the problematic method:
+Select the `processTask` method and use Inline Chat (`Ctrl+I` / `Cmd+I`): `/explain`
 
-1. Navigate to the `processTask` method
-2. Select the entire method
-3. Use Inline Chat (`Ctrl+I` or `Cmd+I`): `/explain`
+The signature is `public String processTask(int id, String data, int type, boolean flag)`. What it actually does:
 
-Copilot should identify issues:
+| `type` | `flag` | Behavior |
+|---|---|---|
+| `1` | `true` | Invert letter case, replace each space with `_`, truncate to 50 chars, sleep 100 ms, write `task_<id>.txt` |
+| `1` | `false` | Upper-case the input |
+| `2` | any | Keep the first word as-is, lower-case the remaining words (split on `" "`) |
+| other | any | Return input unchanged |
+| any | any | `null` or empty `data` returns `""` |
 
-- ❌ Nested if statements (6+ indentation levels)
-- ❌ Synchronous blocking code (`Thread.sleep()`)
-- ❌ Poor error handling (exceptions swallowed with empty catch)
+Copilot should identify:
+
+- ❌ Nesting 6 levels deep
+- ❌ Magic numbers (`1`, `2`, `50`, `100`) and the `' '` literal
+- ❌ `int type` and `boolean flag` are opaque (primitive obsession)
+- ❌ `result +=` in a loop (string concatenation)
+- ❌ File I/O and `Thread.sleep` inline with the transformation (mixed concerns)
+- ❌ Two empty `catch` blocks that swallow `IOException` and `InterruptedException`
 - ❌ No logging
-- ❌ Magic numbers (1, 2, 50) and strings
-- ❌ Long method (80+ lines with multiple responsibilities)
 - ❌ Poor naming (`data`, `flag`, `type`, `i`)
-- ❌ String concatenation in loops (inefficient)
-- ❌ Mixed concerns (file I/O in processing logic)
-- ❌ Not following guard clause pattern
-- ❌ No use of Spring's features (@Service, dependency injection)
 
-### 2.3 Refactor with /refactor Command
+### 2.3 Characterization Tests First
+
+> **Rule for legacy code**: never refactor without a safety net, and write the net **against the unmodified code**. Tests written *after* a refactor describe what the new code does; if the refactor changed behavior they would enshrine the bug. Characterization tests record what the code **does** today, not what it *should* do, and must pass both before and after.
+
+Ask Copilot:
+
+```text
+Write JUnit 5 characterization tests for LegacyTaskProcessor.processTask. Do NOT change the class.
+Assert the current return values for: null data, empty data, type 1 + flag true (case inversion,
+spaces to underscores), the 50-character truncation boundary (49, 50, 51 chars), type 1 + flag false,
+type 2 (first word kept, rest lower-cased), an unknown type, and the input " " (a single space) with type 2.
+Delete any task_<id>.txt file the tests create.
+```
+
+Put them in `taskmanager-infrastructure/src/test/java/com/example/taskmanager/infrastructure/legacy/LegacyTaskProcessorCharacterizationTest.java`. Expected flavor:
+
+```java
+class LegacyTaskProcessorCharacterizationTest {
+
+    private final LegacyTaskProcessor processor = new LegacyTaskProcessor();
+
+    @AfterEach
+    void deleteOutputFile() throws IOException {
+        Files.deleteIfExists(Path.of("task_7.txt"));
+    }
+
+    @Test
+    void nullOrEmptyDataReturnsEmptyString() {
+        assertEquals("", processor.processTask(7, null, 1, true));
+        assertEquals("", processor.processTask(7, "", 2, false));
+    }
+
+    @Test
+    void typeOneWithFlagInvertsCaseAndReplacesSpaces() {
+        assertEquals("hELLO_wORLD", processor.processTask(7, "Hello World", 1, true));
+    }
+
+    @Test
+    void typeOneWithFlagTruncatesToFiftyCharacters() {
+        assertEquals(50, processor.processTask(7, "a".repeat(51), 1, true).length());
+    }
+
+    @Test
+    void typeOneWithoutFlagUpperCases() {
+        assertEquals("HELLO WORLD", processor.processTask(7, "Hello World", 1, false));
+    }
+
+    @Test
+    void typeTwoKeepsFirstWordAndLowerCasesTheRest() {
+        assertEquals("Hello world", processor.processTask(7, "Hello WORLD", 2, false));
+    }
+
+    @Test
+    void unknownTypeReturnsInputUnchanged() {
+        assertEquals("Hello", processor.processTask(7, "Hello", 3, false));
+    }
+
+    // Surprising: " ".split(" ") yields an EMPTY array, so there is no first word.
+    @Test
+    void typeTwoWithOnlyASpaceReturnsEmptyString() {
+        assertEquals("", processor.processTask(7, " ", 2, false));
+    }
+}
+```
+
+**Why the `" "` case matters**: the obvious refactor, "take `words[0]`, then loop over the rest", throws `ArrayIndexOutOfBoundsException` on that input. Only a test written *before* the refactor catches it.
+
+Run them and make sure they **pass against the untouched class**:
+
+```bash
+cd src-springboot
+mvn test -pl taskmanager-infrastructure -am
+```
+
+If a test fails, your expectation was wrong, not the code. Fix the test; it is documenting, not judging.
+
+### 2.4 Refactor with /refactor Command
 
 Select the entire `processTask` method and use Copilot Chat:
 
 ```text
-/refactor this method to follow Clean Code and Spring Boot best practices:
+/refactor this method to follow Clean Code and Spring Boot best practices. Keep the public signature
+processTask(int id, String data, int type, boolean flag) and the observable return values identical:
 1. Use guard clauses (fail fast, no nested ifs)
-2. Add proper exception handling (don't swallow exceptions)
-3. Add structured logging with SLF4J (@Slf4j annotation)
-4. Extract smaller methods for single responsibilities
-5. Replace magic numbers with enums or constants
-6. Use meaningful parameter and variable names
-7. Use StringBuilder for string operations in loops
-8. Separate concerns: extract file I/O to a separate component
-9. Follow Object Calisthenics: max 2 levels of indentation per method
-10. Add @Service annotation and use dependency injection
-11. Consider using CompletableFuture for async operations (optional)
-Follow Spring Boot conventions and best practices
+2. Replace `int type` internally with a ProcessingType enum (INVERT_CASE, CAPITALIZE_FIRST_WORD, PASSTHROUGH)
+3. Replace magic numbers with named constants (max length 50, space, delay 100 ms)
+4. Use StringBuilder instead of += in loops
+5. Extract the file write behind a TaskOutputWriter interface (port) with a FileTaskOutputWriter adapter
+6. Add SLF4J logging via LoggerFactory (the project does not use Lombok)
+7. Do not swallow exceptions: log and throw a TaskProcessingException; restore the interrupt flag on InterruptedException
+8. Max 2 levels of indentation per method, small focused methods
+9. Constructor injection; keep it a Spring @Component
+Do not change behavior for any input covered by the characterization tests.
 ```
 
-**Expected Improvements**:
-
-- `@Service` annotation with `@Slf4j`
-- Strongly-typed `ProcessingType` enum instead of `int type`
-- Guard clauses for null/empty input (fail fast)
-- Private helper methods: `processFormatting()`, `processCapitalization()`, `truncateIfNeeded()`
-- Constructor injection for dependencies
-- Proper exception handling with logging
-- `StringBuilder` for efficient string building
-- Meaningful names: `taskIdentifier`, `inputText`, `processingType`, `shouldInvertCase`
-
-**Expected Refactored Code**:
+**Expected shape** (abridged; yours will differ):
 
 ```java
-package com.example.taskmanager.infrastructure.legacy;
+@Component
+public class LegacyTaskProcessor {
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+    private static final Logger logger = LoggerFactory.getLogger(LegacyTaskProcessor.class);
 
-import java.util.List;
+    private static final int MAX_RESULT_LENGTH = 50;
+    private static final char WORD_SEPARATOR = ' ';
+    private static final String WORD_SEPARATOR_REPLACEMENT = "_";
+    private static final long SIMULATED_PROCESSING_MILLIS = 100;
 
-@Service
-@Slf4j
-@RequiredArgsConstructor
-public class RefactoredTaskProcessor {
+    private final TaskOutputWriter outputWriter;
 
-    private final TaskRepository taskRepository;
-    private final TaskOutputWriter taskOutputWriter;
-
-    public ProcessingResult processTaskBatch(List<TaskItem> tasks) {
-        if (tasks == null || tasks.isEmpty()) {
-            log.info("No tasks to process");
-            return ProcessingResult.empty();
-        }
-
-        log.info("Starting batch processing of {} tasks", tasks.size());
-        
-        ProcessingResult result = new ProcessingResult();
-
-        for (TaskItem task : tasks) {
-            processSingleTask(task, result);
-        }
-
-        log.info("Batch processing completed: {} succeeded, {} failed",
-                 result.getSuccessCount(), result.getFailureCount());
-
-        return result;
+    public LegacyTaskProcessor(TaskOutputWriter outputWriter) {
+        this.outputWriter = outputWriter;
     }
 
-    private void processSingleTask(TaskItem task, ProcessingResult result) {
-        if (!isTaskValid(task)) {
-            log.warn("Invalid task {} skipped", task.getId());
-            result.addFailure(task.getId(), "Invalid task data");
-            return;
+    public String processTask(int id, String data, int type, boolean flag) {
+        if (data == null || data.isEmpty()) {
+            return "";
         }
+        return switch (ProcessingType.fromCode(type)) {
+            case INVERT_CASE -> flag ? invertCaseAndPersist(id, data) : data.toUpperCase();
+            case CAPITALIZE_FIRST_WORD -> keepFirstWordLowerCaseRest(data);
+            case PASSTHROUGH -> data;
+        };
+    }
 
+    private String invertCaseAndPersist(int id, String data) {
+        String inverted = truncate(invertCase(data));
+        simulateProcessing();
+        outputWriter.write(id, inverted);
+        return inverted;
+    }
+
+    private String invertCase(String data) {
+        StringBuilder builder = new StringBuilder(data.length());
+        for (char character : data.toCharArray()) {
+            builder.append(invertCharacter(character));
+        }
+        return builder.toString();
+    }
+
+    private String invertCharacter(char character) {
+        if (character == WORD_SEPARATOR) {
+            return WORD_SEPARATOR_REPLACEMENT;
+        }
+        return String.valueOf(Character.isUpperCase(character)
+                ? Character.toLowerCase(character)
+                : Character.toUpperCase(character));
+    }
+
+    private String truncate(String value) {
+        return value.length() > MAX_RESULT_LENGTH ? value.substring(0, MAX_RESULT_LENGTH) : value;
+    }
+
+    private String keepFirstWordLowerCaseRest(String data) {
+        String[] words = data.split(String.valueOf(WORD_SEPARATOR));
+        if (words.length == 0) {          // " ".split(" ") is an empty array
+            return "";
+        }
+        StringBuilder builder = new StringBuilder(words[0]);
+        for (int index = 1; index < words.length; index++) {
+            builder.append(WORD_SEPARATOR).append(words[index].toLowerCase());
+        }
+        return builder.toString();
+    }
+
+    private void simulateProcessing() {
         try {
-            executeTaskProcessing(task);
-            result.addSuccess(task.getId());
-            log.info("Task {} processed successfully", task.getId());
-        } catch (Exception ex) {
-            log.error("Failed to process task {}", task.getId(), ex);
-            result.addFailure(task.getId(), ex.getMessage());
-        }
-    }
-
-    private boolean isTaskValid(TaskItem task) {
-        if (task == null) {
-            return false;
-        }
-        if (task.getTitle() == null || task.getTitle().isBlank()) {
-            return false;
-        }
-        if (task.getPriority() < 0 || task.getPriority() > 3) {
-            return false;
-        }
-        return true;
-    }
-
-    private void executeTaskProcessing(TaskItem task) {
-        // Update task status
-        task.setStatus(TaskStatus.PROCESSING);
-        taskRepository.save(task);
-
-        // Simulate processing (in real code, replace with actual business logic)
-        try {
-            Thread.sleep(100);
+            Thread.sleep(SIMULATED_PROCESSING_MILLIS);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new ProcessingException("Task processing interrupted", e);
-        }
-
-        // Complete task
-        task.setStatus(TaskStatus.COMPLETED);
-        task.setCompletedAt(LocalDateTime.now());
-        taskRepository.save(task);
-
-        // Write output if writer is configured
-        if (taskOutputWriter != null) {
-            taskOutputWriter.write(task);
+            logger.error("Task processing interrupted", e);
+            throw new TaskProcessingException("Task processing interrupted", e);
         }
     }
 }
 
-// Supporting classes
-enum ProcessingType {
-    FORMAT,
-    CAPITALIZE,
-    TRUNCATE
-}
+public enum ProcessingType {
+    INVERT_CASE, CAPITALIZE_FIRST_WORD, PASSTHROUGH;
 
-class ProcessingResult {
-    private final List<UUID> successfulIds = new ArrayList<>();
-    private final Map<UUID, String> failures = new HashMap<>();
-
-    public static ProcessingResult empty() {
-        return new ProcessingResult();
-    }
-
-    public void addSuccess(UUID id) {
-        successfulIds.add(id);
-    }
-
-    public void addFailure(UUID id, String reason) {
-        failures.put(id, reason);
-    }
-
-    public int getSuccessCount() {
-        return successfulIds.size();
-    }
-
-    public int getFailureCount() {
-        return failures.size();
-    }
-
-    public List<UUID> getSuccessfulIds() {
-        return List.copyOf(successfulIds);
-    }
-
-    public Map<UUID, String> getFailures() {
-        return Map.copyOf(failures);
+    public static ProcessingType fromCode(int code) {
+        return switch (code) {
+            case 1 -> INVERT_CASE;
+            case 2 -> CAPITALIZE_FIRST_WORD;
+            default -> PASSTHROUGH;
+        };
     }
 }
 
-class ProcessingException extends RuntimeException {
-    public ProcessingException(String message, Throwable cause) {
+public interface TaskOutputWriter {            // port
+    void write(int taskId, String content);
+}
+
+@Component
+public class FileTaskOutputWriter implements TaskOutputWriter {   // adapter
+    private static final Logger logger = LoggerFactory.getLogger(FileTaskOutputWriter.class);
+
+    @Override
+    public void write(int taskId, String content) {
+        try {
+            Files.writeString(Path.of("task_" + taskId + ".txt"), content);
+        } catch (IOException e) {
+            logger.error("Failed to write output for task {}", taskId, e);
+            throw new TaskProcessingException("Failed to write output for task " + taskId, e);
+        }
+    }
+}
+
+public class TaskProcessingException extends RuntimeException {
+    public TaskProcessingException(String message, Throwable cause) {
         super(message, cause);
     }
 }
 ```
 
-### 2.4 Generate Tests for Refactored Code
+**Review prompts**:
 
-Select the refactored class and use `/tests`:
+- Which behavior changed on purpose? (The two swallowed exceptions now surface as `TaskProcessingException`. This is the only observable change and is intentional.)
+- Does the `" "` characterization test still pass? If Copilot dropped the `words.length == 0` guard, it caught you.
+- Constructor injection now requires a `TaskOutputWriter` bean. Update the characterization test setup accordingly (for example `new LegacyTaskProcessor(new FileTaskOutputWriter())`, or a stub writer).
+- Optional goal: `CompletableFuture`. Skip it unless you are willing to change the public signature other code and labs depend on.
 
-```text
-/tests
-```
+### 2.5 Verify and Extend the Tests
 
-Verify generated tests cover:
-
-- ✅ Null input returns empty result or throws exception
-- ✅ Empty collection returns empty result
-- ✅ Valid tasks are processed successfully
-- ✅ Invalid tasks are logged and skipped
-- ✅ Processing exceptions are caught and logged
-- ✅ Result contains correct success/failure counts
-- ✅ TaskRepository is called with correct parameters
-- ✅ TaskOutputWriter is invoked for successful tasks
-
-Run tests:
+Re-run the characterization tests. They must all still pass:
 
 ```bash
-mvn test
+cd src-springboot
+mvn test -pl taskmanager-infrastructure -am
 ```
+
+Only now use `/tests` to cover **new** seams, such as:
+
+- `TaskOutputWriter` is called with the id and the truncated result (use a hand-written stub or Mockito)
+- `IOException` from the writer surfaces as `TaskProcessingException`
+- Interrupting the thread yields `TaskProcessingException` with the interrupt flag restored
+- `ProcessingType.fromCode` maps `1`, `2`, and anything else
 
 ---
 
-## Part 3: Apply Object Calisthenics (10 minutes)
+## Part 3: Apply Object Calisthenics (5 minutes)
 
 ### Scenario: Further Code Quality Improvements
 
-Apply Object Calisthenics rules to improve code quality.
-
 ### 3.1 Review Object Calisthenics Rules
-
-Ask Copilot:
 
 ```text
 What are the Object Calisthenics rules and how do they apply to Java/Spring Boot code?
@@ -659,97 +535,67 @@ Key rules:
 6. Don't abbreviate names
 7. Keep all entities small
 8. No classes with more than two instance variables
-9. No getters/setters (for domain entities - use methods that express behavior)
+9. No getters/setters (for domain entities, use methods that express behavior)
 
-### 3.2 Apply: Wrap Primitives
+### 3.2 Apply: Wrap Primitives (Primitive Obsession in the Legacy Class)
 
-Find places where primitive types are used directly for domain concepts.
-
-Ask Copilot:
+First, check whether the domain already complies:
 
 ```text
-Review the TaskItem class in the Spring Boot project. Are there primitive types that should be wrapped in value objects following DDD patterns? For example, should task status be an enum or value object?
+@workspace Are there primitive types in the domain module that should be wrapped in value objects?
 ```
+
+It largely does: `TaskId` is a record wrapping `UUID`, and `TaskStatus` is an enum, not a string or int. The domain stays pure Java (no JPA annotations); persistence mapping lives in `TaskEntity`/`TaskMapper` in the infrastructure layer.
+
+> **Do not** make `TaskId` an `@Embeddable` or put `@Entity` on domain classes. That pulls JPA into the domain module and violates the Clean Architecture rule that Domain has no framework dependencies.
+
+The real primitive obsession is in `LegacyTaskProcessor`'s signature:
 
 **Before**:
 
 ```java
-@Entity
-public class TaskItem {
-    private UUID id;
-    private String status; // Primitive obsession
-    private int priority; // Magic numbers
-}
+public String processTask(int id, String data, int type, boolean flag)
+//                        ^ what is 7?    ^ 1? 2? 3?   ^ true means... what?
+processor.processTask(7, "Hello World", 1, true);
 ```
-
-**After** (with Copilot assistance):
-
-```java
-@Entity
-public class TaskItem {
-    @EmbeddedId
-    private TaskId id;
-    
-    @Enumerated(EnumType.STRING)
-    private TaskStatus status;
-    
-    @Enumerated(EnumType.STRING)
-    private Priority priority;
-}
-
-// Value object for TaskId
-@Embeddable
-public class TaskId {
-    private UUID value;
-    
-    protected TaskId() {}
-    
-    public TaskId(UUID value) {
-        if (value == null) {
-            throw new IllegalArgumentException("TaskId cannot be null");
-        }
-        this.value = value;
-    }
-    
-    public static TaskId generate() {
-        return new TaskId(UUID.randomUUID());
-    }
-    
-    public UUID getValue() {
-        return value;
-    }
-    
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof TaskId taskId)) return false;
-        return Objects.equals(value, taskId.value);
-    }
-    
-    @Override
-    public int hashCode() {
-        return Objects.hash(value);
-    }
-}
-```
-
-### 3.3 Apply: First-Class Collections
-
-Find collections that are exposed directly and wrap them.
 
 Ask Copilot:
 
 ```text
-If we have a class with a List<Task> field, how should we wrap it following Object Calisthenics and DDD patterns in Spring Boot?
+In LegacyTaskProcessor, `int type` and `boolean flag` are primitive obsession. Propose a typed
+alternative that keeps the existing method working. Should the flag become part of the ProcessingType?
+```
+
+**After** (one possible direction):
+
+```java
+public enum ProcessingType { INVERT_CASE, INVERT_CASE_AND_PERSIST, CAPITALIZE_FIRST_WORD, PASSTHROUGH }
+
+public String process(int id, String data, ProcessingType type) { ... }
+
+// Legacy signature kept as a thin adapter so existing callers and Lab 4 still work
+public String processTask(int id, String data, int type, boolean flag) {
+    return process(id, data, ProcessingType.fromLegacy(type, flag));
+}
+```
+
+Discuss: a boolean that only matters for *one* value of `type` is really a hidden fourth `type`. Pulling it into the enum makes the invalid combination unrepresentable. Is wrapping `int id` in a value object also warranted here, or is that over-engineering for a legacy shim? (Note the domain already has a real `TaskId`.)
+
+### 3.3 Apply: First-Class Collections
+
+Ask Copilot:
+
+```text
+If we have a class with a List<Task> field, how should we wrap it following Object Calisthenics and DDD patterns?
 ```
 
 **Before**:
 
 ```java
 public class TaskList {
-    private List<TaskItem> tasks;
-    
-    public List<TaskItem> getTasks() {
+    private List<Task> tasks;
+
+    public List<Task> getTasks() {
         return tasks;
     }
 }
@@ -758,49 +604,45 @@ public class TaskList {
 **After**:
 
 ```java
-public class TaskCollection {
-    private final List<TaskItem> tasks;
+public final class TaskCollection {
+    private final List<Task> tasks;
 
-    public TaskCollection(List<TaskItem> tasks) {
+    public TaskCollection(List<Task> tasks) {
         this.tasks = tasks != null ? new ArrayList<>(tasks) : new ArrayList<>();
     }
 
     public int size() {
         return tasks.size();
     }
-    
-    public List<TaskItem> asList() {
-        return List.copyOf(tasks); // Immutable view
+
+    public List<Task> asList() {
+        return List.copyOf(tasks);
     }
 
-    public void add(TaskItem task) {
+    public void add(Task task) {
         if (task == null) {
             throw new IllegalArgumentException("Task cannot be null");
         }
         tasks.add(task);
     }
 
-    public Optional<TaskItem> findById(TaskId id) {
+    public Optional<Task> findById(TaskId id) {
         return tasks.stream()
-                .filter(t -> t.getId().equals(id))
+                .filter(task -> task.getId().equals(id))
                 .findFirst();
     }
 
-    public List<TaskItem> filterByStatus(TaskStatus status) {
-        return tasks.stream()
-                .filter(t -> t.getStatus() == status)
-                .toList();
+    public TaskCollection filterByStatus(TaskStatus status) {
+        return new TaskCollection(tasks.stream()
+                .filter(task -> task.getStatus() == status)
+                .toList());
     }
 }
 ```
 
+Discuss whether the repo needs this now (it passes `List<Task>` around). A wrapper earns its place when it gains behavior, not just because a rule says so.
+
 ### 3.4 Apply: No Abbreviations
-
-Use Inline Chat to expand abbreviated names:
-
-1. Find abbreviated variable names (e.g., `var t`, `var res`, `int cnt`)
-2. Select the code
-3. Inline Chat: "Expand all abbreviated variable names to be fully descriptive"
 
 **Before**:
 
@@ -808,7 +650,6 @@ Use Inline Chat to expand abbreviated names:
 var res = repo.findById(id);
 if (res.isPresent()) {
     var t = res.get();
-    var cnt = t.getItems().size();
     // ...
 }
 ```
@@ -816,57 +657,55 @@ if (res.isPresent()) {
 **After**:
 
 ```java
-Optional<Task> result = repository.findById(id);
+Optional<Task> result = repository.findById(taskId);
 if (result.isPresent()) {
     Task task = result.get();
-    int itemCount = task.getItems().size();
     // ...
 }
 ```
 
 ### 3.5 Apply: Tell, Don't Ask
 
-Replace getters with behavior-expressing methods.
+The domain already does this: `Task` exposes `isCompleted()`, `isCancelled()` and `isInProgress()` and behavior methods such as `start()`, `complete()`, `cancel()` instead of setters.
 
-**Before**:
+**Before** (asking):
 
 ```java
-if (task.getStatus() == TaskStatus.COMPLETED && 
-    task.getCompletedAt() != null) {
-    // do something
-}
+if (task.getStatus() == TaskStatus.COMPLETED) { ... }
 ```
 
-**After**:
+**After** (telling):
 
 ```java
-if (task.isCompleted()) {
-    // do something
-}
-
-// In Task class:
-public boolean isCompleted() {
-    return status == TaskStatus.COMPLETED && completedAt != null;
-}
+if (task.isCompleted()) { ... }
 ```
 
 ---
 
-## Part 4: Multi-File Refactoring with Copilot Edits (Optional, if time)
+## Part 4: Multi-File Refactoring with Copilot Edits (Optional Demo: Throwaway Branch Only)
 
-### Scenario: Rename Across Multiple Files
+> **⚠️ Demonstration only, do not merge.** Renaming a field across a layered codebase is destructive. `title` appears in the domain aggregate, `TaskEntity`, the mapper, `CreateTaskRequest`, `UpdateTaskRequest`, `TaskResponse`, the controller, the database migrations and most tests, and renaming it changes the published API contract for no functional gain.
+>
+> Do this on a scratch branch, review the diff, then **discard it**:
+>
+> ```bash
+> git switch -c scratch/copilot-edits-demo
+> # ... run the demo ...
+> git switch -    # return to your work
+> git branch -D scratch/copilot-edits-demo
+> ```
 
-Use Copilot Edits for cross-cutting changes.
+### Scenario: See How Copilot Edits Handles a Cross-Cutting Change
 
 ### 4.1 Open Copilot Edits
 
 1. Open Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
 2. Search for "Copilot Edits: Open"
-3. Or use dedicated Copilot Edits panel in sidebar
+3. Or use the dedicated Copilot Edits panel in the sidebar
 
-### 4.2 Add Files to Working Set
+### 4.2 Add Files to the Working Set
 
-Add related files:
+Start with these, **knowing the set is incomplete** (the point of the demo):
 
 - `src-springboot/taskmanager-domain/src/main/java/com/example/taskmanager/domain/tasks/Task.java`
 - `src-springboot/taskmanager-api/src/main/java/com/example/taskmanager/api/dto/CreateTaskRequest.java`
@@ -874,34 +713,19 @@ Add related files:
 - `src-springboot/taskmanager-api/src/main/java/com/example/taskmanager/api/controllers/TaskController.java`
 - `src-springboot/taskmanager-application/src/test/java/com/example/taskmanager/application/services/TaskServiceTest.java`
 
-### 4.3 Describe Change
-
-In the Copilot Edits panel:
+### 4.3 Describe the Change
 
 ```text
-Rename the "title" field to "name" across all files in the working set. Update:
-- Entity field
-- DTO field
-- All references in services
-- All references in controllers
-- All test assertions
-Ensure consistency across the entire codebase
+Rename the "title" field to "name" across all files in the working set.
 ```
 
-### 4.4 Review Proposed Changes
+### 4.4 Review the Proposed Changes
 
-Copilot will show:
+- Which files does Copilot touch? Which ones does it **miss** (persistence entity, mapper, Flyway migrations, other test classes)?
+- Run `mvn clean test`. Does the build compile? Count the failures.
+- Discuss: why is a partial rename worse than none? When would an IDE rename (`Shift+F6` in IntelliJ) beat Copilot Edits?
 
-- All files that will be modified
-- Exact changes in each file
-- Side-by-side diff view
-
-### 4.5 Accept or Reject
-
-- Review each change carefully
-- Accept all if changes look correct
-- Or accept/reject individual file changes
-- Run tests after applying: `mvn test`
+Then discard the branch (see the warning above).
 
 ---
 
@@ -909,33 +733,33 @@ Copilot will show:
 
 ### ✅ Context-Aware Code Generation
 
-1. **@workspace**: Understanding existing structure before generating
-2. **#file**: Referencing specific files for consistent patterns
-3. **#selection**: Refactoring specific code sections
-4. **Pattern Reuse**: Copilot learned patterns from existing endpoints
+1. **@workspace**: Discover what already exists *and* what is missing before generating
+2. **#file**: Reference specific files for consistent patterns
+3. **#selection**: Refactor specific code sections
+4. **Real types**: Generated code must use `TaskId`, `TaskStatus`, and `TaskResponse.from(task)`; always compile what Copilot gives you
 
 ### ✅ Effective Refactoring Workflow
 
 1. **/explain**: Understand code before changing it
-2. **/refactor**: Automated refactoring with specific goals
-3. **/tests**: Generate tests for refactored code
-4. **Iterative**: Refactor in small steps, run tests frequently
+2. **Characterization tests first**: Pin what the legacy code *does*, including surprising edges like the `" "` split
+3. **/refactor**: Automated refactoring with specific goals and a "keep behavior identical" constraint
+4. **Re-run the same tests**: They prove behavior was preserved
+5. **Small steps**: Refactor in small steps, run tests frequently
 
 ### ✅ Code Quality Improvements
 
-1. **Guard Clauses**: Early returns reduce indentation
-2. **Proper Exception Handling**: Don't swallow exceptions, log them
-3. **Logging**: SLF4J with @Slf4j provides observability
-4. **Single Responsibility**: Extracted methods with clear purposes
-5. **Object Calisthenics**: Advanced quality constraints
-6. **Spring Boot Patterns**: @Service, dependency injection, @Transactional
+1. **Guard clauses**: Early returns reduce indentation
+2. **Enums over magic ints and flags**: Make invalid states unrepresentable
+3. **Ports and adapters**: Put I/O behind an interface
+4. **Proper exception handling**: Don't swallow exceptions; log and throw, restore interrupt flags
+5. **Logging**: SLF4J via `LoggerFactory`
+6. **Architecture**: Keep Spring and JPA out of the domain
 
 ### ✅ Multi-File Editing
 
 1. **Copilot Edits**: Consistent changes across multiple files
-2. **Working Set**: Explicitly define scope of changes
-3. **Review Process**: Always review AI-proposed changes
-4. **Safe Refactoring**: Tests validate behavior preservation
+2. **Working set**: An incomplete working set yields a broken partial change
+3. **Review**: Always review the diff; use scratch branches for experiments
 
 ---
 
@@ -943,37 +767,30 @@ Copilot will show:
 
 ### Exercise 1: Add Pagination
 
-Refactor GET /api/tasks to support pagination using Spring Data's `Pageable`.
-Use Copilot to:
+Add `page` and `size` parameters to `GET /api/tasks`.
 
-1. Add `Pageable` parameter to service method
-2. Update repository method to return `Page<Task>`
-3. Modify controller to accept `@RequestParam` page and size
-4. Update tests
+> **Architecture constraint**: do **not** put Spring Data's `Pageable` or `Page<T>` on the `TaskRepository` domain port. That would pull Spring Data into the domain module. Keep pagination in the application/API layers, returning a plain response type such as a `PagedResponse<T>` record (`content`, `page`, `size`, `totalElements`, `totalPages`, `first`, `last`).
 
-Example:
+Things to discuss and test:
 
-```java
-@GetMapping
-public ResponseEntity<Page<TaskResponse>> getAllTasks(
-        @RequestParam(required = false) String status,
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "20") int size) {
-    
-    Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
-    // ...
-}
-```
+1. Changing the list response from a bare array to an object is a **breaking API change**; which existing tests must be updated?
+2. Slicing in memory after loading all rows is fine for a workshop and wrong at scale. Record it as a known gap. How would you push paging into the persistence adapter without leaking `Pageable` into the port (for example a domain-level `PageRequest` value object mapped inside the adapter)?
 
 ### Exercise 2: Add Sorting
 
-Add sorting support to GET /api/tasks using Spring Data's `Sort`.
-Valid sort fields: title, priority, dueDate, createdAt
+Add sorting to `GET /api/tasks` over the fields that exist on `Task` today (for example `title` and `createdAt`), ascending and descending. Validate the sort field at the boundary and return 400 for unknown fields.
 
-### Exercise 3: Extract Response Mapper
+### Discussion 3: Is a `TaskResponseMapper` Warranted?
 
-Create a dedicated `TaskResponseMapper` component for converting Task entities to TaskResponse DTOs.
-Use Copilot Edits to update all endpoints to use the mapper.
+A teammate suggests extracting a dedicated `TaskResponseMapper` `@Component` for converting `Task` to `TaskResponse`.
+
+Discuss, using the existing code:
+
+- `TaskResponse.from(Task)` already exists, lives on the DTO that owns the mapping, and every endpoint uses it.
+- What would a mapper component add: a new class, an injected dependency, and either duplication of the factory or a redundant delegate?
+- When *would* it be justified (several response shapes, mapping needing injected collaborators, versioned DTOs)?
+
+The honest answer for this codebase is **no**. Ask Copilot to argue both sides, then decide. Choosing not to build something is a valid outcome.
 
 ---
 
@@ -981,16 +798,15 @@ Use Copilot Edits to update all endpoints to use the mapper.
 
 You've completed this lab successfully when:
 
-- ✅ Full CRUD API endpoints implemented (POST, GET, GET by ID, PUT, DELETE)
-- ✅ All endpoints follow consistent @RestController patterns
-- ✅ LegacyTaskProcessor refactored to modern Spring Boot standards
-- ✅ Refactored code follows Object Calisthenics principles
-- ✅ Guard clauses used instead of nested ifs
-- ✅ Proper exception handling (no swallowed exceptions)
-- ✅ SLF4J structured logging added
-- ✅ All tests passing
+- ✅ You identified that most of the REST API already exists (POST, GET list, GET by ID, `PATCH` update, state-change `PUT`s, DELETE) and did **not** rebuild it
+- ✅ `GET /api/tasks?status=` works for `PENDING`, `IN_PROGRESS`, `COMPLETED`, `CANCELLED`, and returns 400 for invalid values
+- ✅ Characterization tests were written and passing **before** refactoring `LegacyTaskProcessor`, including the `" "` edge case
+- ✅ `LegacyTaskProcessor` refactored: guard clauses, `ProcessingType` enum, named constants, `StringBuilder`, I/O behind a `TaskOutputWriter` port
+- ✅ No swallowed exceptions (log and throw)
+- ✅ The same characterization tests still pass after the refactor
+- ✅ All tests passing (`mvn clean test`)
+- ✅ Domain module still free of Spring/JPA dependencies
 - ✅ Code is clean, readable, and maintainable
-- ✅ Spring Boot best practices applied (@Service, @Transactional, DI)
 
 ---
 
@@ -998,34 +814,39 @@ You've completed this lab successfully when:
 
 ### Copilot Generates Inconsistent Patterns
 
-**Problem**: New endpoints don't match existing style  
-**Solution**: Use `#file` to reference existing controller, explicitly state "Follow the existing Spring Boot pattern"
+**Problem**: New code doesn't match existing style  
+**Solution**: Use `#file` to reference the existing controller and state "Follow the existing Spring Boot pattern"
 
-### Refactoring Breaks Tests
+### Copilot Generates Code That Doesn't Compile
 
-**Problem**: Tests fail after refactoring  
-**Solution**: This is OK! Update tests to match new behavior. Use `/tests` to regenerate tests.
+**Problem**: References `UUID` ids, `TaskStatus.TODO`/`DONE`, `new TaskResponse(...)` or other APIs that don't exist  
+**Solution**: Point Copilot at the real types (`#file` on `Task.java`, `TaskStatus.java`, `TaskResponse.java`, `TaskService.java`)
+
+### Refactoring Breaks the Characterization Tests
+
+**Problem**: A characterization test fails after refactoring  
+**Solution**: That is the safety net working. Fix the *refactored code* so behavior matches, unless you are deliberately changing behavior (such as surfacing swallowed exceptions); in that case change the test consciously and record why.
 
 ### Too Many Changes at Once
 
 **Problem**: Copilot suggests massive refactoring  
 **Solution**: Break into smaller steps. Refactor one method at a time. Run tests after each change.
 
-### Multi-File Edit Misses Files
+### Maven Build or Run Fails
 
-**Problem**: Copilot Edits doesn't update all references  
-**Solution**: Use IntelliJ's/VS Code's built-in "Rename" (Shift+F6 in IntelliJ) for simple renames. Use Copilot Edits for semantic changes.
+**Problem**: Compilation errors, stale-jar errors, or the app cannot reach PostgreSQL  
+**Solution**: Run `mvn clean install -DskipTests` from `src-springboot`, then `mvn spring-boot:run -pl taskmanager-api -Dspring-boot.run.profiles=dev` (PowerShell: quote the `-D` argument).
 
-### Maven Build Fails
+### Injecting a `Path` with `@Value` Fails
 
-**Problem**: Compilation errors after refactoring  
-**Solution**: Run `mvn clean compile` to rebuild. Check for missing imports or incorrect annotations.
+**Problem**: If you externalize the output directory and inject a `Path` via `@Value`, a web application context may resolve it as a ServletContext resource  
+**Solution**: Inject a `String` and convert to `Path` inside the adapter.
 
 ---
 
 ## Next Steps
 
-Move on to [**Lab 4: Testing, Documentation & Workflow**](lab-04-testing-documentation-workflow.md) where you'll:
+Move on to [**Lab 4: Testing, Documentation & Workflow**](lab-04-testing-documentation-workflow-java.md) where you'll:
 
 - Generate comprehensive test suites with `/tests`
 - Create documentation with `/doc`
@@ -1037,14 +858,14 @@ Move on to [**Lab 4: Testing, Documentation & Workflow**](lab-04-testing-documen
 ## Additional Resources
 
 ### Spring Boot & Java
-- [Spring Boot Best Practices](https://docs.spring.io/spring-boot/reference/features/developing-auto-configuration.html)
+- [Spring Boot Reference Documentation](https://docs.spring.io/spring-boot/reference/)
 - [Spring Data JPA Query Methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods)
 - [SLF4J Documentation](http://www.slf4j.org/manual.html)
-- [Lombok Annotations](https://projectlombok.org/features/all)
 
 ### Clean Code & Patterns
 - [Object Calisthenics](https://williamdurand.fr/2013/06/03/object-calisthenics/)
 - [Refactoring Techniques](https://refactoring.guru/refactoring/techniques)
+- [Characterization Tests](https://michaelfeathers.silvrback.com/characterization-testing)
 - [Clean Code Principles](https://www.baeldung.com/java-clean-code)
 - [DDD in Spring Boot](https://reflectoring.io/spring-boot-clean-architecture/)
 

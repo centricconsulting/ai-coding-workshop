@@ -46,7 +46,7 @@ Instead of manually reading through the issue, use Copilot to extract testable r
 **In Copilot Chat:**
 
 ```
-@workspace Review the documentation for Issue #12 (Cosmos DB upgrade) and extract all testable requirements. Organize them by:
+Using #codebase, review the documentation for Issue #12 (Cosmos DB upgrade) and extract all testable requirements. Organize them by:
 - Functional requirements
 - Non-functional requirements
 - Data requirements
@@ -1053,7 +1053,7 @@ Create a test scenario matrix for Cosmos DB repository implementation covering:
 
 ### 🎯 Use Context Effectively
 
-- Reference specific files with `#file:` or `@workspace`
+- Reference specific files with `#file:` or `#codebase`
 - Include acceptance criteria in prompts
 - Ask Copilot to review existing test strategy docs
 - Build on previous responses iteratively

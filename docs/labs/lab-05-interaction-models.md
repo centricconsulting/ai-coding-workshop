@@ -79,7 +79,7 @@ Select "architecture-reviewer" from the Agent picker →
 Review the domain model for this feature
 ```
 
-> **Note:** In the VS Code and Copilot CLI flows used in this workshop, custom agents (`.github/agents/*.agent.md`) are selected via the Agent picker (VS Code) or `/agent` (CLI). This is separate from the **Agent mode** picker (Interactive, Plan, Autopilot). `@` is still used for mentioning files and chat participants (for example, `@workspace`), and older docs or chat surfaces may still show `@agentName`.
+> **Note:** In the VS Code and Copilot CLI flows used in this workshop, custom agents (`.github/agents/*.agent.md`) are selected via the Agent picker (VS Code) or `/agent` (CLI). This is separate from the **Agent mode** picker (Interactive, Plan, Autopilot). Context such as `#codebase` and `#file` uses `#`, while `@` is still used for chat participants (for example, `@vscode` or `@terminal`), and older docs or chat surfaces may still show `@agentName`.
 
 ### Skills Discovery with #-mentions
 

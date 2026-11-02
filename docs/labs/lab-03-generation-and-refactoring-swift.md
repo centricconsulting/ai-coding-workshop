@@ -95,7 +95,7 @@ Now you want an Application-layer workflow that returns active tasks ordered fro
 Prompt Copilot:
 
 ```text
-@workspace Show me how the Swift track currently stores and retrieves tasks.
+Show me how the Swift track currently stores and retrieves tasks. #codebase
 Explain which files live in TaskManagerDomain, TaskManagerApplication, TaskManagerInfrastructure,
 and TaskManagerApp.
 Then suggest the smallest clean way to add a list-active-tasks use case.

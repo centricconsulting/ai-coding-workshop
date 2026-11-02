@@ -35,7 +35,7 @@ backgroundColor: #fff
 - Documentation debt reduced
 
 ## 2. Context Matters
-- Use `@workspace`, `#file`, `#selection`
+- Use `#codebase`, `#file`, `#selection`
 - Copilot Instructions encode team knowledge
 - Better prompts = better results
 
@@ -85,7 +85,7 @@ backgroundColor: #fff
 ✅ **Start with plan** - Ask Copilot for approach first  
 ✅ **Tests first** - TDD even with AI  
 ✅ **Review iteratively** - Don't wait until the end  
-✅ **Use chat participants** - @workspace is powerful  
+✅ **Use context variables** - #codebase is powerful  
 ✅ **Leverage instructions** - Team knowledge encoded  
 ✅ **Commit frequently** - Small, focused changes
 

@@ -197,12 +197,12 @@ refactor(javascript): split task update logic into helpers
 
 ## Part 4: Draft a Pull Request Description (4-5 minutes)
 
-### 4.1 Use `@workspace` for Context
+### 4.1 Use `#codebase` for Context
 
 Prompt Copilot Chat:
 
 ```text
-@workspace Draft a pull request description for the plain JavaScript task-manager track.
+Using #codebase, draft a pull request description for the plain JavaScript task-manager track.
 Include:
 - summary of behavior changes
 - testing performed

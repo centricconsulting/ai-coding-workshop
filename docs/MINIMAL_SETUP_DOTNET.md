@@ -107,7 +107,7 @@ Accept any OS prompt to trust the certificate.
 2. Check the Copilot icon in the status bar is active (not red/crossed out).
 3. Add a line and type a comment, e.g., `// Method to validate task title`, press Enter — you should see gray ghost-text suggestions.
 4. Press **Tab** to accept, **Esc** to dismiss, then delete the test line.
-5. Open Copilot Chat (`Cmd/Ctrl+Shift+I`) and ask `@workspace What testing frameworks are used in this project?`
+5. Open Copilot Chat (`Cmd/Ctrl+Shift+I`) and ask `What testing frameworks are used in this project? #codebase`
 
 **Not working?** Click the Copilot status bar icon → "Sign in to GitHub", verify your subscription, or reload VS Code (Command Palette → "Developer: Reload Window").
 

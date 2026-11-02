@@ -38,7 +38,7 @@ backgroundColor: #fff
 - `DELETE /tasks/{id}` - Delete task
 
 **Using:**
-- `@workspace` for context
+- `#codebase` for context
 - Minimal API patterns
 - CQRS queries
 - Integration tests
@@ -109,7 +109,7 @@ if (task.Status != "Active") return;
 
 ---
 
-# Using @workspace
+# Using #codebase
 
 **Why it matters:**
 - Copilot sees your entire codebase
@@ -119,9 +119,9 @@ if (task.Status != "Active") return;
 ---
 
 **Example prompts:**
-- `@workspace Show me all domain entities`
-- `@workspace How are minimal APIs structured in this project?`
-- `@workspace Generate GET endpoint following existing pattern`
+- `Show me all domain entities #codebase`
+- `How are minimal APIs structured in this project? #codebase`
+- `Generate GET endpoint following existing pattern #codebase`
 
 ---
 

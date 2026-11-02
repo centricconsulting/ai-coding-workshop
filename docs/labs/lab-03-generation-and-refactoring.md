@@ -8,7 +8,7 @@
 - Generate complete API endpoints using Copilot and context variables
 - Refactor legacy code using `/refactor` command and Inline Chat
 - Apply Object Calisthenics principles with AI assistance
-- Use `@workspace` for understanding and modifying existing code
+- Use `#codebase` for understanding and modifying existing code
 - Leverage Copilot Edits for multi-file refactoring
 
 ---
@@ -84,12 +84,12 @@ Encourage participants to share their results and discuss when this approach is 
 
 You have the POST /tasks endpoint from Lab 2. Now complete the REST API with GET, PUT, and DELETE operations.
 
-### 1.1 Understand Existing Structure with @workspace
+### 1.1 Understand Existing Structure with #codebase
 
 Before generating new code, understand what exists:
 
 ```text
-@workspace Show me the API endpoint structure. Where are endpoints defined and how are they organized?
+#codebase Show me the API endpoint structure. Where are endpoints defined and how are they organized?
 ```
 
 Copilot should identify:
@@ -278,10 +278,10 @@ The repository contains `LegacyTaskProcessor.ProcessTask` - poorly written code 
 
 ### 2.1 Find the Legacy Code
 
-Use `@workspace`:
+Use `#codebase`:
 
 ```text
-@workspace Find the LegacyTaskProcessor class
+#codebase Find the LegacyTaskProcessor class
 ```
 
 **Location**: `src-dotnet/src/TaskManager.Infrastructure/Legacy/LegacyTaskProcessor.cs`
@@ -647,7 +647,7 @@ Copilot will show:
 
 ### ✅ Context-Aware Code Generation
 
-1. **@workspace**: Understanding existing structure before generating
+1. **#codebase**: Understanding existing structure before generating
 2. **#file**: Referencing specific files for consistent patterns
 3. **#selection**: Refactoring specific code sections
 4. **Pattern Reuse**: Copilot learned patterns from existing endpoints
@@ -747,7 +747,7 @@ Move on to [**Lab 4: Testing, Documentation & Workflow**](lab-04-testing-documen
 - Generate comprehensive test suites with `/tests`
 - Create documentation with `/doc`
 - Write Conventional Commit messages
-- Draft PR descriptions with `@workspace`
+- Draft PR descriptions with `#codebase`
 
 ---
 

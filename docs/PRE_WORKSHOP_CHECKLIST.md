@@ -325,8 +325,8 @@ Expected: Tests pass (or a known small number of skipped tests — confirm with 
   4. Should get a response mentioning xUnit and FakeItEasy
   5. ✅ Chat is working!
 
-- [ ] **Test @workspace participant**
-  1. In Copilot Chat, type: `@workspace Where is the Task entity defined?`
+- [ ] **Test #codebase context**
+  1. In Copilot Chat, type: `Where is the Task entity defined? #codebase`
   2. Should respond with file path: `src-dotnet/src/TaskManager.Domain/Tasks/Task.cs`
   3. ✅ Workspace context is working!
 
@@ -473,7 +473,7 @@ Before the workshop, confirm:
 - [ ] Workshop repository cloned and personal branch created from `main`
 - [ ] Copilot inline suggestions work
 - [ ] Copilot Chat responds to queries
-- [ ] Workspace context works with `@workspace`
+- [ ] Workspace context works with `#codebase`
 
 **🔷 .NET Track:**
 - [ ] C# Dev Kit extension installed

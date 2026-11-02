@@ -230,7 +230,7 @@ docs(kotlin): expand tests and documentation workflow
 Prompt Copilot Chat:
 
 ```text
-@workspace Draft a pull request description for the Kotlin workshop track.
+Using #codebase, draft a pull request description for the Kotlin workshop track.
 Include:
 - summary of testing improvements
 - documentation updates

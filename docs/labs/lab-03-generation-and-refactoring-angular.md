@@ -7,7 +7,7 @@
 
 - Generate the remaining CRUD-style application service methods with Copilot
 - Extend the repository contract intentionally when new behavior requires it
-- Use `@workspace`, `#file`, and `/refactor` effectively in an Angular project
+- Use `#codebase`, `#file`, and `/refactor` effectively in an Angular project
 - Refactor business logic out of a component into an injectable application service
 - Apply Angular-friendly clean code principles while preserving behavior
 
@@ -64,12 +64,12 @@ Your current application service is minimal:
 
 Now expand it so the Angular SPA can support task details, editing, deletion, and richer listing.
 
-### 1.1 Understand the Existing Flow with @workspace
+### 1.1 Understand the Existing Flow with #codebase
 
 Ask Copilot:
 
 ```text
-@workspace Show me how the Angular task manager currently flows from TaskListComponent to TaskApplicationService to InMemoryTaskRepository.
+Show me how the Angular task manager currently flows from TaskListComponent to TaskApplicationService to InMemoryTaskRepository. #codebase
 Identify which files would need to change to support update and delete use cases.
 ```
 

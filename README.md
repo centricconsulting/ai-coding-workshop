@@ -277,8 +277,8 @@ By the end of Part 2, participants will be able to:
 
 - Inline completions, Chat panel, and Inline Chat
 - **Slash commands**: `/explain`, `/fix`, `/tests`, `/doc`, `/refactor`, `/help`, `/agents`, `/skills`, `/init`
-- **Chat participants**: `@workspace`, `@vscode`, `@terminal`
-- **Context variables**: `#file`, `#selection`, `#editor`
+- **Chat participants**: `@vscode`, `@terminal`
+- **Context variables**: `#codebase` (searches your workspace for relevant code), `#file`, `#selection`, `#editor`
 - **Agent/Skill discovery**: Using `/agents` and `/skills` to explore capabilities
 - Quick hands-on practice with each feature
 
@@ -334,7 +334,7 @@ See [Part 2 Facilitator's Guide](docs/FACILITATOR_GUIDE_PART2.md) for detailed s
 - Key takeaways, governance, and next steps
 
 - Scaffold APIs, refactor legacy methods with slash commands
-- Lab 3: Minimal API with `@workspace`, refactor with `/refactor`, generate tests with `/tests`
+- Lab 3: Minimal API with `#codebase`, refactor with `/refactor`, generate tests with `/tests`
 
 ### 5. Testing, Documentation, Workflow (15 min)
 
@@ -642,7 +642,7 @@ To get the most out of Copilot, Skills, and AI agents in this workshop:
 - **Use Skills for knowledge**: Invoke skills like `#test-data-generator` for domain expertise and templates without needing file access
 - **Use Agents for workflows**: Select custom agents like `@plan`, `@architect`, or `@architecture-reviewer` for multi-step tasks requiring tool access
 - **Use the Check agent for code review**: Select the **Check** Copilot agent from the agents dropdown in Copilot Chat to get improvement suggestions before submitting a PR
-- **Leverage chat participants**: Use `@workspace` for codebase questions, `@terminal` for CLI help, and `@vscode` for editor tips
+- **Leverage chat participants and context**: Use `#codebase` for codebase questions, `@terminal` for CLI help, and `@vscode` for editor tips
 - **Be explicit in prompts**: Reference files, selections, or context variables (e.g., `#file`, `#selection`) for targeted results
 - **Review and iterate**: Treat Copilot suggestions as a starting point—review, refactor, and test as you would with any code
 

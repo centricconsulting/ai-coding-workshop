@@ -85,7 +85,7 @@ Now you want to expose that through the Application and API layers.
 Start with context:
 
 ```text
-@workspace Show me how the Python track currently creates tasks.
+Show me how the Python track currently creates tasks. #codebase
 Explain which files live in task_manager_domain, task_manager_application, task_manager_api, and task_manager_infrastructure.
 Then suggest the smallest clean way to add GET /tasks.
 ```

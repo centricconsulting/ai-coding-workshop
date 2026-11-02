@@ -261,7 +261,7 @@ test(python): expand FastAPI coverage and docs
 Prompt Copilot Chat:
 
 ```text
-@workspace Draft a pull request description for the Python workshop track.
+Using #codebase, draft a pull request description for the Python workshop track.
 Include:
 - summary of testing improvements
 - documentation updates

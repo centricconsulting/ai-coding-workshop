@@ -93,7 +93,7 @@ Now you want an Application-layer workflow that returns active tasks ordered fro
 Prompt Copilot:
 
 ```text
-@workspace Show me how the Kotlin track currently stores and retrieves tasks.
+Show me how the Kotlin track currently stores and retrieves tasks. #codebase
 Explain which files live in task-manager-domain, task-manager-application, and task-manager-infrastructure.
 Then suggest the smallest clean way to add a list-active-tasks use case.
 ```

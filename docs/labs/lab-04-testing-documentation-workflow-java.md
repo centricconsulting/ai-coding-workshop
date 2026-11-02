@@ -8,7 +8,7 @@
 - Generate comprehensive test suites using `/tests` command
 - Create documentation with `/doc` command
 - Write Conventional Commit messages with AI assistance
-- Draft PR descriptions using `@workspace` for full context
+- Draft PR descriptions using `#codebase` for full context
 - Integrate Copilot into complete development workflow
 
 ---
@@ -252,7 +252,7 @@ Records have accessors, not getters: when documenting DTOs, refer to `request.ti
 `src-springboot/README.md` **already has** an "API Endpoints" section. Update it rather than adding a second one. Ask:
 
 ```text
-@workspace Compare the API Endpoints section in src-springboot/README.md with TaskController, CreateTaskRequest, UpdateTaskRequest and TaskResponse. List anything that is missing or wrong, then propose corrections. Only document what exists in the code.
+Using #codebase, compare the API Endpoints section in src-springboot/README.md with TaskController, CreateTaskRequest, UpdateTaskRequest and TaskResponse. List anything that is missing or wrong, then propose corrections. Only document what exists in the code.
 ```
 
 For reference, here is the real API that the README must match (verify against `TaskController`):
@@ -403,12 +403,12 @@ Check the result against the diff: if the message says "Stream API" but the code
 
 You've completed your changes. Create an honest PR description for review.
 
-### 4.1 Generate PR Description with @workspace
+### 4.1 Generate PR Description with #codebase
 
 In Copilot Chat:
 
 ```text
-@workspace Draft a Pull Request description for the changes on this branch compared with main. Base it on `git diff main...HEAD` only. Include:
+Using #codebase, draft a Pull Request description for the changes on this branch compared with main. Base it on `git diff main...HEAD` only. Include:
 - Summary of changes
 - What was implemented (features, refactoring, tests)
 - Intent and motivation
@@ -494,7 +494,7 @@ Review the generated PR description and adjust:
 
 ### ✅ Code Review Preparation
 
-1. **@workspace Context**: Full codebase understanding for the PR description
+1. **#codebase Context**: Relevant code discovery for the PR description
 2. **Honest PRs**: Real command output, no invented metrics
 3. **Reviewer Checklist**: Clear acceptance criteria
 4. **Impact Analysis**: Breaking changes stated only after verification
@@ -542,7 +542,7 @@ You've completed this lab successfully when:
 - ✅ Public APIs you touched have meaningful Javadoc via `/doc`
 - ✅ README API section matches `TaskController`
 - ✅ Conventional Commit messages describe only real changes
-- ✅ PR description drafted with `@workspace` and every claim verified
+- ✅ PR description drafted with `#codebase` and every claim verified
 - ✅ `mvn clean test` passes
 - ✅ Documentation is clear and maintainable
 - ✅ Ready for code review
@@ -607,7 +607,7 @@ Congratulations! You've completed all four labs (Java version). You now know how
 ### PR Description Missing Details
 
 **Problem**: PR description is too high-level  
-**Solution**: Use @workspace and be specific: "Include testing details, breaking changes, and reviewer checklist"
+**Solution**: Use #codebase and be specific: "Include testing details, breaking changes, and reviewer checklist"
 
 ### Integration Tests Fail to Start Spring Context
 
@@ -624,7 +624,7 @@ Congratulations! You've completed all four labs (Java version). You now know how
 2. Establish Conventional Commits standard
 3. Use `/tests` for all new code
 4. Use `/doc` for public APIs
-5. Use `@workspace` in daily work
+5. Use `#codebase` in daily work
 
 ### Advanced Copilot Usage
 

@@ -226,7 +226,7 @@ docs(swift): expand tests and documentation workflow
 Prompt Copilot Chat:
 
 ```text
-@workspace Draft a pull request description for the Swift workshop track.
+Using #codebase, draft a pull request description for the Swift workshop track.
 Include:
 - summary of testing improvements
 - documentation updates

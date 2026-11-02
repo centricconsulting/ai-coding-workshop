@@ -81,10 +81,10 @@ backgroundColor: #fff
 
 ---
 
-# PR Description with @workspace
+# PR Description with #codebase
 
 ```
-@workspace Generate a PR description for my changes
+Generate a PR description for my changes #codebase
 ```
 
 **Copilot provides:**

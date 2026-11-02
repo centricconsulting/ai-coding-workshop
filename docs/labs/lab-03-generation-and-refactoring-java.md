@@ -9,7 +9,7 @@
 - Pin legacy behavior with characterization tests *before* refactoring
 - Refactor legacy code using `/refactor` command and Inline Chat
 - Apply Object Calisthenics principles with AI assistance
-- Use `@workspace` for understanding and modifying existing code
+- Use `#codebase` for understanding and modifying existing code
 - Understand how Copilot Edits handles multi-file changes (safely, on a scratch branch)
 
 ---
@@ -86,10 +86,10 @@ Encourage participants to share their results and discuss when this approach is 
 
 Earlier labs already built most of the Task API. Generating endpoints that exist is wasted effort, so the first skill in this lab is **discovering the gap**.
 
-### 1.1 Understand Existing Structure with @workspace
+### 1.1 Understand Existing Structure with #codebase
 
 ```text
-@workspace List every endpoint in TaskController and the TaskService method each one calls. Which common query capabilities are missing?
+List every endpoint in TaskController and the TaskService method each one calls. Which common query capabilities are missing? #codebase
 ```
 
 `TaskController` (`src-springboot/taskmanager-api/src/main/java/com/example/taskmanager/api/controllers/TaskController.java`) already exposes:
@@ -105,7 +105,7 @@ Earlier labs already built most of the Task API. Generating endpoints that exist
 | PUT | `/api/tasks/{id}/cancel` | Cancel a task |
 | DELETE | `/api/tasks/{id}` | Delete a task |
 
-> **Check the real controller**: the exact endpoint list can evolve between labs. Trust what `@workspace` finds in your checkout over this table.
+> **Check the real controller**: the exact endpoint list can evolve between labs. Trust what `#codebase` finds in your checkout over this table.
 
 The gap: `GET /api/tasks` returns everything. There is no way to ask for only `IN_PROGRESS` tasks.
 
@@ -119,7 +119,7 @@ Real domain facts the generated code must respect:
 ### 1.2 Check What the Service Already Offers
 
 ```text
-@workspace Does TaskService already have a method that filters tasks by status? Which repository port method does it use?
+Does TaskService already have a method that filters tasks by status? Which repository port method does it use? #codebase
 ```
 
 `TaskService` already has `findAllTasks()` and `findTasksByStatus(TaskStatus)`, backed by `TaskRepository.findByStatus(TaskStatus)`. So the **service and domain port need no change**; the work is in the API layer. If the service lacked it, you would add it test-first (Lab 1).
@@ -246,7 +246,7 @@ The repository contains `LegacyTaskProcessor`: intentionally poor code. Despite 
 ### 2.1 Find the Legacy Code
 
 ```text
-@workspace Find the LegacyTaskProcessor class in the Spring Boot project
+Find the LegacyTaskProcessor class in the Spring Boot project #codebase
 ```
 
 **Location**: `src-springboot/taskmanager-infrastructure/src/main/java/com/example/taskmanager/infrastructure/legacy/LegacyTaskProcessor.java`
@@ -542,7 +542,7 @@ Key rules:
 First, check whether the domain already complies:
 
 ```text
-@workspace Are there primitive types in the domain module that should be wrapped in value objects?
+Are there primitive types in the domain module that should be wrapped in value objects? #codebase
 ```
 
 It largely does: `TaskId` is a record wrapping `UUID`, and `TaskStatus` is an enum, not a string or int. The domain stays pure Java (no JPA annotations); persistence mapping lives in `TaskEntity`/`TaskMapper` in the infrastructure layer.
@@ -733,7 +733,7 @@ Then discard the branch (see the warning above).
 
 ### ✅ Context-Aware Code Generation
 
-1. **@workspace**: Discover what already exists *and* what is missing before generating
+1. **#codebase**: Discover what already exists *and* what is missing before generating
 2. **#file**: Reference specific files for consistent patterns
 3. **#selection**: Refactor specific code sections
 4. **Real types**: Generated code must use `TaskId`, `TaskStatus`, and `TaskResponse.from(task)`; always compile what Copilot gives you
@@ -851,7 +851,7 @@ Move on to [**Lab 4: Testing, Documentation & Workflow**](lab-04-testing-documen
 - Generate comprehensive test suites with `/tests`
 - Create documentation with `/doc`
 - Write Conventional Commit messages
-- Draft PR descriptions with `@workspace`
+- Draft PR descriptions with `#codebase`
 
 ---
 

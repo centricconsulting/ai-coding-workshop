@@ -201,19 +201,17 @@ This document provides a detailed facilitator's guide for running the 3-hour wor
 ---
 ### **Chat Participants (Agents)** - Specialized assistants:
 
-- `@workspace` - Answers about your entire codebase
-  - *"@workspace Where is the Task entity defined?"*
-  - *"@workspace How is logging configured?"*
 - `@vscode` - VS Code settings and commands
   - *"@vscode How do I change theme?"*
 - `@terminal` - Terminal commands and shell help
   - *"@terminal How do I run tests in watch mode?"*
 - `@azure` - Azure-specific guidance (if available)
 
-**Demo**: Show `@workspace` finding code across solution
-
 ### **Context Variables** - Provide specific context:
 
+- `#codebase` - Searches the workspace for code relevant to your question (does not attach the whole codebase)
+  - *"Where is the Task entity defined? #codebase"*
+  - *"How is logging configured? #codebase"*
 - `#file` - Reference specific files
   - *"Refactor #file:TaskService.cs to use dependency injection"*
 - `#selection` - Reference selected code
@@ -221,7 +219,7 @@ This document provides a detailed facilitator's guide for running the 3-hour wor
 - `#editor` - Current file context
 - `#terminalSelection` - Selected terminal output
 
-**Demo**: Select code, use `#selection` in chat
+**Demo**: Use `#codebase` to find code across the solution, then select code and use `#selection` in chat
 
 ### **Copilot Edits** (Multi-file editing)
 
@@ -238,7 +236,7 @@ This document provides a detailed facilitator's guide for running the 3-hour wor
 2. Open Copilot Chat (`Ctrl+Alt+I`), ask: *"What testing frameworks are used in this project?"*
 3. Select a method, use Inline Chat (`Ctrl+I`): *"Add XML documentation"*
 4. Try a slash command: `/explain` on any method
-5. Use `@workspace`: *"@workspace Where is ITaskRepository implemented?"*
+5. Use `#codebase`: *"Where is ITaskRepository implemented? #codebase"*
 
 ---
 
@@ -385,7 +383,7 @@ This document provides a detailed facilitator's guide for running the 3-hour wor
     - 🟩 **Spring Boot**: JUnit 5 tests with Mockito
   - Documentation using `/doc` command (language-agnostic)
   - Commit message using Chat with staged changes context
-  - PR summary with `@workspace` for full context
+  - PR summary with `#codebase` for full context
 
 **Participants do (Lab 4)**:
 
@@ -398,7 +396,7 @@ This document provides a detailed facilitator's guide for running the 3-hour wor
    - 🟩 **Spring Boot**: Generates JUnit 5 + Mockito tests (manual prompting if lab not available)
 2. **Generate documentation**: Use `/doc` to create inline docs (XML docs / JavaDoc)
 3. **Conventional commits**: Stage changes, ask Chat for commit message following Conventional Commits
-4. **PR descriptions**: Use `@workspace` to draft PR summary with intent, scope, and risks
+4. **PR descriptions**: Use `#codebase` to draft PR summary with intent, scope, and risks
 5. **README generation**: Ask for Getting Started section in README.md
 
 ---
@@ -486,7 +484,7 @@ GitHub Copilot offers both built-in chat participants and custom Copilot agents 
 
 ### Built-in Chat Participants vs. Custom Copilot Agents
 
-**Built-in Chat Participants** are VS Code's native Copilot features accessed with `@` syntax (e.g., `@workspace`, `@vscode`). These provide general-purpose assistance.
+**Built-in Chat Participants** are VS Code's native Copilot features accessed with `@` syntax (e.g., `@vscode`, `@terminal`). These provide general-purpose assistance. To give Copilot context about your project, use `#` context variables such as `#codebase` and `#file`.
 
 **Custom Copilot Agents** are specialized, configurable agents defined in `.agent.md` files in the `.github/agents/` directory. These provide role-specific guidance and can be selected from the agents dropdown in Copilot Chat.
 
@@ -527,12 +525,12 @@ Explain the benefits of async/await in C#
 
 **Limitations**:
 
-- ⚠️ No direct access to your codebase context (use @workspace for that)
+- ⚠️ No direct access to your codebase context unless you add it (use `#codebase` for that)
 - ⚠️ May give generic answers without project-specific context
 
 ---
 
-#### 2. @workspace
+#### 2. #codebase (Context Variable)
 
 **When to use**:
 
@@ -543,17 +541,17 @@ Explain the benefits of async/await in C#
 
 **How to use**:
 
-- Type `@workspace` followed by your question
-- Copilot will search and analyze your entire workspace
+- Add `#codebase` to your question (type `#` to pick it from the list)
+- Copilot searches the workspace for relevant code and adds the matches to the context (it does not attach the whole codebase)
 
 **Examples**:
 
 ```text
-@workspace Where is the Task entity defined?
-@workspace How is logging configured in this project?
-@workspace Find all implementations of IRepository
-@workspace Show me how authentication is handled
-@workspace What testing frameworks are used?
+Where is the Task entity defined? #codebase
+How is logging configured in this project? #codebase
+Find all implementations of IRepository #codebase
+Show me how authentication is handled #codebase
+What testing frameworks are used? #codebase
 ```
 
 **Best for**:
@@ -566,7 +564,7 @@ Explain the benefits of async/await in C#
 
 **Workshop Tips**:
 
-- Emphasize `@workspace` in Labs 2-4 when participants need to understand existing code
+- Emphasize `#codebase` in Labs 2-4 when participants need to understand existing code
 - Show how it finds code across all layers (Domain, Application, Infrastructure, API)
 - Demonstrate finding repository interfaces, endpoint patterns, test structures
 
@@ -735,7 +733,7 @@ Custom Copilot agents are specialized assistants defined in `.github/agents/*.ag
 | Type | Name | Access Method | Best Use Case | Example |
 |------|------|---------------|---------------|---------|
 | **Built-in** | Default | General chat | Concepts, patterns, best practices | "What is Clean Architecture?" |
-| **Built-in** | @workspace | `@workspace` | Find code, understand structure | "@workspace Where is ITaskRepository?" |
+| **Context variable** | #codebase | `#codebase` | Find code, understand structure | "Where is ITaskRepository? #codebase" |
 | **Built-in** | @vscode | `@vscode` | Settings, shortcuts, configuration | "@vscode How do I format on save?" |
 | **Built-in** | @terminal | `@terminal` | Shell commands, scripts | "@terminal Run tests in watch mode" |
 | **Built-in** | @azure | `@azure` | Deployment, Azure services | "@azure Deploy to App Service" |
@@ -759,17 +757,17 @@ Custom Copilot agents are specialized assistants defined in `.github/agents/*.ag
 
    → Generic explanation
 
-2. **Compare with @workspace**:
+2. **Compare with #codebase**:
 
    ```text
-   @workspace Where is the repository pattern implemented?
+   Where is the repository pattern implemented? #codebase
    ```
 
    → Specific file locations in YOUR project
 
 3. **Show the Difference**:
    - Default: Generic, educational
-   - @workspace: Specific, actionable
+   - #codebase: Specific, actionable
 
 4. **Quick @terminal Demo**:
 
@@ -783,20 +781,20 @@ Custom Copilot agents are specialized assistants defined in `.github/agents/*.ag
 
 | Lab | Recommended Tools | When to Use |
 |-----|------------------|-------------|
-| **Lab 1** | Default, @workspace, Plan agent | Concepts, finding test patterns, planning tests |
-| **Lab 2** | @workspace, Default, Architect agent | Finding entities, understanding layers, planning features |
-| **Lab 3** | @workspace, @terminal, Check agent | Finding endpoints, refactoring commands, code review |
-| **Lab 4** | @workspace, @terminal, Check agent | Git commands, understanding test structure, PR review |
+| **Lab 1** | Default, #codebase, Plan agent | Concepts, finding test patterns, planning tests |
+| **Lab 2** | #codebase, Default, Architect agent | Finding entities, understanding layers, planning features |
+| **Lab 3** | #codebase, @terminal, Check agent | Finding endpoints, refactoring commands, code review |
+| **Lab 4** | #codebase, @terminal, Check agent | Git commands, understanding test structure, PR review |
 
 #### **Common Participant Mistakes**
 
-1. **Using Default Instead of @workspace**:
+1. **Forgetting #codebase**:
    - **Mistake**: "Where is the Task entity?"
-   - **Better**: "@workspace Where is the Task entity?"
+   - **Better**: "Where is the Task entity? #codebase"
    - **Result**: Specific file path vs. generic explanation
 
-2. **Using @workspace for Concepts**:
-   - **Mistake**: "@workspace What is dependency injection?"
+2. **Using #codebase for Concepts**:
+   - **Mistake**: "What is dependency injection? #codebase"
    - **Better**: "What is dependency injection?" (default)
    - **Result**: Educational explanation vs. code search
 
@@ -829,10 +827,10 @@ You can use chat participants and custom agents in sequence:
    Explain the CQRS pattern
    ```
 
-2. **Find in code** (@workspace):
+2. **Find in code** (#codebase):
 
    ```text
-   @workspace Show me examples of commands and queries in this project
+   Show me examples of commands and queries in this project #codebase
    ```
 
 3. **Review code** (Check agent):
@@ -853,7 +851,7 @@ You can use chat participants and custom agents in sequence:
 Combine chat participants and agents with context variables for precision:
 
 ```text
-@workspace What tests exist for #file:CreateTaskCommandHandler.cs?
+What tests exist for #file:CreateTaskCommandHandler.cs? #codebase
 ```
 
 ```text
@@ -890,7 +888,7 @@ Do I need specialized assistance?
     ↓ NO
     ↓
 Is it about MY code?
-    ↓ YES → Use @workspace
+    ↓ YES → Add #codebase
     ↓ NO
     ↓
 Is it about VS Code?
@@ -912,7 +910,7 @@ Use Default Chat
 
 ### Troubleshooting
 
-#### **@workspace Not Finding Code**
+#### **#codebase Not Finding Code**
 
 **Symptoms**: Says "I couldn't find..." for code that exists
 
@@ -952,7 +950,7 @@ Use Default Chat
 **Solutions**:
 
 1. Check which mode you're using (shown in chat)
-2. Rephrase with explicit mode: "@workspace [question]"
+2. Rephrase with explicit context: "[question] #codebase"
 3. Clear chat and start over with correct mode
 
 ---
@@ -971,10 +969,10 @@ Ask participants to try each mode:
 
    *Expected*: Conceptual explanation of TDD
 
-2. **@workspace**:
+2. **#codebase**:
 
    ```text
-   @workspace Where are the xUnit tests located?
+   Where are the xUnit tests located? #codebase
    ```
 
    *Expected*: Actual file paths in their project
@@ -1004,7 +1002,7 @@ Ask participants to try each mode:
 
 ### Key Takeaways for Facilitators
 
-✅ **@workspace is most important** for this workshop - emphasize it!  
+✅ **#codebase is most important** for this workshop - emphasize it!  
 ✅ **Default chat** is good for learning concepts  
 ✅ **@terminal** helps with .NET CLI commands  
 ✅ **Modes are contextual** - teach when to use which  
@@ -1012,7 +1010,7 @@ Ask participants to try each mode:
 
 **Don't Overwhelm**:
 
-- Focus on @workspace and default chat primarily
+- Focus on #codebase and default chat primarily
 - Introduce other modes as needed during labs
 - Reference this appendix for detailed explanations
 - Let participants discover advanced usage naturally

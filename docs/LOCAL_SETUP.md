@@ -478,7 +478,7 @@ After setup, confirm Copilot is active:
 
 **Copilot Chat test:**
 1. Open Copilot Chat: `Cmd/Ctrl+Shift+I` (or click the chat icon in the sidebar)
-2. Type: `@workspace What testing frameworks are used in this project?`
+2. Type: `What testing frameworks are used in this project? #codebase`
 3. You should get a relevant response — ✅ Copilot is working!
 
 **Not working?**

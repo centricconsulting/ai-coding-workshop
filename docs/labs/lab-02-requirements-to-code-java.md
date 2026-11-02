@@ -320,10 +320,10 @@ Expected result: compilation errors. This is the **RED** phase! ✅
 
 ### 2.3 Implement Priority and Due Date on Task (GREEN Phase)
 
-Use `@workspace` to find the aggregate:
+Use `#codebase` to find the aggregate:
 
 ```text
-@workspace Where is the Task aggregate defined in the Spring Boot project?
+Where is the Task aggregate defined in the Spring Boot project? #codebase
 ```
 
 It lives at `taskmanager-domain/src/main/java/com/example/taskmanager/domain/tasks/Task.java` and is a **pure POJO**: no `@Entity`, no `jakarta.persistence` imports. Keep it that way. Persistence is the infrastructure module's job (see 2.4).
@@ -1007,7 +1007,7 @@ You've completed this lab successfully when:
 ### Copilot Generates Generic Backlog Items
 
 **Problem**: Backlog items don't consider existing architecture  
-**Solution**: Use `@workspace` to give context: "Given our Spring Boot Clean Architecture structure..."
+**Solution**: Use `#codebase` to give context: "Given our Spring Boot Clean Architecture structure..."
 
 ### Tests Don't Cover Edge Cases
 
@@ -1053,7 +1053,7 @@ Move on to [**Lab 3: Code Generation & Refactoring**](lab-03-generation-and-refa
 - Scaffold complete API endpoints with Copilot
 - Refactor legacy code using `/refactor` command
 - Apply Object Calisthenics principles
-- Use `@workspace` for cross-file understanding
+- Use `#codebase` for cross-file understanding
 
 ---
 

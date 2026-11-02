@@ -75,10 +75,6 @@ h1, h2 { font-size: 1.8em; }
 
 Provide context for better results:
 
-## @workspace
-- Questions about your codebase
-- "Where is the Task entity?"
-
 ## @vscode
 - VS Code features and commands
 - "How do I debug tests?"
@@ -96,6 +92,10 @@ h1, h2 { font-size: 1.8em; }
 # Context Variables
 
 Reference specific context:
+
+## #codebase
+- Searches your workspace for relevant code
+- "Where is the Task entity? #codebase"
 
 ## #file
 - Reference a specific file
@@ -122,14 +122,14 @@ h1, h2 { font-size: 1.8em; }
 
 1. Open `TaskManager.Domain/Tasks/Task.cs`
 2. Use `/explain` on the Task class
-3. Try `@workspace` with: "What's the architecture pattern?"
+3. Try `#codebase` with: "What's the architecture pattern? #codebase"
 4. Use `#file` with: "Suggest improvements for #file:Task.cs"
 
 **🟩 Spring Boot Track — Try these:**
 
 1. Open `src-springboot/taskmanager-domain/src/main/java/com/example/taskmanager/domain/tasks/Task.java`
 2. Use `/explain` on the Task class
-3. Try `@workspace` with: "What's the architecture pattern?"
+3. Try `#codebase` with: "What's the architecture pattern? #codebase"
 4. Use `#file` with: "Suggest improvements for #file:Task.java"
 
 **Goal:** Get comfortable with Copilot's features

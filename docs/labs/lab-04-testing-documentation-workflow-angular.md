@@ -9,7 +9,7 @@
 - Generate TSDoc comments with `/doc` for Angular and TypeScript code
 - Document the Angular SPA workflow clearly for future contributors
 - Write Conventional Commit messages for Angular feature and refactor work
-- Draft a useful PR description with `@workspace`
+- Draft a useful PR description with `#codebase`
 
 ---
 
@@ -266,12 +266,12 @@ refactor(angular): move task rules from component into service
 
 ## Part 4: Draft a Pull Request Description (4-5 minutes)
 
-### 4.1 Use @workspace for Full Context
+### 4.1 Use #codebase for Full Context
 
 Ask Copilot Chat:
 
 ```text
-@workspace Draft a pull request description for the Angular task manager labs. Include:
+Using #codebase, draft a pull request description for the Angular task manager labs. Include:
 - summary of the user-facing behavior
 - architectural changes across domain/application/data/features
 - tests performed
@@ -333,7 +333,7 @@ Review and refine it before posting.
 ### ✅ Collaboration Workflow
 
 1. Conventional Commits make workshop history easier to read
-2. PR descriptions are better when `@workspace` can see the whole change set
+2. PR descriptions are better when `#codebase` can find the relevant code across the change set
 3. a reviewer checklist helps keep architecture boundaries intact
 
 ---
@@ -362,7 +362,7 @@ You've completed this lab successfully when:
 - ✅ public TypeScript classes and methods have helpful TSDoc comments
 - ✅ the Angular track README explains the SPA architecture and commands clearly
 - ✅ commit messages follow Conventional Commits
-- ✅ you have a solid PR description generated from `@workspace`
+- ✅ you have a solid PR description generated with `#codebase`
 - ✅ `npm test -- --watch=false` and `npx ng build` both succeed
 
 ---

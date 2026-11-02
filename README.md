@@ -278,8 +278,7 @@ By the end of Part 2, participants will be able to:
 - Inline completions, Chat panel, and Inline Chat
 - **Slash commands**: `/explain`, `/fix`, `/tests`, `/doc`, `/refactor`, `/help`, `/agents`, `/skills`, `/init`
 - **Chat participants**: `@vscode`, `@terminal`
-- **Context variables**: `#codebase` (searches your workspace for relevant code), `#file`, `#selection`
-- **Context variables**: `#file`, `#selection`, `#editor`
+- **Context variables**: `#codebase` (searches your workspace for relevant code), `#file`, `#selection`, `#editor`
 - **Agent/Skill discovery**: Using `/agents` and `/skills` to explore capabilities
 - Quick hands-on practice with each feature
 

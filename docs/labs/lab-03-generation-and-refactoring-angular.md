@@ -542,7 +542,7 @@ You've completed this lab successfully when:
 
 ## Next Steps
 
-Continue to [**Lab 4: Testing, Documentation & Workflow (Angular)**](lab-04-testing-documentation-workflow-angular.md), where you'll use `/tests`, `/doc`, Conventional Commits, and a PR template to wrap up the Angular track cleanly.
+Continue to [**Lab 4: Testing, Documentation & Workflow (Angular)**](lab-04-testing-documentation-workflow-angular.md), where you'll use `/tests`, Generate Docs, Conventional Commits, and a PR template to wrap up the Angular track cleanly.
 
 ---
 

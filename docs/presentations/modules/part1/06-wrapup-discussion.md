@@ -150,7 +150,7 @@ https://docs.github.com/copilot
 **This week:**
 1. Try Copilot for **one TDD task**
 2. Create **Copilot Instructions** for your repo
-3. Use `/tests` and `/doc` in daily work
+3. Use `/tests` and **Generate Docs** in daily work
 
 **Next month:**
 1. Encode **team standards** in instructions

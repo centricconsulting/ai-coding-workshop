@@ -21,7 +21,7 @@ backgroundColor: #fff
 **Complete the development lifecycle:**
 
 1. Generate comprehensive tests (`/tests`)
-2. Add XML documentation (`/doc`)
+2. Add XML documentation (prompt)
 3. Update API documentation
 4. Write conventional commit messages
 5. Generate PR description
@@ -48,11 +48,11 @@ backgroundColor: #fff
 
 ---
 
-# Documentation with /doc
+# Generate Documentation
 
+Prompt in Copilot Chat or Inline Chat (`Ctrl+I`)
 ```
-# In Copilot Chat
-/doc for ITaskService
+Add XML documentation comments to ITaskService
 ```
 
 **Generates:**

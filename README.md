@@ -276,7 +276,7 @@ By the end of Part 2, participants will be able to:
 ### 1. GitHub Copilot Features Tour (15 min)
 
 - Inline completions, Chat panel, and Inline Chat
-- **Slash commands**: `/explain`, `/fix`, `/tests`, `/doc`, `/refactor`, `/help`, `/agents`, `/skills`, `/init`
+- **Slash commands**: `/explain`, `/fix`, `/tests`, `/refactor`, `/help`, `/agents`, `/skills`, `/init`
 - **Chat participants**: `@vscode`, `@terminal`
 - **Context variables**: `#codebase` (searches your workspace for relevant code), `#file`, `#selection`, `#editor`
 - **Agent/Skill discovery**: Using `/agents` and `/skills` to explore capabilities
@@ -339,7 +339,7 @@ See [Part 2 Facilitator's Guide](docs/FACILITATOR_GUIDE_PART2.md) for detailed s
 ### 5. Testing, Documentation, Workflow (15 min)
 
 - Generate tests, docs, commit/PR messages using Copilot features
-- Lab 4: `/tests` for unit tests, `/doc` for documentation, conventional commits
+- Lab 4: `/tests` for unit tests, a documentation prompt for XML docs/Javadoc, conventional commits
 
 ### 6. Wrap-Up & Discussion (15 min)
 

@@ -745,7 +745,7 @@ You've completed this lab successfully when:
 Move on to [**Lab 4: Testing, Documentation & Workflow**](lab-04-testing-documentation-workflow.md) where you'll:
 
 - Generate comprehensive test suites with `/tests`
-- Create documentation with **Generate Docs** or a prompt like `Add XML documentation comments to #selection`
+- Create documentation with a prompt like `Add XML documentation comments to #selection`
 - Write Conventional Commit messages
 - Draft PR descriptions with `#codebase`
 

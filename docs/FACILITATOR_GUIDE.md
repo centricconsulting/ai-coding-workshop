@@ -130,7 +130,7 @@ This document provides a detailed facilitator's guide for running the 3-hour wor
 - `/refactor` - Improve code structure
 - `/new` - Scaffold new files or projects
 
-> **Documentation comments**: `/doc` is no longer available. Select code, right-click → **Generate Code** → **Generate Docs**, or ask in chat (e.g., *"Add XML documentation comments to #selection"*).
+> **Documentation comments**: `/doc` is no longer available. Ask in chat or inline chat instead (e.g., *"Add XML documentation comments to #selection"*).
 
 **Customization Commands:**
 - `/init` - Initialize project with custom instructions
@@ -382,7 +382,7 @@ This document provides a detailed facilitator's guide for running the 3-hour wor
   - Unit tests using `/tests` command
     - 🔷 **.NET**: xUnit tests with FakeItEasy
     - 🟩 **Spring Boot**: JUnit 5 tests with Mockito
-  - Documentation using **Generate Docs** (right-click → Generate Code) or a chat prompt (language-agnostic)
+  - Documentation using a chat prompt (language-agnostic)
   - Commit message using Chat with staged changes context
   - PR summary with `#codebase` for full context
 
@@ -395,7 +395,7 @@ This document provides a detailed facilitator's guide for running the 3-hour wor
 1. **Generate tests**: Select a method, use `/tests` command
    - 🔷 **.NET**: Generates xUnit + FakeItEasy tests
    - 🟩 **Spring Boot**: Generates JUnit 5 + Mockito tests (manual prompting if lab not available)
-2. **Generate documentation**: Right-click → **Generate Code** → **Generate Docs** (or prompt Chat) to create inline docs (XML docs / JavaDoc)
+2. **Generate documentation**: Prompt Chat or Inline Chat (e.g., "Add XML documentation comments to #selection") to create inline docs (XML docs / JavaDoc)
 3. **Conventional commits**: Stage changes, ask Chat for commit message following Conventional Commits
 4. **PR descriptions**: Use `#codebase` to draft PR summary with intent, scope, and risks
 5. **README generation**: Ask for Getting Started section in README.md

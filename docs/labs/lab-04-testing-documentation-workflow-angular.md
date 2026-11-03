@@ -6,7 +6,7 @@
 **Learning Objectives**:
 
 - Use `/tests` to expand Vitest coverage quickly and safely
-- Generate TSDoc comments with **Generate Docs** or a chat prompt for Angular and TypeScript code
+- Generate TSDoc comments with a chat prompt for Angular and TypeScript code
 - Document the Angular SPA workflow clearly for future contributors
 - Write Conventional Commit messages for Angular feature and refactor work
 - Draft a useful PR description with `#codebase`
@@ -131,7 +131,7 @@ If both pass, you now have confidence across domain, service, repository, and co
 
 ### Scenario: Make the Angular Track Self-Explaining
 
-### 2.1 Generate Docs on the Domain and Application Layers
+### 2.1 Generate Documentation with a Prompt on the Domain and Application Layers
 
 Good Angular candidates for generated docs:
 
@@ -139,7 +139,7 @@ Good Angular candidates for generated docs:
 - `src-angular/task-manager/src/app/domain/task-id.ts`
 - `src-angular/task-manager/src/app/application/task-application.service.ts`
 
-Select the code, then either right-click and choose **Generate Code** > **Generate Docs**, or use a prompt in Chat or Inline Chat:
+Select the code, then use a prompt in Chat or Inline Chat:
 
 ```text
 Add TSDoc comments to #selection
@@ -326,7 +326,7 @@ Review and refine it before posting.
 
 ### ✅ Documentation Workflow
 
-1. **Generate Docs** (or an "Add TSDoc comments" prompt) works well for TSDoc on public classes and methods
+1. A documentation prompt (such as "Add TSDoc comments") works well for TSDoc on public classes and methods
 2. workshop README content should explain architecture and commands, not just generated Angular CLI defaults
 3. concise documentation is more useful than long generic comments
 
@@ -346,7 +346,7 @@ Use `/tests` on `listVisibleTasks()` and ask for priority-sorting and filter-edg
 
 ### Exercise 2: Add TSDoc to the Priority Enum and Repository Contract
 
-Select the code in `priority.ts` and `task-repository.ts` and use **Generate Code** > **Generate Docs** (or the prompt `Add TSDoc comments to #selection`), then edit the comments to keep them concise.
+Select the code in `priority.ts` and `task-repository.ts` and use the prompt `Add TSDoc comments to #selection`, then edit the comments to keep them concise.
 
 ### Exercise 3: Draft a Release Note
 

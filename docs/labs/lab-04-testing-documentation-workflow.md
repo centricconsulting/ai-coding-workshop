@@ -6,7 +6,7 @@
 **Learning Objectives**:
 
 - Generate comprehensive test suites using `/tests` command
-- Create documentation with **Generate Docs** or a documentation prompt
+- Create documentation with a documentation prompt
 - Write Conventional Commit messages with AI assistance
 - Draft PR descriptions using `#codebase` for full context
 - Integrate Copilot into complete development workflow
@@ -359,7 +359,7 @@ Open `src-dotnet/src/TaskManager.Application/Commands/CreateTaskCommandHandler.c
 
 #### Step 2: Generate Documentation
 
-With the class selected, either right-click and choose **Generate Code** > **Generate Docs**, or use Inline Chat (`Ctrl+I`) with a prompt:
+With the class selected, use Inline Chat (`Ctrl+I`) or Chat with a prompt:
 
 ``` text
 Add XML documentation comments to #selection
@@ -907,7 +907,7 @@ Review the generated PR description and adjust:
 
 ### ✅ Documentation Efficiency
 
-1. **Generate Docs**: XML documentation generated from code context
+1. **Documentation prompt**: XML documentation generated from code context
 2. **API Docs**: Clear examples with request/response formats
 3. **Architecture Docs**: ADRs document important decisions
 4. **Consistency**: AI ensures consistent documentation style
@@ -966,7 +966,7 @@ Create a quick start guide in docs/guides/api-quickstart.md for developers consu
 You've completed this lab successfully when:
 
 - ✅ Comprehensive test suite generated with `/tests` (unit + integration)
-- ✅ All public APIs have XML documentation via **Generate Docs** or a documentation prompt
+- ✅ All public APIs have XML documentation via a documentation prompt
 - ✅ API documentation in README.md with examples
 - ✅ Conventional Commit messages written for all changes
 - ✅ Complete PR description drafted with `#codebase`
@@ -1040,7 +1040,7 @@ Congratulations! You've completed all four labs. You now know how to:
 1. Add context-aware instruction files (`.github/instructions/`) to your team's repositories
 2. Establish Conventional Commits standard
 3. Use `/tests` for all new code
-4. Use **Generate Docs** (or a prompt like "Add XML documentation comments to #selection") for public APIs
+4. Use a prompt like "Add XML documentation comments to #selection" for public APIs
 5. Use `#codebase` in daily work
 
 ### Advanced Copilot Usage

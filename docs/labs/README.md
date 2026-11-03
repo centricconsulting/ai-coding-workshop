@@ -186,7 +186,7 @@ Complete the development lifecycle with AI-assisted testing, docs, and PR prepar
 **What You'll Build**:
 
 - Comprehensive test suites using `/tests`
-- XML documentation using **Generate Docs** or a chat prompt
+- XML documentation using a chat prompt
 - API documentation in README
 - Conventional Commit messages
 - Complete PR description with checklist
@@ -194,7 +194,7 @@ Complete the development lifecycle with AI-assisted testing, docs, and PR prepar
 **Key Skills**:
 
 - Generating test coverage with `/tests` command
-- Creating documentation with **Generate Docs** (right-click > **Generate Code**) or a chat prompt
+- Creating documentation with a chat prompt
 - Writing Conventional Commits
 - Using `#codebase` for PR context
 - Preparing code for review

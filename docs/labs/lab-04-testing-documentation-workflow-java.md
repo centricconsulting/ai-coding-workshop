@@ -6,7 +6,7 @@
 **Learning Objectives**:
 
 - Generate comprehensive test suites using `/tests` command
-- Create documentation with **Generate Docs** or a documentation prompt
+- Create documentation with a documentation prompt
 - Write Conventional Commit messages with AI assistance
 - Draft PR descriptions using `#codebase` for full context
 - Integrate Copilot into complete development workflow
@@ -223,7 +223,7 @@ Open `src-springboot/taskmanager-application/src/main/java/com/example/taskmanag
 
 #### Step 2: Generate Documentation
 
-With the selection active, either right-click and choose **Generate Code** > **Generate Docs**, or use Inline Chat (`Ctrl+I`) with a prompt:
+With the selection active, use Inline Chat (`Ctrl+I`) or Chat with a prompt:
 
 ``` text
 Add Javadoc comments to #selection
@@ -480,7 +480,7 @@ Review the generated PR description and adjust:
 
 ### ✅ Documentation Efficiency
 
-1. **Generate Docs**: Javadoc generated from code context
+1. **Documentation prompt**: Javadoc generated from code context
 2. **API Docs**: Update the existing README section and check it against the controller
 3. **Architecture Docs**: ADRs document decisions you really made, at the next free number
 4. **Consistency**: Use one status list everywhere: `PENDING`, `IN_PROGRESS`, `COMPLETED`, `CANCELLED`
@@ -539,7 +539,7 @@ Create a quick start guide in docs/guides/api-quickstart.md for developers consu
 You've completed this lab successfully when:
 
 - ✅ New tests generated with `/tests` compile and pass (unit + integration)
-- ✅ Public APIs you touched have meaningful Javadoc via **Generate Docs** or a documentation prompt
+- ✅ Public APIs you touched have meaningful Javadoc via a documentation prompt
 - ✅ README API section matches `TaskController`
 - ✅ Conventional Commit messages describe only real changes
 - ✅ PR description drafted with `#codebase` and every claim verified
@@ -623,7 +623,7 @@ Congratulations! You've completed all four labs (Java version). You now know how
 1. Add context-aware instruction files (`.github/instructions/`) to your team's repositories
 2. Establish Conventional Commits standard
 3. Use `/tests` for all new code
-4. Use **Generate Docs** (or a prompt like "Add Javadoc comments to #selection") for public APIs
+4. Use a prompt like "Add Javadoc comments to #selection" for public APIs
 5. Use `#codebase` in daily work
 
 ### Advanced Copilot Usage

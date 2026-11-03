@@ -339,7 +339,7 @@ See [Part 2 Facilitator's Guide](docs/FACILITATOR_GUIDE_PART2.md) for detailed s
 ### 5. Testing, Documentation, Workflow (15 min)
 
 - Generate tests, docs, commit/PR messages using Copilot features
-- Lab 4: `/tests` for unit tests, **Generate Docs** (or a prompt) for documentation, conventional commits
+- Lab 4: `/tests` for unit tests, a documentation prompt for XML docs/Javadoc, conventional commits
 
 ### 6. Wrap-Up & Discussion (15 min)
 

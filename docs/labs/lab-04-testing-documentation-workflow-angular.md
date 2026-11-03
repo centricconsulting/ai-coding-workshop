@@ -139,10 +139,16 @@ Good Angular candidates for `/doc`:
 - `src-angular/task-manager/src/app/domain/task-id.ts`
 - `src-angular/task-manager/src/app/application/task-application.service.ts`
 
-Example Copilot usage in Inline Chat:
+Select the code, open **Inline Chat** (`Ctrl+I` / `⌘I`), and use `/doc`. The command only works in inline chat, not in the Chat view:
 
 ```text
 /doc
+```
+
+**Fallback** (if `/doc` isn't offered, or you're in the Chat view), ask in plain language:
+
+```text
+Add TSDoc comments to the selected class and its public members. Explain behavior, not just the signature.
 ```
 
 A strong TSDoc result for `TaskApplicationService` should look something like:

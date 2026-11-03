@@ -51,9 +51,14 @@ backgroundColor: #fff
 # Documentation with /doc
 
 ```
-# In Copilot Chat
-/doc for ITaskService
+# Select code, open Inline Chat (Cmd/Ctrl+I)
+/doc
+
+# Or, in the Chat view (no /doc there)
+Add XML documentation to ITaskService
 ```
+
+`/doc` works only in **inline chat**
 
 **Generates:**
 - XML documentation comments
